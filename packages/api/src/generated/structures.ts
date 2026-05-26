@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
 /// Bot API 10.0.0
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-05-09T00:16:20.915Z
+/// generated at: 2026-05-26T22:17:04.458Z
 /// see scripts/emit.ts in @puregram/api
 
 import type { TelegramAnimation, TelegramAudio, TelegramCallbackGame, TelegramChat, TelegramChatBackground, TelegramChatBoost, TelegramChatBoostAdded, TelegramChatBoostRemoved, TelegramChatBoostSource, TelegramChatBoostUpdated, TelegramChatInviteLink, TelegramChatJoinRequest, TelegramChatLocation, TelegramChatMember, TelegramChatMemberUpdated, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChatPermissions, TelegramChatPhoto, TelegramChatShared, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramChosenInlineResult, TelegramContact, TelegramCopyTextButton, TelegramDice, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramDocument, TelegramEncryptedCredentials, TelegramEncryptedPassportElement, TelegramExternalReplyInfo, TelegramFile, TelegramForumTopicClosed, TelegramForumTopicCreated, TelegramForumTopicEdited, TelegramForumTopicReopened, TelegramGame, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveaway, TelegramGiveawayCompleted, TelegramGiveawayCreated, TelegramGiveawayWinners, TelegramInlineKeyboardButton, TelegramInlineKeyboardMarkup, TelegramInlineQuery, TelegramInvoice, TelegramLinkPreviewOptions, TelegramLivePhoto, TelegramLocation, TelegramLoginUrl, TelegramManagedBotCreated, TelegramMaskPosition, TelegramMaybeInaccessibleMessage, TelegramMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageEntity, TelegramMessageId, TelegramMessageOrigin, TelegramMessageReactionCountUpdated, TelegramMessageReactionUpdated, TelegramOrderInfo, TelegramPaidMediaInfo, TelegramPaidMessagePriceChanged, TelegramPassportData, TelegramPhotoSize, TelegramPoll, TelegramPollAnswer, TelegramPollMedia, TelegramPollOption, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramPreCheckoutQuery, TelegramProximityAlertTriggered, TelegramReactionCount, TelegramReactionType, TelegramRefundedPayment, TelegramSharedUser, TelegramShippingAddress, TelegramShippingQuery, TelegramSticker, TelegramStickerSet, TelegramStory, TelegramSuccessfulPayment, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostRefunded, TelegramSwitchInlineQueryChosenChat, TelegramTextQuote, TelegramUniqueGiftInfo, TelegramUser, TelegramUserProfilePhotos, TelegramUsersShared, TelegramVenue, TelegramVideo, TelegramVideoChatEnded, TelegramVideoChatParticipantsInvited, TelegramVideoChatScheduled, TelegramVideoChatStarted, TelegramVideoNote, TelegramVideoQuality, TelegramVoice, TelegramWebAppData, TelegramWebAppInfo, TelegramWriteAccessAllowed } from "./types";
@@ -605,7 +605,7 @@ export class ChatJoinRequest {
         return this.raw.date;
     }
     /**
-     * Optional. Bio of the user.
+     * Optional. Bio of the user
      */
     get bio(): string | undefined {
         return this.raw.bio;
@@ -741,7 +741,7 @@ export class ChatMemberUpdated {
         return this._newChatMember ??= new ChatMember(this.raw.new_chat_member);
     }
     /**
-     * Optional. Chat invite link, which was used by the user to join the chat; for joining by invite link events only.
+     * Optional. Chat invite link, which was used by the user to join the chat; for joining by invite link events only
      */
     get inviteLink(): ChatInviteLink | undefined {
         if (this._inviteLink === undefined) {
@@ -871,7 +871,7 @@ export class ChatPermissions {
         return this.raw.can_edit_tag;
     }
     /**
-     * Optional. True, if the user is allowed to change the chat title, photo and other settings. Ignored in public supergroups
+     * Optional. True, if the user is allowed to change the chat title, photo and other settings. Ignored in public supergroups.
      */
     get canChangeInfo(): boolean | undefined {
         return this.raw.can_change_info;
@@ -883,13 +883,13 @@ export class ChatPermissions {
         return this.raw.can_invite_users;
     }
     /**
-     * Optional. True, if the user is allowed to pin messages. Ignored in public supergroups
+     * Optional. True, if the user is allowed to pin messages. Ignored in public supergroups.
      */
     get canPinMessages(): boolean | undefined {
         return this.raw.can_pin_messages;
     }
     /**
-     * Optional. True, if the user is allowed to create forum topics. If omitted defaults to the value of can_pin_messages
+     * Optional. True, if the user is allowed to create forum topics. If omitted defaults to the value of can_pin_messages.
      */
     get canManageTopics(): boolean | undefined {
         return this.raw.can_manage_topics;
@@ -1086,13 +1086,13 @@ export class ChatShared {
         return this.raw.chat_id;
     }
     /**
-     * Optional. Title of the chat, if the title was requested by the bot.
+     * Optional. Title of the chat, if the title was requested by the bot
      */
     get title(): string | undefined {
         return this.raw.title;
     }
     /**
-     * Optional. Username of the chat, if the username was requested by the bot and available.
+     * Optional. Username of the chat, if the username was requested by the bot and available
      */
     get username(): string | undefined {
         return this.raw.username;
@@ -1996,7 +1996,7 @@ export class Game {
         return this.raw.description;
     }
     /**
-     * Photo that will be displayed in the game message in chats.
+     * Photo that will be displayed in the game message in chats
      */
     get photo(): Photo {
         return this._photo ??= new Photo(this.raw.photo);
@@ -2014,7 +2014,7 @@ export class Game {
         return this.raw.text_entities ? (this._textEntities ??= this.raw.text_entities.map(x => new MessageEntity(x))) : undefined;
     }
     /**
-     * Optional. Animation that will be displayed in the game message in chats. Upload via BotFather
+     * Optional. Animation that will be displayed in the game message in chats. Upload via BotFather.
      */
     get animation(): Animation | undefined {
         if (this._animation === undefined) {
@@ -2432,7 +2432,7 @@ export class InlineKeyboardButton {
         return this.raw.switch_inline_query_chosen_chat;
     }
     /**
-     * Optional. Description of the button that copies the specified text to the clipboard.
+     * Optional. Description of the button that copies the specified text to the clipboard
      */
     get copyText(): TelegramCopyTextButton | undefined {
         return this.raw.copy_text;
@@ -2616,7 +2616,7 @@ export class InlineQuery {
         return this.raw.offset;
     }
     /**
-     * Optional. Type of the chat from which the inline query was sent. Can be either “sender” for a private chat with the inline query sender, “private”, “group”, “supergroup”, or “channel”. The chat type should be always known for requests sent from official clients and most third-party clients, unless the request was sent from a secret chat
+     * Optional. Type of the chat from which the inline query was sent. Can be either “sender” for a private chat with the inline query sender, “private”, “group”, “supergroup”, or “channel”. The chat type should be always known for requests sent from official clients and most third-party clients, unless the request was sent from a secret chat.
      */
     get chatType(): ("sender" | "private" | "group" | "supergroup" | "channel") | undefined {
         return this.raw.chat_type;
@@ -2729,7 +2729,7 @@ export class LinkPreviewOptions {
         return this.raw.is_disabled;
     }
     /**
-     * Optional. URL to use for the link preview. If empty, then the first URL found in the message text will be used
+     * Optional. URL to use for the link preview. If empty, then the first URL found in the message text will be used.
      */
     get url(): string | undefined {
         return this.raw.url;
@@ -3077,7 +3077,7 @@ export class Message {
         return new Message(raw);
     }
     /**
-     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent.
      */
     get id(): number {
         return this.raw.message_id;
@@ -3095,7 +3095,7 @@ export class Message {
         return this.raw.direct_messages_topic;
     }
     /**
-     * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
+     * Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats.
      */
     get from(): User | undefined {
         if (this._from === undefined) {
@@ -3326,7 +3326,7 @@ export class Message {
         return this.raw.effect_id;
     }
     /**
-     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set.
      */
     get animation(): Animation | undefined {
         if (this._animation === undefined) {
@@ -3353,7 +3353,7 @@ export class Message {
         return this._document;
     }
     /**
-     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set
+     * Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set.
      */
     get livePhoto(): LivePhoto | undefined {
         if (this._livePhoto === undefined) {
@@ -3488,7 +3488,7 @@ export class Message {
         return this._poll;
     }
     /**
-     * Optional. Message is a venue, information about the venue. For backward compatibility, when this field is set, the location field will also be set
+     * Optional. Message is a venue, information about the venue. For backward compatibility, when this field is set, the location field will also be set.
      */
     get venue(): Venue | undefined {
         if (this._venue === undefined) {
@@ -4753,7 +4753,7 @@ export class MessageEntity {
         return new MessageEntity(raw);
     }
     /**
-     * Type of the entity. Currently, can be “mention” (@username), “hashtag” (#hashtag or #hashtag@chatusername), “cashtag” ($USD or $USD@chatusername), “bot_command” (/start@jobs_bot), “url” (https://telegram.org), “email” (do-not-reply@telegram.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time)
+     * Type of the entity. Currently, can be “mention” (@username), “hashtag” (#hashtag or #hashtag@chatusername), “cashtag” ($USD or $USD@chatusername), “bot_command” (/start@jobs_bot), “url” (https://telegram.org), “email” (do-not-reply@telegram.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time).
      */
     get type(): "mention" | "hashtag" | "cashtag" | "bot_command" | "url" | "email" | "phone_number" | "bold" | "italic" | "underline" | "strikethrough" | "spoiler" | "blockquote" | "expandable_blockquote" | "code" | "pre" | "text_link" | "text_mention" | "custom_emoji" | "date_time" {
         return this.raw.type;
@@ -4792,7 +4792,7 @@ export class MessageEntity {
         return this.raw.language;
     }
     /**
-     * Optional. For “custom_emoji” only, unique identifier of the custom emoji. Use getCustomEmojiStickers to get full information about the sticker
+     * Optional. For “custom_emoji” only, unique identifier of the custom emoji. Use getCustomEmojiStickers to get full information about the sticker.
      */
     get customEmojiId(): string | undefined {
         return this.raw.custom_emoji_id;
@@ -4951,7 +4951,7 @@ export class MessageId {
         return new MessageId(raw);
     }
     /**
-     * Unique message identifier. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+     * Unique message identifier. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent.
      */
     get id(): number {
         return this.raw.message_id;
@@ -5310,7 +5310,7 @@ export class Poll {
         return this.raw.members_only;
     }
     /**
-     * Optional. A list of two-letter ISO 3166-1 alpha-2 country codes indicating the countries from which users can vote in the poll. If omitted, then users from any country can participate in the poll.
+     * Optional. A list of two-letter ISO 3166-1 alpha-2 country codes indicating the countries from which users can vote in the poll. The country code “FT” is used for users with anonymous numbers. If omitted, then users from any country can participate in the poll.
      */
     get countryCodes(): string[] | undefined {
         return this.raw.country_codes;
@@ -6756,7 +6756,7 @@ export class UsersShared {
         return this.raw.request_id;
     }
     /**
-     * Information about users shared with the bot.
+     * Information about users shared with the bot
      */
     get users(): TelegramSharedUser[] {
         return this.raw.users;
@@ -6776,7 +6776,7 @@ export class Venue {
         return new Venue(raw);
     }
     /**
-     * Venue location. Can't be a live location
+     * Venue location. Can't be a live location.
      */
     get location(): Location {
         return this._location ??= new Location(this.raw.location);

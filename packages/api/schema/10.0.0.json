@@ -62,7 +62,7 @@
         },
         {
           "name": "text",
-          "description": "Text of the notification. If not specified, nothing will be shown to the user, 0-200 characters",
+          "description": "Text of the notification. If not specified, nothing will be shown to the user, 0-200 characters.",
           "required": false,
           "type": {
             "kind": "string"
@@ -360,7 +360,7 @@
         },
         {
           "name": "send_date",
-          "description": "Point in time (Unix timestamp) when the post is expected to be published; omit if the date has already been specified when the suggested post was created. If specified, then the date must be not more than 2678400 seconds (30 days) in the future",
+          "description": "Point in time (Unix timestamp) when the post is expected to be published; omit if the date has already been specified when the suggested post was created. If specified, then the date must be not more than 2678400 seconds (30 days) in the future.",
           "required": false,
           "type": {
             "kind": "integer"
@@ -628,7 +628,7 @@
         },
         {
           "name": "caption",
-          "description": "New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept",
+          "description": "New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept.",
           "required": false,
           "type": {
             "kind": "string"
@@ -714,7 +714,7 @@
         },
         {
           "name": "reply_markup",
-          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
+          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
           "required": false,
           "type": {
             "kind": "union",
@@ -890,7 +890,7 @@
         },
         {
           "name": "creates_join_request",
-          "description": "True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified",
+          "description": "True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified.",
           "required": false,
           "type": {
             "kind": "bool"
@@ -986,7 +986,7 @@
         },
         {
           "name": "icon_color",
-          "description": "Color of the topic icon in RGB format. Currently, must be one of 7322096 (0x6FB9F0), 16766590 (0xFFD67E), 13338331 (0xCB86DB), 9367192 (0x8EEE98), 16749490 (0xFF93B2), or 16478047 (0xFB6F5F)",
+          "description": "Color of the topic icon in RGB format. Currently, must be one of 7322096 (0x6FB9F0), 16766590 (0xFFD67E), 13338331 (0xCB86DB), 9367192 (0x8EEE98), 16749490 (0xFF93B2), or 16478047 (0xFB6F5F).",
           "required": false,
           "type": {
             "kind": "integer"
@@ -1341,7 +1341,7 @@
       "arguments": [
         {
           "name": "chat_id",
-          "description": "Unique identifier for the target chat or username of the target supergroup (in the format @username)",
+          "description": "Unique identifier for the target chat or username of the target supergroup in the format @username",
           "required": true,
           "type": {
             "kind": "union",
@@ -1392,7 +1392,7 @@
         },
         {
           "name": "message_ids",
-          "description": "A JSON-serialized list of 1-100 identifiers of messages to delete. All messages must be from the same chat. See deleteMessage for limitations on which messages can be deleted",
+          "description": "A JSON-serialized list of 1-100 identifiers of messages to delete. All messages must be from the same chat. See deleteMessage for limitations on which messages can be deleted.",
           "required": true,
           "type": {
             "kind": "array",
@@ -1538,7 +1538,7 @@
       "arguments": [
         {
           "name": "chat_id",
-          "description": "Unique identifier for the target chat or username of the target supergroup (in the format @username)",
+          "description": "Unique identifier for the target chat or username of the target supergroup in the format @username",
           "required": true,
           "type": {
             "kind": "union",
@@ -1605,7 +1605,7 @@
         },
         {
           "name": "message_ids",
-          "description": "A JSON-serialized list of 1-100 identifiers of messages to delete. See deleteMessage for limitations on which messages can be deleted",
+          "description": "A JSON-serialized list of 1-100 identifiers of messages to delete. See deleteMessage for limitations on which messages can be deleted.",
           "required": true,
           "type": {
             "kind": "array",
@@ -1636,7 +1636,7 @@
         },
         {
           "name": "language_code",
-          "description": "A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands",
+          "description": "A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands.",
           "required": false,
           "type": {
             "kind": "string"
@@ -1787,7 +1787,7 @@
         },
         {
           "name": "creates_join_request",
-          "description": "True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified",
+          "description": "True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified.",
           "required": false,
           "type": {
             "kind": "bool"
@@ -1875,7 +1875,7 @@
         },
         {
           "name": "name",
-          "description": "New topic name, 0-128 characters. If not specified or empty, the current name of the topic will be kept",
+          "description": "New topic name, 0-128 characters. If not specified or empty, the current name of the topic will be kept.",
           "required": false,
           "type": {
             "kind": "string"
@@ -1883,7 +1883,7 @@
         },
         {
           "name": "icon_custom_emoji_id",
-          "description": "New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers. Pass an empty string to remove the icon. If not specified, the current icon will be kept",
+          "description": "New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers. Pass an empty string to remove the icon. If not specified, the current icon will be kept.",
           "required": false,
           "type": {
             "kind": "string"
@@ -1961,7 +1961,7 @@
         },
         {
           "name": "message_id",
-          "description": "Required if inline_message_id is not specified. Identifier of the message to edit",
+          "description": "Required if inline_message_id is not specified. Identifier of the message to edit.",
           "required": false,
           "type": {
             "kind": "integer"
@@ -1969,7 +1969,7 @@
         },
         {
           "name": "inline_message_id",
-          "description": "Required if chat_id and message_id are not specified. Identifier of the inline message",
+          "description": "Required if chat_id and message_id are not specified. Identifier of the inline message.",
           "required": false,
           "type": {
             "kind": "string"
@@ -2013,7 +2013,7 @@
         },
         {
           "name": "reply_markup",
-          "description": "A JSON-serialized object for an inline keyboard.",
+          "description": "A JSON-serialized object for an inline keyboard",
           "required": false,
           "type": {
             "kind": "reference",
@@ -2120,7 +2120,7 @@
         },
         {
           "name": "message_id",
-          "description": "Required if inline_message_id is not specified. Identifier of the message to edit",
+          "description": "Required if inline_message_id is not specified. Identifier of the message to edit.",
           "required": false,
           "type": {
             "kind": "integer"
@@ -2128,7 +2128,7 @@
         },
         {
           "name": "inline_message_id",
-          "description": "Required if chat_id and message_id are not specified. Identifier of the inline message",
+          "description": "Required if chat_id and message_id are not specified. Identifier of the inline message.",
           "required": false,
           "type": {
             "kind": "string"
@@ -2152,7 +2152,7 @@
         },
         {
           "name": "live_period",
-          "description": "New period in seconds during which the location can be updated, starting from the message send date. If 0x7FFFFFFF is specified, then the location can be updated forever. Otherwise, the new value must not exceed the current live_period by more than a day, and the live location expiration date must remain within the next 90 days. If not specified, then live_period remains unchanged",
+          "description": "New period in seconds during which the location can be updated, starting from the message send date. If 0x7FFFFFFF is specified, then the location can be updated forever. Otherwise, the new value must not exceed the current live_period by more than a day, and the live location expiration date must remain within the next 90 days. If not specified, then live_period remains unchanged.",
           "required": false,
           "type": {
             "kind": "integer"
@@ -2184,7 +2184,7 @@
         },
         {
           "name": "reply_markup",
-          "description": "A JSON-serialized object for a new inline keyboard.",
+          "description": "A JSON-serialized object for a new inline keyboard",
           "required": false,
           "type": {
             "kind": "reference",
@@ -2229,7 +2229,7 @@
         },
         {
           "name": "message_id",
-          "description": "Required if inline_message_id is not specified. Identifier of the message to edit",
+          "description": "Required if inline_message_id is not specified. Identifier of the message to edit.",
           "required": false,
           "type": {
             "kind": "integer"
@@ -2237,7 +2237,7 @@
         },
         {
           "name": "inline_message_id",
-          "description": "Required if chat_id and message_id are not specified. Identifier of the inline message",
+          "description": "Required if chat_id and message_id are not specified. Identifier of the inline message.",
           "required": false,
           "type": {
             "kind": "string"
@@ -2254,7 +2254,7 @@
         },
         {
           "name": "reply_markup",
-          "description": "A JSON-serialized object for a new inline keyboard.",
+          "description": "A JSON-serialized object for a new inline keyboard",
           "required": false,
           "type": {
             "kind": "reference",
@@ -2299,7 +2299,7 @@
         },
         {
           "name": "message_id",
-          "description": "Required if inline_message_id is not specified. Identifier of the message to edit",
+          "description": "Required if inline_message_id is not specified. Identifier of the message to edit.",
           "required": false,
           "type": {
             "kind": "integer"
@@ -2307,7 +2307,7 @@
         },
         {
           "name": "inline_message_id",
-          "description": "Required if chat_id and message_id are not specified. Identifier of the inline message",
+          "description": "Required if chat_id and message_id are not specified. Identifier of the inline message.",
           "required": false,
           "type": {
             "kind": "string"
@@ -2315,7 +2315,7 @@
         },
         {
           "name": "reply_markup",
-          "description": "A JSON-serialized object for an inline keyboard.",
+          "description": "A JSON-serialized object for an inline keyboard",
           "required": false,
           "type": {
             "kind": "reference",
@@ -2360,7 +2360,7 @@
         },
         {
           "name": "message_id",
-          "description": "Required if inline_message_id is not specified. Identifier of the message to edit",
+          "description": "Required if inline_message_id is not specified. Identifier of the message to edit.",
           "required": false,
           "type": {
             "kind": "integer"
@@ -2368,7 +2368,7 @@
         },
         {
           "name": "inline_message_id",
-          "description": "Required if chat_id and message_id are not specified. Identifier of the inline message",
+          "description": "Required if chat_id and message_id are not specified. Identifier of the inline message.",
           "required": false,
           "type": {
             "kind": "string"
@@ -2413,7 +2413,7 @@
         },
         {
           "name": "reply_markup",
-          "description": "A JSON-serialized object for an inline keyboard.",
+          "description": "A JSON-serialized object for an inline keyboard",
           "required": false,
           "type": {
             "kind": "reference",
@@ -2863,7 +2863,7 @@
         },
         {
           "name": "limit",
-          "description": "The maximum number of gifts to be returned; 1-100. Defaults to 100",
+          "description": "The maximum number of gifts to be returned; 1-100. Defaults to 100.",
           "required": false,
           "type": {
             "kind": "integer"
@@ -3078,7 +3078,7 @@
         },
         {
           "name": "limit",
-          "description": "The maximum number of gifts to be returned; 1-100. Defaults to 100",
+          "description": "The maximum number of gifts to be returned; 1-100. Defaults to 100.",
           "required": false,
           "type": {
             "kind": "integer"
@@ -3161,7 +3161,7 @@
       "arguments": [
         {
           "name": "chat_id",
-          "description": "Unique identifier for the target private chat. If not specified, default bot's menu button will be returned",
+          "description": "Unique identifier for the target private chat. If not specified, the bot's default menu button will be returned.",
           "required": false,
           "type": {
             "kind": "integer"
@@ -3249,7 +3249,7 @@
         },
         {
           "name": "chat_id",
-          "description": "Required if inline_message_id is not specified. Unique identifier for the target chat",
+          "description": "Required if inline_message_id is not specified. Unique identifier for the target chat.",
           "required": false,
           "type": {
             "kind": "integer"
@@ -3257,7 +3257,7 @@
         },
         {
           "name": "message_id",
-          "description": "Required if inline_message_id is not specified. Identifier of the sent message",
+          "description": "Required if inline_message_id is not specified. Identifier of the sent message.",
           "required": false,
           "type": {
             "kind": "integer"
@@ -3265,7 +3265,7 @@
         },
         {
           "name": "inline_message_id",
-          "description": "Required if chat_id and message_id are not specified. Identifier of the inline message",
+          "description": "Required if chat_id and message_id are not specified. Identifier of the inline message.",
           "required": false,
           "type": {
             "kind": "string"
@@ -3659,7 +3659,7 @@
         },
         {
           "name": "limit",
-          "description": "The maximum number of gifts to be returned; 1-100. Defaults to 100",
+          "description": "The maximum number of gifts to be returned; 1-100. Defaults to 100.",
           "required": false,
           "type": {
             "kind": "integer"
@@ -4120,7 +4120,7 @@
         },
         {
           "name": "can_restrict_members",
-          "description": "Pass True if the administrator can restrict, ban or unban chat members, or access supergroup statistics. For backward compatibility, defaults to True for promotions of channel administrators",
+          "description": "Pass True if the administrator can restrict, ban or unban chat members, or access supergroup statistics. For backward compatibility, defaults to True for promotions of channel administrators.",
           "required": false,
           "type": {
             "kind": "bool"
@@ -4606,7 +4606,7 @@
         },
         {
           "name": "until_date",
-          "description": "Date when restrictions will be lifted for the user; Unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever",
+          "description": "Date when restrictions will be lifted for the user; Unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever.",
           "required": false,
           "type": {
             "kind": "integer"
@@ -4730,7 +4730,7 @@
         },
         {
           "name": "button",
-          "description": "A JSON-serialized object describing the button to be saved. The button must be of the type request_users, request_chat, or request_managed_bot",
+          "description": "A JSON-serialized object describing the button to be saved. The button must be of the type request_users, request_chat, or request_managed_bot.",
           "required": true,
           "type": {
             "kind": "reference",
@@ -4943,7 +4943,7 @@
         },
         {
           "name": "reply_markup",
-          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
+          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
           "required": false,
           "type": {
             "kind": "union",
@@ -5157,7 +5157,7 @@
         },
         {
           "name": "reply_markup",
-          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
+          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
           "required": false,
           "type": {
             "kind": "union",
@@ -5203,7 +5203,7 @@
         },
         {
           "name": "chat_id",
-          "description": "Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username. Channel chats and channel direct messages chats aren't supported.",
+          "description": "Unique identifier for the target chat or username of the target bot or supergroup in the format @username. Channel chats and channel direct messages chats aren't supported.",
           "required": true,
           "type": {
             "kind": "union",
@@ -5455,7 +5455,7 @@
         },
         {
           "name": "reply_markup",
-          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
+          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
           "required": false,
           "type": {
             "kind": "union",
@@ -5533,7 +5533,7 @@
         },
         {
           "name": "emoji",
-          "description": "Emoji on which the dice throw animation is based. Currently, must be one of “”, “”, “”, “”, “”, or “”. Dice can have values 1-6 for “”, “” and “”, values 1-5 for “” and “”, and values 1-64 for “”. Defaults to “”",
+          "description": "Emoji on which the dice throw animation is based. Currently, must be one of “”, “”, “”, “”, “”, or “”. Dice can have values 1-6 for “”, “” and “”, values 1-5 for “” and “”, and values 1-64 for “”. Defaults to “”.",
           "required": false,
           "type": {
             "kind": "string"
@@ -5591,7 +5591,7 @@
         },
         {
           "name": "reply_markup",
-          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
+          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
           "required": false,
           "type": {
             "kind": "union",
@@ -5789,7 +5789,7 @@
         },
         {
           "name": "reply_markup",
-          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
+          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
           "required": false,
           "type": {
             "kind": "union",
@@ -6111,7 +6111,7 @@
         },
         {
           "name": "start_parameter",
-          "description": "Unique deep-linking parameter. If left empty, forwarded copies of the sent message will have a Pay button, allowing multiple users to pay directly from the forwarded message, using the same invoice. If non-empty, forwarded copies of the sent message will have a URL button with a deep link to the bot (instead of a Pay button), with the value used as the start parameter",
+          "description": "Unique deep-linking parameter. If left empty, forwarded copies of the sent message will have a Pay button, allowing multiple users to pay directly from the forwarded message, using the same invoice. If non-empty, forwarded copies of the sent message will have a URL button with a deep link to the bot (instead of a Pay button), with the value used as the start parameter.",
           "required": false,
           "type": {
             "kind": "string"
@@ -6556,7 +6556,7 @@
         },
         {
           "name": "live_period",
-          "description": "Period in seconds during which the location will be updated (see Live Locations, should be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely.",
+          "description": "Period in seconds during which the location will be updated (see Live Locations, should be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely",
           "required": false,
           "type": {
             "kind": "integer"
@@ -6630,7 +6630,7 @@
         },
         {
           "name": "reply_markup",
-          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
+          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
           "required": false,
           "type": {
             "kind": "union",
@@ -6924,7 +6924,7 @@
         },
         {
           "name": "reply_markup",
-          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
+          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
           "required": false,
           "type": {
             "kind": "union",
@@ -7171,7 +7171,7 @@
         },
         {
           "name": "reply_markup",
-          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
+          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
           "required": false,
           "type": {
             "kind": "union",
@@ -7360,7 +7360,7 @@
         },
         {
           "name": "reply_markup",
-          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
+          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
           "required": false,
           "type": {
             "kind": "union",
@@ -7438,7 +7438,7 @@
         },
         {
           "name": "question_parse_mode",
-          "description": "Mode for parsing entities in the question. See formatting options for more details. Currently, only custom emoji entities are allowed",
+          "description": "Mode for parsing entities in the question. See formatting options for more details. Currently, only custom emoji entities are allowed.",
           "required": false,
           "type": {
             "kind": "string"
@@ -7446,7 +7446,7 @@
         },
         {
           "name": "question_entities",
-          "description": "A JSON-serialized list of special entities that appear in the poll question. It can be specified instead of question_parse_mode",
+          "description": "A JSON-serialized list of special entities that appear in the poll question. It can be specified instead of question_parse_mode.",
           "required": false,
           "type": {
             "kind": "array",
@@ -7534,7 +7534,7 @@
         },
         {
           "name": "country_codes",
-          "description": "A JSON-serialized list of 0-12 two-letter ISO 3166-1 alpha-2 country codes indicating the countries from which users can vote in the poll; for channel chats only. If omitted or empty, then users from any country can participate in the poll.",
+          "description": "A JSON-serialized list of 0-12 two-letter ISO 3166-1 alpha-2 country codes indicating the countries from which users can vote in the poll; for channel chats only. Use “FT” as a country code to allow users with anonymous numbers to vote. If omitted or empty, then users from any country can participate in the poll.",
           "required": false,
           "type": {
             "kind": "array",
@@ -7572,7 +7572,7 @@
         },
         {
           "name": "explanation_entities",
-          "description": "A JSON-serialized list of special entities that appear in the poll explanation. It can be specified instead of explanation_parse_mode",
+          "description": "A JSON-serialized list of special entities that appear in the poll explanation. It can be specified instead of explanation_parse_mode.",
           "required": false,
           "type": {
             "kind": "array",
@@ -7695,7 +7695,7 @@
         },
         {
           "name": "reply_markup",
-          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
+          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
           "required": false,
           "type": {
             "kind": "union",
@@ -7848,7 +7848,7 @@
         },
         {
           "name": "reply_markup",
-          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
+          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
           "required": false,
           "type": {
             "kind": "union",
@@ -8040,7 +8040,7 @@
         },
         {
           "name": "reply_markup",
-          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
+          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
           "required": false,
           "type": {
             "kind": "union",
@@ -8303,7 +8303,7 @@
         },
         {
           "name": "reply_markup",
-          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
+          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
           "required": false,
           "type": {
             "kind": "union",
@@ -8381,7 +8381,7 @@
         },
         {
           "name": "video_note",
-          "description": "Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending video notes by a URL is currently unsupported",
+          "description": "Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending video notes by a URL is currently unsupported.",
           "required": true,
           "type": {
             "kind": "union",
@@ -8481,7 +8481,7 @@
         },
         {
           "name": "reply_markup",
-          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
+          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
           "required": false,
           "type": {
             "kind": "union",
@@ -8662,7 +8662,7 @@
         },
         {
           "name": "reply_markup",
-          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
+          "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
           "required": false,
           "type": {
             "kind": "union",
@@ -8982,7 +8982,7 @@
       "arguments": [
         {
           "name": "chat_id",
-          "description": "Unique identifier for the target private chat. If not specified, default bot's menu button will be changed",
+          "description": "Unique identifier for the target private chat. If not specified, the bot's default menu button will be changed.",
           "required": false,
           "type": {
             "kind": "integer"
@@ -8990,7 +8990,7 @@
         },
         {
           "name": "menu_button",
-          "description": "A JSON-serialized object for the bot's new menu button. Defaults to MenuButtonDefault",
+          "description": "A JSON-serialized object for the bot's new menu button. Defaults to MenuButtonDefault.",
           "required": false,
           "type": {
             "kind": "reference",
@@ -9168,7 +9168,7 @@
         },
         {
           "name": "custom_emoji_id",
-          "description": "Custom emoji identifier of a sticker from the sticker set; pass an empty string to drop the thumbnail and use the first sticker as the thumbnail.",
+          "description": "Custom emoji identifier of a sticker from the sticker set; pass an empty string to drop the thumbnail and use the first sticker as the thumbnail",
           "required": false,
           "type": {
             "kind": "string"
@@ -9203,7 +9203,7 @@
         },
         {
           "name": "force",
-          "description": "Pass True if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters",
+          "description": "Pass True if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters.",
           "required": false,
           "type": {
             "kind": "bool"
@@ -9219,7 +9219,7 @@
         },
         {
           "name": "chat_id",
-          "description": "Required if inline_message_id is not specified. Unique identifier for the target chat",
+          "description": "Required if inline_message_id is not specified. Unique identifier for the target chat.",
           "required": false,
           "type": {
             "kind": "integer"
@@ -9227,7 +9227,7 @@
         },
         {
           "name": "message_id",
-          "description": "Required if inline_message_id is not specified. Identifier of the sent message",
+          "description": "Required if inline_message_id is not specified. Identifier of the sent message.",
           "required": false,
           "type": {
             "kind": "integer"
@@ -9235,7 +9235,7 @@
         },
         {
           "name": "inline_message_id",
-          "description": "Required if chat_id and message_id are not specified. Identifier of the inline message",
+          "description": "Required if chat_id and message_id are not specified. Identifier of the inline message.",
           "required": false,
           "type": {
             "kind": "string"
@@ -9369,7 +9369,7 @@
         },
         {
           "name": "language_code",
-          "description": "A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands",
+          "description": "A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands.",
           "required": false,
           "type": {
             "kind": "string"
@@ -9782,7 +9782,7 @@
       "arguments": [
         {
           "name": "url",
-          "description": "HTTPS URL to send updates to. Use an empty string to remove webhook integration",
+          "description": "HTTPS URL to send updates to. Use an empty string to remove webhook integration.",
           "required": true,
           "type": {
             "kind": "string"
@@ -9877,7 +9877,7 @@
         },
         {
           "name": "message_id",
-          "description": "Required if inline_message_id is not specified. Identifier of the message with live location to stop",
+          "description": "Required if inline_message_id is not specified. Identifier of the message with live location to stop.",
           "required": false,
           "type": {
             "kind": "integer"
@@ -9885,7 +9885,7 @@
         },
         {
           "name": "inline_message_id",
-          "description": "Required if chat_id and message_id are not specified. Identifier of the inline message",
+          "description": "Required if chat_id and message_id are not specified. Identifier of the inline message.",
           "required": false,
           "type": {
             "kind": "string"
@@ -9893,7 +9893,7 @@
         },
         {
           "name": "reply_markup",
-          "description": "A JSON-serialized object for a new inline keyboard.",
+          "description": "A JSON-serialized object for a new inline keyboard",
           "required": false,
           "type": {
             "kind": "reference",
@@ -9946,7 +9946,7 @@
         },
         {
           "name": "reply_markup",
-          "description": "A JSON-serialized object for a new message inline keyboard.",
+          "description": "A JSON-serialized object for a new message inline keyboard",
           "required": false,
           "type": {
             "kind": "reference",
@@ -10927,7 +10927,7 @@
         },
         {
           "name": "is_inverted",
-          "description": "Optional. True, if the background fill must be applied only to the pattern itself. All other pixels are black in this case. For dark themes only",
+          "description": "Optional. True, if the background fill must be applied only to the pattern itself. All other pixels are black in this case. For dark themes only.",
           "required": false,
           "type": {
             "kind": "true"
@@ -11071,7 +11071,7 @@
         },
         {
           "name": "description",
-          "description": "Description of the command; 1-256 characters.",
+          "description": "Description of the command; 1-256 characters",
           "required": true,
           "type": {
             "kind": "string"
@@ -11688,7 +11688,7 @@
         },
         {
           "name": "inline_message_id",
-          "description": "Optional. Identifier of the message sent via the bot in inline mode, that originated the query.",
+          "description": "Optional. Identifier of the message sent via the bot in inline mode, that originated the query",
           "required": false,
           "type": {
             "kind": "string"
@@ -12647,7 +12647,7 @@
         },
         {
           "name": "paid_message_star_count",
-          "description": "Optional. The number of Telegram Stars a general user have to pay to send a message to the chat",
+          "description": "Optional. The number of Telegram Stars a general user has to pay to send a message to the chat",
           "required": false,
           "type": {
             "kind": "integer"
@@ -12794,7 +12794,7 @@
         },
         {
           "name": "bio",
-          "description": "Optional. Bio of the user.",
+          "description": "Optional. Bio of the user",
           "required": false,
           "type": {
             "kind": "string"
@@ -13051,7 +13051,7 @@
         },
         {
           "name": "until_date",
-          "description": "Date when restrictions will be lifted for this user; Unix time. If 0, then the user is banned forever",
+          "description": "Date when restrictions will be lifted for this user; Unix time. If 0, then the user is banned forever.",
           "required": true,
           "type": {
             "kind": "integer"
@@ -13347,7 +13347,7 @@
         },
         {
           "name": "until_date",
-          "description": "Date when restrictions will be lifted for this user; Unix time. If 0, then the user is restricted forever",
+          "description": "Date when restrictions will be lifted for this user; Unix time. If 0, then the user is restricted forever.",
           "required": true,
           "type": {
             "kind": "integer"
@@ -13407,7 +13407,7 @@
         },
         {
           "name": "invite_link",
-          "description": "Optional. Chat invite link, which was used by the user to join the chat; for joining by invite link events only.",
+          "description": "Optional. Chat invite link, which was used by the user to join the chat; for joining by invite link events only",
           "required": false,
           "type": {
             "kind": "reference",
@@ -13570,7 +13570,7 @@
         },
         {
           "name": "can_change_info",
-          "description": "Optional. True, if the user is allowed to change the chat title, photo and other settings. Ignored in public supergroups",
+          "description": "Optional. True, if the user is allowed to change the chat title, photo and other settings. Ignored in public supergroups.",
           "required": false,
           "type": {
             "kind": "bool"
@@ -13586,7 +13586,7 @@
         },
         {
           "name": "can_pin_messages",
-          "description": "Optional. True, if the user is allowed to pin messages. Ignored in public supergroups",
+          "description": "Optional. True, if the user is allowed to pin messages. Ignored in public supergroups.",
           "required": false,
           "type": {
             "kind": "bool"
@@ -13594,7 +13594,7 @@
         },
         {
           "name": "can_manage_topics",
-          "description": "Optional. True, if the user is allowed to create forum topics. If omitted defaults to the value of can_pin_messages",
+          "description": "Optional. True, if the user is allowed to create forum topics. If omitted defaults to the value of can_pin_messages.",
           "required": false,
           "type": {
             "kind": "bool"
@@ -13666,7 +13666,7 @@
         },
         {
           "name": "title",
-          "description": "Optional. Title of the chat, if the title was requested by the bot.",
+          "description": "Optional. Title of the chat, if the title was requested by the bot",
           "required": false,
           "type": {
             "kind": "string"
@@ -13674,7 +13674,7 @@
         },
         {
           "name": "username",
-          "description": "Optional. Username of the chat, if the username was requested by the bot and available.",
+          "description": "Optional. Username of the chat, if the username was requested by the bot and available",
           "required": false,
           "type": {
             "kind": "string"
@@ -14058,7 +14058,7 @@
         },
         {
           "name": "user",
-          "description": "Optional. Information about the user that created the topic. Currently, it is always present",
+          "description": "Optional. Information about the user that created the topic. Currently, it is always present.",
           "required": false,
           "type": {
             "kind": "reference",
@@ -14735,7 +14735,7 @@
         },
         {
           "name": "photo",
-          "description": "Photo that will be displayed in the game message in chats.",
+          "description": "Photo that will be displayed in the game message in chats",
           "required": true,
           "type": {
             "kind": "array",
@@ -14767,7 +14767,7 @@
         },
         {
           "name": "animation",
-          "description": "Optional. Animation that will be displayed in the game message in chats. Upload via BotFather",
+          "description": "Optional. Animation that will be displayed in the game message in chats. Upload via BotFather.",
           "required": false,
           "type": {
             "kind": "reference",
@@ -15055,7 +15055,7 @@
         },
         {
           "name": "unique_gift_number",
-          "description": "Optional. Unique number reserved for this gift when upgraded. See the number field in UniqueGift",
+          "description": "Optional. Unique number reserved for this gift when upgraded. See the number field in UniqueGift.",
           "required": false,
           "type": {
             "kind": "integer"
@@ -15465,7 +15465,7 @@
         },
         {
           "name": "copy_text",
-          "description": "Optional. Description of the button that copies the specified text to the clipboard.",
+          "description": "Optional. Description of the button that copies the specified text to the clipboard",
           "required": false,
           "type": {
             "kind": "reference",
@@ -15555,7 +15555,7 @@
         },
         {
           "name": "chat_type",
-          "description": "Optional. Type of the chat from which the inline query was sent. Can be either “sender” for a private chat with the inline query sender, “private”, “group”, “supergroup”, or “channel”. The chat type should be always known for requests sent from official clients and most third-party clients, unless the request was sent from a secret chat",
+          "description": "Optional. Type of the chat from which the inline query was sent. Can be either “sender” for a private chat with the inline query sender, “private”, “group”, “supergroup”, or “channel”. The chat type should be always known for requests sent from official clients and most third-party clients, unless the request was sent from a secret chat.",
           "required": false,
           "type": {
             "kind": "string",
@@ -16934,7 +16934,7 @@
         },
         {
           "name": "thumbnail_mime_type",
-          "description": "Optional. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”",
+          "description": "Optional. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”.",
           "required": false,
           "type": {
             "kind": "string",
@@ -17068,7 +17068,7 @@
         },
         {
           "name": "live_period",
-          "description": "Optional. Period in seconds during which the location can be updated, should be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely.",
+          "description": "Optional. Period in seconds during which the location can be updated, must be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely",
           "required": false,
           "type": {
             "kind": "integer"
@@ -17201,7 +17201,7 @@
         },
         {
           "name": "thumbnail_mime_type",
-          "description": "Optional. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”",
+          "description": "Optional. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”.",
           "required": false,
           "type": {
             "kind": "string",
@@ -17303,7 +17303,7 @@
         },
         {
           "name": "photo_url",
-          "description": "A valid URL of the photo. Photo must be in JPEG format. Photo size must not exceed 5MB",
+          "description": "A valid URL of the photo. Photo must be in JPEG format. Photo size must not exceed 5MB.",
           "required": true,
           "type": {
             "kind": "string"
@@ -18175,7 +18175,7 @@
         },
         {
           "name": "live_period",
-          "description": "Optional. Period in seconds during which the location can be updated, should be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely.",
+          "description": "Optional. Period in seconds during which the location can be updated, must be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely",
           "required": false,
           "type": {
             "kind": "integer"
@@ -19179,7 +19179,7 @@
         },
         {
           "name": "text_parse_mode",
-          "description": "Optional. Mode for parsing entities in the text. See formatting options for more details. Currently, only custom emoji entities are allowed",
+          "description": "Optional. Mode for parsing entities in the text. See formatting options for more details. Currently, only custom emoji entities are allowed.",
           "required": false,
           "type": {
             "kind": "string"
@@ -19187,7 +19187,7 @@
         },
         {
           "name": "text_entities",
-          "description": "Optional. A JSON-serialized list of special entities that appear in the poll option text. It can be specified instead of text_parse_mode",
+          "description": "Optional. A JSON-serialized list of special entities that appear in the poll option text. It can be specified instead of text_parse_mode.",
           "required": false,
           "type": {
             "kind": "array",
@@ -19649,7 +19649,7 @@
       "fields": [
         {
           "name": "text",
-          "description": "Text of the button. If none of the fields other than text, icon_custom_emoji_id, and style are used, it will be sent as a message when the button is pressed",
+          "description": "Text of the button. If none of the fields other than text, icon_custom_emoji_id, and style are used, it will be sent as a message when the button is pressed.",
           "required": true,
           "type": {
             "kind": "string"
@@ -19763,7 +19763,7 @@
       "fields": [
         {
           "name": "request_id",
-          "description": "Signed 32-bit identifier of the request, which will be received back in the ChatShared object. Must be unique within the message",
+          "description": "Signed 32-bit identifier of the request, which will be received back in the ChatShared object. Must be unique within the message.",
           "required": true,
           "type": {
             "kind": "integer"
@@ -19771,7 +19771,7 @@
         },
         {
           "name": "chat_is_channel",
-          "description": "Pass True to request a channel chat, pass False to request a group or a supergroup chat.",
+          "description": "Pass True to request a channel chat, pass False to request a group or a supergroup chat",
           "required": true,
           "type": {
             "kind": "bool"
@@ -19861,7 +19861,7 @@
       "fields": [
         {
           "name": "request_id",
-          "description": "Signed 32-bit identifier of the request. Must be unique within the message",
+          "description": "Signed 32-bit identifier of the request. Must be unique within the message.",
           "required": true,
           "type": {
             "kind": "integer"
@@ -19893,7 +19893,7 @@
       "fields": [
         {
           "name": "request_id",
-          "description": "Signed 32-bit identifier of the request that will be received back in the UsersShared object. Must be unique within the message",
+          "description": "Signed 32-bit identifier of the request that will be received back in the UsersShared object. Must be unique within the message.",
           "required": true,
           "type": {
             "kind": "integer"
@@ -19989,7 +19989,7 @@
         },
         {
           "name": "url",
-          "description": "Optional. URL to use for the link preview. If empty, then the first URL found in the message text will be used",
+          "description": "Optional. URL to use for the link preview. If empty, then the first URL found in the message text will be used.",
           "required": false,
           "type": {
             "kind": "string"
@@ -20209,7 +20209,7 @@
         },
         {
           "name": "forward_text",
-          "description": "Optional. New text of the button in forwarded messages.",
+          "description": "Optional. New text of the button in forwarded messages",
           "required": false,
           "type": {
             "kind": "string"
@@ -20225,7 +20225,7 @@
         },
         {
           "name": "request_write_access",
-          "description": "Optional. Pass True to request the permission for your bot to send messages to the user.",
+          "description": "Optional. Pass True to request the permission for your bot to send messages to the user",
           "required": false,
           "type": {
             "kind": "bool"
@@ -20440,7 +20440,7 @@
       "fields": [
         {
           "name": "message_id",
-          "description": "Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent",
+          "description": "Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent.",
           "required": true,
           "type": {
             "kind": "integer"
@@ -20465,7 +20465,7 @@
         },
         {
           "name": "from",
-          "description": "Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats",
+          "description": "Optional. Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats.",
           "required": false,
           "type": {
             "kind": "reference",
@@ -20747,7 +20747,7 @@
         },
         {
           "name": "animation",
-          "description": "Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set",
+          "description": "Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set.",
           "required": false,
           "type": {
             "kind": "reference",
@@ -20774,7 +20774,7 @@
         },
         {
           "name": "live_photo",
-          "description": "Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set",
+          "description": "Optional. Message is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set.",
           "required": false,
           "type": {
             "kind": "reference",
@@ -20930,7 +20930,7 @@
         },
         {
           "name": "venue",
-          "description": "Optional. Message is a venue, information about the venue. For backward compatibility, when this field is set, the location field will also be set",
+          "description": "Optional. Message is a venue, information about the venue. For backward compatibility, when this field is set, the location field will also be set.",
           "required": false,
           "type": {
             "kind": "reference",
@@ -21474,7 +21474,7 @@
       "fields": [
         {
           "name": "type",
-          "description": "Type of the entity. Currently, can be “mention” (@username), “hashtag” (#hashtag or #hashtag@chatusername), “cashtag” ($USD or $USD@chatusername), “bot_command” (/start@jobs_bot), “url” (https://telegram.org), “email” (do-not-reply@telegram.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time)",
+          "description": "Type of the entity. Currently, can be “mention” (@username), “hashtag” (#hashtag or #hashtag@chatusername), “cashtag” ($USD or $USD@chatusername), “bot_command” (/start@jobs_bot), “url” (https://telegram.org), “email” (do-not-reply@telegram.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time).",
           "required": true,
           "type": {
             "kind": "string",
@@ -21545,7 +21545,7 @@
         },
         {
           "name": "custom_emoji_id",
-          "description": "Optional. For “custom_emoji” only, unique identifier of the custom emoji. Use getCustomEmojiStickers to get full information about the sticker",
+          "description": "Optional. For “custom_emoji” only, unique identifier of the custom emoji. Use getCustomEmojiStickers to get full information about the sticker.",
           "required": false,
           "type": {
             "kind": "string"
@@ -21577,7 +21577,7 @@
       "fields": [
         {
           "name": "message_id",
-          "description": "Unique message identifier. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent",
+          "description": "Unique message identifier. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent.",
           "required": true,
           "type": {
             "kind": "integer"
@@ -22082,7 +22082,7 @@
         },
         {
           "name": "unique_gift_number",
-          "description": "Optional. Unique number reserved for this gift when upgraded. See the number field in UniqueGift",
+          "description": "Optional. Unique number reserved for this gift when upgraded. See the number field in UniqueGift.",
           "required": false,
           "type": {
             "kind": "integer"
@@ -22118,7 +22118,7 @@
         },
         {
           "name": "next_offset",
-          "description": "Optional. Offset for the next request. If empty, then there are no more results",
+          "description": "Optional. Offset for the next request. If empty, then there are no more results.",
           "required": false,
           "type": {
             "kind": "string"
@@ -22203,7 +22203,7 @@
         },
         {
           "name": "next_transfer_date",
-          "description": "Optional. Point in time (Unix timestamp) when the gift can be transferred. If it is in the past, then the gift can be transferred now",
+          "description": "Optional. Point in time (Unix timestamp) when the gift can be transferred. If it is in the past, then the gift can be transferred now.",
           "required": false,
           "type": {
             "kind": "integer"
@@ -23164,7 +23164,7 @@
         },
         {
           "name": "country_codes",
-          "description": "Optional. A list of two-letter ISO 3166-1 alpha-2 country codes indicating the countries from which users can vote in the poll. If omitted, then users from any country can participate in the poll.",
+          "description": "Optional. A list of two-letter ISO 3166-1 alpha-2 country codes indicating the countries from which users can vote in the poll. The country code “FT” is used for users with anonymous numbers. If omitted, then users from any country can participate in the poll.",
           "required": false,
           "type": {
             "kind": "array",
@@ -23659,7 +23659,7 @@
         },
         {
           "name": "expiration_date",
-          "description": "Expiration date of the prepared message, in Unix time. Expired prepared messages can no longer be used",
+          "description": "Expiration date of the prepared message, in Unix time. Expired prepared messages can no longer be used.",
           "required": true,
           "type": {
             "kind": "integer"
@@ -23808,7 +23808,7 @@
         },
         {
           "name": "emoji",
-          "description": "Reaction emoji. Currently, it can be one of \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\"",
+          "description": "Reaction emoji. Currently, it can be one of \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\".",
           "required": true,
           "type": {
             "kind": "string"
@@ -23843,7 +23843,7 @@
       "fields": [
         {
           "name": "currency",
-          "description": "Three-letter ISO 4217 currency code, or “XTR” for payments in Telegram Stars. Currently, always “XTR”",
+          "description": "Three-letter ISO 4217 currency code, or “XTR” for payments in Telegram Stars. Currently, always “XTR”.",
           "required": true,
           "type": {
             "kind": "string"
@@ -24461,7 +24461,7 @@
         },
         {
           "name": "source",
-          "description": "Optional. Source of an incoming transaction (e.g., a user purchasing goods or services, Fragment refunding a failed withdrawal). Only for incoming transactions",
+          "description": "Optional. Source of an incoming transaction (e.g., a user purchasing goods or services, Fragment refunding a failed withdrawal). Only for incoming transactions.",
           "required": false,
           "type": {
             "kind": "reference",
@@ -24470,7 +24470,7 @@
         },
         {
           "name": "receiver",
-          "description": "Optional. Receiver of an outgoing transaction (e.g., a user for a purchase refund, Fragment for a withdrawal). Only for outgoing transactions",
+          "description": "Optional. Receiver of an outgoing transaction (e.g., a user for a purchase refund, Fragment for a withdrawal). Only for outgoing transactions.",
           "required": false,
           "type": {
             "kind": "reference",
@@ -25242,7 +25242,7 @@
         },
         {
           "name": "currency",
-          "description": "Currency in which the payment was made. Currently, one of “XTR” for Telegram Stars or “TON” for toncoins",
+          "description": "Currency in which the payment was made. Currently, one of “XTR” for Telegram Stars or “TON” for toncoins.",
           "required": true,
           "type": {
             "kind": "string"
@@ -25300,7 +25300,7 @@
       "fields": [
         {
           "name": "currency",
-          "description": "Currency in which the post will be paid. Currently, must be one of “XTR” for Telegram Stars or “TON” for toncoins",
+          "description": "Currency in which the post will be paid. Currently, must be one of “XTR” for Telegram Stars or “TON” for toncoins.",
           "required": true,
           "type": {
             "kind": "string"
@@ -25353,7 +25353,7 @@
       "fields": [
         {
           "name": "query",
-          "description": "Optional. The default inline query to be inserted in the input field. If left empty, only the bot's username will be inserted",
+          "description": "Optional. The default inline query to be inserted in the input field. If left empty, only the bot's username will be inserted.",
           "required": false,
           "type": {
             "kind": "string"
@@ -25768,7 +25768,7 @@
         },
         {
           "name": "name",
-          "description": "Unique name of the gift. This name can be used in https://t.me/nft/... links and story areas",
+          "description": "Unique name of the gift. This name can be used in https://t.me/nft/... links and story areas.",
           "required": true,
           "type": {
             "kind": "string"
@@ -26005,7 +26005,7 @@
         },
         {
           "name": "origin",
-          "description": "Origin of the gift. Currently, either “upgrade” for gifts upgraded from regular gifts, “transfer” for gifts transferred from other users or channels, “resale” for gifts bought from other users, “gifted_upgrade” for upgrades purchased after the gift was sent, or “offer” for gifts bought or sold through gift purchase offers",
+          "description": "Origin of the gift. Currently, either “upgrade” for gifts upgraded from regular gifts, “transfer” for gifts transferred from other users or channels, “resale” for gifts bought from other users, “gifted_upgrade” for upgrades purchased after the gift was sent, or “offer” for gifts bought or sold through gift purchase offers.",
           "required": true,
           "type": {
             "kind": "string",
@@ -26052,7 +26052,7 @@
         },
         {
           "name": "next_transfer_date",
-          "description": "Optional. Point in time (Unix timestamp) when the gift can be transferred. If it is in the past, then the gift can be transferred now",
+          "description": "Optional. Point in time (Unix timestamp) when the gift can be transferred. If it is in the past, then the gift can be transferred now.",
           "required": false,
           "type": {
             "kind": "integer"
@@ -26282,7 +26282,7 @@
         },
         {
           "name": "shipping_query",
-          "description": "Optional. New incoming shipping query. Only for invoices with flexible price",
+          "description": "Optional. New incoming shipping query. Only for invoices with flexible price.",
           "required": false,
           "type": {
             "kind": "reference",
@@ -26291,7 +26291,7 @@
         },
         {
           "name": "pre_checkout_query",
-          "description": "Optional. New incoming pre-checkout query. Contains full information about checkout",
+          "description": "Optional. New incoming pre-checkout query. Contains full information about checkout.",
           "required": false,
           "type": {
             "kind": "reference",
@@ -26309,7 +26309,7 @@
         },
         {
           "name": "poll",
-          "description": "Optional. New poll state. Bots receive only updates about manually stopped polls and polls, which are sent by the bot",
+          "description": "Optional. New poll state. Bots receive only updates about manually stopped polls and polls, which are sent by the bot.",
           "required": false,
           "type": {
             "kind": "reference",
@@ -26660,7 +26660,7 @@
         },
         {
           "name": "users",
-          "description": "Information about users shared with the bot.",
+          "description": "Information about users shared with the bot",
           "required": true,
           "type": {
             "kind": "array",
@@ -26680,7 +26680,7 @@
       "fields": [
         {
           "name": "location",
-          "description": "Venue location. Can't be a live location",
+          "description": "Venue location. Can't be a live location.",
           "required": true,
           "type": {
             "kind": "reference",
@@ -27182,7 +27182,7 @@
         },
         {
           "name": "allowed_updates",
-          "description": "Optional. A list of update types the bot is subscribed to. Defaults to all update types except chat_member",
+          "description": "Optional. A list of update types the bot is subscribed to. Defaults to all update types except chat_member, message_reaction, and message_reaction_count.",
           "required": false,
           "type": {
             "kind": "array",
@@ -27229,6 +27229,6 @@
   "source": {
     "corefork": "https://corefork.telegram.org/bots/api",
     "core": "https://core.telegram.org/bots/api",
-    "fetchedAt": "2026-05-09T00:16:20.915Z"
+    "fetchedAt": "2026-05-26T22:17:04.458Z"
   }
 }

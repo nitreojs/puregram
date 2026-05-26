@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
 /// Bot API 10.0.0
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-05-09T00:16:20.915Z
+/// generated at: 2026-05-26T22:17:04.458Z
 /// see scripts/emit.ts in @puregram/api
 
 import type { TelegramAcceptedGiftTypes, TelegramBotAccessSettings, TelegramBotCommand, TelegramBotCommandScope, TelegramBotDescription, TelegramBotName, TelegramBotShortDescription, TelegramBusinessConnection, TelegramChatAdministratorRights, TelegramChatFullInfo, TelegramChatInviteLink, TelegramChatMember, TelegramChatPermissions, TelegramFile, TelegramForceReply, TelegramForumTopic, TelegramGameHighScore, TelegramGifts, TelegramInlineKeyboardMarkup, TelegramInlineQueryResult, TelegramInlineQueryResultsButton, TelegramInputChecklist, TelegramInputFile, TelegramInputMedia, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaLivePhoto, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPaidMedia, TelegramInputPollMedia, TelegramInputPollOption, TelegramInputProfilePhoto, TelegramInputSticker, TelegramInputStoryContent, TelegramKeyboardButton, TelegramLabeledPrice, TelegramLinkPreviewOptions, TelegramMaskPosition, TelegramMenuButton, TelegramMessage, TelegramMessageEntity, TelegramMessageId, TelegramOwnedGifts, TelegramPassportElementError, TelegramPoll, TelegramPreparedInlineMessage, TelegramPreparedKeyboardButton, TelegramReactionType, TelegramReplyKeyboardMarkup, TelegramReplyKeyboardRemove, TelegramReplyParameters, TelegramSentGuestMessage, TelegramSentWebAppMessage, TelegramShippingOption, TelegramStarAmount, TelegramStarTransactions, TelegramSticker, TelegramStickerSet, TelegramStory, TelegramStoryArea, TelegramSuggestedPostParameters, TelegramUpdate, TelegramUser, TelegramUserChatBoosts, TelegramUserProfileAudios, TelegramUserProfilePhotos, TelegramWebhookInfo } from "./types";
@@ -38,7 +38,7 @@ export interface AnswerCallbackQueryParams {
      */
     callback_query_id: string;
     /**
-     * Text of the notification. If not specified, nothing will be shown to the user, 0-200 characters
+     * Text of the notification. If not specified, nothing will be shown to the user, 0-200 characters.
      */
     text?: string;
     /**
@@ -215,7 +215,7 @@ export interface ApproveSuggestedPostParams {
      */
     message_id: number;
     /**
-     * Point in time (Unix timestamp) when the post is expected to be published; omit if the date has already been specified when the suggested post was created. If specified, then the date must be not more than 2678400 seconds (30 days) in the future
+     * Point in time (Unix timestamp) when the post is expected to be published; omit if the date has already been specified when the suggested post was created. If specified, then the date must be not more than 2678400 seconds (30 days) in the future.
      */
     send_date?: number;
 }
@@ -358,7 +358,7 @@ export interface CopyMessageParams {
      */
     video_start_timestamp?: number;
     /**
-     * New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept
+     * New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept.
      */
     caption?: string | Formattable;
     /**
@@ -398,7 +398,7 @@ export interface CopyMessageParams {
      */
     reply_parameters?: TelegramReplyParameters;
     /**
-     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
+     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.
      */
     reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
         toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
@@ -474,7 +474,7 @@ export interface CreateChatInviteLinkParams {
      */
     member_limit?: number;
     /**
-     * True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified
+     * True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified.
      */
     creates_join_request?: boolean;
 }
@@ -524,7 +524,7 @@ export interface CreateForumTopicParams {
      */
     name: string;
     /**
-     * Color of the topic icon in RGB format. Currently, must be one of 7322096 (0x6FB9F0), 16766590 (0xFFD67E), 13338331 (0xCB86DB), 9367192 (0x8EEE98), 16749490 (0xFF93B2), or 16478047 (0xFB6F5F)
+     * Color of the topic icon in RGB format. Currently, must be one of 7322096 (0x6FB9F0), 16766590 (0xFFD67E), 13338331 (0xCB86DB), 9367192 (0x8EEE98), 16749490 (0xFF93B2), or 16478047 (0xFB6F5F).
      */
     icon_color?: number;
     /**
@@ -719,7 +719,7 @@ export type declineSuggestedPost = (params: DeclineSuggestedPostParams) => Promi
  */
 export interface DeleteAllMessageReactionsParams {
     /**
-     * Unique identifier for the target chat or username of the target supergroup (in the format @username)
+     * Unique identifier for the target chat or username of the target supergroup in the format @username
      */
     chat_id: number | string;
     /**
@@ -746,7 +746,7 @@ export interface DeleteBusinessMessagesParams {
      */
     business_connection_id: string;
     /**
-     * A JSON-serialized list of 1-100 identifiers of messages to delete. All messages must be from the same chat. See deleteMessage for limitations on which messages can be deleted
+     * A JSON-serialized list of 1-100 identifiers of messages to delete. All messages must be from the same chat. See deleteMessage for limitations on which messages can be deleted.
      */
     message_ids: number[];
 }
@@ -829,7 +829,7 @@ export type deleteMessage = (params: DeleteMessageParams) => Promise<true>;
  */
 export interface DeleteMessageReactionParams {
     /**
-     * Unique identifier for the target chat or username of the target supergroup (in the format @username)
+     * Unique identifier for the target chat or username of the target supergroup in the format @username
      */
     chat_id: number | string;
     /**
@@ -860,7 +860,7 @@ export interface DeleteMessagesParams {
      */
     chat_id: number | string;
     /**
-     * A JSON-serialized list of 1-100 identifiers of messages to delete. See deleteMessage for limitations on which messages can be deleted
+     * A JSON-serialized list of 1-100 identifiers of messages to delete. See deleteMessage for limitations on which messages can be deleted.
      */
     message_ids: number[];
 }
@@ -879,7 +879,7 @@ export interface DeleteMyCommandsParams {
      */
     scope?: TelegramBotCommandScope;
     /**
-     * A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands
+     * A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands.
      */
     language_code?: string;
 }
@@ -978,7 +978,7 @@ export interface EditChatInviteLinkParams {
      */
     member_limit?: number;
     /**
-     * True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified
+     * True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified.
      */
     creates_join_request?: boolean;
 }
@@ -1024,11 +1024,11 @@ export interface EditForumTopicParams {
      */
     message_thread_id: number;
     /**
-     * New topic name, 0-128 characters. If not specified or empty, the current name of the topic will be kept
+     * New topic name, 0-128 characters. If not specified or empty, the current name of the topic will be kept.
      */
     name?: string;
     /**
-     * New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers. Pass an empty string to remove the icon. If not specified, the current icon will be kept
+     * New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers. Pass an empty string to remove the icon. If not specified, the current icon will be kept.
      */
     icon_custom_emoji_id?: string;
 }
@@ -1070,11 +1070,11 @@ export interface EditMessageCaptionParams {
      */
     chat_id?: number | string;
     /**
-     * Required if inline_message_id is not specified. Identifier of the message to edit
+     * Required if inline_message_id is not specified. Identifier of the message to edit.
      */
     message_id?: number;
     /**
-     * Required if chat_id and message_id are not specified. Identifier of the inline message
+     * Required if chat_id and message_id are not specified. Identifier of the inline message.
      */
     inline_message_id?: string;
     /**
@@ -1094,7 +1094,7 @@ export interface EditMessageCaptionParams {
      */
     show_caption_above_media?: boolean;
     /**
-     * A JSON-serialized object for an inline keyboard.
+     * A JSON-serialized object for an inline keyboard
      */
     reply_markup?: TelegramInlineKeyboardMarkup | {
         toJSON: () => TelegramInlineKeyboardMarkup;
@@ -1152,11 +1152,11 @@ export interface EditMessageLiveLocationParams {
      */
     chat_id?: number | string;
     /**
-     * Required if inline_message_id is not specified. Identifier of the message to edit
+     * Required if inline_message_id is not specified. Identifier of the message to edit.
      */
     message_id?: number;
     /**
-     * Required if chat_id and message_id are not specified. Identifier of the inline message
+     * Required if chat_id and message_id are not specified. Identifier of the inline message.
      */
     inline_message_id?: string;
     /**
@@ -1168,7 +1168,7 @@ export interface EditMessageLiveLocationParams {
      */
     longitude: number;
     /**
-     * New period in seconds during which the location can be updated, starting from the message send date. If 0x7FFFFFFF is specified, then the location can be updated forever. Otherwise, the new value must not exceed the current live_period by more than a day, and the live location expiration date must remain within the next 90 days. If not specified, then live_period remains unchanged
+     * New period in seconds during which the location can be updated, starting from the message send date. If 0x7FFFFFFF is specified, then the location can be updated forever. Otherwise, the new value must not exceed the current live_period by more than a day, and the live location expiration date must remain within the next 90 days. If not specified, then live_period remains unchanged.
      */
     live_period?: number;
     /**
@@ -1184,7 +1184,7 @@ export interface EditMessageLiveLocationParams {
      */
     proximity_alert_radius?: number;
     /**
-     * A JSON-serialized object for a new inline keyboard.
+     * A JSON-serialized object for a new inline keyboard
      */
     reply_markup?: TelegramInlineKeyboardMarkup | {
         toJSON: () => TelegramInlineKeyboardMarkup;
@@ -1209,11 +1209,11 @@ export interface EditMessageMediaParams {
      */
     chat_id?: number | string;
     /**
-     * Required if inline_message_id is not specified. Identifier of the message to edit
+     * Required if inline_message_id is not specified. Identifier of the message to edit.
      */
     message_id?: number;
     /**
-     * Required if chat_id and message_id are not specified. Identifier of the inline message
+     * Required if chat_id and message_id are not specified. Identifier of the inline message.
      */
     inline_message_id?: string;
     /**
@@ -1221,7 +1221,7 @@ export interface EditMessageMediaParams {
      */
     media: TelegramInputMedia;
     /**
-     * A JSON-serialized object for a new inline keyboard.
+     * A JSON-serialized object for a new inline keyboard
      */
     reply_markup?: TelegramInlineKeyboardMarkup | {
         toJSON: () => TelegramInlineKeyboardMarkup;
@@ -1246,15 +1246,15 @@ export interface EditMessageReplyMarkupParams {
      */
     chat_id?: number | string;
     /**
-     * Required if inline_message_id is not specified. Identifier of the message to edit
+     * Required if inline_message_id is not specified. Identifier of the message to edit.
      */
     message_id?: number;
     /**
-     * Required if chat_id and message_id are not specified. Identifier of the inline message
+     * Required if chat_id and message_id are not specified. Identifier of the inline message.
      */
     inline_message_id?: string;
     /**
-     * A JSON-serialized object for an inline keyboard.
+     * A JSON-serialized object for an inline keyboard
      */
     reply_markup?: TelegramInlineKeyboardMarkup | {
         toJSON: () => TelegramInlineKeyboardMarkup;
@@ -1279,11 +1279,11 @@ export interface EditMessageTextParams {
      */
     chat_id?: number | string;
     /**
-     * Required if inline_message_id is not specified. Identifier of the message to edit
+     * Required if inline_message_id is not specified. Identifier of the message to edit.
      */
     message_id?: number;
     /**
-     * Required if chat_id and message_id are not specified. Identifier of the inline message
+     * Required if chat_id and message_id are not specified. Identifier of the inline message.
      */
     inline_message_id?: string;
     /**
@@ -1303,7 +1303,7 @@ export interface EditMessageTextParams {
      */
     link_preview_options?: TelegramLinkPreviewOptions;
     /**
-     * A JSON-serialized object for an inline keyboard.
+     * A JSON-serialized object for an inline keyboard
      */
     reply_markup?: TelegramInlineKeyboardMarkup | {
         toJSON: () => TelegramInlineKeyboardMarkup;
@@ -1532,7 +1532,7 @@ export interface GetBusinessAccountGiftsParams {
      */
     offset?: string;
     /**
-     * The maximum number of gifts to be returned; 1-100. Defaults to 100
+     * The maximum number of gifts to be returned; 1-100. Defaults to 100.
      */
     limit?: number;
 }
@@ -1651,7 +1651,7 @@ export interface GetChatGiftsParams {
      */
     offset?: string;
     /**
-     * The maximum number of gifts to be returned; 1-100. Defaults to 100
+     * The maximum number of gifts to be returned; 1-100. Defaults to 100.
      */
     limit?: number;
 }
@@ -1700,7 +1700,7 @@ export type getChatMemberCount = (params: GetChatMemberCountParams) => Promise<n
  */
 export interface GetChatMenuButtonParams {
     /**
-     * Unique identifier for the target private chat. If not specified, default bot's menu button will be returned
+     * Unique identifier for the target private chat. If not specified, the bot's default menu button will be returned.
      */
     chat_id?: number;
 }
@@ -1754,15 +1754,15 @@ export interface GetGameHighScoresParams {
      */
     user_id: number;
     /**
-     * Required if inline_message_id is not specified. Unique identifier for the target chat
+     * Required if inline_message_id is not specified. Unique identifier for the target chat.
      */
     chat_id?: number;
     /**
-     * Required if inline_message_id is not specified. Identifier of the sent message
+     * Required if inline_message_id is not specified. Identifier of the sent message.
      */
     message_id?: number;
     /**
-     * Required if chat_id and message_id are not specified. Identifier of the inline message
+     * Required if chat_id and message_id are not specified. Identifier of the inline message.
      */
     inline_message_id?: string;
 }
@@ -2008,7 +2008,7 @@ export interface GetUserGiftsParams {
      */
     offset?: string;
     /**
-     * The maximum number of gifts to be returned; 1-100. Defaults to 100
+     * The maximum number of gifts to be returned; 1-100. Defaults to 100.
      */
     limit?: number;
 }
@@ -2261,7 +2261,7 @@ export interface PromoteChatMemberParams {
      */
     can_manage_video_chats?: boolean;
     /**
-     * Pass True if the administrator can restrict, ban or unban chat members, or access supergroup statistics. For backward compatibility, defaults to True for promotions of channel administrators
+     * Pass True if the administrator can restrict, ban or unban chat members, or access supergroup statistics. For backward compatibility, defaults to True for promotions of channel administrators.
      */
     can_restrict_members?: boolean;
     /**
@@ -2547,7 +2547,7 @@ export interface RestrictChatMemberParams {
      */
     use_independent_chat_permissions?: boolean;
     /**
-     * Date when restrictions will be lifted for the user; Unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever
+     * Date when restrictions will be lifted for the user; Unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever.
      */
     until_date?: number;
 }
@@ -2620,7 +2620,7 @@ export interface SavePreparedKeyboardButtonParams {
      */
     user_id: number;
     /**
-     * A JSON-serialized object describing the button to be saved. The button must be of the type request_users, request_chat, or request_managed_bot
+     * A JSON-serialized object describing the button to be saved. The button must be of the type request_users, request_chat, or request_managed_bot.
      */
     button: TelegramKeyboardButton;
 }
@@ -2715,7 +2715,7 @@ export interface SendAnimationParams {
      */
     reply_parameters?: TelegramReplyParameters;
     /**
-     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
+     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.
      */
     reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
         toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
@@ -2805,7 +2805,7 @@ export interface SendAudioParams {
      */
     reply_parameters?: TelegramReplyParameters;
     /**
-     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
+     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.
      */
     reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
         toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
@@ -2828,7 +2828,7 @@ export interface SendChatActionParams {
      */
     business_connection_id?: string;
     /**
-     * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username. Channel chats and channel direct messages chats aren't supported.
+     * Unique identifier for the target chat or username of the target bot or supergroup in the format @username. Channel chats and channel direct messages chats aren't supported.
      */
     chat_id: number | string;
     /**
@@ -2953,7 +2953,7 @@ export interface SendContactParams {
      */
     reply_parameters?: TelegramReplyParameters;
     /**
-     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
+     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.
      */
     reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
         toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
@@ -2986,7 +2986,7 @@ export interface SendDiceParams {
      */
     direct_messages_topic_id?: number;
     /**
-     * Emoji on which the dice throw animation is based. Currently, must be one of “”, “”, “”, “”, “”, or “”. Dice can have values 1-6 for “”, “” and “”, values 1-5 for “” and “”, and values 1-64 for “”. Defaults to “”
+     * Emoji on which the dice throw animation is based. Currently, must be one of “”, “”, “”, “”, “”, or “”. Dice can have values 1-6 for “”, “” and “”, values 1-5 for “” and “”, and values 1-64 for “”. Defaults to “”.
      */
     emoji?: string;
     /**
@@ -3014,7 +3014,7 @@ export interface SendDiceParams {
      */
     reply_parameters?: TelegramReplyParameters;
     /**
-     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
+     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.
      */
     reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
         toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
@@ -3095,7 +3095,7 @@ export interface SendDocumentParams {
      */
     reply_parameters?: TelegramReplyParameters;
     /**
-     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
+     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.
      */
     reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
         toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
@@ -3248,7 +3248,7 @@ export interface SendInvoiceParams {
      */
     suggested_tip_amounts?: number[];
     /**
-     * Unique deep-linking parameter. If left empty, forwarded copies of the sent message will have a Pay button, allowing multiple users to pay directly from the forwarded message, using the same invoice. If non-empty, forwarded copies of the sent message will have a URL button with a deep link to the bot (instead of a Pay button), with the value used as the start parameter
+     * Unique deep-linking parameter. If left empty, forwarded copies of the sent message will have a Pay button, allowing multiple users to pay directly from the forwarded message, using the same invoice. If non-empty, forwarded copies of the sent message will have a URL button with a deep link to the bot (instead of a Pay button), with the value used as the start parameter.
      */
     start_parameter?: string;
     /**
@@ -3454,7 +3454,7 @@ export interface SendLocationParams {
      */
     horizontal_accuracy?: number;
     /**
-     * Period in seconds during which the location will be updated (see Live Locations, should be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely.
+     * Period in seconds during which the location will be updated (see Live Locations, should be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely
      */
     live_period?: number;
     /**
@@ -3490,7 +3490,7 @@ export interface SendLocationParams {
      */
     reply_parameters?: TelegramReplyParameters;
     /**
-     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
+     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.
      */
     reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
         toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
@@ -3614,7 +3614,7 @@ export interface SendMessageParams {
      */
     reply_parameters?: TelegramReplyParameters;
     /**
-     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
+     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.
      */
     reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
         toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
@@ -3730,7 +3730,7 @@ export interface SendPaidMediaParams {
      */
     reply_parameters?: TelegramReplyParameters;
     /**
-     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
+     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.
      */
     reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
         toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
@@ -3811,7 +3811,7 @@ export interface SendPhotoParams {
      */
     reply_parameters?: TelegramReplyParameters;
     /**
-     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
+     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.
      */
     reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
         toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
@@ -3844,11 +3844,11 @@ export interface SendPollParams {
      */
     question: string | Formattable;
     /**
-     * Mode for parsing entities in the question. See formatting options for more details. Currently, only custom emoji entities are allowed
+     * Mode for parsing entities in the question. See formatting options for more details. Currently, only custom emoji entities are allowed.
      */
     question_parse_mode?: string;
     /**
-     * A JSON-serialized list of special entities that appear in the poll question. It can be specified instead of question_parse_mode
+     * A JSON-serialized list of special entities that appear in the poll question. It can be specified instead of question_parse_mode.
      */
     question_entities?: TelegramMessageEntity[];
     /**
@@ -3888,7 +3888,7 @@ export interface SendPollParams {
      */
     members_only?: boolean;
     /**
-     * A JSON-serialized list of 0-12 two-letter ISO 3166-1 alpha-2 country codes indicating the countries from which users can vote in the poll; for channel chats only. If omitted or empty, then users from any country can participate in the poll.
+     * A JSON-serialized list of 0-12 two-letter ISO 3166-1 alpha-2 country codes indicating the countries from which users can vote in the poll; for channel chats only. Use “FT” as a country code to allow users with anonymous numbers to vote. If omitted or empty, then users from any country can participate in the poll.
      */
     country_codes?: string[];
     /**
@@ -3904,7 +3904,7 @@ export interface SendPollParams {
      */
     explanation_parse_mode?: string;
     /**
-     * A JSON-serialized list of special entities that appear in the poll explanation. It can be specified instead of explanation_parse_mode
+     * A JSON-serialized list of special entities that appear in the poll explanation. It can be specified instead of explanation_parse_mode.
      */
     explanation_entities?: TelegramMessageEntity[];
     /**
@@ -3960,7 +3960,7 @@ export interface SendPollParams {
      */
     reply_parameters?: TelegramReplyParameters;
     /**
-     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
+     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.
      */
     reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
         toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
@@ -4025,7 +4025,7 @@ export interface SendStickerParams {
      */
     reply_parameters?: TelegramReplyParameters;
     /**
-     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
+     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.
      */
     reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
         toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
@@ -4114,7 +4114,7 @@ export interface SendVenueParams {
      */
     reply_parameters?: TelegramReplyParameters;
     /**
-     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
+     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.
      */
     reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
         toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
@@ -4223,7 +4223,7 @@ export interface SendVideoParams {
      */
     reply_parameters?: TelegramReplyParameters;
     /**
-     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
+     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.
      */
     reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
         toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
@@ -4256,7 +4256,7 @@ export interface SendVideoNoteParams {
      */
     direct_messages_topic_id?: number;
     /**
-     * Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending video notes by a URL is currently unsupported
+     * Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending video notes by a URL is currently unsupported.
      */
     video_note: TelegramInputFile | string;
     /**
@@ -4296,7 +4296,7 @@ export interface SendVideoNoteParams {
      */
     reply_parameters?: TelegramReplyParameters;
     /**
-     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
+     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.
      */
     reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
         toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
@@ -4373,7 +4373,7 @@ export interface SendVoiceParams {
      */
     reply_parameters?: TelegramReplyParameters;
     /**
-     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
+     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.
      */
     reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
         toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
@@ -4562,11 +4562,11 @@ export type setChatMemberTag = (params: SetChatMemberTagParams) => Promise<true>
  */
 export interface SetChatMenuButtonParams {
     /**
-     * Unique identifier for the target private chat. If not specified, default bot's menu button will be changed
+     * Unique identifier for the target private chat. If not specified, the bot's default menu button will be changed.
      */
     chat_id?: number;
     /**
-     * A JSON-serialized object for the bot's new menu button. Defaults to MenuButtonDefault
+     * A JSON-serialized object for the bot's new menu button. Defaults to MenuButtonDefault.
      */
     menu_button?: TelegramMenuButton;
 }
@@ -4665,7 +4665,7 @@ export interface SetCustomEmojiStickerSetThumbnailParams {
      */
     name: string;
     /**
-     * Custom emoji identifier of a sticker from the sticker set; pass an empty string to drop the thumbnail and use the first sticker as the thumbnail.
+     * Custom emoji identifier of a sticker from the sticker set; pass an empty string to drop the thumbnail and use the first sticker as the thumbnail
      */
     custom_emoji_id?: string;
 }
@@ -4688,7 +4688,7 @@ export interface SetGameScoreParams {
      */
     score: number;
     /**
-     * Pass True if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters
+     * Pass True if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters.
      */
     force?: boolean;
     /**
@@ -4696,15 +4696,15 @@ export interface SetGameScoreParams {
      */
     disable_edit_message?: boolean;
     /**
-     * Required if inline_message_id is not specified. Unique identifier for the target chat
+     * Required if inline_message_id is not specified. Unique identifier for the target chat.
      */
     chat_id?: number;
     /**
-     * Required if inline_message_id is not specified. Identifier of the sent message
+     * Required if inline_message_id is not specified. Identifier of the sent message.
      */
     message_id?: number;
     /**
-     * Required if chat_id and message_id are not specified. Identifier of the inline message
+     * Required if chat_id and message_id are not specified. Identifier of the inline message.
      */
     inline_message_id?: string;
 }
@@ -4777,7 +4777,7 @@ export interface SetMyCommandsParams {
      */
     scope?: TelegramBotCommandScope;
     /**
-     * A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands
+     * A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands.
      */
     language_code?: string;
 }
@@ -5050,7 +5050,7 @@ export type setUserEmojiStatus = (params: SetUserEmojiStatusParams) => Promise<t
  */
 export interface SetWebhookParams {
     /**
-     * HTTPS URL to send updates to. Use an empty string to remove webhook integration
+     * HTTPS URL to send updates to. Use an empty string to remove webhook integration.
      */
     url: string;
     /**
@@ -5098,15 +5098,15 @@ export interface StopMessageLiveLocationParams {
      */
     chat_id?: number | string;
     /**
-     * Required if inline_message_id is not specified. Identifier of the message with live location to stop
+     * Required if inline_message_id is not specified. Identifier of the message with live location to stop.
      */
     message_id?: number;
     /**
-     * Required if chat_id and message_id are not specified. Identifier of the inline message
+     * Required if chat_id and message_id are not specified. Identifier of the inline message.
      */
     inline_message_id?: string;
     /**
-     * A JSON-serialized object for a new inline keyboard.
+     * A JSON-serialized object for a new inline keyboard
      */
     reply_markup?: TelegramInlineKeyboardMarkup | {
         toJSON: () => TelegramInlineKeyboardMarkup;
@@ -5135,7 +5135,7 @@ export interface StopPollParams {
      */
     message_id: number;
     /**
-     * A JSON-serialized object for a new message inline keyboard.
+     * A JSON-serialized object for a new message inline keyboard
      */
     reply_markup?: TelegramInlineKeyboardMarkup | {
         toJSON: () => TelegramInlineKeyboardMarkup;

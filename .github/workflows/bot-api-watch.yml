@@ -24,6 +24,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: enable corepack
+        run: corepack enable
+
       - name: setup node + yarn
         uses: actions/setup-node@v4
         with:

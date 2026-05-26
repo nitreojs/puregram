@@ -19,20 +19,11 @@ const STEPS: Step[] = [
   { label: '@puregram/session augmentations', command: 'yarn', args: ['workspace', '@puregram/session', 'generate:augmentations'] },
 
   // 3. build everything so downstream packages pick up the new types
-  { label: 'workspace build', command: 'yarn', args: ['workspaces', 'run', 'build'] },
+  { label: 'workspace build', command: 'yarn', args: ['build'] },
 
   // 4. tests + lint as a final gate
-  { label: 'tests', command: 'yarn', args: ['vitest', 'run'] },
-  {
-    label: 'lint',
-    command: 'yarn',
-    args: [
-      'eslint', '--no-ignore',
-      'packages/api/src', 'packages/api/tests',
-      'packages/flow/src', 'packages/flow/tests',
-      'packages/session/src', 'packages/session/tests'
-    ]
-  }
+  { label: 'tests', command: 'yarn', args: ['test'] },
+  { label: 'lint', command: 'yarn', args: ['lint'] }
 ]
 
 const ESC = '['

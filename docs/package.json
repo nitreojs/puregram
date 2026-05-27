@@ -1,0 +1,15 @@
+{
+  "name": "docs",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "docs:api": "yarn workspace @puregram/api run emit:docs",
+    "dev": "yarn docs:api && vitepress dev .",
+    "docs:build": "yarn docs:api && vitepress build .",
+    "preview": "vitepress preview ."
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.3"
+  }
+}

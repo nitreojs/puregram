@@ -4,6 +4,7 @@
   "workspaces": [
     "packages/*",
     "packages/storage/storages/*",
+    "docs",
     "examples",
     "examples/webhooks/*",
     "examples/deployment/*",

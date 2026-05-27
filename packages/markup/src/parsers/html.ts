@@ -352,7 +352,7 @@ export function parseHtml (source: string) {
     throw new MarkupParseError(`unclosed tag <${unclosed.canonical}>`, unclosed.sourceOffset, source)
   }
 
-  text = text.replace(/[\s]+$/, '')
+  text = text.trimEnd()
 
   entities.sort((a, b) => a.offset - b.offset)
 
@@ -362,10 +362,29 @@ export function parseHtml (source: string) {
 // 0x02 (STX) survives the html lexer's whitespace collapse and is distinct from the
 // sentinel module's 0x01 marker — sub <br> pre-parse, swap back to '\n' post-parse
 const BR_PLACEHOLDER = '\u0002'
-const BR_RE = /\s*<br\s*\/?\s*>\s*/gi
+// anchored on the <br literal with no ambiguous adjacent \s* — the surrounding
+// \s* that used to live here was a redos vector, so whitespace around the tag
+// gets absorbed by trimming each split boundary instead (linear, backtrack-free)
+const BR_TAG_RE = /<br\s*(?:\/\s*)?>/gi
 
 function preprocessHtmlb (source: string) {
-  return source.replace(BR_RE, BR_PLACEHOLDER)
+  const parts = source.replace(BR_TAG_RE, BR_PLACEHOLDER).split(BR_PLACEHOLDER)
+
+  return parts
+    .map((part, index) => {
+      let result = part
+
+      if (index > 0) {
+        result = result.trimStart()
+      }
+
+      if (index < parts.length - 1) {
+        result = result.trimEnd()
+      }
+
+      return result
+    })
+    .join(BR_PLACEHOLDER)
 }
 
 function postprocessHtmlb (formatted: Formatted) {

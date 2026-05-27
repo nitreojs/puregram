@@ -29,4 +29,12 @@ describe('htmlb', () => {
   it('handles self-closing <br/> and <br /> too', () => {
     expect(htmlb('a<br/>b<br />c').text).toBe('a\nb\nc')
   })
+
+  it('handles extra whitespace inside the tag', () => {
+    expect(htmlb('a<br  >b<br / >c').text).toBe('a\nb\nc')
+  })
+
+  it('stays linear on many tabs inside <br>', () => {
+    expect(htmlb(`<br${'\t'.repeat(100_000)}>`).text).toBe('\n')
+  })
 })

@@ -29,6 +29,7 @@
     "parse": "tsx scripts/parse.ts",
     "emit": "tsx scripts/emit.ts",
     "verify": "tsx scripts/verify.ts",
+    "emit:docs": "tsx scripts/docs.ts",
     "regenerate": "yarn parse && yarn emit"
   },
   "devDependencies": {

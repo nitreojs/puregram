@@ -239,8 +239,16 @@ describe('ChatAdministratorRights', () => {
 describe('InputPollOption', () => {
   it('text wraps the option text', () => {
     expect(InputPollOption.text('first')).toEqual({ text: 'first' })
-    expect(InputPollOption.text('first', { text_parse_mode: 'HTML' }))
+  })
+
+  it('maps friendly extras onto bot-api fields', () => {
+    expect(InputPollOption.text('first', { parseMode: 'HTML' }))
       .toEqual({ text: 'first', text_parse_mode: 'HTML' })
+
+    const entities = [{ type: 'bold' as const, offset: 0, length: 5 }]
+
+    expect(InputPollOption.text('first', { entities }))
+      .toEqual({ text: 'first', text_entities: entities })
   })
 })
 

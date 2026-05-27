@@ -435,7 +435,7 @@ await telegram.api.promoteChatMember({
 <a name='input-poll-option'></a>
 ### `InputPollOption` — `sendPoll(options)`
 
-just `text(...)` for now — bot api will accept richer option shapes (entities, parse_mode) once they roll out
+`text(text, extras?)` — the option text, with optional `textParseMode` / `textEntities` for formatted text and `media` (bot api 10.0) for media-backed options
 
 ```ts
 import { InputPollOption } from 'puregram'
@@ -445,7 +445,7 @@ await telegram.api.sendPoll({
   question: 'pick one',
   options: [
     InputPollOption.text('a'),
-    InputPollOption.text('b')
+    InputPollOption.text('<b>b</b>', { textParseMode: 'HTML' })
   ]
 })
 ```

@@ -1,13 +1,13 @@
 import type { Schema, SchemaMethod } from '../schema-types'
 
 import { renderType } from './render-type'
-import { cell, GENERATED_BANNER } from './shared'
+import { cell, escapeAngles, GENERATED_BANNER } from './shared'
 
 function renderMethod (method: SchemaMethod) {
   const lines: string[] = [`## ${method.name}`, '']
 
   if (method.description) {
-    lines.push(method.description, '')
+    lines.push(escapeAngles(method.description), '')
   }
 
   if (method.arguments.length > 0) {

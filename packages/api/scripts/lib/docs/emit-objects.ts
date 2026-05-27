@@ -1,13 +1,13 @@
 import type { Schema, SchemaObject } from '../schema-types'
 
 import { renderType } from './render-type'
-import { cell, GENERATED_BANNER } from './shared'
+import { cell, escapeAngles, GENERATED_BANNER } from './shared'
 
 function renderObject (object: SchemaObject) {
   const lines: string[] = [`## ${object.name}`, '']
 
   if (object.description) {
-    lines.push(object.description, '')
+    lines.push(escapeAngles(object.description), '')
   }
 
   if (object.kind === 'object') {

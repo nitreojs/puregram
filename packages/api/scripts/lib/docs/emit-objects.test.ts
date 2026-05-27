@@ -59,4 +59,22 @@ describe('emitObjectsPage', () => {
   it('renders an enum as a value list', () => {
     expect(emitObjectsPage(schema)).toContain('one of: `private`, `group`')
   })
+
+  it('escapes angle brackets in descriptions', () => {
+    const page = emitObjectsPage({
+      ...schema,
+      objects: [{
+        kind: 'object',
+        name: 'Foo',
+        description: 'wrap <x> please',
+        fields: [
+          { name: 'bar', description: 'value <y>', required: false, type: { kind: 'string' } }
+        ]
+      }]
+    })
+
+    expect(page).toContain('wrap &lt;x&gt; please')
+    expect(page).toContain('value &lt;y&gt;')
+    expect(page).not.toContain('<x>')
+  })
 })

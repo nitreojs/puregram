@@ -49,4 +49,23 @@ describe('emitMethodsPage', () => {
   it('links to the bot api reference', () => {
     expect(emitMethodsPage(schema)).toContain('https://core.telegram.org/bots/api#sendmessage')
   })
+
+  it('escapes angle brackets in descriptions so vue does not parse them as tags', () => {
+    const page = emitMethodsPage({
+      ...schema,
+      methods: [{
+        name: 'createNewStickerSet',
+        description: 'add <bot_username> to the name',
+        multipartOnly: false,
+        arguments: [
+          { name: 'name', description: 'use <bot_username> here', required: true, type: { kind: 'string' } }
+        ],
+        returnType: { kind: 'true' }
+      }]
+    })
+
+    expect(page).toContain('add &lt;bot_username&gt; to the name')
+    expect(page).toContain('use &lt;bot_username&gt; here')
+    expect(page).not.toContain('<bot_username>')
+  })
 })

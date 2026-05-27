@@ -435,7 +435,7 @@ await telegram.api.promoteChatMember({
 <a name='input-poll-option'></a>
 ### `InputPollOption` — `sendPoll(options)`
 
-`text(text, extras?)` — the option text, with optional `textParseMode` / `textEntities` for formatted text and `media` (bot api 10.0) for media-backed options
+`text(text, extras?)` — the option text, with optional `parseMode` / `entities` for formatted text and `media` (bot api 10.0) for media-backed options
 
 ```ts
 import { InputPollOption } from 'puregram'
@@ -445,7 +445,7 @@ await telegram.api.sendPoll({
   question: 'pick one',
   options: [
     InputPollOption.text('a'),
-    InputPollOption.text('<b>b</b>', { textParseMode: 'HTML' })
+    InputPollOption.text('<b>b</b>', { parseMode: 'HTML' })
   ]
 })
 ```
@@ -1215,7 +1215,7 @@ see the [debug logs](#debug-logs) section. tldr: `PUREGRAM_DEBUG='puregram:*' no
 
 ### how do i migrate from v2?
 
-honestly? by hand. the api shape changed a lot — `Context` is gone, mixins are gone, `telegram.updates.on` became `telegram.onMessage` / `telegram.onCallbackQuery` / etc, plugins are first-class via `.extend()`, sessions/scenes/hear/prompt all live in their own packages with their own redesigned apis. there is no codemod and there will not be one. write the migration by hand, look at the new examples once they land, file an issue if something is genuinely unclear
+honestly? by hand. the api shape changed a lot — `Context` is gone, mixins are gone, `telegram.updates.on` became `telegram.onMessage` / `telegram.onCallbackQuery` / etc, plugins are first-class via `.extend()`, sessions/scenes/hear/prompt all live in their own packages with their own redesigned apis. there is no codemod and there will not be one. write the migration by hand, lean on the [examples][examples] and per-package READMEs, file an issue if something is genuinely unclear
 
 ### what happens to v2?
 

@@ -43,3 +43,27 @@ jobs:
 
       - name: test
         run: yarn test
+
+  docs:
+    name: docs build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v6
+
+      - name: enable corepack
+        run: corepack enable
+
+      - name: setup node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: yarn
+
+      - name: install
+        run: yarn install --immutable
+
+      - name: build docs
+        run: yarn workspace docs docs:build

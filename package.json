@@ -22,6 +22,7 @@
     "eslint-plugin-n": "^16.0.0",
     "eslint-plugin-promise": "^6.0.0",
     "husky": "^8.0.1",
+    "lint-staged": "^17.0.5",
     "tsx": "^4.19.0",
     "typescript": "^5.3.3"
   },
@@ -33,6 +34,9 @@
     "test": "yarn workspaces foreach -A run test",
     "clean": "yarn workspaces foreach -A run clean",
     "regenerate-all": "tsx scripts/regenerate-all.ts"
+  },
+  "lint-staged": {
+    "{packages/*/src,packages/storage/storages/*/src,packages/*/scripts}/**/*.ts": "eslint"
   },
   "packageManager": "yarn@4.5.0+sha512.837566d24eec14ec0f5f1411adb544e892b3454255e61fdef8fd05f3429480102806bac7446bc9daff3896b01ae4b62d00096c7e989f1596f2af10b927532f39"
 }

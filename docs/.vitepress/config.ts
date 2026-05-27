@@ -6,6 +6,10 @@ export default defineConfig({
   lang: 'en-US',
   cleanUrls: true,
 
+  head: [
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }]
+  ],
+
   themeConfig: {
     nav: [
       { text: 'guide', link: '/guide/getting-started' },

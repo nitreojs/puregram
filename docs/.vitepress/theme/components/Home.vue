@@ -152,21 +152,25 @@ const cards = [
   color: var(--acc);
 }
 
-:global(html.dark) .home { background: linear-gradient(to bottom, #111, #151515); }
-:global(html.dark) .name { color: #ccc; }
-:global(html.dark) .tagline { color: #666; }
-:global(html.dark) .btn { border-color: #333; color: #bbb; }
-:global(html.dark) .btn:hover,
-:global(html.dark) .btn.primary { border-color: var(--acc); color: var(--acc); }
-:global(html.dark) .card { background: #181818; border-color: #262626; }
-:global(html.dark) .card-title { color: #ddd; }
-:global(html.dark) .blurb { color: #777; }
-:global(html.dark) .kicker { color: #666; }
-
 @media (max-width: 720px) {
   .cards {
     grid-template-columns: 1fr;
     max-width: 420px;
   }
 }
+</style>
+
+<style>
+/* dark overrides live unscoped + anchored under .home — vue strips the trailing
+   selector off a scoped :global(.dark) descendant, so they can't be scoped here */
+html.dark .home { background: linear-gradient(to bottom, #111, #151515); }
+html.dark .home .name { color: #ccc; }
+html.dark .home .tagline { color: #666; }
+html.dark .home .btn { border-color: #333; color: #bbb; }
+html.dark .home .btn:hover,
+html.dark .home .btn.primary { border-color: var(--acc); color: var(--acc); }
+html.dark .home .card { background: #181818; border-color: #262626; }
+html.dark .home .card-title { color: #ddd; }
+html.dark .home .blurb { color: #777; }
+html.dark .home .kicker { color: #666; }
 </style>

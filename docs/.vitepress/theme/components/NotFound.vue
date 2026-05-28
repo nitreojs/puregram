@@ -110,9 +110,14 @@ onUnmounted(() => {
   color: var(--acc);
 }
 
-:global(html.dark) .notfound { background: linear-gradient(to bottom, #111, #151515); }
-:global(html.dark) .punch { color: #ddd; }
-:global(html.dark) .btn { border-color: #333; color: #bbb; }
-:global(html.dark) .btn:hover,
-:global(html.dark) .btn.primary { border-color: var(--acc); color: var(--acc); }
+</style>
+
+<style>
+/* dark overrides live unscoped + anchored under .notfound — vue strips the trailing
+   selector off a scoped :global(.dark) descendant, so they can't be scoped here */
+html.dark .notfound { background: linear-gradient(to bottom, #111, #151515); }
+html.dark .notfound .punch { color: #ddd; }
+html.dark .notfound .btn { border-color: #333; color: #bbb; }
+html.dark .notfound .btn:hover,
+html.dark .notfound .btn.primary { border-color: var(--acc); color: var(--acc); }
 </style>

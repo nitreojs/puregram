@@ -138,6 +138,7 @@ standalone folders under `webhooks/`, `deployment/`, `integrations/`, `recipes/`
 ## recipes (standalone)
 
 - [wizard bot — scenes + session + inline keyboards + callback-data](recipes/wizard-bot/)
+- [order wizard — branching scene: hub menu, sub-screens, in-place toggle, per-field edit, submit-to-chat](recipes/order-wizard/)
 - [inline-search bot — paginated inline mode + chosen-result analytics](recipes/inline-search-bot/)
 - [premium bot — Telegram Stars: one-time + subscription + refund](recipes/premium-bot/)
 - [mini-app bot — fastify + initData validation + session-persisted settings](recipes/mini-app-bot/)

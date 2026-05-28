@@ -5,15 +5,15 @@ description: auto-generated reference for every telegram bot api method and obje
 
 # api reference
 
-the api reference is auto-generated from the pinned telegram bot api schema that ships with `@puregram/api`. it reflects exactly what the running version supports — no manual curation, no drift.
+the api reference is auto-generated from the pinned telegram bot api schema that ships with `@puregram/api`. it reflects exactly what the running version supports — no manual curation, no drift
 
 ## the three-layer api
 
-puregram exposes the bot api at three levels of abstraction (see the three-layer api concept):
+puregram exposes the bot api at three levels of abstraction (see [the three-layer api](/guide/concepts/three-layer-api)):
 
-- **`tg.api.X(params)`** — raw layer. calls the bot api directly and returns the raw bot-api type. use this when you need full control or the method isn't covered by a curated shortcut.
-- **`tg.send(args)`** — curated layer. a hand-selected set of high-level helpers that wrap the response into a `Message` (or similar) for chainability. covers the most common send operations.
-- **`update.send(args)` / `update.reply(args)`** — per-kind shortcuts. the same curated helpers, but with "anchors" pre-filled from the current update's payload (e.g. `chat_id` is taken from `update.raw.chat.id`). this is what you reach for in most handlers.
+- **`tg.api.X(params)`** — raw layer. calls the bot api directly and returns the raw bot-api type. use this when you need full control or the method isn't covered by a curated shortcut
+- **`tg.send(args)`** — curated layer. friendlier, hand-picked helpers for the most common methods; like `tg.api.X`, they return the raw `Telegram*` result (no wrapper)
+- **`update.send(args)` / `update.reply(args)`** — per-kind shortcuts. the same curated helpers, but with "anchors" pre-filled from the current update's payload (e.g. `chat_id` is taken from `update.raw.chat.id`). this is what you reach for in most handlers
 
 ## reference pages
 

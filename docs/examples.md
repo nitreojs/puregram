@@ -5,7 +5,7 @@ description: runnable puregram bot examples organized by topic, recipes, and web
 
 # examples
 
-the [`examples/`](https://github.com/nitreojs/puregram/tree/v3/examples) directory in the repo contains runnable bots you can clone and run locally. each example is self-contained — set your `TOKEN` env var and `node` it.
+the [`examples/`](https://github.com/nitreojs/puregram/tree/v3/examples) directory in the repo contains runnable bots you can clone and run locally. each example is self-contained — set your `TOKEN` env var and `node` it
 
 ## by topic
 

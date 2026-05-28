@@ -8,10 +8,10 @@ hero:
   actions:
     - theme: brand
       text: get started
-      link: /guide/getting-started
+      link: /guide/getting-started/introduction
     - theme: alt
       text: api reference
-      link: /api/
+      link: /reference/api
 
 features:
   - title: type-safe

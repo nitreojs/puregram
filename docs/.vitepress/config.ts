@@ -13,8 +13,8 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: 'guide', link: '/guide/getting-started' },
-      { text: 'api', link: '/api/' },
-      { text: 'examples', link: 'https://github.com/nitreojs/puregram/tree/v3/examples' }
+      { text: 'api', link: '/reference/api' },
+      { text: 'examples', link: '/examples' }
     ],
 
     sidebar: {
@@ -22,15 +22,102 @@ export default defineConfig({
         {
           text: 'getting started',
           items: [
-            { text: 'introduction', link: '/guide/getting-started' }
+            { text: 'introduction', link: '/guide/getting-started/introduction' },
+            { text: 'installation', link: '/guide/getting-started/installation' },
+            { text: 'your first bot', link: '/guide/getting-started/your-first-bot' },
+            { text: 'ai assistance', link: '/guide/getting-started/ai-assistance' }
+          ]
+        },
+        {
+          text: 'core concepts',
+          items: [
+            { text: 'the Telegram client', link: '/guide/concepts/the-telegram-client' },
+            { text: 'updates', link: '/guide/concepts/updates' },
+            { text: 'the three-layer api', link: '/guide/concepts/three-layer-api' },
+            { text: 'shortcuts', link: '/guide/concepts/shortcuts' },
+            { text: 'plugins & .extend', link: '/guide/concepts/plugins' },
+            { text: 'custom updates', link: '/guide/concepts/custom-updates' },
+            { text: 'error handling', link: '/guide/concepts/error-handling' },
+            { text: 'debugging', link: '/guide/concepts/debugging' }
+          ]
+        },
+        {
+          text: 'handling updates',
+          items: [
+            { text: 'dispatch & filters', link: '/guide/handling-updates/dispatch-and-filters' },
+            { text: 'priority & propagation', link: '/guide/handling-updates/priority-and-propagation' },
+            { text: 'middlewares', link: '/guide/handling-updates/middlewares' },
+            { text: 'hooks', link: '/guide/handling-updates/hooks' },
+            { text: 'service events', link: '/guide/handling-updates/service-events' }
+          ]
+        },
+        {
+          text: 'working with telegram',
+          items: [
+            { text: 'messages & media', link: '/guide/telegram/messages-and-media' },
+            { text: 'keyboards', link: '/guide/telegram/keyboards' },
+            { text: 'formatting text', link: '/guide/telegram/formatting-text' },
+            { text: 'message extras', link: '/guide/telegram/message-extras' },
+            { text: 'chat & admin', link: '/guide/telegram/chat-and-admin' },
+            { text: 'polls & stickers', link: '/guide/telegram/polls-and-stickers' },
+            { text: 'payments', link: '/guide/telegram/payments' },
+            { text: 'inline mode', link: '/guide/telegram/inline-mode' }
+          ]
+        },
+        {
+          text: 'deployment',
+          items: [
+            { text: 'polling', link: '/guide/deployment/polling' },
+            { text: 'webhook', link: '/guide/deployment/webhook' },
+            { text: 'resilience', link: '/guide/deployment/resilience' }
+          ]
+        },
+        { text: 'migrating from v2', link: '/guide/migrating-from-v2' },
+        { text: 'faq', link: '/guide/faq' }
+      ],
+      '/plugins/': [
+        {
+          text: 'flow',
+          items: [
+            { text: 'overview', link: '/plugins/flow/' },
+            { text: 'waiters', link: '/plugins/flow/waiters' },
+            { text: 'prompt', link: '/plugins/flow/prompt' },
+            { text: 'collect media group', link: '/plugins/flow/collect-media-group' },
+            { text: 'persistent flows', link: '/plugins/flow/persistent-flows' }
+          ]
+        },
+        {
+          text: 'markup',
+          items: [
+            { text: 'overview', link: '/plugins/markup/' },
+            { text: 'builders', link: '/plugins/markup/builders' },
+            { text: 'parsers', link: '/plugins/markup/parsers' },
+            { text: 'codec', link: '/plugins/markup/codec' }
+          ]
+        },
+        {
+          text: 'plugins',
+          items: [
+            { text: 'scenes', link: '/plugins/scenes' },
+            { text: 'session', link: '/plugins/session' },
+            { text: 'storage', link: '/plugins/storage' },
+            { text: 'callback-data', link: '/plugins/callback-data' },
+            { text: 'test', link: '/plugins/test' },
+            { text: 'media-cacher', link: '/plugins/media-cacher' },
+            { text: 'rate-limit', link: '/plugins/rate-limit' },
+            { text: 'throttler', link: '/plugins/throttler' },
+            { text: 'file-id', link: '/plugins/file-id' },
+            { text: 'inline-message-id', link: '/plugins/inline-message-id' },
+            { text: 'stream', link: '/plugins/stream' },
+            { text: 'utils', link: '/plugins/utils' }
           ]
         }
       ],
-      '/api/': [
+      '/reference/': [
         {
           text: 'api reference',
           items: [
-            { text: 'overview', link: '/api/' },
+            { text: 'overview', link: '/reference/api' },
             { text: 'methods', link: '/api/methods' },
             { text: 'objects', link: '/api/objects' }
           ]

@@ -1,5 +1,22 @@
 import { defineConfig } from 'vitepress'
 
+// shared by both /reference/ (overview) and /api/ (generated pages) so the
+// generated methods/objects/updates/filters pages show the same sidebar
+const referenceSidebar = [
+  {
+    text: '★ api reference',
+    items: [
+      { text: 'overview', link: '/reference/api' },
+      { text: 'methods', link: '/api/methods' },
+      { text: 'objects', link: '/api/objects' },
+      { text: 'updates', link: '/api/updates' },
+      { text: 'filters', link: '/api/filters' },
+      { text: 'errors', link: '/reference/errors' },
+      { text: 'Telegram client', link: '/reference/client' }
+    ]
+  }
+]
+
 export default defineConfig({
   title: 'puregram',
   description: 'powerful and modern telegram bot api sdk for node.js and typescript',
@@ -121,16 +138,8 @@ export default defineConfig({
           ]
         }
       ],
-      '/reference/': [
-        {
-          text: '★ api reference',
-          items: [
-            { text: 'overview', link: '/reference/api' },
-            { text: 'methods', link: '/api/methods' },
-            { text: 'objects', link: '/api/objects' }
-          ]
-        }
-      ]
+      '/reference/': referenceSidebar,
+      '/api/': referenceSidebar
     },
 
     search: {

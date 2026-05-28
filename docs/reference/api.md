@@ -17,5 +17,14 @@ puregram exposes the bot api at three levels of abstraction (see [the three-laye
 
 ## reference pages
 
+generated from the pinned schema:
+
 - [methods](/api/methods) — every telegram bot api method with parameter tables and return types
 - [objects](/api/objects) — every telegram bot api object (types, interfaces, enums)
+- [updates](/api/updates) — every wrapped update kind, its handler, shortcuts and helpers
+- [filters](/api/filters) — the codegen'd `hasX` presence filters and what each narrows
+
+hand-maintained:
+
+- [errors](/reference/errors) — the error classes puregram throws
+- [Telegram client](/reference/client) — the public method index for the `Telegram` class

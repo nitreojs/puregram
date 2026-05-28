@@ -37,7 +37,7 @@ pnpm add @puregram/stream
 
 :::
 
-optionally, add `@puregram/markup` if you want `parseMode` support:
+optionally, add [`@puregram/markup`](/plugins/markup/) if you want `parseMode` support:
 
 ```sh
 yarn add @puregram/markup

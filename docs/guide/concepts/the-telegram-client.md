@@ -73,7 +73,7 @@ tg.stopPolling()
 await tg.startWebhook({ url: 'https://example.com/bot', port: 3000 })
 ```
 
-`tg.startPolling()` accepts a `StartPollingOptions` object for fine-tuning the polling loop (allowed updates, timeout, limit). details are in the polling deployment guide
+`tg.startPolling()` accepts a `StartPollingOptions` object for fine-tuning the polling loop (allowed updates, timeout, limit). details are in the [polling deployment guide](/guide/deployment/polling)
 
 `tg.bot` is populated after the first `startPolling()` (or `start()`) call via a `getMe` request. if you pass a `bot` option, the `getMe` call is skipped and `tg.bot` is pre-populated immediately
 

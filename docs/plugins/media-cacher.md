@@ -29,7 +29,7 @@ pnpm add @puregram/media-cacher
 
 :::
 
-`@puregram/media-cacher` re-exports `MemoryStorage` and `KVStorage` from `@puregram/storage` — install `@puregram/storage` separately only if you need `LruMemoryStorage` / `TtlStorage` or want to share one storage instance across multiple plugins
+`@puregram/media-cacher` re-exports `MemoryStorage` and `KVStorage` from [`@puregram/storage`](/plugins/storage) — install `@puregram/storage` separately only if you need `LruMemoryStorage` / `TtlStorage` or want to share one storage instance across multiple plugins
 
 ## quick start
 

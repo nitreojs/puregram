@@ -5,7 +5,7 @@ description: shared KVStorage and TtlStorage interfaces, two batteries-included 
 
 # `@puregram/storage`
 
-every plugin in the puregram ecosystem that needs persistent state — `@puregram/session`, `@puregram/scenes`, `@puregram/flow` (persistent flows), `@puregram/media-cacher`, `@puregram/rate-limit` — talks to its backing store through the same tiny interface defined here. write your adapter once, plug it into any plugin
+every plugin in the puregram ecosystem that needs persistent state — [`@puregram/session`](/plugins/session), [`@puregram/scenes`](/plugins/scenes), [`@puregram/flow`](/plugins/flow/) (persistent flows), [`@puregram/media-cacher`](/plugins/media-cacher), [`@puregram/rate-limit`](/plugins/rate-limit) — talks to its backing store through the same tiny interface defined here. write your adapter once, plug it into any plugin
 
 ## when to use
 

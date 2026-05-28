@@ -16,7 +16,7 @@ import type { Priority } from 'puregram'
 
 | level | default for | runs before |
 | --- | --- | --- |
-| `'high'` | plugins like `@puregram/flow`'s `waitFor` | everything else |
+| `'high'` | plugins like [`@puregram/flow`](/plugins/flow/)'s `waitFor` | everything else |
 | `'normal'` | all `tg.on<Kind>` and `tg.onUpdate` registrations | `tg.on<Kind>` handlers and `'low'` middleware |
 | `'low'` | catch-all fallbacks | nothing |
 

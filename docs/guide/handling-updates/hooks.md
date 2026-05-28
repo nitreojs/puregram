@@ -147,7 +147,7 @@ tg.useHook('onBeforeRequest', async (ctx: RequestContext, next) => {
 | **registered with** | `tg.use(fn)` or `tg.useHook('onUpdate', fn)` | `tg.useHook('onBeforeRequest', fn)` etc |
 | **typical use** | auth, rate-limit, session load, logging updates | inject default params, swap sources, log api calls, retry logic |
 
-a plugin like `@puregram/markup` uses `onBeforeRequest` to unwrap its tagged-template formatted text into `entities` before the api call goes out. `@puregram/media-cacher` uses it to swap `MediaSource.path(...)` values for cached `file_id`s. these hooks fire at the api boundary — dispatch middleware never sees them
+a plugin like [`@puregram/markup`](/plugins/markup/) uses `onBeforeRequest` to unwrap its tagged-template formatted text into `entities` before the api call goes out. [`@puregram/media-cacher`](/plugins/media-cacher) uses it to swap `MediaSource.path(...)` values for cached `file_id`s. these hooks fire at the api boundary — dispatch middleware never sees them
 
 ::: tip keep hooks and middlewares separate
 hooks and middlewares serve different purposes and run at different points. a request hook that calls `tg.api.sendMessage` from inside `onBeforeRequest` will re-enter the hook pipeline — that's intentional, but be aware of it. dispatch middlewares run once per incoming update and never touch the outgoing request pipeline

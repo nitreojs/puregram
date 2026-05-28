@@ -5,7 +5,7 @@ description: parse_mode (HTML, Markdown, MarkdownV2), message entities, spoilers
 
 # formatting text
 
-telegram supports rich text via `parse_mode` or explicit `entities`. the simplest path is `parse_mode: 'HTML'` with standard html tags. for programmatic formatting, `@puregram/markup` gives you a tagged-template builder
+telegram supports rich text via `parse_mode` or explicit `entities`. the simplest path is `parse_mode: 'HTML'` with standard html tags. for programmatic formatting, [`@puregram/markup`](/plugins/markup/) gives you a tagged-template builder
 
 ```ts
 tg.onMessage((message) => {

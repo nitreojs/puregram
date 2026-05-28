@@ -34,7 +34,7 @@ pnpm add @puregram/rate-limit
 
 :::
 
-`@puregram/rate-limit` re-exports `MemoryStorage`, `LruMemoryStorage`, `KVStorage`, and `LruMemoryStorageOptions` from `@puregram/storage` — no separate install needed
+`@puregram/rate-limit` re-exports `MemoryStorage`, `LruMemoryStorage`, `KVStorage`, and `LruMemoryStorageOptions` from [`@puregram/storage`](/plugins/storage) — no separate install needed
 
 ## quick start
 

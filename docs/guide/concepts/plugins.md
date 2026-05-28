@@ -5,7 +5,7 @@ description: how puregram plugins work — runtime + type extension via tg.exten
 
 # plugins & `.extend`
 
-a **plugin** is a self-contained piece of behavior that attaches to `tg` under its own namespace. `@puregram/session`, `@puregram/scenes`, `@puregram/flow`, `@puregram/markup` — every official satellite is a plugin. the api is `tg.extend(plugin)`, it's chainable, and each call narrows the type of `tg` so you never need `declare module 'puregram'` augmentations
+a **plugin** is a self-contained piece of behavior that attaches to `tg` under its own namespace. [`@puregram/session`](/plugins/session), [`@puregram/scenes`](/plugins/scenes), [`@puregram/flow`](/plugins/flow/), [`@puregram/markup`](/plugins/markup/) — every official satellite is a plugin. the api is `tg.extend(plugin)`, it's chainable, and each call narrows the type of `tg` so you never need `declare module 'puregram'` augmentations
 
 ```ts
 import { Telegram } from 'puregram'

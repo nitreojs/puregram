@@ -31,7 +31,7 @@ pnpm add @puregram/session @puregram/scenes
 
 :::
 
-`@puregram/scenes` depends on `@puregram/session` — install both. `dependsOn: ['session']` will throw `PluginMissingDep` at start if you forget
+`@puregram/scenes` depends on [`@puregram/session`](/plugins/session) — install both. `dependsOn: ['session']` will throw `PluginMissingDep` at start if you forget
 
 ## quick start
 

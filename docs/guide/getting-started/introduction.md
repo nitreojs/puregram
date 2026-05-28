@@ -30,18 +30,18 @@ that's the whole thing — create a client, register a handler, start polling
 - typed access to every bot api method via `tg.api.X(params)`
 - wrapped update classes generated from the bot api schema — `message.text`, `message.from`, `callbackQuery.data`
 - a three-layer api: raw `tg.api.X`, curated `tg.send(...)`, and per-update shortcuts like `message.send(...)`
-- a plugin system — `tg.extend(plugin)` adds behavior at both runtime and type level
+- a [plugin system](/guide/concepts/plugins) — `tg.extend(plugin)` adds behavior at both runtime and type level
 - long-polling and webhook transports
 
 **there is no built-in command router, scene manager, or fsm in core.** those live in opt-in satellite packages:
 
 | need | package |
 |---|---|
-| persistent sessions | `@puregram/session` |
-| multi-step wizards | `@puregram/scenes` |
-| waitFor / prompt / persistent flows | `@puregram/flow` |
-| tagged-template text formatting | `@puregram/markup` |
-| typed callback-data payloads | `@puregram/callback-data` |
+| persistent sessions | [`@puregram/session`](/plugins/session) |
+| multi-step wizards | [`@puregram/scenes`](/plugins/scenes) |
+| waitFor / prompt / persistent flows | [`@puregram/flow`](/plugins/flow/) |
+| tagged-template text formatting | [`@puregram/markup`](/plugins/markup/) |
+| typed callback-data payloads | [`@puregram/callback-data`](/plugins/callback-data) |
 
 install any of them via `tg.extend(plugin)` — no config files, no magic
 
@@ -66,7 +66,7 @@ puregram v3 is for developers who:
 - are migrating from v2 or starting fresh
 
 ::: tip not your first bot?
-if you're coming from v2, the core concepts are the same but a lot of names changed — `Context` is `Update`, `telegram.updates.on` is `telegram.onMessage`, plugins are via `.extend()`. there is no compat layer. a migration guide will be available in the guide
+if you're coming from v2, the core concepts are the same but a lot of names changed — `Context` is `Update`, `telegram.updates.on` is `telegram.onMessage`, plugins are via `.extend()`. there is no compat layer. a [migration guide](/guide/migrating-from-v2) is available
 :::
 
 ::: info esm requirement

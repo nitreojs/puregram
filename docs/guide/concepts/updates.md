@@ -91,7 +91,7 @@ each update kind is its own class — `MessageUpdate`, `CallbackQueryUpdate`, `I
 | `chat_join_request` | `ChatJoinRequestUpdate` | join request in a private channel/group |
 | `message_reaction` | `MessageReactionUpdate` | user reacted to a message |
 
-there are ~50 kinds in total including service events (derived from `TelegramMessage` payloads like `new_chat_members`, `pinned_message`). the full map lives in `UpdateKindMap` in `@puregram/api`
+there are ~50 kinds in total including [service events](/guide/handling-updates/service-events) (derived from `TelegramMessage` payloads like `new_chat_members`, `pinned_message`). the full map lives in `UpdateKindMap` in `@puregram/api`
 
 ## dispatcher shortcuts
 
@@ -107,7 +107,7 @@ tg.onChatMember((update) => { /* ... */ })
 tg.onUpdate((update) => { /* ... */ })
 ```
 
-the dispatcher accepts an optional filter as the first argument — details are in the dispatch & filters guide
+the dispatcher accepts an optional filter as the first argument — details are in the [dispatch & filters guide](/guide/handling-updates/dispatch-and-filters)
 
 ## see also
 

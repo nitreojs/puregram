@@ -63,7 +63,7 @@ the full `reply*` family — `reply`, `replyWithPhoto`, `replyWithVideo`, `reply
 | v2 package | status | v3 path |
 |---|---|---|
 | `@puregram/hear` | gone | compose a `tg.command(...)` or `tg.onMessage(filter, handler)` — filter is userland |
-| `@puregram/prompt` | gone | folded into `@puregram/flow` as `flow.prompt(...)` |
+| `@puregram/prompt` | gone | folded into [`@puregram/flow`](/plugins/flow/) as `flow.prompt(...)` |
 
 `mergeMediaEvents` (a `Telegram` constructor option in v2) is gone as a core option. in v3, media group collection lives in `@puregram/flow` as `collectMediaGroup`
 

@@ -6,8 +6,12 @@ export default defineConfig({
   lang: 'en-US',
   cleanUrls: true,
 
+  // docs are served at puregram.cool/docs (landing keeps the root)
+  base: '/docs/',
+
   head: [
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }]
+    // base does not auto-prefix head entries — point at the public asset under base
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/docs/logo.svg' }]
   ],
 
   themeConfig: {

@@ -31,4 +31,43 @@ describe('emitUpdates', () => {
     expect(out).toContain('import type { TelegramLike } from "../telegram-like"')
     expect(out).toContain('import { INSPECT, makeInspect } from "./inspect"')
   })
+
+  it('emits reply / replyWith<Media> twins that fill and merge reply_parameters', async () => {
+    const schema = JSON.parse(
+      await readFile(resolve(__dirname, '../fixtures/small-schema.json'), 'utf8')
+    ) as Schema
+
+    const replyParam = {
+      name: 'reply_parameters',
+      description: 'description of the message to reply to',
+      required: false,
+      type: { kind: 'reference' as const, name: 'ReplyParameters' }
+    }
+
+    schema.methods.find(m => m.name === 'sendMessage')!.arguments.push({ ...replyParam })
+    schema.methods.push({
+      name: 'sendPhoto',
+      description: 'Sends a photo.',
+      multipartOnly: false,
+      arguments: [
+        { name: 'chat_id', description: 'Target chat id.', required: true, type: { kind: 'union', of: [{ kind: 'integer' }, { kind: 'string' }] } },
+        { name: 'photo', description: 'Photo to send.', required: true, type: { kind: 'string' } },
+        { ...replyParam }
+      ],
+      returnType: { kind: 'reference', name: 'Message' }
+    })
+    schema.objects.push({
+      kind: 'object',
+      name: 'ReplyParameters',
+      description: 'Reply parameters.',
+      fields: [{ name: 'message_id', description: 'Replied message id.', required: true, type: { kind: 'integer' } }]
+    })
+
+    const out = emitUpdates(schema)
+
+    expect(out).toContain('reply(text')
+    expect(out).toContain('replyWithPhoto(photo')
+    expect(out).toContain('message_id: this.raw.message_id')
+    expect(out).toContain('...params.reply_parameters')
+  })
 })

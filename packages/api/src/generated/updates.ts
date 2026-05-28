@@ -2398,6 +2398,39 @@ class MessageShared {
         });
     }
     /**
+     * reply shortcut for `tg.api.sendAnimation` — sets `reply_parameters` to this message
+     */
+    replyWithAnimation(animation: TelegramInputFile | string, params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        duration?: number;
+        width?: number;
+        height?: number;
+        thumbnail?: TelegramInputFile | string;
+        caption?: string | Formattable;
+        parse_mode?: string;
+        caption_entities?: TelegramMessageEntity[];
+        show_caption_above_media?: boolean;
+        has_spoiler?: boolean;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        suggested_post_parameters?: TelegramSuggestedPostParameters;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+            toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+        };
+    } = {}) {
+        return this.tg.api.sendAnimation({
+            chat_id: this.raw.chat.id,
+            animation: animation,
+            ...params,
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
+        });
+    }
+    /**
      * shortcut for `tg.api.sendAudio`
      */
     sendAudio(audio: TelegramInputFile | string, params: {
@@ -2425,6 +2458,37 @@ class MessageShared {
             chat_id: this.raw.chat.id,
             audio: audio,
             ...params
+        });
+    }
+    /**
+     * reply shortcut for `tg.api.sendAudio` — sets `reply_parameters` to this message
+     */
+    replyWithAudio(audio: TelegramInputFile | string, params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        caption?: string | Formattable;
+        parse_mode?: string;
+        caption_entities?: TelegramMessageEntity[];
+        duration?: number;
+        performer?: string;
+        title?: string;
+        thumbnail?: TelegramInputFile | string;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        suggested_post_parameters?: TelegramSuggestedPostParameters;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+            toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+        };
+    } = {}) {
+        return this.tg.api.sendAudio({
+            chat_id: this.raw.chat.id,
+            audio: audio,
+            ...params,
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
         });
     }
     /**
@@ -2460,6 +2524,26 @@ class MessageShared {
         });
     }
     /**
+     * reply shortcut for `tg.api.sendChecklist` — sets `reply_parameters` to this message
+     */
+    replyWithChecklist(checklist: TelegramInputChecklist, params: {
+        business_connection_id: string;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        message_effect_id?: string;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: TelegramInlineKeyboardMarkup | {
+            toJSON: () => TelegramInlineKeyboardMarkup;
+        };
+    }) {
+        return this.tg.api.sendChecklist({
+            chat_id: this.raw.chat.id,
+            checklist: checklist,
+            ...params,
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
+        });
+    }
+    /**
      * shortcut for `tg.api.sendContact`
      */
     sendContact(phoneNumber: string, firstName: string, params: {
@@ -2486,6 +2570,33 @@ class MessageShared {
         });
     }
     /**
+     * reply shortcut for `tg.api.sendContact` — sets `reply_parameters` to this message
+     */
+    replyWithContact(phoneNumber: string, firstName: string, params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        last_name?: string;
+        vcard?: string;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        suggested_post_parameters?: TelegramSuggestedPostParameters;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+            toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+        };
+    } = {}) {
+        return this.tg.api.sendContact({
+            chat_id: this.raw.chat.id,
+            phone_number: phoneNumber,
+            first_name: firstName,
+            ...params,
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
+        });
+    }
+    /**
      * shortcut for `tg.api.sendDice`
      */
     sendDice(params: {
@@ -2506,6 +2617,30 @@ class MessageShared {
         return this.tg.api.sendDice({
             chat_id: this.raw.chat.id,
             ...params
+        });
+    }
+    /**
+     * reply shortcut for `tg.api.sendDice` — sets `reply_parameters` to this message
+     */
+    replyWithDice(params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        emoji?: string;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        suggested_post_parameters?: TelegramSuggestedPostParameters;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+            toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+        };
+    } = {}) {
+        return this.tg.api.sendDice({
+            chat_id: this.raw.chat.id,
+            ...params,
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
         });
     }
     /**
@@ -2537,6 +2672,35 @@ class MessageShared {
         });
     }
     /**
+     * reply shortcut for `tg.api.sendDocument` — sets `reply_parameters` to this message
+     */
+    replyWithDocument(document: TelegramInputFile | string, params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        thumbnail?: TelegramInputFile | string;
+        caption?: string | Formattable;
+        parse_mode?: string;
+        caption_entities?: TelegramMessageEntity[];
+        disable_content_type_detection?: boolean;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        suggested_post_parameters?: TelegramSuggestedPostParameters;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+            toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+        };
+    } = {}) {
+        return this.tg.api.sendDocument({
+            chat_id: this.raw.chat.id,
+            document: document,
+            ...params,
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
+        });
+    }
+    /**
      * shortcut for `tg.api.sendGame`
      */
     sendGame(gameShortName: string, params: {
@@ -2555,6 +2719,28 @@ class MessageShared {
             chat_id: this.raw.chat.id,
             game_short_name: gameShortName,
             ...params
+        });
+    }
+    /**
+     * reply shortcut for `tg.api.sendGame` — sets `reply_parameters` to this message
+     */
+    replyWithGame(gameShortName: string, params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: TelegramInlineKeyboardMarkup | {
+            toJSON: () => TelegramInlineKeyboardMarkup;
+        };
+    } = {}) {
+        return this.tg.api.sendGame({
+            chat_id: this.raw.chat.id,
+            game_short_name: gameShortName,
+            ...params,
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
         });
     }
     /**
@@ -2616,6 +2802,49 @@ class MessageShared {
         });
     }
     /**
+     * reply shortcut for `tg.api.sendInvoice` — sets `reply_parameters` to this message
+     */
+    replyWithInvoice(params: {
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        title: string;
+        description: string;
+        payload: string;
+        provider_token?: string;
+        currency: string;
+        prices: TelegramLabeledPrice[];
+        max_tip_amount?: number;
+        suggested_tip_amounts?: number[];
+        start_parameter?: string;
+        provider_data?: string;
+        photo_url?: string;
+        photo_size?: number;
+        photo_width?: number;
+        photo_height?: number;
+        need_name?: boolean;
+        need_phone_number?: boolean;
+        need_email?: boolean;
+        need_shipping_address?: boolean;
+        send_phone_number_to_provider?: boolean;
+        send_email_to_provider?: boolean;
+        is_flexible?: boolean;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        suggested_post_parameters?: TelegramSuggestedPostParameters;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: TelegramInlineKeyboardMarkup | {
+            toJSON: () => TelegramInlineKeyboardMarkup;
+        };
+    }) {
+        return this.tg.api.sendInvoice({
+            chat_id: this.raw.chat.id,
+            ...params,
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
+        });
+    }
+    /**
      * shortcut for `tg.api.sendLivePhoto`
      */
     sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: {
@@ -2642,6 +2871,36 @@ class MessageShared {
             live_photo: livePhoto,
             photo: photo,
             ...params
+        });
+    }
+    /**
+     * reply shortcut for `tg.api.sendLivePhoto` — sets `reply_parameters` to this message
+     */
+    replyWithLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        caption?: string | Formattable;
+        parse_mode?: string;
+        caption_entities?: TelegramMessageEntity[];
+        show_caption_above_media?: boolean;
+        has_spoiler?: boolean;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        suggested_post_parameters?: TelegramSuggestedPostParameters;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+            toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+        };
+    } = {}) {
+        return this.tg.api.sendLivePhoto({
+            chat_id: this.raw.chat.id,
+            live_photo: livePhoto,
+            photo: photo,
+            ...params,
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
         });
     }
     /**
@@ -2673,6 +2932,35 @@ class MessageShared {
         });
     }
     /**
+     * reply shortcut for `tg.api.sendLocation` — sets `reply_parameters` to this message
+     */
+    replyWithLocation(latitude: number, longitude: number, params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        horizontal_accuracy?: number;
+        live_period?: number;
+        heading?: number;
+        proximity_alert_radius?: number;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        suggested_post_parameters?: TelegramSuggestedPostParameters;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+            toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+        };
+    } = {}) {
+        return this.tg.api.sendLocation({
+            chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            ...params,
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
+        });
+    }
+    /**
      * shortcut for `tg.api.sendMediaGroup`
      */
     sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: {
@@ -2689,6 +2977,26 @@ class MessageShared {
             chat_id: this.raw.chat.id,
             media: media,
             ...params
+        });
+    }
+    /**
+     * reply shortcut for `tg.api.sendMediaGroup` — sets `reply_parameters` to this message
+     */
+    replyWithMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        reply_parameters?: TelegramReplyParameters;
+    } = {}) {
+        return this.tg.api.sendMediaGroup({
+            chat_id: this.raw.chat.id,
+            media: media,
+            ...params,
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
         });
     }
     /**
@@ -2715,6 +3023,33 @@ class MessageShared {
             chat_id: this.raw.chat.id,
             text: text,
             ...params
+        });
+    }
+    /**
+     * reply shortcut for `tg.api.sendMessage` — sets `reply_parameters` to this message
+     */
+    reply(text: string | Formattable, params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        parse_mode?: string;
+        entities?: TelegramMessageEntity[];
+        link_preview_options?: TelegramLinkPreviewOptions;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        suggested_post_parameters?: TelegramSuggestedPostParameters;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+            toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+        };
+    } = {}) {
+        return this.tg.api.sendMessage({
+            chat_id: this.raw.chat.id,
+            text: text,
+            ...params,
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
         });
     }
     /**
@@ -2761,6 +3096,35 @@ class MessageShared {
         });
     }
     /**
+     * reply shortcut for `tg.api.sendPaidMedia` — sets `reply_parameters` to this message
+     */
+    replyWithPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        payload?: string;
+        caption?: string | Formattable;
+        parse_mode?: string;
+        caption_entities?: TelegramMessageEntity[];
+        show_caption_above_media?: boolean;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        suggested_post_parameters?: TelegramSuggestedPostParameters;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+            toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+        };
+    } = {}) {
+        return this.tg.api.sendPaidMedia({
+            chat_id: this.raw.chat.id,
+            star_count: starCount,
+            media: media,
+            ...params,
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
+        });
+    }
+    /**
      * shortcut for `tg.api.sendPhoto`
      */
     sendPhoto(photo: TelegramInputFile | string, params: {
@@ -2786,6 +3150,35 @@ class MessageShared {
             chat_id: this.raw.chat.id,
             photo: photo,
             ...params
+        });
+    }
+    /**
+     * reply shortcut for `tg.api.sendPhoto` — sets `reply_parameters` to this message
+     */
+    replyWithPhoto(photo: TelegramInputFile | string, params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        caption?: string | Formattable;
+        parse_mode?: string;
+        caption_entities?: TelegramMessageEntity[];
+        show_caption_above_media?: boolean;
+        has_spoiler?: boolean;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        suggested_post_parameters?: TelegramSuggestedPostParameters;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+            toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+        };
+    } = {}) {
+        return this.tg.api.sendPhoto({
+            chat_id: this.raw.chat.id,
+            photo: photo,
+            ...params,
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
         });
     }
     /**
@@ -2834,6 +3227,52 @@ class MessageShared {
         });
     }
     /**
+     * reply shortcut for `tg.api.sendPoll` — sets `reply_parameters` to this message
+     */
+    replyWithPoll(question: string | Formattable, options: TelegramInputPollOption[], params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        question_parse_mode?: string;
+        question_entities?: TelegramMessageEntity[];
+        is_anonymous?: boolean;
+        type?: string;
+        allows_multiple_answers?: boolean;
+        allows_revoting?: boolean;
+        shuffle_options?: boolean;
+        allow_adding_options?: boolean;
+        hide_results_until_closes?: boolean;
+        members_only?: boolean;
+        country_codes?: string[];
+        correct_option_ids?: number[];
+        explanation?: string | Formattable;
+        explanation_parse_mode?: string;
+        explanation_entities?: TelegramMessageEntity[];
+        explanation_media?: TelegramInputPollMedia;
+        open_period?: number;
+        close_date?: number;
+        is_closed?: boolean;
+        description?: string | Formattable;
+        description_parse_mode?: string;
+        description_entities?: TelegramMessageEntity[];
+        media?: TelegramInputPollMedia;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+            toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+        };
+    } = {}) {
+        return this.tg.api.sendPoll({
+            chat_id: this.raw.chat.id,
+            question: question,
+            options: options,
+            ...params,
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
+        });
+    }
+    /**
      * shortcut for `tg.api.sendSticker`
      */
     sendSticker(sticker: TelegramInputFile | string, params: {
@@ -2855,6 +3294,31 @@ class MessageShared {
             chat_id: this.raw.chat.id,
             sticker: sticker,
             ...params
+        });
+    }
+    /**
+     * reply shortcut for `tg.api.sendSticker` — sets `reply_parameters` to this message
+     */
+    replyWithSticker(sticker: TelegramInputFile | string, params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        emoji?: string;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        suggested_post_parameters?: TelegramSuggestedPostParameters;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+            toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+        };
+    } = {}) {
+        return this.tg.api.sendSticker({
+            chat_id: this.raw.chat.id,
+            sticker: sticker,
+            ...params,
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
         });
     }
     /**
@@ -2885,6 +3349,37 @@ class MessageShared {
             title: title,
             address: address,
             ...params
+        });
+    }
+    /**
+     * reply shortcut for `tg.api.sendVenue` — sets `reply_parameters` to this message
+     */
+    replyWithVenue(latitude: number, longitude: number, title: string, address: string, params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        foursquare_id?: string;
+        foursquare_type?: string;
+        google_place_id?: string;
+        google_place_type?: string;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        suggested_post_parameters?: TelegramSuggestedPostParameters;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+            toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+        };
+    } = {}) {
+        return this.tg.api.sendVenue({
+            chat_id: this.raw.chat.id,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
+            ...params,
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
         });
     }
     /**
@@ -2923,6 +3418,42 @@ class MessageShared {
         });
     }
     /**
+     * reply shortcut for `tg.api.sendVideo` — sets `reply_parameters` to this message
+     */
+    replyWithVideo(video: TelegramInputFile | string, params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        duration?: number;
+        width?: number;
+        height?: number;
+        thumbnail?: TelegramInputFile | string;
+        cover?: TelegramInputFile | string;
+        start_timestamp?: number;
+        caption?: string | Formattable;
+        parse_mode?: string;
+        caption_entities?: TelegramMessageEntity[];
+        show_caption_above_media?: boolean;
+        has_spoiler?: boolean;
+        supports_streaming?: boolean;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        suggested_post_parameters?: TelegramSuggestedPostParameters;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+            toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+        };
+    } = {}) {
+        return this.tg.api.sendVideo({
+            chat_id: this.raw.chat.id,
+            video: video,
+            ...params,
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
+        });
+    }
+    /**
      * shortcut for `tg.api.sendVideoNote`
      */
     sendVideoNote(videoNote: TelegramInputFile | string, params: {
@@ -2946,6 +3477,33 @@ class MessageShared {
             chat_id: this.raw.chat.id,
             video_note: videoNote,
             ...params
+        });
+    }
+    /**
+     * reply shortcut for `tg.api.sendVideoNote` — sets `reply_parameters` to this message
+     */
+    replyWithVideoNote(videoNote: TelegramInputFile | string, params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        duration?: number;
+        length?: number;
+        thumbnail?: TelegramInputFile | string;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        suggested_post_parameters?: TelegramSuggestedPostParameters;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+            toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+        };
+    } = {}) {
+        return this.tg.api.sendVideoNote({
+            chat_id: this.raw.chat.id,
+            video_note: videoNote,
+            ...params,
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
         });
     }
     /**
@@ -2973,6 +3531,34 @@ class MessageShared {
             chat_id: this.raw.chat.id,
             voice: voice,
             ...params
+        });
+    }
+    /**
+     * reply shortcut for `tg.api.sendVoice` — sets `reply_parameters` to this message
+     */
+    replyWithVoice(voice: TelegramInputFile | string, params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        caption?: string | Formattable;
+        parse_mode?: string;
+        caption_entities?: TelegramMessageEntity[];
+        duration?: number;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        suggested_post_parameters?: TelegramSuggestedPostParameters;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+            toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+        };
+    } = {}) {
+        return this.tg.api.sendVoice({
+            chat_id: this.raw.chat.id,
+            voice: voice,
+            ...params,
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
         });
     }
     /**

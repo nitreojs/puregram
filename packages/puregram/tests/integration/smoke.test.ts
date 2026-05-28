@@ -75,6 +75,59 @@ describe('integration smoke', () => {
     }
   })
 
+  it('end-to-end: update.reply fills reply_parameters with the source message id', async () => {
+    const mock = new MockTelegram()
+    const baseUrl = await mock.start()
+
+    try {
+      mock.expect('getMe', { ok: true, result: { id: 1, is_bot: true, first_name: 'bot', username: 'testbot' } })
+
+      let pulls = 0
+
+      mock.expect('getUpdates', () => {
+        pulls++
+
+        if (pulls === 1) {
+          return {
+            ok: true,
+            result: [
+              { update_id: 1, message: { message_id: 7, date: 0, chat: { id: 100, type: 'private' }, text: 'ping' } }
+            ]
+          }
+        }
+
+        return { ok: true, result: [] }
+      })
+
+      let captured: Record<string, unknown> | undefined
+      let resolveCaptured: () => void
+      const captureHit = new Promise<void>((resolve) => { resolveCaptured = resolve })
+
+      mock.expect('sendMessage', (params) => {
+        captured = params
+        resolveCaptured()
+
+        return { ok: true, result: { message_id: 42, date: 0, chat: { id: params.chat_id, type: 'private' }, text: params.text } }
+      })
+
+      const tg = new Telegram({ token: 'TEST', apiBaseUrl: baseUrl })
+
+      tg.onMessage(async (u) => {
+        await u.reply('pong')
+        tg.stopPolling()
+      })
+
+      await tg.startPolling()
+      await captureHit
+
+      expect(captured?.chat_id).toBe(100)
+      expect(captured?.text).toBe('pong')
+      expect(captured?.reply_parameters).toEqual({ message_id: 7 })
+    } finally {
+      await mock.stop()
+    }
+  })
+
   it('end-to-end: suppress: true returns ApiResponseError', async () => {
     const mock = new MockTelegram()
     const baseUrl = await mock.start()

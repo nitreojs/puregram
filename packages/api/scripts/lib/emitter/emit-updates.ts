@@ -47,6 +47,10 @@ function shortcutNameFor (method: string) {
   return SHORTCUT_RENAMES[method] ?? method
 }
 
+function verbFor (sc: BoundShortcut) {
+  return sc.reply ? sc.reply.verb : shortcutNameFor(sc.method)
+}
+
 export function emitUpdates (schema: Schema) {
   const kinds = buildUpdateKinds(schema)
   const analysis = analyzeShortcuts(schema, kinds)
@@ -591,7 +595,7 @@ function emitSharedBase (
   const reservedNames = new Set<string>(['kind', 'raw', 'tg', 'is'])
 
   for (const sc of shortcuts) {
-    reservedNames.add(shortcutNameFor(sc.method))
+    reservedNames.add(verbFor(sc))
   }
 
   const extrasNames = new Set((kind.extras ?? []).map(e => e.name))
@@ -765,7 +769,7 @@ function emitUpdateClass (
   const reservedNames = new Set<string>(['kind', 'raw', 'tg', 'is'])
 
   for (const sc of shortcuts) {
-    reservedNames.add(shortcutNameFor(sc.method))
+    reservedNames.add(verbFor(sc))
   }
 
   // extras win over auto-emitted has*() — pre-compute names for the skip check below
@@ -1235,6 +1239,27 @@ function emitShortcutMethod (sc: BoundShortcut, widenedArgs: Map<string, Set<str
     ts.factory.createPropertyAssignment(p.schemaArg, ts.factory.createIdentifier(p.name))
   )
 
+  // reply twins fill `reply_parameters.message_id` from the update and merge any
+  // user-supplied reply_parameters on top (so quote / allow_sending_without_reply survive,
+  // and an explicit message_id still wins). placed after the spread so it can't be clobbered
+  const replyProps: ts.ObjectLiteralElementLike[] = sc.reply
+    ? [ts.factory.createPropertyAssignment(
+        'reply_parameters',
+        ts.factory.createObjectLiteralExpression([
+          ts.factory.createPropertyAssignment(
+            'message_id',
+            sc.reply.messageId.accessPath.reduce<ts.Expression>(
+              (acc, part) => ts.factory.createPropertyAccessExpression(acc, part),
+              ts.factory.createThis()
+            )
+          ),
+          ts.factory.createSpreadAssignment(
+            ts.factory.createPropertyAccessExpression(ts.factory.createIdentifier('params'), 'reply_parameters')
+          )
+        ], false)
+      )]
+    : []
+
   const body = ts.factory.createBlock([
     ts.factory.createReturnStatement(
       ts.factory.createCallExpression(
@@ -1250,7 +1275,8 @@ function emitShortcutMethod (sc: BoundShortcut, widenedArgs: Map<string, Set<str
           ts.factory.createObjectLiteralExpression([
             ...filledProps,
             ...positionalProps,
-            ts.factory.createSpreadAssignment(ts.factory.createIdentifier('params'))
+            ts.factory.createSpreadAssignment(ts.factory.createIdentifier('params')),
+            ...replyProps
           ], true)
         ]
       )
@@ -1321,14 +1347,18 @@ function emitShortcutMethod (sc: BoundShortcut, widenedArgs: Map<string, Set<str
 
   const method = ts.factory.createMethodDeclaration(
     undefined, undefined,
-    ts.factory.createIdentifier(shortcutNameFor(sc.method)),
+    ts.factory.createIdentifier(verbFor(sc)),
     undefined, undefined,
     [...positionalParams, paramsParam],
     undefined,
     body
   )
 
-  return jsDoc(`shortcut for \`tg.api.${sc.method}\``, method)
+  const doc = sc.reply
+    ? `reply shortcut for \`tg.api.${sc.method}\` — sets \`reply_parameters\` to this message`
+    : `shortcut for \`tg.api.${sc.method}\``
+
+  return jsDoc(doc, method)
 }
 
 function emitUpdateKindUnion () {

@@ -7,10 +7,12 @@ export default defineConfig({
   cleanUrls: true,
 
   head: [
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }]
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }]
   ],
 
   themeConfig: {
+    logo: '/logo.svg',
+
     nav: [
       { text: 'guide', link: '/guide/getting-started/introduction' },
       { text: 'api', link: '/reference/api' },

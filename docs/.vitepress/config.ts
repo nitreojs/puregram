@@ -23,6 +23,9 @@ export default defineConfig({
   lang: 'en-US',
   cleanUrls: true,
 
+  // dark by default to match the landing; the light toggle still works
+  appearance: 'dark',
+
   // docs are served at puregram.cool/docs (landing keeps the root)
   base: '/docs/',
 

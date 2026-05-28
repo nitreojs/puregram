@@ -78,6 +78,8 @@ tg.onCallbackQuery((callbackQuery) => {
 
 **return type:** raw `TelegramMessage` (same underlying `tg.api.sendMessage` call)
 
+the per-kind shortcuts also include **reply twins** — `message.reply(text)` and `message.replyWith<Media>(src)` — that auto-fill `reply_parameters.message_id` so the response threads under the incoming message; see [shortcuts](/guide/concepts/shortcuts) for the full list
+
 ## side-by-side: three ways to send the same message
 
 ```ts

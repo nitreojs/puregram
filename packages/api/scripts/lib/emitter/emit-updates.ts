@@ -47,7 +47,7 @@ function shortcutNameFor (method: string) {
   return SHORTCUT_RENAMES[method] ?? method
 }
 
-function verbFor (sc: BoundShortcut) {
+export function verbFor (sc: BoundShortcut) {
   return sc.reply ? sc.reply.verb : shortcutNameFor(sc.method)
 }
 

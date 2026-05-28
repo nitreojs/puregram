@@ -15,6 +15,7 @@ export default defineConfig({
 
     nav: [
       { text: 'guide', link: '/guide/getting-started/introduction' },
+      { text: 'plugins', link: '/plugins/' },
       { text: 'api', link: '/reference/api' },
       { text: 'examples', link: '/examples' }
     ],
@@ -22,7 +23,7 @@ export default defineConfig({
     sidebar: {
       '/guide/': [
         {
-          text: 'getting started',
+          text: '★ getting started',
           items: [
             { text: 'introduction', link: '/guide/getting-started/introduction' },
             { text: 'installation', link: '/guide/getting-started/installation' },
@@ -31,7 +32,7 @@ export default defineConfig({
           ]
         },
         {
-          text: 'core concepts',
+          text: '★ core concepts',
           items: [
             { text: 'the Telegram client', link: '/guide/concepts/the-telegram-client' },
             { text: 'updates', link: '/guide/concepts/updates' },
@@ -44,7 +45,7 @@ export default defineConfig({
           ]
         },
         {
-          text: 'handling updates',
+          text: '★ handling updates',
           items: [
             { text: 'dispatch & filters', link: '/guide/handling-updates/dispatch-and-filters' },
             { text: 'priority & propagation', link: '/guide/handling-updates/priority-and-propagation' },
@@ -54,7 +55,7 @@ export default defineConfig({
           ]
         },
         {
-          text: 'working with telegram',
+          text: '★ working with telegram',
           items: [
             { text: 'messages & media', link: '/guide/telegram/messages-and-media' },
             { text: 'keyboards', link: '/guide/telegram/keyboards' },
@@ -67,7 +68,7 @@ export default defineConfig({
           ]
         },
         {
-          text: 'deployment',
+          text: '★ deployment',
           items: [
             { text: 'polling', link: '/guide/deployment/polling' },
             { text: 'webhook', link: '/guide/deployment/webhook' },
@@ -78,8 +79,9 @@ export default defineConfig({
         { text: 'faq', link: '/guide/faq' }
       ],
       '/plugins/': [
+        { text: 'overview', link: '/plugins/' },
         {
-          text: 'flow',
+          text: '★ flow',
           items: [
             { text: 'overview', link: '/plugins/flow/' },
             { text: 'waiters', link: '/plugins/flow/waiters' },
@@ -89,7 +91,7 @@ export default defineConfig({
           ]
         },
         {
-          text: 'markup',
+          text: '★ markup',
           items: [
             { text: 'overview', link: '/plugins/markup/' },
             { text: 'builders', link: '/plugins/markup/builders' },
@@ -98,7 +100,7 @@ export default defineConfig({
           ]
         },
         {
-          text: 'plugins',
+          text: '★ plugins',
           items: [
             { text: 'scenes', link: '/plugins/scenes' },
             { text: 'session', link: '/plugins/session' },
@@ -117,7 +119,7 @@ export default defineConfig({
       ],
       '/reference/': [
         {
-          text: 'api reference',
+          text: '★ api reference',
           items: [
             { text: 'overview', link: '/reference/api' },
             { text: 'methods', link: '/api/methods' },

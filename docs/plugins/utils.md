@@ -1,0 +1,266 @@
+---
+title: '@puregram/utils'
+description: standalone utility helpers for puregram — slot-machine decoder, web app initData validation, deep-link builder, and command parser
+---
+
+# `@puregram/utils`
+
+a small grab-bag of standalone helpers that are useful alongside `puregram` but don't belong in core. zero plugin glue, no `Telegram` instance required — just import and call
+
+currently exports:
+
+- `getCasinoValues` — decode the 🎰 dice value into its three slot-machine symbols
+- `WebApp` — validate telegram mini-app `initData`
+- `parseCommand` — parse `/command[@bot] [args...]` strings
+- `deepLink` — typed builder for `https://t.me/...` deep-links
+
+## when to use
+
+- your bot handles 🎰 dice and you want to show users which symbols they got
+- you run a mini-app (web app) and need to verify the `initData` signature server-side
+- you're parsing raw message text for bot commands with arguments
+- you need to generate `t.me` start links, mini-app links, attachment-menu invites, or game links with validated inputs
+
+## install
+
+::: code-group
+
+```sh [yarn]
+yarn add @puregram/utils
+```
+
+```sh [npm]
+npm i -S @puregram/utils
+```
+
+```sh [pnpm]
+pnpm add @puregram/utils
+```
+
+:::
+
+## `getCasinoValues(source)` — slot machine decoder
+
+when telegram delivers a 🎰 dice, `dice.value` is an integer in `1..64` that encodes the three symbols on the wheels. `getCasinoValues` decodes it into the `[left, middle, right]` symbol triple:
+
+```ts
+import { Telegram } from 'puregram'
+import { getCasinoValues, CasinoValue } from '@puregram/utils'
+
+const tg = Telegram.fromToken(process.env.TOKEN!)
+
+tg.onMessage((message) => {
+  if (!message.hasDice() || message.dice.emoji !== '🎰') {
+    return
+  }
+
+  const [a, b, c] = getCasinoValues(message.dice.value)
+
+  if ([a, b, c].every(s => s === CasinoValue.Seven)) {
+    return message.send('🎉 jackpot!')
+  }
+
+  return message.send(`you got ${a}, ${b}, ${c}`)
+})
+
+await tg.startPolling()
+```
+
+`source` accepts either a `number` or a numeric string. the four possible symbol values:
+
+| `CasinoValue` | string |
+|---|---|
+| `CasinoValue.Bar` | `'bar'` |
+| `CasinoValue.Grapes` | `'grapes'` |
+| `CasinoValue.Lemon` | `'lemon'` |
+| `CasinoValue.Seven` | `'seven'` |
+
+return type is `readonly [CasinoValue, CasinoValue, CasinoValue]` (`SlotMachineValue`)
+
+## `WebApp` — mini-app initData validation
+
+when your bot opens a [mini-app (web app)](https://core.telegram.org/bots/webapps), the page receives an `initData` query string with the user identity, auth date, and a `hash` that proves it came from telegram. you must verify this server-side before trusting any of the fields:
+
+```ts
+import { WebApp } from '@puregram/utils'
+
+const valid = WebApp.validate({
+  initData: req.body.initData,
+  token: process.env.TOKEN!
+})
+
+if (!valid) {
+  res.status(401).end()
+  return
+}
+```
+
+### `WebApp.generateSecretKey(token)` — derive the HMAC key once
+
+`validate` re-derives the key on every call. on hot paths — validating per request — derive once at startup:
+
+```ts
+const KEY = WebApp.generateSecretKey(process.env.TOKEN!)
+
+app.post('/api/me', (req, res) => {
+  if (!WebApp.validate({ initData: req.body.initData, key: KEY })) {
+    return res.status(401).end()
+  }
+
+  // safe to use initData fields now
+})
+```
+
+returns a `Buffer`. cache it; re-deriving per-request burns cpu for nothing
+
+### `WebApp.validate(params)` — full check
+
+| field | type | description |
+|---|---|---|
+| `initData` | `string` | raw query string from `Telegram.WebApp.initData` (not `initDataUnsafe`) |
+| `key` | `Buffer` | pre-derived HMAC key. mutually exclusive with `token` |
+| `token` | `string` | bot token; derives the key on each call. use `key` on hot paths |
+| `throwError` | `boolean` | default `false` — when `true`, throws on mismatch instead of returning `false` |
+
+returns `true` when the hash matches. always throws when `initData` is missing its `hash` field — that's malformed input, not a hash mismatch
+
+### `WebApp.parseInitData(initData)` — split into fields
+
+```ts
+const fields = WebApp.parseInitData('query_id=q&auth_date=1700000000&hash=abcd')
+// → { query_id: 'q', auth_date: '1700000000', hash: 'abcd' }
+```
+
+a `URLSearchParams` shortcut — don't trust the values until you've called `validate`
+
+### `WebApp.generateInitDataHash(initData, key)` — recompute the hash manually
+
+for custom validation flows (caching, rate limiting, custom error handling):
+
+```ts
+const KEY = WebApp.generateSecretKey(process.env.TOKEN!)
+const expected = WebApp.generateInitDataHash(initData, KEY)
+const actual = WebApp.parseInitData(initData).hash
+
+if (expected !== actual) {
+  // not from telegram, or initData was tampered with
+}
+```
+
+## `parseCommand(text)` — parse bot commands
+
+parses a `/command[@bot] [args...]` string. returns `null` when the input isn't a valid command:
+
+```ts
+import { parseCommand } from '@puregram/utils'
+
+parseCommand('/buy')
+// → { command: 'buy', bot: undefined, args: [], rest: '' }
+
+parseCommand('/buy@my_bot apples 5')
+// → { command: 'buy', bot: 'my_bot', args: ['apples', '5'], rest: 'apples 5' }
+
+parseCommand('hello')  // → null
+parseCommand('/')      // → null (no command name after the slash)
+parseCommand('  /buy') // → null (leading whitespace — telegram commands always start at column 0)
+```
+
+`args` is `rest.split(/\s+/).filter(Boolean)`. `rest` is everything after the command and optional `@bot`, leading whitespace trimmed. `bot` usernames are validated against the telegram rule `[A-Za-z0-9_]{5,32}`
+
+## `deepLink` — typed `t.me` link builder
+
+a namespace of strict, typed builders for every `t.me` deep-link the bot api supports. each helper validates inputs and **throws** on invalid values rather than silently emitting links the telegram client would reject:
+
+```ts
+import { deepLink } from '@puregram/utils'
+
+// private-chat start
+deepLink.start({ bot: 'my_bot', payload: 'ref_42' })
+// → 'https://t.me/my_bot?start=ref_42'
+
+// add bot to a group, optionally as admin
+deepLink.startGroup({ bot: 'my_bot', admin: ['post_messages'] })
+// → 'https://t.me/my_bot?startgroup&admin=post_messages'
+
+// add bot to a channel (admin rights required)
+deepLink.startChannel({ bot: 'my_bot', admin: ['post_messages', 'edit_messages'] })
+// → 'https://t.me/my_bot?startchannel&admin=post_messages+edit_messages'
+
+// launch a mini-app
+deepLink.startApp({ bot: 'my_bot', app: 'tictactoe', payload: 'room_7' })
+// → 'https://t.me/my_bot/tictactoe?startapp=room_7'
+
+deepLink.startApp({ bot: 'my_bot', payload: 'p', mode: 'fullscreen' })
+// → 'https://t.me/my_bot?startapp=p&mode=fullscreen'
+
+// attachment menu
+deepLink.startAttach({ bot: 'my_bot', choose: ['users', 'groups'] })
+// → 'https://t.me/my_bot?startattach&choose=users+groups'
+
+deepLink.attachInChat({ chat: { username: 'durov' }, bot: 'my_bot', payload: 'p' })
+// → 'https://t.me/durov?attach=my_bot&startattach=p'
+
+// game, share, video chat
+deepLink.game({ bot: 'my_bot', name: 'tetris' })
+// → 'https://t.me/my_bot?game=tetris'
+
+deepLink.share({ url: 'https://example.com', text: 'check this!' })
+// → 'https://t.me/share?url=https%3A%2F%2Fexample.com&text=check%20this!'
+
+deepLink.videoChat({ username: 'mychannel', live: true })
+// → 'https://t.me/mychannel?livestream'
+```
+
+### available builders
+
+| method | link pattern |
+|---|---|
+| `deepLink.start(opts)` | `t.me/<bot>?start=<payload>` |
+| `deepLink.startGroup(opts)` | `t.me/<bot>?startgroup[=<payload>][&admin=<rights>]` |
+| `deepLink.startChannel(opts)` | `t.me/<bot>?startchannel&admin=<rights>` |
+| `deepLink.startApp(opts)` | `t.me/<bot>[/<app>]?startapp[=<payload>][&mode=<mode>]` |
+| `deepLink.startAttach(opts)` | `t.me/<bot>?startattach[=<payload>][&choose=<targets>]` |
+| `deepLink.attachInChat(opts)` | `t.me/<chat>?attach=<bot>[&startattach=<payload>]` |
+| `deepLink.game(opts)` | `t.me/<bot>?game=<name>` |
+| `deepLink.share(opts)` | `t.me/share?url=<url>[&text=<text>]` |
+| `deepLink.videoChat(opts)` | `t.me/<username>?videochat[=<hash>]` or `?livestream[=<hash>]` |
+
+### validation rules
+
+- **bot / chat username** — `[A-Za-z][A-Za-z0-9_]{4,31}` (5-32 chars)
+- **payloads** (`start`, `startgroup`, `startapp`, `startattach`) — 1-64 chars of `[A-Za-z0-9_-]` (base64url). not url-encoded — must already be in the allowed charset
+- **admin rights** — closed set: `change_info`, `post_messages`, `edit_messages`, `delete_messages`, `restrict_members`, `invite_users`, `pin_messages`, `manage_topics`, `promote_members`, `manage_video_chats`, `anonymous`, `manage_chat`, `post_stories`, `edit_stories`, `delete_stories`, `manage_direct_messages`
+- **mini-app mode** — `'compact'` or `'fullscreen'`
+- **choose targets** — subset of `'users'`, `'bots'`, `'groups'`, `'channels'`
+- **phone** (for `attachInChat`) — digits only, no `+` prefix
+- **share url / text** — free-form; these are `encodeURIComponent`-escaped
+
+## types
+
+```ts
+import type {
+  SlotMachineValue,       // readonly [CasinoValue, CasinoValue, CasinoValue]
+  ParsedCommand,          // { command, bot, args, rest }
+  WebAppValidateParams,
+  AdminRight,
+  WebAppMode,             // 'compact' | 'fullscreen'
+  AttachChooseTarget,     // 'users' | 'bots' | 'groups' | 'channels'
+  AttachChatTarget,       // { username: string } | { phone: string }
+  StartOpts,
+  StartGroupOpts,
+  StartChannelOpts,
+  StartAppOpts,
+  StartAttachOpts,
+  AttachInChatOpts,
+  GameOpts,
+  ShareOpts,
+  VideoChatOpts
+} from '@puregram/utils'
+
+import { CasinoValue } from '@puregram/utils'
+```
+
+## see also
+
+- [/api/methods](/api/methods) — bot api methods for dice, inline queries, games
+- [/api/objects](/api/objects) — `Dice`, `Game`, `WebAppInfo` objects

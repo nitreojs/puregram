@@ -91,6 +91,7 @@ docs/api/
 .dynamodb/
 
 # Other
+.superpowers/
 packages/*/lib/
 packages/storage/storages/*/lib/
 .vscode/

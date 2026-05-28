@@ -2,9 +2,9 @@
 layout: home
 
 hero:
-  name: puregram
+  name: puregram ★
   text: telegram bot api, type-safe
-  tagline: powerful and modern telegram bot api sdk for node.js and typescript
+  tagline: powerful and modern telegram bot api sdk for node.js and typescript 😎
   actions:
     - theme: brand
       text: get started ✦

@@ -88,6 +88,35 @@ tg.onInlineQuery(async (inlineQuery) => {
 })
 ```
 
+## reply variants
+
+on message-bearing kinds every `send`-family shortcut has a **reply twin** that fills one extra anchor — `reply_parameters.message_id` from the current message. `reply` mirrors `send` (text), and each `sendX` gets a `replyWithX`:
+
+```ts
+tg.onMessage(async (message) => {
+  // a text reply to this message
+  await message.reply('quoting you')
+
+  // media replies — same args as sendPhoto / sendDocument, but as a reply
+  await message.replyWithPhoto(MediaSource.path('./cat.png'), { caption: 'as a reply' })
+  await message.replyWithDocument(MediaSource.url('https://example.com/file.pdf'))
+})
+```
+
+the whole family is covered — `replyWithVideo`, `replyWithAudio`, `replyWithVoice`, `replyWithAnimation`, `replyWithVideoNote`, `replyWithSticker`, `replyWithMediaGroup`, `replyWithLocation`, `replyWithVenue`, `replyWithContact`, `replyWithPoll`, `replyWithDice`, ... — anything whose `tg.api.sendX` accepts `reply_parameters`
+
+you can still pass `reply_parameters` yourself to quote, allow sending without a reply, or reply across chats — your fields merge over the injected `message_id` (and override it if you set your own):
+
+```ts
+import { ReplyParameters } from 'puregram'
+
+tg.onMessage(message =>
+  message.reply('with a quote', {
+    reply_parameters: ReplyParameters.quote(message.messageId, 'why?')
+  })
+)
+```
+
 ## `update.api` — the raw layer from inside a handler
 
 every update also exposes `update.api`, which is a direct reference to `tg.api`. this gives you access to any raw method without needing to close over `tg`:

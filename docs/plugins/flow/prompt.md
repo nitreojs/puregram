@@ -78,19 +78,25 @@ tg.command('signup', async (message) => {
     timeout: 60_000,
     nullOnTimeout: true
   })
-  if (name === null) return message.send('cancelled')
+  if (name === null) {
+    return message.send('cancelled')
+  }
 
   const age = await message.flow.prompt('age?', {
     timeout: 60_000,
     nullOnTimeout: true
   })
-  if (age === null) return message.send('cancelled')
+  if (age === null) {
+    return message.send('cancelled')
+  }
 
   const email = await message.flow.prompt('your email?', {
     timeout: 60_000,
     nullOnTimeout: true
   })
-  if (email === null) return message.send('cancelled')
+  if (email === null) {
+    return message.send('cancelled')
+  }
 
   await message.send(`registered: ${name.text}, ${age.text}, ${email.text}`)
 })

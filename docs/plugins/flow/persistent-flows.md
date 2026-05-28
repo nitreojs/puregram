@@ -68,7 +68,9 @@ call `tg.flow.prompt({ id })` or `tg.flow.waitFor({ id })`. these calls write a 
 
 ```ts
 tg.command('signup', async (message) => {
-  if (message.from === undefined) return
+  if (message.from === undefined) {
+    return
+  }
 
   await tg.flow.prompt(message.chat.id, 'how old are you?', {
     id: 'register:age',
@@ -89,7 +91,9 @@ tg.flow.handle('confirm:purchase', {
 })
 
 tg.command('buy', async (message) => {
-  if (message.from === undefined) return
+  if (message.from === undefined) {
+    return
+  }
 
   await tg.flow.waitFor('callback_query', {
     id: 'confirm:purchase',

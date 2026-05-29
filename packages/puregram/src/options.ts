@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs'
+
 import type { TelegramUser } from '@puregram/api'
 
 import type { HttpClient } from './http/client'
@@ -44,7 +46,10 @@ export interface ResolvedTelegramOptions extends Required<Omit<TelegramOptions, 
   swallowDispatchErrors: boolean
 }
 
-const VERSION = '3.0.0-alpha.0'
+// sourced from package.json so the user-agent never drifts from the published version
+const { version: VERSION } = JSON.parse(
+  readFileSync(new URL('../package.json', import.meta.url), 'utf8')
+) as { version: string }
 
 export const DEFAULT_OPTIONS: Omit<ResolvedTelegramOptions, 'token' | 'httpClient'> = {
   allowedUpdates: [],

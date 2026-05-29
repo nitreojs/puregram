@@ -2,7 +2,7 @@ import { type KVStorage, MemoryStorage } from '@puregram/storage'
 import { createPlugin, type Telegram } from 'puregram'
 
 import { hit as coreHit, reset as coreReset } from './core'
-import { composeKey, defaultGetKey } from './key'
+import { composeKey, defaultGetStorageKey } from './key'
 import type {
   AnyUpdate, RateLimitCallback, RateLimitCheckOptions, RateLimitEntry, RateLimitOptions, RateLimitOutcome
 } from './types'
@@ -37,7 +37,7 @@ const toRetryAfter = (outcome: RateLimitOutcome) =>
  */
 export function rateLimit (options: RateLimitOptions = {}) {
   const storage: KVStorage<RateLimitEntry> = options.storage ?? new MemoryStorage<RateLimitEntry>()
-  const getKey = options.getKey ?? defaultGetKey
+  const getStorageKey = options.getStorageKey ?? defaultGetStorageKey
   const onLimitExceeded = options.onLimitExceeded
 
   return createPlugin({
@@ -48,7 +48,7 @@ export function rateLimit (options: RateLimitOptions = {}) {
 
       const ext: RateLimitExtension = {
         check: async (update, opts) => {
-          const userKey = getKey(update)
+          const userKey = getStorageKey(update)
 
           if (userKey === undefined) {
             return null
@@ -60,7 +60,7 @@ export function rateLimit (options: RateLimitOptions = {}) {
         reset: (key: string) => coreReset(storage, key),
         storage,
         resolveKey: (update, bucket) => {
-          const userKey = getKey(update)
+          const userKey = getStorageKey(update)
 
           return userKey === undefined ? undefined : composeKey(userKey, bucket)
         },

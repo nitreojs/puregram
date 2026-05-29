@@ -188,7 +188,7 @@ if (key !== undefined) {
 | option | type | default | description |
 |---|---|---|---|
 | `storage` | `KVStorage<RateLimitEntry>` | fresh `MemoryStorage<RateLimitEntry>` | backing store |
-| `getKey` | `(update) => string \| undefined` | `from.id ?? senderChat.id ?? chat.id` | derive the per-user key. return `undefined` to leave the update unkeyable (passes through filters/middleware untouched) |
+| `getStorageKey` | `(update) => string \| undefined` | `from.id ?? senderChat.id ?? chat.id` | derive the per-user key. return `undefined` to leave the update unkeyable (passes through filters/middleware untouched) |
 | `onLimitExceeded` | `(update, retryAfter) => void \| Promise<void>` | silent no-op | plugin-level fallback, fires once per blocked update from filter/middleware paths |
 
 ### per-call — `RateLimitCheckOptions`
@@ -204,7 +204,7 @@ if (key !== undefined) {
 
 ```ts
 rateLimit({
-  getKey: (update) => {
+  getStorageKey: (update) => {
     if ('chat' in update && update.chat !== undefined) {
       return `chat:${update.chat.id}`
     }

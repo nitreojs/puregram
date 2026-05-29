@@ -11,7 +11,7 @@ interface KeyResolvable {
  * (channel posts), then chat (anonymous service updates). undefined when nothing
  * matches; callers pass through unkeyable updates rather than blocking them
  */
-export const defaultGetKey = (update: AnyUpdate) => {
+export const defaultGetStorageKey = (update: AnyUpdate) => {
   const u = update as KeyResolvable
   const fromId = u.from?.id
 

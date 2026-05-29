@@ -245,7 +245,7 @@ telegram.onMessage(
 | option | type | description |
 |---|---|---|
 | `storage` | `KVStorage<RateLimitEntry>` | backing store. default: a fresh `MemoryStorage<RateLimitEntry>`. swap in `LruMemoryStorage` for bounded memory, redis/sqlite/etc for persistence across restarts |
-| `getKey` | `(update) => string \| undefined` | how to derive the per-user key. default: `from.id ?? senderChat.id ?? chat.id`. return `undefined` to leave that update unkeyable (passes through filters/middleware untouched) |
+| `getStorageKey` | `(update) => string \| undefined` | how to derive the per-user key. default: `from.id ?? senderChat.id ?? chat.id`. return `undefined` to leave that update unkeyable (passes through filters/middleware untouched) |
 | `onLimitExceeded` | `(update, retryAfter) => void \| Promise<void>` | plugin-level fallback callback. fires once per blocked update from filter/middleware paths |
 
 ### per-call — `RateLimitCheckOptions`
@@ -263,7 +263,7 @@ passed to `rateLimitFilter(tg, opts)`, `rateLimitMiddleware(tg, opts)`, and `tg.
 
 ```ts
 rateLimit({
-  getKey: (update) => {
+  getStorageKey: (update) => {
     if ('chat' in update && update.chat !== undefined) {
       return `chat:${update.chat.id}`
     }

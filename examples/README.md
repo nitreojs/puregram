@@ -13,7 +13,7 @@ yarn workspace examples dev <path>        # e.g. core/getting-started/hello-worl
 
 bundled examples (`examples/src/...`) run via `tsx watch --env-file=.env`. node 22.6+ users can also run them with `node --experimental-strip-types --env-file=.env` directly
 
-standalone folders under `webhooks/`, `deployment/`, `integrations/`, `recipes/` are their own workspaces — each ships its own `README.md` with run instructions
+standalone folders under `webhooks/` and `recipes/` are their own workspaces — each ships its own `README.md` with run instructions
 
 ## getting started
 

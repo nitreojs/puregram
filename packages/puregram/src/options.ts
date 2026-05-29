@@ -1,5 +1,3 @@
-import { readFileSync } from 'node:fs'
-
 import type { TelegramUser } from '@puregram/api'
 
 import type { HttpClient } from './http/client'
@@ -46,10 +44,24 @@ export interface ResolvedTelegramOptions extends Required<Omit<TelegramOptions, 
   swallowDispatchErrors: boolean
 }
 
-// sourced from package.json so the user-agent never drifts from the published version
-const { version: VERSION } = JSON.parse(
-  readFileSync(new URL('../package.json', import.meta.url), 'utf8')
-) as { version: string }
+// sourced from package.json so the user-agent never drifts from the published
+// version. read lazily — keeps node:fs off the import graph so core stays loadable
+// on edge runtimes, where it degrades to an unversioned user-agent
+let version = ''
+
+try {
+  const { readFileSync } = await import('node:fs')
+
+  version = (JSON.parse(
+    readFileSync(new URL('../package.json', import.meta.url), 'utf8')
+  ) as { version: string }).version
+} catch {
+  // no filesystem (edge runtime) — leave the version out of the user-agent
+}
+
+const USER_AGENT = version
+  ? `puregram/${version} (+https://github.com/puregram/puregram)`
+  : 'puregram (+https://github.com/puregram/puregram)'
 
 export const DEFAULT_OPTIONS: Omit<ResolvedTelegramOptions, 'token' | 'httpClient'> = {
   allowedUpdates: [],
@@ -59,7 +71,7 @@ export const DEFAULT_OPTIONS: Omit<ResolvedTelegramOptions, 'token' | 'httpClien
   apiRetryLimit: -1,
   apiHeaders: {
     connection: 'keep-alive',
-    'user-agent': `puregram/${VERSION} (+https://github.com/puregram/puregram)`
+    'user-agent': USER_AGENT
   },
   useTestDc: false,
   useLocal: false,

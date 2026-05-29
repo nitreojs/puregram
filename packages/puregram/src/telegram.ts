@@ -48,7 +48,8 @@ import type { Plugin } from './plugins/plugin'
 import { PluginRegistry } from './plugins/registry'
 import { PollingTransport, type StartPollingOptions } from './transport/polling'
 import type { WebhookOptions } from './transport/webhook'
-import { createHandler as createWebhookHandler, nodeAdapter, resolveWebhookOptions } from './transport/webhook'
+import { nodeAdapter } from './transport/webhook/adapters/node'
+import { createHandler as createWebhookHandler } from './transport/webhook/handler'
 import {
   deleteWebhook as deleteWebhookHelper,
   type DeleteWebhookOptions,
@@ -56,7 +57,8 @@ import {
   setWebhook as setWebhookHelper,
   type SetWebhookOptions
 } from './transport/webhook/helpers'
-import { startWebhookListener, type StartWebhookOptions } from './transport/webhook/listener'
+import type { StartWebhookOptions } from './transport/webhook/listener'
+import { resolveWebhookOptions } from './transport/webhook/options'
 
 const dispatchDebug = createDebug('puregram:dispatch')
 
@@ -463,6 +465,7 @@ export class Telegram<Ext = unknown> {
   async startWebhook (options: StartWebhookOptions) {
     await this.start()
 
+    const { startWebhookListener } = await import('./transport/webhook/listener')
     const startup = await startWebhookListener(this as Telegram, options)
 
     if (startup.server !== undefined) {

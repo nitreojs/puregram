@@ -2,8 +2,6 @@ import { Readable } from 'node:stream'
 
 import { FormDataEncoder } from 'form-data-encoder'
 import { File, FormData } from 'formdata-node'
-// eslint-disable-next-line import/no-unresolved -- subpath export resolves at runtime
-import { fileFromPath } from 'formdata-node/file-from-path'
 
 import { MediaSourceType, isMediaInput, type MediaInput } from '../media-source'
 
@@ -43,6 +41,10 @@ export async function resolveMediaInput (input: MediaInput) {
   }
 
   if (input.type === MediaSourceType.Path) {
+    // lazy — file-from-path pulls node:fs; keep it off the import graph so core loads on edge
+    // eslint-disable-next-line import/no-unresolved -- subpath export resolves at runtime
+    const { fileFromPath } = await import('formdata-node/file-from-path')
+
     return fileFromPath(input.value, input.filename)
   }
 

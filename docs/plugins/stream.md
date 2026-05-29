@@ -16,7 +16,7 @@ this is a **runtime plugin** — install it via `tg.extend(stream())`
 - streaming output from OpenAI, Anthropic, Vercel AI SDK, Ollama, LangChain, or any `AsyncIterable<string>`
 
 ::: warning
-drafts are **private-chat only** — it's a telegram api constraint. the plugin throws synchronously before consuming the source if you target a group or channel. a group fallback using `editMessageText` is planned
+drafts are **private-chat only** — it's a telegram api constraint. the plugin throws synchronously before consuming the source if you target a group or channel. send a regular message with `tg.send` / `update.send` in those chats instead
 :::
 
 ## install

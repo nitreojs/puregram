@@ -72,8 +72,8 @@ interface PrivateGuardSource {
 function assertPrivate (chatType: string, chatId: number) {
   if (chatType !== 'private') {
     throw new Error(
-      `[@puregram/stream] sendMessageDraft is private-chat only (got '${chatType}' for chat ${chatId}). ` +
-      'a streamEdit-based fallback for groups is planned'
+      '[@puregram/stream] streaming relies on sendMessageDraft, which telegram only supports in private chats ' +
+      `(got '${chatType}' for chat ${chatId}). send a regular message with tg.send / update.send in groups and channels`
     )
   }
 }
@@ -86,6 +86,10 @@ function deriveOffsetFromMessage (raw: { message_id: number }) {
 /**
  * `@puregram/stream` plugin. installs `tg.stream({ chat_id, source, ... })` and
  * `update.stream(source, options?)` on every message-shaped update wrapper
+ *
+ * streaming is **private-chat only** — it builds on telegram's `sendMessageDraft`,
+ * which telegram does not expose for groups or channels. calling `stream` for a
+ * non-private chat throws; use `tg.send` / `update.send` there instead
  */
 export function stream () {
   return createPlugin({

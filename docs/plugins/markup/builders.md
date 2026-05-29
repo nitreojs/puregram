@@ -128,7 +128,7 @@ these carry payload beyond the text — a url, a user id, a language. several ar
 
 ```ts
 // eager: text + url positionally
-link('puregram on github', 'https://github.com/nitreojs/puregram')
+link('puregram on github', 'https://github.com/puregram/puregram')
 
 // curried tagged-template — useful for embedding a wrapped piece in a template
 link('https://core.telegram.org/bots/api')`bot api docs`

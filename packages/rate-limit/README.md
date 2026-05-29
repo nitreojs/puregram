@@ -5,7 +5,7 @@
 <br />
 
 <div align='center'>
-  <a href='https://github.com/nitreojs/puregram'><b><code>puregram</code></b></a>
+  <a href='https://github.com/puregram/puregram'><b><code>puregram</code></b></a>
   <span>&nbsp;•&nbsp;</span>
   <a href='#three-shapes'><b>three shapes</b></a>
   <span>&nbsp;•&nbsp;</span>

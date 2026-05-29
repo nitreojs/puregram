@@ -45,7 +45,7 @@ three lines do all the work:
 - swap `message.send('hello!')` for `message.send(message.text ?? '')` to build a real echo bot
 - handle other update kinds: `tg.onCallbackQuery(...)`, `tg.onInlineQuery(...)`, `tg.onChatMember(...)`
 - add a plugin: `tg.extend(session())` gives every handler a per-user session store
-- explore more patterns in the [examples](https://github.com/nitreojs/puregram/tree/v3/examples)
+- explore more patterns in the [examples](https://github.com/puregram/puregram/tree/v3/examples)
 :::
 
 ::: info typescript note

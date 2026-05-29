@@ -126,7 +126,7 @@ node 22+ is required
 1. read the [your first bot](/guide/getting-started/your-first-bot) page — the minimal v3 setup is a few lines
 2. check the [three-layer api](/guide/concepts/three-layer-api) to understand where each kind of call lives
 3. for sessions/scenes/flow — install the satellite packages and use `.extend(plugin)`. the READMEs in each `packages/<name>/` have quick-start examples
-4. for anything genuinely unclear, [open an issue](https://github.com/nitreojs/puregram/issues)
+4. for anything genuinely unclear, [open an issue](https://github.com/puregram/puregram/issues)
 
 ## see also
 

@@ -150,4 +150,4 @@ tg.webhookHandler({ webhookReply: false })
 
 - [polling](/guide/deployment/polling) — simpler transport, no public URL needed
 - [resilience](/guide/deployment/resilience) — flood-wait retries, error handling
-- [examples](https://github.com/nitreojs/puregram/tree/v3/examples/webhooks) — runnable fastify and raw http webhook examples
+- [examples](https://github.com/puregram/puregram/tree/v3/examples/webhooks) — runnable fastify and raw http webhook examples

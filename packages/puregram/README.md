@@ -19,7 +19,7 @@
 </p>
 
 <div align='center'>
-  <a href='https://github.com/nitreojs/puregram/tree/v3/examples'><b>examples</b></a>
+  <a href='https://github.com/puregram/puregram/tree/v3/examples'><b>examples</b></a>
   <span>&nbsp;•&nbsp;</span>
   <a href='#typescript-usage'><b>typescript usage</b></a>
   <span>&nbsp;•&nbsp;</span>
@@ -55,7 +55,7 @@ it's that easy!
 
 **note**: you can find more examples [here][examples]
 
-[examples]: https://github.com/nitreojs/puregram/tree/v3/examples
+[examples]: https://github.com/puregram/puregram/tree/v3/examples
 
 ---
 
@@ -1229,8 +1229,8 @@ yep. [`t.me/pureforum`](https://t.me/pureforum) is the chat. open issues here, b
 
 because i felt like it — see the issues:
 
-- https://github.com/nitreojs/puregram/issues/63
-- https://github.com/nitreojs/puregram/issues/62
+- https://github.com/puregram/puregram/issues/63
+- https://github.com/puregram/puregram/issues/62
 
 ---
 

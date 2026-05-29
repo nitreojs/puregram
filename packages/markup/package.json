@@ -34,7 +34,7 @@
   "author": "starkow",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nitreojs/puregram",
+    "url": "https://github.com/puregram/puregram",
     "directory": "packages/markup"
   },
   "keywords": [

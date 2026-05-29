@@ -16,7 +16,7 @@
 </p>
 
 <div align='center'>
-  <a href='https://github.com/nitreojs/puregram/tree/lord/docs/examples'><b>exemplars</b></a>
+  <a href='https://github.com/puregram/puregram/tree/lord/docs/examples'><b>exemplars</b></a>
   <span>&nbsp;•&nbsp;</span>
   <a href='#typescript-usage'><b>typescript utilization</b></a>
   <span>&nbsp;•&nbsp;</span>
@@ -47,7 +47,7 @@ telegram.updates.startPolling()
 > **Note**
 > Additional exemplars may be found [herein][examples]
 
-[examples]: https://github.com/nitreojs/puregram/tree/lord/docs/examples
+[examples]: https://github.com/puregram/puregram/tree/lord/docs/examples
 
 ---
 
@@ -168,7 +168,7 @@ It should be noted that at present, only four ports are deemed acceptable: `443`
 [getting-updates]: https://core.telegram.org/bots/api#getting-updates
 [getUpdates]: https://core.telegram.org/bots/api#getupdates
 [setWebhook]: https://core.telegram.org/bots/api#setwebhook
-[webhook-examples]: https://github.com/nitreojs/puregram/tree/lord/docs/examples/webhook
+[webhook-examples]: https://github.com/puregram/puregram/tree/lord/docs/examples/webhook
 
 #### Processing of Updates
 
@@ -178,7 +178,7 @@ Given the aforementioned configuration, updates may be processed as follows:
 telegram.updates.on('message', context => context.reply('Salutations!'))
 ```
 
-A comprehensive list of supported events is available [at this location](https://github.com/nitreojs/puregram/tree/lord/docs/supported-events.md)
+A comprehensive list of supported events is available [at this location](https://github.com/puregram/puregram/tree/lord/docs/supported-events.md)
 
 #### The `mergeMediaEvents` Option
 
@@ -580,7 +580,7 @@ const message = MarkdownV2.build`
 > **Note**
 > Additional markdown exemplars are available [at this location][markdown]
 
-[markdown]: https://github.com/nitreojs/puregram/tree/lord/docs/examples/markdown
+[markdown]: https://github.com/puregram/puregram/tree/lord/docs/examples/markdown
 
 ---
 
@@ -666,7 +666,7 @@ context.send('Behold, a keyboard!', { reply_markup: keyboard })
 > **Note**
 > Additional keyboard exemplars are available [at this location][keyboards]
 
-[keyboards]: https://github.com/nitreojs/puregram/tree/lord/docs/examples/keyboards
+[keyboards]: https://github.com/puregram/puregram/tree/lord/docs/examples/keyboards
 
 ---
 
@@ -816,8 +816,8 @@ const context = new MessageContext({
 > **Note**
 > A comprehensive list of contexts is available [at this location][contexts]
 
-[contexts]: https://github.com/nitreojs/puregram/tree/lord/packages/puregram/src/contexts
-[extra-events]: https://github.com/nitreojs/puregram/blob/lord/docs/supported-events.md#extra-events
+[contexts]: https://github.com/puregram/puregram/tree/lord/packages/puregram/src/contexts
+[extra-events]: https://github.com/puregram/puregram/blob/lord/docs/supported-events.md#extra-events
 
 ---
 
@@ -1125,8 +1125,8 @@ Should you find yourself uncertain and in need of assistance, **[@pureforum][pur
 As I harbor a disinclination towards anything that appears excessively formal, I have elected to employ my own stylistic preferences 😎
 
 **Additionally, have you perused these issues?**
-- https://github.com/nitreojs/puregram/issues/63
-- https://github.com/nitreojs/puregram/issues/62
+- https://github.com/puregram/puregram/issues/63
+- https://github.com/puregram/puregram/issues/62
 
 They serve to corroborate my aversion to anything that presents itself as overly official 😉
 

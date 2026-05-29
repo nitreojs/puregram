@@ -54,7 +54,7 @@ export const DEFAULT_OPTIONS: Omit<ResolvedTelegramOptions, 'token' | 'httpClien
   apiRetryLimit: -1,
   apiHeaders: {
     connection: 'keep-alive',
-    'user-agent': `puregram/${VERSION} (+https://github.com/nitreojs/puregram)`
+    'user-agent': `puregram/${VERSION} (+https://github.com/puregram/puregram)`
   },
   useTestDc: false,
   useLocal: false,

@@ -27,7 +27,7 @@ const cards = [
       <p class="tagline">{{ tagline }}</p>
       <div class="actions">
         <a class="btn primary" :href="withBase('/guide/getting-started/introduction')">get started →</a>
-        <a class="btn" href="https://github.com/nitreojs/puregram" target="_blank" rel="noreferrer">github</a>
+        <a class="btn" href="https://github.com/puregram/puregram" target="_blank" rel="noreferrer">github</a>
       </div>
     </section>
 

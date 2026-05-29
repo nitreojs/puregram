@@ -5,7 +5,7 @@
 <br />
 
 <div align='center'>
-  <a href='https://github.com/nitreojs/puregram'><b><code>puregram</code></b></a>
+  <a href='https://github.com/puregram/puregram'><b><code>puregram</code></b></a>
   <span>&nbsp;•&nbsp;</span>
   <a href='#waitfor'><b>waitFor</b></a>
   <span>&nbsp;•&nbsp;</span>

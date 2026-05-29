@@ -43,6 +43,6 @@
   "author": "starkow",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nitreojs/puregram/tree/v3/packages/api"
+    "url": "https://github.com/puregram/puregram/tree/v3/packages/api"
   }
 }

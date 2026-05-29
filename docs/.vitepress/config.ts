@@ -150,7 +150,7 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/nitreojs/puregram' }
+      { icon: 'github', link: 'https://github.com/puregram/puregram' }
     ]
   },
 

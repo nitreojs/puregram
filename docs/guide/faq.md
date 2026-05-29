@@ -33,7 +33,7 @@ v2 is frozen at `2.27.0` on the `lord` branch. the npm tarballs stay published f
 
 ## are there any telegram chats or channels?
 
-yep. [t.me/pureforum](https://t.me/pureforum) is the chat. for "is this the right way to..." questions the chat is faster than opening an issue. for bugs and feature requests, [github issues](https://github.com/nitreojs/puregram/issues) is the right place
+yep. [t.me/pureforum](https://t.me/pureforum) is the chat. for "is this the right way to..." questions the chat is faster than opening an issue. for bugs and feature requests, [github issues](https://github.com/puregram/puregram/issues) is the right place
 
 ::: tip before you ask
 check the examples in the repo first — `examples/` has runnable bots covering most common patterns. someone probably already solved your problem
@@ -43,8 +43,8 @@ check the examples in the repo first — `examples/` has runnable bots covering 
 
 because i felt like it
 
-- https://github.com/nitreojs/puregram/issues/63
-- https://github.com/nitreojs/puregram/issues/62
+- https://github.com/puregram/puregram/issues/63
+- https://github.com/puregram/puregram/issues/62
 
 ## where's the api reference?
 

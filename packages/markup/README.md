@@ -5,7 +5,7 @@
 <br />
 
 <div align='center'>
-  <a href='https://github.com/nitreojs/puregram'><b><code>puregram</code></b></a>
+  <a href='https://github.com/puregram/puregram'><b><code>puregram</code></b></a>
   <span>&nbsp;•&nbsp;</span>
   <a href='#available-builders'><b>builders</b></a>
   <span>&nbsp;•&nbsp;</span>
@@ -207,7 +207,7 @@ five lines`
 
 ```ts
 // eager: text + url positionally
-link('puregram on github', 'https://github.com/nitreojs/puregram')
+link('puregram on github', 'https://github.com/puregram/puregram')
 
 // curried, tagged-template — useful when you want to embed a wrapped piece in a template
 link('https://core.telegram.org/bots/api')`bot api docs`

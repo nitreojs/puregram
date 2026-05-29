@@ -25,6 +25,8 @@ pass `parse_mode` in the params of `send`, `sendPhoto`, `sendDocument`, etc. (an
 
 telegram matches `parse_mode` case-insensitively, so `'html'`, `'markdown'`, and `'markdownv2'` work just as well — the table uses the canonical casing from the bot api docs
 
+the field is typed `'HTML' | 'Markdown' | 'MarkdownV2' | (string & {})`, so the three canonical values show up in editor autocomplete while any other string (e.g. `'html'`) still typechecks
+
 ::: warning Markdown vs MarkdownV2
 `'Markdown'` is the legacy mode and has significant limitations — no strikethrough, no underline, no spoiler, unreliable nesting. prefer `'HTML'` or `'MarkdownV2'` for new bots
 :::

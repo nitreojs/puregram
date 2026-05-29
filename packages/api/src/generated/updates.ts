@@ -1767,7 +1767,7 @@ class MessageShared {
         direct_messages_topic_id?: number;
         video_start_timestamp?: number;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         show_caption_above_media?: boolean;
         disable_notification?: boolean;
@@ -1999,7 +1999,7 @@ class MessageShared {
         business_connection_id?: string;
         inline_message_id?: string;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         show_caption_above_media?: boolean;
         reply_markup?: TelegramInlineKeyboardMarkup | {
@@ -2089,7 +2089,7 @@ class MessageShared {
     edit(text: string | Formattable, params: {
         business_connection_id?: string;
         inline_message_id?: string;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
         link_preview_options?: TelegramLinkPreviewOptions;
         reply_markup?: TelegramInlineKeyboardMarkup | {
@@ -2377,7 +2377,7 @@ class MessageShared {
         height?: number;
         thumbnail?: TelegramInputFile | string;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         show_caption_above_media?: boolean;
         has_spoiler?: boolean;
@@ -2409,7 +2409,7 @@ class MessageShared {
         height?: number;
         thumbnail?: TelegramInputFile | string;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         show_caption_above_media?: boolean;
         has_spoiler?: boolean;
@@ -2438,7 +2438,7 @@ class MessageShared {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         duration?: number;
         performer?: string;
@@ -2468,7 +2468,7 @@ class MessageShared {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         duration?: number;
         performer?: string;
@@ -2652,7 +2652,7 @@ class MessageShared {
         direct_messages_topic_id?: number;
         thumbnail?: TelegramInputFile | string;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         disable_content_type_detection?: boolean;
         disable_notification?: boolean;
@@ -2680,7 +2680,7 @@ class MessageShared {
         direct_messages_topic_id?: number;
         thumbnail?: TelegramInputFile | string;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         disable_content_type_detection?: boolean;
         disable_notification?: boolean;
@@ -2751,7 +2751,7 @@ class MessageShared {
         gift_id: string;
         pay_for_upgrade?: boolean;
         text?: string | Formattable;
-        text_parse_mode?: string;
+        text_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         text_entities?: TelegramMessageEntity[];
     }) {
         return this.tg.api.sendGift({
@@ -2852,7 +2852,7 @@ class MessageShared {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         show_caption_above_media?: boolean;
         has_spoiler?: boolean;
@@ -2881,7 +2881,7 @@ class MessageShared {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         show_caption_above_media?: boolean;
         has_spoiler?: boolean;
@@ -3006,7 +3006,7 @@ class MessageShared {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
         link_preview_options?: TelegramLinkPreviewOptions;
         disable_notification?: boolean;
@@ -3032,7 +3032,7 @@ class MessageShared {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
         link_preview_options?: TelegramLinkPreviewOptions;
         disable_notification?: boolean;
@@ -3058,7 +3058,7 @@ class MessageShared {
     sendMessageDraft(text: string | Formattable, params: {
         message_thread_id?: number;
         draft_id: number;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
     }) {
         return this.tg.api.sendMessageDraft({
@@ -3076,7 +3076,7 @@ class MessageShared {
         direct_messages_topic_id?: number;
         payload?: string;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         show_caption_above_media?: boolean;
         disable_notification?: boolean;
@@ -3104,7 +3104,7 @@ class MessageShared {
         direct_messages_topic_id?: number;
         payload?: string;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         show_caption_above_media?: boolean;
         disable_notification?: boolean;
@@ -3132,7 +3132,7 @@ class MessageShared {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         show_caption_above_media?: boolean;
         has_spoiler?: boolean;
@@ -3160,7 +3160,7 @@ class MessageShared {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         show_caption_above_media?: boolean;
         has_spoiler?: boolean;
@@ -3187,7 +3187,7 @@ class MessageShared {
     sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: {
         business_connection_id?: string;
         message_thread_id?: number;
-        question_parse_mode?: string;
+        question_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         question_entities?: TelegramMessageEntity[];
         is_anonymous?: boolean;
         type?: string;
@@ -3200,14 +3200,14 @@ class MessageShared {
         country_codes?: string[];
         correct_option_ids?: number[];
         explanation?: string | Formattable;
-        explanation_parse_mode?: string;
+        explanation_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         explanation_entities?: TelegramMessageEntity[];
         explanation_media?: TelegramInputPollMedia;
         open_period?: number;
         close_date?: number;
         is_closed?: boolean;
         description?: string | Formattable;
-        description_parse_mode?: string;
+        description_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         description_entities?: TelegramMessageEntity[];
         media?: TelegramInputPollMedia;
         disable_notification?: boolean;
@@ -3232,7 +3232,7 @@ class MessageShared {
     replyWithPoll(question: string | Formattable, options: TelegramInputPollOption[], params: {
         business_connection_id?: string;
         message_thread_id?: number;
-        question_parse_mode?: string;
+        question_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         question_entities?: TelegramMessageEntity[];
         is_anonymous?: boolean;
         type?: string;
@@ -3245,14 +3245,14 @@ class MessageShared {
         country_codes?: string[];
         correct_option_ids?: number[];
         explanation?: string | Formattable;
-        explanation_parse_mode?: string;
+        explanation_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         explanation_entities?: TelegramMessageEntity[];
         explanation_media?: TelegramInputPollMedia;
         open_period?: number;
         close_date?: number;
         is_closed?: boolean;
         description?: string | Formattable;
-        description_parse_mode?: string;
+        description_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         description_entities?: TelegramMessageEntity[];
         media?: TelegramInputPollMedia;
         disable_notification?: boolean;
@@ -3396,7 +3396,7 @@ class MessageShared {
         cover?: TelegramInputFile | string;
         start_timestamp?: number;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         show_caption_above_media?: boolean;
         has_spoiler?: boolean;
@@ -3431,7 +3431,7 @@ class MessageShared {
         cover?: TelegramInputFile | string;
         start_timestamp?: number;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         show_caption_above_media?: boolean;
         has_spoiler?: boolean;
@@ -3514,7 +3514,7 @@ class MessageShared {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         duration?: number;
         disable_notification?: boolean;
@@ -3541,7 +3541,7 @@ class MessageShared {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         duration?: number;
         disable_notification?: boolean;
@@ -6933,7 +6933,7 @@ class ChatMemberUpdatedShared {
         direct_messages_topic_id?: number;
         video_start_timestamp?: number;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         show_caption_above_media?: boolean;
         disable_notification?: boolean;
@@ -7166,7 +7166,7 @@ class ChatMemberUpdatedShared {
         message_id?: number;
         inline_message_id?: string;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         show_caption_above_media?: boolean;
         reply_markup?: TelegramInlineKeyboardMarkup | {
@@ -7256,7 +7256,7 @@ class ChatMemberUpdatedShared {
         business_connection_id?: string;
         message_id?: number;
         inline_message_id?: string;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
         link_preview_options?: TelegramLinkPreviewOptions;
         reply_markup?: TelegramInlineKeyboardMarkup | {
@@ -7543,7 +7543,7 @@ class ChatMemberUpdatedShared {
         height?: number;
         thumbnail?: TelegramInputFile | string;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         show_caption_above_media?: boolean;
         has_spoiler?: boolean;
@@ -7571,7 +7571,7 @@ class ChatMemberUpdatedShared {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         duration?: number;
         performer?: string;
@@ -7683,7 +7683,7 @@ class ChatMemberUpdatedShared {
         direct_messages_topic_id?: number;
         thumbnail?: TelegramInputFile | string;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         disable_content_type_detection?: boolean;
         disable_notification?: boolean;
@@ -7731,7 +7731,7 @@ class ChatMemberUpdatedShared {
         gift_id: string;
         pay_for_upgrade?: boolean;
         text?: string | Formattable;
-        text_parse_mode?: string;
+        text_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         text_entities?: TelegramMessageEntity[];
     }) {
         return this.tg.api.sendGift({
@@ -7789,7 +7789,7 @@ class ChatMemberUpdatedShared {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         show_caption_above_media?: boolean;
         has_spoiler?: boolean;
@@ -7864,7 +7864,7 @@ class ChatMemberUpdatedShared {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
         link_preview_options?: TelegramLinkPreviewOptions;
         disable_notification?: boolean;
@@ -7889,7 +7889,7 @@ class ChatMemberUpdatedShared {
     sendMessageDraft(text: string | Formattable, params: {
         message_thread_id?: number;
         draft_id: number;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
     }) {
         return this.tg.api.sendMessageDraft({
@@ -7907,7 +7907,7 @@ class ChatMemberUpdatedShared {
         direct_messages_topic_id?: number;
         payload?: string;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         show_caption_above_media?: boolean;
         disable_notification?: boolean;
@@ -7934,7 +7934,7 @@ class ChatMemberUpdatedShared {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         show_caption_above_media?: boolean;
         has_spoiler?: boolean;
@@ -7960,7 +7960,7 @@ class ChatMemberUpdatedShared {
     sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: {
         business_connection_id?: string;
         message_thread_id?: number;
-        question_parse_mode?: string;
+        question_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         question_entities?: TelegramMessageEntity[];
         is_anonymous?: boolean;
         type?: string;
@@ -7973,14 +7973,14 @@ class ChatMemberUpdatedShared {
         country_codes?: string[];
         correct_option_ids?: number[];
         explanation?: string | Formattable;
-        explanation_parse_mode?: string;
+        explanation_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         explanation_entities?: TelegramMessageEntity[];
         explanation_media?: TelegramInputPollMedia;
         open_period?: number;
         close_date?: number;
         is_closed?: boolean;
         description?: string | Formattable;
-        description_parse_mode?: string;
+        description_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         description_entities?: TelegramMessageEntity[];
         media?: TelegramInputPollMedia;
         disable_notification?: boolean;
@@ -8067,7 +8067,7 @@ class ChatMemberUpdatedShared {
         cover?: TelegramInputFile | string;
         start_timestamp?: number;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         show_caption_above_media?: boolean;
         has_spoiler?: boolean;
@@ -8122,7 +8122,7 @@ class ChatMemberUpdatedShared {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         duration?: number;
         disable_notification?: boolean;
@@ -8542,7 +8542,7 @@ export class ChatJoinRequestUpdate {
         direct_messages_topic_id?: number;
         video_start_timestamp?: number;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         show_caption_above_media?: boolean;
         disable_notification?: boolean;
@@ -8775,7 +8775,7 @@ export class ChatJoinRequestUpdate {
         message_id?: number;
         inline_message_id?: string;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         show_caption_above_media?: boolean;
         reply_markup?: TelegramInlineKeyboardMarkup | {
@@ -8865,7 +8865,7 @@ export class ChatJoinRequestUpdate {
         business_connection_id?: string;
         message_id?: number;
         inline_message_id?: string;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
         link_preview_options?: TelegramLinkPreviewOptions;
         reply_markup?: TelegramInlineKeyboardMarkup | {
@@ -9152,7 +9152,7 @@ export class ChatJoinRequestUpdate {
         height?: number;
         thumbnail?: TelegramInputFile | string;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         show_caption_above_media?: boolean;
         has_spoiler?: boolean;
@@ -9180,7 +9180,7 @@ export class ChatJoinRequestUpdate {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         duration?: number;
         performer?: string;
@@ -9292,7 +9292,7 @@ export class ChatJoinRequestUpdate {
         direct_messages_topic_id?: number;
         thumbnail?: TelegramInputFile | string;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         disable_content_type_detection?: boolean;
         disable_notification?: boolean;
@@ -9340,7 +9340,7 @@ export class ChatJoinRequestUpdate {
         gift_id: string;
         pay_for_upgrade?: boolean;
         text?: string | Formattable;
-        text_parse_mode?: string;
+        text_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         text_entities?: TelegramMessageEntity[];
     }) {
         return this.tg.api.sendGift({
@@ -9398,7 +9398,7 @@ export class ChatJoinRequestUpdate {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         show_caption_above_media?: boolean;
         has_spoiler?: boolean;
@@ -9473,7 +9473,7 @@ export class ChatJoinRequestUpdate {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
         link_preview_options?: TelegramLinkPreviewOptions;
         disable_notification?: boolean;
@@ -9498,7 +9498,7 @@ export class ChatJoinRequestUpdate {
     sendMessageDraft(text: string | Formattable, params: {
         message_thread_id?: number;
         draft_id: number;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
     }) {
         return this.tg.api.sendMessageDraft({
@@ -9516,7 +9516,7 @@ export class ChatJoinRequestUpdate {
         direct_messages_topic_id?: number;
         payload?: string;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         show_caption_above_media?: boolean;
         disable_notification?: boolean;
@@ -9543,7 +9543,7 @@ export class ChatJoinRequestUpdate {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         show_caption_above_media?: boolean;
         has_spoiler?: boolean;
@@ -9569,7 +9569,7 @@ export class ChatJoinRequestUpdate {
     sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: {
         business_connection_id?: string;
         message_thread_id?: number;
-        question_parse_mode?: string;
+        question_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         question_entities?: TelegramMessageEntity[];
         is_anonymous?: boolean;
         type?: string;
@@ -9582,14 +9582,14 @@ export class ChatJoinRequestUpdate {
         country_codes?: string[];
         correct_option_ids?: number[];
         explanation?: string | Formattable;
-        explanation_parse_mode?: string;
+        explanation_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         explanation_entities?: TelegramMessageEntity[];
         explanation_media?: TelegramInputPollMedia;
         open_period?: number;
         close_date?: number;
         is_closed?: boolean;
         description?: string | Formattable;
-        description_parse_mode?: string;
+        description_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         description_entities?: TelegramMessageEntity[];
         media?: TelegramInputPollMedia;
         disable_notification?: boolean;
@@ -9676,7 +9676,7 @@ export class ChatJoinRequestUpdate {
         cover?: TelegramInputFile | string;
         start_timestamp?: number;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         show_caption_above_media?: boolean;
         has_spoiler?: boolean;
@@ -9731,7 +9731,7 @@ export class ChatJoinRequestUpdate {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
-        parse_mode?: string;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
         duration?: number;
         disable_notification?: boolean;

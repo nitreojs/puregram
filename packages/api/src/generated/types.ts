@@ -2683,7 +2683,7 @@ export interface TelegramInlineQueryResultAudio {
     /**
      * Optional. Mode for parsing entities in the audio caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -2729,7 +2729,7 @@ export interface TelegramInlineQueryResultCachedAudio {
     /**
      * Optional. Mode for parsing entities in the audio caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -2775,7 +2775,7 @@ export interface TelegramInlineQueryResultCachedDocument {
     /**
      * Optional. Mode for parsing entities in the document caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -2817,7 +2817,7 @@ export interface TelegramInlineQueryResultCachedGif {
     /**
      * Optional. Mode for parsing entities in the caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -2863,7 +2863,7 @@ export interface TelegramInlineQueryResultCachedMpeg4Gif {
     /**
      * Optional. Mode for parsing entities in the caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -2913,7 +2913,7 @@ export interface TelegramInlineQueryResultCachedPhoto {
     /**
      * Optional. Mode for parsing entities in the photo caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -2989,7 +2989,7 @@ export interface TelegramInlineQueryResultCachedVideo {
     /**
      * Optional. Mode for parsing entities in the video caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -3035,7 +3035,7 @@ export interface TelegramInlineQueryResultCachedVoice {
     /**
      * Optional. Mode for parsing entities in the voice message caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -3123,7 +3123,7 @@ export interface TelegramInlineQueryResultDocument {
     /**
      * Optional. Mode for parsing entities in the document caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -3231,7 +3231,7 @@ export interface TelegramInlineQueryResultGif {
     /**
      * Optional. Mode for parsing entities in the caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -3359,7 +3359,7 @@ export interface TelegramInlineQueryResultMpeg4Gif {
     /**
      * Optional. Mode for parsing entities in the caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -3421,7 +3421,7 @@ export interface TelegramInlineQueryResultPhoto {
     /**
      * Optional. Mode for parsing entities in the photo caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -3559,7 +3559,7 @@ export interface TelegramInlineQueryResultVideo {
     /**
      * Optional. Mode for parsing entities in the video caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -3621,7 +3621,7 @@ export interface TelegramInlineQueryResultVoice {
     /**
      * Optional. Mode for parsing entities in the voice message caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -3651,7 +3651,7 @@ export interface TelegramInputChecklist {
     /**
      * Optional. Mode for parsing entities in the title. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * Optional. List of special entities that appear in the title, which can be specified instead of parse_mode. Currently, only bold, italic, underline, strikethrough, spoiler, custom_emoji, and date_time entities are allowed.
      */
@@ -3685,7 +3685,7 @@ export interface TelegramInputChecklistTask {
     /**
      * Optional. Mode for parsing entities in the text. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * Optional. List of special entities that appear in the text, which can be specified instead of parse_mode. Currently, only bold, italic, underline, strikethrough, spoiler, custom_emoji, and date_time entities are allowed.
      */
@@ -3864,7 +3864,7 @@ export interface TelegramInputMediaAnimation {
     /**
      * Optional. Mode for parsing entities in the animation caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -3914,7 +3914,7 @@ export interface TelegramInputMediaAudio {
     /**
      * Optional. Mode for parsing entities in the audio caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -3956,7 +3956,7 @@ export interface TelegramInputMediaDocument {
     /**
      * Optional. Mode for parsing entities in the document caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -3990,7 +3990,7 @@ export interface TelegramInputMediaLivePhoto {
     /**
      * Optional. Mode for parsing entities in the live photo caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -4046,7 +4046,7 @@ export interface TelegramInputMediaPhoto {
     /**
      * Optional. Mode for parsing entities in the photo caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -4152,7 +4152,7 @@ export interface TelegramInputMediaVideo {
     /**
      * Optional. Mode for parsing entities in the video caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -4283,7 +4283,7 @@ export interface TelegramInputPollOption {
     /**
      * Optional. Mode for parsing entities in the text. See formatting options for more details. Currently, only custom emoji entities are allowed.
      */
-    text_parse_mode?: string;
+    text_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * Optional. A JSON-serialized list of special entities that appear in the poll option text. It can be specified instead of text_parse_mode.
      */
@@ -4418,7 +4418,7 @@ export interface TelegramInputTextMessageContent {
     /**
      * Optional. Mode for parsing entities in the message text. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * Optional. List of special entities that appear in message text, which can be specified instead of parse_mode
      */
@@ -6563,7 +6563,7 @@ export interface TelegramReplyParameters {
     /**
      * Optional. Mode for parsing entities in the quote. See formatting options for more details.
      */
-    quote_parse_mode?: string;
+    quote_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * Optional. A JSON-serialized list of special entities that appear in the quote. It can be specified instead of quote_parse_mode.
      */

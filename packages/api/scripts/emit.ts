@@ -18,9 +18,12 @@ import { emitTypes } from './lib/emitter/emit-types'
 import { emitUpdates } from './lib/emitter/emit-updates'
 import { emitWebhookReplySafe } from './lib/emitter/emit-webhook-reply-safe'
 import { loadLatestSchema, versionString } from './lib/emitter/load-schema'
+import { applySoftEnums } from './lib/emitter/soft-enums'
 
 async function main () {
   const schema = await loadLatestSchema()
+
+  applySoftEnums(schema)
 
   console.log(`[emit] schema: bot api ${versionString(schema)} (${schema.methods.length} methods, ${schema.objects.length} objects)`)
 

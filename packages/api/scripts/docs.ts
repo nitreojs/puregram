@@ -8,6 +8,7 @@ import { emitObjectsPage } from './lib/docs/emit-objects'
 import { emitUpdatesPage } from './lib/docs/emit-updates'
 import { GENERATED_BANNER } from './lib/docs/shared'
 import { loadLatestSchema, versionString } from './lib/emitter/load-schema'
+import { applySoftEnums } from './lib/emitter/soft-enums'
 
 const index = `${GENERATED_BANNER}
 
@@ -23,6 +24,8 @@ auto-generated from the committed bot api schema.
 
 async function main () {
   const schema = await loadLatestSchema()
+
+  applySoftEnums(schema)
 
   const here = dirname(fileURLToPath(import.meta.url))
   const outDir = resolve(here, '..', '..', '..', 'docs', 'api')

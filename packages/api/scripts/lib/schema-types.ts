@@ -12,7 +12,7 @@ export interface SchemaRecentChanges {
 
 export type SchemaTypeRef =
   | { kind: 'integer', min?: number, max?: number, default?: number }
-  | { kind: 'string', enumeration?: string[], default?: string }
+  | { kind: 'string', enumeration?: string[], default?: string, open?: boolean }
   | { kind: 'bool', default?: boolean }
   | { kind: 'float' }
   | { kind: 'true' }

@@ -364,7 +364,7 @@ export interface CopyMessageParams {
     /**
      * Mode for parsing entities in the new caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * A JSON-serialized list of special entities that appear in the new caption, which can be specified instead of parse_mode
      */
@@ -1084,7 +1084,7 @@ export interface EditMessageCaptionParams {
     /**
      * Mode for parsing entities in the message caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -1293,7 +1293,7 @@ export interface EditMessageTextParams {
     /**
      * Mode for parsing entities in the message text. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * A JSON-serialized list of special entities that appear in message text, which can be specified instead of parse_mode
      */
@@ -1338,7 +1338,7 @@ export interface EditStoryParams {
     /**
      * Mode for parsing entities in the story caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -2111,7 +2111,7 @@ export interface GiftPremiumSubscriptionParams {
     /**
      * Mode for parsing entities in the text. See formatting options for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, “custom_emoji”, and “date_time” are ignored.
      */
-    text_parse_mode?: string;
+    text_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of text_parse_mode. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, “custom_emoji”, and “date_time” are ignored.
      */
@@ -2208,7 +2208,7 @@ export interface PostStoryParams {
     /**
      * Mode for parsing entities in the story caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -2677,7 +2677,7 @@ export interface SendAnimationParams {
     /**
      * Mode for parsing entities in the animation caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -2759,7 +2759,7 @@ export interface SendAudioParams {
     /**
      * Mode for parsing entities in the audio caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -3061,7 +3061,7 @@ export interface SendDocumentParams {
     /**
      * Mode for parsing entities in the document caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -3187,7 +3187,7 @@ export interface SendGiftParams {
     /**
      * Mode for parsing entities in the text. See formatting options for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, “custom_emoji”, and “date_time” are ignored.
      */
-    text_parse_mode?: string;
+    text_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of text_parse_mode. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, “custom_emoji”, and “date_time” are ignored.
      */
@@ -3371,7 +3371,7 @@ export interface SendLivePhotoParams {
     /**
      * Mode for parsing entities in the video caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -3580,7 +3580,7 @@ export interface SendMessageParams {
     /**
      * Mode for parsing entities in the message text. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * A JSON-serialized list of special entities that appear in message text, which can be specified instead of parse_mode
      */
@@ -3649,7 +3649,7 @@ export interface SendMessageDraftParams {
     /**
      * Mode for parsing entities in the message text. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * A JSON-serialized list of special entities that appear in message text, which can be specified instead of parse_mode
      */
@@ -3700,7 +3700,7 @@ export interface SendPaidMediaParams {
     /**
      * Mode for parsing entities in the media caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -3773,7 +3773,7 @@ export interface SendPhotoParams {
     /**
      * Mode for parsing entities in the photo caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -3846,7 +3846,7 @@ export interface SendPollParams {
     /**
      * Mode for parsing entities in the question. See formatting options for more details. Currently, only custom emoji entities are allowed.
      */
-    question_parse_mode?: string;
+    question_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * A JSON-serialized list of special entities that appear in the poll question. It can be specified instead of question_parse_mode.
      */
@@ -3902,7 +3902,7 @@ export interface SendPollParams {
     /**
      * Mode for parsing entities in the explanation. See formatting options for more details.
      */
-    explanation_parse_mode?: string;
+    explanation_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * A JSON-serialized list of special entities that appear in the poll explanation. It can be specified instead of explanation_parse_mode.
      */
@@ -3930,7 +3930,7 @@ export interface SendPollParams {
     /**
      * Mode for parsing entities in the poll description. See formatting options for more details.
      */
-    description_parse_mode?: string;
+    description_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * A JSON-serialized list of special entities that appear in the poll description, which can be specified instead of description_parse_mode
      */
@@ -4181,7 +4181,7 @@ export interface SendVideoParams {
     /**
      * Mode for parsing entities in the video caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
      */
@@ -4339,7 +4339,7 @@ export interface SendVoiceParams {
     /**
      * Mode for parsing entities in the voice message caption. See formatting options for more details.
      */
-    parse_mode?: string;
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
     /**
      * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
      */

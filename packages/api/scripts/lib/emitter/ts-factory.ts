@@ -9,11 +9,21 @@ export function typeRefToTs (ref: SchemaTypeRef): ts.TypeNode {
       return ts.factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword)
     case 'string':
       if (ref.enumeration && ref.enumeration.length > 0) {
-        return ts.factory.createUnionTypeNode(
-          ref.enumeration.map(v =>
-            ts.factory.createLiteralTypeNode(ts.factory.createStringLiteral(v))
-          )
+        const members: ts.TypeNode[] = ref.enumeration.map(v =>
+          ts.factory.createLiteralTypeNode(ts.factory.createStringLiteral(v))
         )
+
+        // soft enum — keep the literals for autocomplete but stay assignable from any
+        // string (telegram matches these case-insensitively, so a strict union would
+        // wrongly reject valid input like 'html')
+        if (ref.open) {
+          members.push(ts.factory.createIntersectionTypeNode([
+            ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
+            ts.factory.createTypeLiteralNode([])
+          ]))
+        }
+
+        return ts.factory.createUnionTypeNode(members)
       }
 
       return ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword)

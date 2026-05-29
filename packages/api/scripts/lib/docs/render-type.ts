@@ -12,10 +12,16 @@ export function renderType (ref: SchemaTypeRef): string {
       return 'boolean'
     case 'true':
       return 'true'
-    case 'string':
-      return ref.enumeration?.length
-        ? ref.enumeration.map(value => `\`${value}\``).join(' | ')
-        : 'string'
+    case 'string': {
+      if (!ref.enumeration?.length) {
+        return 'string'
+      }
+
+      const literals = ref.enumeration.map(value => `\`${value}\``).join(' | ')
+
+      // soft enum stays assignable from any string — show that in the docs cell
+      return ref.open ? `${literals} | string` : literals
+    }
     case 'reference':
       return `[${ref.name}](${objectAnchor(ref.name)})`
     case 'array':

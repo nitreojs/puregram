@@ -16,6 +16,11 @@ describe('renderType', () => {
       .toBe('`html` | `markdown`')
   })
 
+  it('appends a bare string to soft enums to show they stay open', () => {
+    expect(renderType({ kind: 'string', enumeration: ['HTML', 'Markdown'], open: true }))
+      .toBe('`HTML` | `Markdown` | string')
+  })
+
   it('links references to the objects page anchor', () => {
     expect(renderType({ kind: 'reference', name: 'Message' }))
       .toBe('[Message](/api/objects#message)')

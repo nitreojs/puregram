@@ -62,17 +62,21 @@ multiple `tg.catch` handlers can be registered; they all run in registration ord
 
 ## polling concurrency + per-key sequentialization
 
-`startPolling` defaults to dispatching every update in parallel. two extra options let you control this:
+`startPolling` defaults to dispatching every update in parallel. three options let you control this:
 
 | option | type | default | description |
 |---|---|---|---|
 | `concurrency` | `number` | `Infinity` | cap on concurrent dispatches across the whole bot |
+| `maxInFlight` | `number` | `Infinity` | stop pulling new updates while this many dispatches are in flight (running + queued); fetching resumes as they settle |
 | `sequentializeBy` | `(raw) => string \| undefined` | `undefined` | return a key — updates sharing that key run in FIFO order; different keys still run in parallel (subject to `concurrency`) |
 
 ```ts
 await tg.startPolling({
   // never run more than 8 handlers at once
   concurrency: 8,
+
+  // and never let more than 64 updates pile up waiting for a slot
+  maxInFlight: 64,
 
   // updates from the same chat run serially — safe when a handler reads/writes per-chat state
   sequentializeBy: raw =>
@@ -84,6 +88,10 @@ returning `undefined` or `''` from `sequentializeBy` opts that update out of per
 
 ::: tip why serial within a key?
 if two updates from the same chat arrive simultaneously and both modify the same session entry, running them in parallel risks a lost write. serializing by chat id ensures each update sees the state left by the previous one. the tradeoff is latency per chat — tune `concurrency` to balance throughput
+:::
+
+::: tip concurrency vs maxInFlight
+`concurrency` caps how many dispatches *run* at once; the rest queue in memory. under sustained overload that queue grows without bound. `maxInFlight` caps *running + queued* by pausing `getUpdates` once the limit is hit — telegram holds the backlog server-side until the bot catches up, so memory stays flat. use `concurrency` to protect downstream services, `maxInFlight` to protect the process itself
 :::
 
 ## see also

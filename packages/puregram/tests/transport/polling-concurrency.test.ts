@@ -158,6 +158,60 @@ describe('polling concurrency + sequentializeBy', () => {
     expect(peak).toBe(2)
   })
 
+  it('maxInFlight pauses fetching while saturated, resumes as dispatches settle', async () => {
+    const tg = new Telegram({ token: 'X' })
+
+    let getUpdatesCalls = 0
+
+    stubApi(tg, {
+      getMe: () => ({ id: 0, is_bot: true, first_name: 'bot', username: 'testbot' }),
+      getUpdates: () => {
+        getUpdatesCalls++
+
+        if (getUpdatesCalls === 1) {
+          return [makeUpdate(1, 100), makeUpdate(2, 200)]
+        }
+
+        tg.stopPolling()
+
+        return []
+      }
+    })
+
+    let started = 0
+    const gates: (() => void)[] = []
+
+    tg.onMessage(async () => {
+      started++
+      await new Promise<void>((resolve) => {
+        gates.push(resolve)
+      })
+    })
+
+    await tg.startPolling({ maxInFlight: 2 })
+
+    await new Promise(resolve => setImmediate(resolve))
+    await new Promise(resolve => setImmediate(resolve))
+
+    // both updates admitted and blocked; fetching is parked on backpressure
+    expect(started).toBe(2)
+    expect(getUpdatesCalls).toBe(1)
+
+    // settle one — capacity frees, the loop resumes and fetches again (then stops)
+    gates.shift()?.()
+
+    await new Promise(resolve => setImmediate(resolve))
+    await new Promise(resolve => setImmediate(resolve))
+
+    expect(getUpdatesCalls).toBeGreaterThanOrEqual(2)
+
+    for (const g of gates.splice(0)) {
+      g()
+    }
+
+    await tg.shutdown()
+  })
+
   it('unbounded concurrency by default — all updates start in parallel', async () => {
     const tg = new Telegram({ token: 'X' })
 

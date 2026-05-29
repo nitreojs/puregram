@@ -30,6 +30,7 @@ all fields are optional:
 | `allowedUpdates` | `string[]` | `tg.options.allowedUpdates` | restrict which update kinds telegram delivers. `[]` means "everything except opt-in kinds" |
 | `dropPendingUpdates` | `boolean \| string[]` | `false` | drain the queued backlog before subscribing. `true` drops all; pass an array to drop only listed kinds |
 | `concurrency` | `number` | `Infinity` | cap the number of concurrent dispatches |
+| `maxInFlight` | `number` | `Infinity` | backpressure — stop pulling new updates while this many dispatches are in flight (running + queued), resume as they settle |
 | `sequentializeBy` | `(raw) => string \| undefined` | `undefined` | return a key to serialize dispatches per-key (FIFO within a key, parallel across keys) |
 
 `allowedUpdates` can also be set at construction time — that value is the default for every subsequent `startPolling` or webhook call:

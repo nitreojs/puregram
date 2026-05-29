@@ -18,6 +18,16 @@ export interface StartPollingOptions {
    */
   concurrency?: number
   /**
+   * backpressure — stop pulling new updates while this many dispatches are in
+   * flight (running + queued). fetching resumes as dispatches settle. telegram
+   * holds the unfetched updates server-side until the offset advances again, so
+   * the in-memory queue stays bounded instead of growing without limit under
+   * sustained overload. defaults to `Infinity` (no backpressure — preserves
+   * existing behavior). compose with `concurrency` to bound both the running and
+   * the queued set
+   */
+  maxInFlight?: number
+  /**
    * return a key for a given raw update to serialize dispatch per-key. updates
    * sharing a key run in FIFO order; updates with different keys still run in
    * parallel (subject to `concurrency`). `undefined`/empty key opts out
@@ -55,6 +65,9 @@ export class PollingTransport {
   private readonly waiters: (() => void)[] = []
   private readonly keyQueues = new Map<string, KeyQueue>()
 
+  private inFlight = 0
+  private readonly capacityWaiters: (() => void)[] = []
+
   constructor (private readonly deps: PollingDeps) {}
 
   async start (options: StartPollingOptions = {}) {
@@ -83,6 +96,13 @@ export class PollingTransport {
     this.isStarted = false
     this.retries = 0
     this.slotsInitialized = false
+
+    // release any tick parked on backpressure so the loop can observe the stop
+    while (this.capacityWaiters.length > 0) {
+      const next = this.capacityWaiters.shift()
+
+      next?.()
+    }
   }
 
   async drop (value: boolean | string[] = true) {
@@ -137,9 +157,23 @@ export class PollingTransport {
   }
 
   private async tick (options: StartPollingOptions) {
+    const maxInFlight = options.maxInFlight ?? Infinity
+
+    // backpressure — park while saturated; telegram holds the rest until the offset advances
+    await this.waitForCapacity(maxInFlight)
+
+    if (!this.isStarted) {
+      return
+    }
+
     const params: Record<string, unknown> = {
       timeout: options.timeout ?? 15,
       allowed_updates: options.allowedUpdates ?? this.deps.tg.options.allowedUpdates
+    }
+
+    if (maxInFlight !== Infinity) {
+      // fetch only what we can admit so a batch can't overshoot the cap
+      params.limit = Math.max(1, maxInFlight - this.inFlight)
     }
 
     if (this.offset) {
@@ -171,7 +205,11 @@ export class PollingTransport {
       const key = options.sequentializeBy?.(update)
       const promise = this.scheduleDispatch(raw, options, key)
 
-      this.deps.trackInFlight(promise)
+      this.inFlight += 1
+
+      this.deps.trackInFlight(promise.finally(() => {
+        this.onSettled(maxInFlight)
+      }))
     }
 
     this.retries = 0
@@ -254,5 +292,25 @@ export class PollingTransport {
     }
 
     this.slots += 1
+  }
+
+  private waitForCapacity (max: number) {
+    if (max === Infinity || this.inFlight < max) {
+      return Promise.resolve()
+    }
+
+    return new Promise<void>((resolve) => {
+      this.capacityWaiters.push(resolve)
+    })
+  }
+
+  private onSettled (max: number) {
+    this.inFlight -= 1
+
+    if (this.inFlight < max) {
+      const next = this.capacityWaiters.shift()
+
+      next?.()
+    }
   }
 }

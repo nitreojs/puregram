@@ -23,10 +23,10 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "puregram": "*"
+    "puregram": "workspace:^"
   },
   "peerDependencies": {
-    "@puregram/markup": "*"
+    "@puregram/markup": "workspace:^"
   },
   "peerDependenciesMeta": {
     "@puregram/markup": {
@@ -34,12 +34,15 @@
     }
   },
   "devDependencies": {
-    "@puregram/markup": "*",
+    "@puregram/markup": "workspace:^",
     "typescript": "^5.4.0",
     "vitest": "^1.4.0"
   },
   "license": "MPL-2.0",
   "author": "starkow",
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/puregram/puregram",

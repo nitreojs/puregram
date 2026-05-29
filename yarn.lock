@@ -1149,7 +1149,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@puregram/api@npm:*, @puregram/api@workspace:packages/api":
+"@puregram/api@npm:*, @puregram/api@workspace:packages/api, @puregram/api@workspace:~":
   version: 0.0.0-use.local
   resolution: "@puregram/api@workspace:packages/api"
   dependencies:
@@ -1165,8 +1165,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@puregram/callback-data@workspace:packages/callback-data"
   dependencies:
-    "@puregram/api": "npm:*"
-    puregram: "npm:*"
+    "@puregram/api": "workspace:~"
+    puregram: "workspace:^"
     typescript: "npm:^5.4.0"
     vitest: "npm:^1.4.0"
   languageName: unknown
@@ -1185,9 +1185,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@puregram/flow@workspace:packages/flow"
   dependencies:
-    "@puregram/api": "npm:*"
-    "@puregram/storage": "npm:3.0.0"
-    puregram: "npm:3.0.0"
+    "@puregram/api": "workspace:~"
+    "@puregram/storage": "workspace:^"
+    puregram: "workspace:^"
     tsx: "npm:^4.19.0"
     typescript: "npm:^5.4.0"
     vitest: "npm:^1.4.0"
@@ -1203,12 +1203,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@puregram/markup@npm:*, @puregram/markup@workspace:packages/markup":
+"@puregram/markup@npm:*, @puregram/markup@workspace:^, @puregram/markup@workspace:packages/markup":
   version: 0.0.0-use.local
   resolution: "@puregram/markup@workspace:packages/markup"
   dependencies:
-    "@puregram/api": "npm:*"
-    puregram: "npm:3.0.0"
+    "@puregram/api": "workspace:~"
+    puregram: "workspace:^"
     typescript: "npm:^5.4.0"
     vitest: "npm:^1.4.0"
   languageName: unknown
@@ -1218,8 +1218,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@puregram/media-cacher@workspace:packages/media-cacher"
   dependencies:
-    "@puregram/storage": "npm:3.0.0"
-    puregram: "npm:3.0.0"
+    "@puregram/storage": "workspace:^"
+    puregram: "workspace:^"
     typescript: "npm:^5.4.0"
     vitest: "npm:^1.4.0"
   languageName: unknown
@@ -1229,9 +1229,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@puregram/rate-limit@workspace:packages/rate-limit"
   dependencies:
-    "@puregram/api": "npm:*"
-    "@puregram/storage": "npm:3.0.0"
-    puregram: "npm:3.0.0"
+    "@puregram/api": "workspace:~"
+    "@puregram/storage": "workspace:^"
+    puregram: "workspace:^"
     typescript: "npm:^5.4.0"
     vitest: "npm:^1.4.0"
   languageName: unknown
@@ -1241,22 +1241,22 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@puregram/scenes@workspace:packages/scenes"
   dependencies:
-    "@puregram/api": "npm:*"
-    "@puregram/session": "npm:3.0.0"
-    puregram: "npm:3.0.0"
+    "@puregram/api": "workspace:~"
+    "@puregram/session": "workspace:^"
+    puregram: "workspace:^"
     tsx: "npm:^4.19.0"
     typescript: "npm:^5.4.0"
     vitest: "npm:^1.4.0"
   languageName: unknown
   linkType: soft
 
-"@puregram/session@npm:*, @puregram/session@npm:3.0.0, @puregram/session@workspace:packages/session":
+"@puregram/session@npm:*, @puregram/session@workspace:^, @puregram/session@workspace:packages/session":
   version: 0.0.0-use.local
   resolution: "@puregram/session@workspace:packages/session"
   dependencies:
-    "@puregram/api": "npm:*"
-    "@puregram/storage": "npm:3.0.0"
-    puregram: "npm:3.0.0"
+    "@puregram/api": "workspace:~"
+    "@puregram/storage": "workspace:^"
+    puregram: "workspace:^"
     tsx: "npm:^4.19.0"
     typescript: "npm:^5.4.0"
     vitest: "npm:^1.4.0"
@@ -1267,7 +1267,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@puregram/storage-redis@workspace:packages/storage/storages/redis"
   dependencies:
-    "@puregram/storage": "npm:3.0.0"
+    "@puregram/storage": "workspace:^"
     typescript: "npm:^5.4.0"
     vitest: "npm:^1.4.0"
   peerDependencies:
@@ -1279,7 +1279,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@puregram/storage-sqlite@workspace:packages/storage/storages/sqlite"
   dependencies:
-    "@puregram/storage": "npm:3.0.0"
+    "@puregram/storage": "workspace:^"
     typescript: "npm:^5.4.0"
     vitest: "npm:^1.4.0"
   peerDependencies:
@@ -1287,7 +1287,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@puregram/storage@npm:*, @puregram/storage@npm:3.0.0, @puregram/storage@workspace:packages/storage":
+"@puregram/storage@npm:*, @puregram/storage@workspace:^, @puregram/storage@workspace:packages/storage":
   version: 0.0.0-use.local
   resolution: "@puregram/storage@workspace:packages/storage"
   dependencies:
@@ -1300,12 +1300,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@puregram/stream@workspace:packages/stream"
   dependencies:
-    "@puregram/markup": "npm:*"
-    puregram: "npm:*"
+    "@puregram/markup": "workspace:^"
+    puregram: "workspace:^"
     typescript: "npm:^5.4.0"
     vitest: "npm:^1.4.0"
   peerDependencies:
-    "@puregram/markup": "*"
+    "@puregram/markup": "workspace:^"
   peerDependenciesMeta:
     "@puregram/markup":
       optional: true
@@ -1316,9 +1316,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@puregram/test@workspace:packages/test"
   dependencies:
-    "@puregram/api": "npm:*"
-    "@puregram/storage": "npm:3.0.0"
-    puregram: "npm:3.0.0"
+    "@puregram/api": "workspace:~"
+    "@puregram/storage": "workspace:^"
+    puregram: "workspace:^"
     typescript: "npm:^5.4.0"
     vitest: "npm:^1.4.0"
   languageName: unknown
@@ -1328,7 +1328,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@puregram/throttler@workspace:packages/throttler"
   dependencies:
-    puregram: "npm:*"
+    puregram: "workspace:^"
     typescript: "npm:^5.4.0"
     vitest: "npm:^1.4.0"
   languageName: unknown
@@ -6199,11 +6199,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"puregram@npm:*, puregram@npm:3.0.0, puregram@workspace:packages/puregram":
+"puregram@npm:*, puregram@workspace:^, puregram@workspace:packages/puregram":
   version: 0.0.0-use.local
   resolution: "puregram@workspace:packages/puregram"
   dependencies:
-    "@puregram/api": "npm:*"
+    "@puregram/api": "workspace:~"
     form-data-encoder: "npm:^4.0.2"
     formdata-node: "npm:^6.0.3"
     tsx: "npm:^4.7.0"

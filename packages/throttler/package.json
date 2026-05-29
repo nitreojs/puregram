@@ -23,7 +23,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "puregram": "*"
+    "puregram": "workspace:^"
   },
   "devDependencies": {
     "typescript": "^5.4.0",
@@ -31,6 +31,9 @@
   },
   "license": "MPL-2.0",
   "author": "starkow",
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/puregram/puregram",

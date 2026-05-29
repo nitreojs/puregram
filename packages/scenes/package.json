@@ -24,9 +24,9 @@
     "generate:augmentations": "tsx scripts/emit-augmentations.ts"
   },
   "dependencies": {
-    "@puregram/api": "*",
-    "@puregram/session": "3.0.0",
-    "puregram": "3.0.0"
+    "@puregram/api": "workspace:~",
+    "@puregram/session": "workspace:^",
+    "puregram": "workspace:^"
   },
   "devDependencies": {
     "tsx": "^4.19.0",
@@ -35,6 +35,9 @@
   },
   "license": "MPL-2.0",
   "author": "starkow",
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/puregram/puregram",

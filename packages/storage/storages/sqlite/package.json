@@ -23,7 +23,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@puregram/storage": "3.0.0"
+    "@puregram/storage": "workspace:^"
   },
   "peerDependencies": {
     "better-sqlite3": "^11.0.0"
@@ -34,10 +34,13 @@
   },
   "license": "MPL-2.0",
   "author": "starkow",
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/puregram/puregram",
-    "directory": "packages/storage-sqlite"
+    "directory": "packages/storage/storages/sqlite"
   },
   "keywords": [
     "telegram",

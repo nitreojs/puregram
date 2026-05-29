@@ -27,7 +27,7 @@
   },
   "scripts": {
     "prepare": "husky install",
-    "build": "yarn workspaces foreach -Apt run build",
+    "build": "yarn workspaces foreach -Ap --topological-dev run build",
     "lint": "eslint packages/*/src packages/storage/storages/*/src packages/*/scripts",
     "typecheck": "tsc -p tsconfig.typecheck.json",
     "test": "yarn workspaces foreach -A run test",

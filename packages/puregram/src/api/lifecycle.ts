@@ -1,3 +1,5 @@
+import { inspect } from 'node:util'
+
 import type { TelegramResponseParameters } from '@puregram/api'
 import { WEBHOOK_REPLY_SAFE_METHODS } from '@puregram/api'
 
@@ -10,6 +12,9 @@ import type { ResolvedTelegramOptions } from '../options'
 import { replyAls } from '../transport/webhook/reply'
 
 const debug = createDebug('puregram:api')
+// full request params + raw response body — noisy, lives on its own child namespace
+// `puregram:*` / `puregram:api:raw` switch it on; plain `puregram:api` stays terse
+const debugRaw = debug.extend('raw')
 
 export interface RunRequestDeps {
   options: ResolvedTelegramOptions
@@ -135,6 +140,11 @@ async function runOnce (
     await deps.hooks.run('onRequestIntercept', ctx)
 
     debug('-> %s', method)
+
+    if (debugRaw.enabled) {
+      debugRaw('-> %s %s', method, inspect(params, { depth: null }))
+    }
+
     const response = await deps.httpClient.request({ url: ctx.url, init: ctx.init ?? {} })
     const json = await response.json() as ApiResponseUnion
 
@@ -142,7 +152,16 @@ async function runOnce (
     ctx.json = json
 
     await deps.hooks.run('onResponseIntercept', ctx)
-    debug('<- %s ok=%s', method, json.ok)
+
+    if (json.ok) {
+      debug('<- %s ok=true', method)
+    } else {
+      debug('<- %s ok=false error_code=%s description=%s', method, json.error_code, json.description)
+    }
+
+    if (debugRaw.enabled) {
+      debugRaw('<- %s %s', method, inspect(json, { depth: null }))
+    }
 
     if (!json.ok) {
       if (suppress) {

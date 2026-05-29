@@ -3,6 +3,8 @@ import { format } from 'node:util'
 export interface DebugFn {
   (template: string, ...args: unknown[]): void
   extend: (suffix: string) => DebugFn
+  /** whether this namespace is currently switched on — guard expensive arg-building with it */
+  readonly enabled: boolean
 }
 
 function isEnabled (namespace: string) {
@@ -43,6 +45,8 @@ export function createDebug (namespace: string): DebugFn {
   }) as DebugFn
 
   fn.extend = (suffix: string) => createDebug(`${namespace}:${suffix}`)
+
+  Object.defineProperty(fn, 'enabled', { get: () => isEnabled(namespace) })
 
   return fn
 }

@@ -28,12 +28,13 @@ the env var is comma-separated. each entry is either an exact namespace or a wil
 
 | namespace | what it logs |
 | --- | --- |
-| `puregram:api` | every outbound api call (`-> sendMessage`) and its result (`<- sendMessage ok=true`), plus 429 retry attempts |
+| `puregram:api` | every outbound api call (`-> sendMessage`) and its result — `<- sendMessage ok=true`, or `<- sendMessage ok=false error_code=400 description=...` on failure — plus 429 retry attempts |
+| `puregram:api:raw` | full request params and the complete raw response body for every call (`-> getUpdates { ... }` / `<- getUpdates { ok: true, result: [ ... ] }`). noisy — paste this when something weird happens and the terse line isn't enough |
 | `puregram:dispatch` | per-update kind routing and handler errors |
-| `puregram:polling` | polling loop lifecycle events |
+| `puregram:polling` | polling loop lifecycle events, including the underlying error on each retry |
 | `puregram:webhook` | per-request webhook adapter events |
 
-use `puregram:*` when you don't know which layer is misbehaving, then narrow once you find the source
+use `puregram:*` when you don't know which layer is misbehaving (it captures `puregram:api:raw` too), then narrow once you find the source
 
 ::: tip stderr only
 all debug output goes to `stderr`. redirect with `2> debug.log` or pipe to a structured logger. stdout stays clean for your bot's own output

@@ -6128,6 +6128,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"puregram-example-order-wizard@workspace:examples/recipes/order-wizard":
+  version: 0.0.0-use.local
+  resolution: "puregram-example-order-wizard@workspace:examples/recipes/order-wizard"
+  dependencies:
+    "@puregram/callback-data": "npm:*"
+    "@puregram/scenes": "npm:*"
+    "@puregram/session": "npm:*"
+    "@types/node": "npm:^22.0.0"
+    puregram: "npm:*"
+    tsx: "npm:^4.19.0"
+    typescript: "npm:^5.4.0"
+  languageName: unknown
+  linkType: soft
+
 "puregram-example-premium-bot@workspace:examples/recipes/premium-bot":
   version: 0.0.0-use.local
   resolution: "puregram-example-premium-bot@workspace:examples/recipes/premium-bot"

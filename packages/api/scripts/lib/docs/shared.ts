@@ -7,6 +7,7 @@ export function escapeAngles (text: string) {
 }
 
 // markdown table cells can't contain raw newlines or pipes
+// escape backslashes before pipes so existing backslashes survive and the pipe-escaping backslash isn't double-escaped
 export function cell (text: string) {
-  return escapeAngles(text).replace(/\n/g, ' ').replace(/\|/g, '\\|')
+  return escapeAngles(text).replace(/\n/g, ' ').replace(/\\/g, '\\\\').replace(/\|/g, '\\|')
 }

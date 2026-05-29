@@ -39,11 +39,15 @@ describe('polling', () => {
 
     const received: unknown[] = []
 
-    tg.onMessage((u) => {
-      received.push(u)
+    const dispatched = new Promise<void>((resolve) => {
+      tg.onMessage((u) => {
+        received.push(u)
+        resolve()
+      })
     })
 
     await tg.startPolling()
+    await dispatched
 
     expect(received).toHaveLength(1)
     expect((received[0] as { kind: string }).kind).toBe('message')

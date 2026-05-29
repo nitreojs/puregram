@@ -38,16 +38,17 @@ describe('integration smoke', () => {
 
       const received: unknown[] = []
 
-      tg.onMessage((u) => {
-        received.push(u)
-        ;(tg as any).session.greetings++
-
-        if (pulls >= 1) {
+      const dispatched = new Promise<void>((resolve) => {
+        tg.onMessage((u) => {
+          received.push(u)
+          ;(tg as any).session.greetings++
           tg.stopPolling()
-        }
+          resolve()
+        })
       })
 
       await tg.startPolling()
+      await dispatched
 
       expect(received).toHaveLength(1)
       expect((tg as any).session.greetings).toBe(1)
@@ -101,7 +102,9 @@ describe('integration smoke', () => {
 
       let captured: Record<string, unknown> | undefined
       let resolveCaptured: () => void
-      const captureHit = new Promise<void>((resolve) => { resolveCaptured = resolve })
+      const captureHit = new Promise<void>((resolve) => {
+        resolveCaptured = resolve
+      })
 
       mock.expect('sendMessage', (params) => {
         captured = params

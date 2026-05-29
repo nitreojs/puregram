@@ -71,7 +71,12 @@ export class PollingTransport {
     }
 
     this.isStarted = true
-    await this.loop(options)
+
+    // run the loop in the background — startPolling resolves once polling has started so
+    // callers can keep going (the loop's own try/catch handles retries + fatal stops)
+    this.loop(options).catch((error) => {
+      debug('loop crashed: %O', error)
+    })
   }
 
   stop () {
@@ -125,7 +130,7 @@ export class PollingTransport {
         }
 
         this.retries += 1
-        debug('retry %d', this.retries)
+        debug('retry %d: %s', this.retries, error instanceof Error ? error.message : error)
         await new Promise(resolve => setTimeout(resolve, this.deps.tg.options.apiWait))
       }
     }

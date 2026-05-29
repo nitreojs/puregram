@@ -65,6 +65,10 @@ describe('polling concurrency + sequentializeBy', () => {
       sequentializeBy: () => 'same'
     })
 
+    // let the backgrounded loop pull the batch and spin up the first dispatch
+    await new Promise(resolve => setImmediate(resolve))
+    await new Promise(resolve => setImmediate(resolve))
+
     // only the first dispatch should have started; all others wait on its completion
     expect(trace).toEqual(['start:1'])
 

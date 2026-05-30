@@ -58,7 +58,7 @@
     "node": ">=22.0.0"
   },
   "scripts": {
-    "build": "rm -rf lib && tsc --project tsconfig.build.json",
+    "build": "rm -rf lib && tsc --project tsconfig.build.json && tsc-alias -p tsconfig.build.json --resolve-full-paths",
     "test": "vitest run",
     "test:watch": "vitest"
   },

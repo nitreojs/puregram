@@ -9,12 +9,12 @@ export async function loadLatestSchema () {
   const schemaDir = resolve(here, '..', '..', '..', 'schema')
   const files = await readdir(schemaDir)
   const versionFiles = files
-    .filter(f => /^\d+\.\d+\.\d+\.json$/.test(f))
+    .filter(f => /^\d+\.\d+\.json$/.test(f))
     .sort((a, b) => {
       const pa = a.replace('.json', '').split('.').map(Number)
       const pb = b.replace('.json', '').split('.').map(Number)
 
-      for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < 2; i++) {
         if (pa[i] !== pb[i]) {
           return pa[i]! - pb[i]!
         }
@@ -34,5 +34,5 @@ export async function loadLatestSchema () {
 }
 
 export function versionString (schema: Schema) {
-  return `${schema.version.major}.${schema.version.minor}.${schema.version.patch}`
+  return `${schema.version.major}.${schema.version.minor}`
 }

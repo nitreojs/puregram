@@ -316,20 +316,21 @@ every release commits a `schema/<bot-api-version>.json` snapshot — the parser'
 
 ```
 @puregram/api/schema/
-├── 9.6.0.json
-└── …
+├── 10.0.json          # current — the only checkpoint shipped to npm
+└── archive/
+    └── 9.6.json       # superseded checkpoints, kept in git history
 ```
 
-the JSON file is canonical and reviewable. diffing schema PRs surfaces what bot-api actually changed before the codegen output does. emit is reproducible offline:
+only the current `schema/<bot-api-version>.json` ships in the npm tarball — `files` globs `schema/*.json`, which doesn't reach `archive/`. superseded checkpoints stay in git so schema diffs remain reviewable. the JSON file is canonical and reviewable. diffing schema PRs surfaces what bot-api actually changed before the codegen output does. emit is reproducible offline:
 
 ```sh
-$ yarn parse        # rescrape corefork + core, write schema/<latest>.json
+$ yarn parse        # rescrape corefork + core, write schema/<latest>.json (shelving the previous one)
 $ yarn emit         # codegen src/generated/*.ts from the committed schema
 $ yarn verify       # CI check — fails if generated/ drifts from emit's output
 $ yarn regenerate   # parse + emit in one go
 ```
 
-the `botApi` field in `package.json` records the version this checkpoint targets — tooling that wants to know "which bot-api version is this puregram release pinned to" reads it from there
+the package `version`'s `major.minor` records the bot-api version this checkpoint targets (e.g. `10.0.x` → bot api 10.0); the trailing patch is puregram's own iteration counter
 
 ---
 

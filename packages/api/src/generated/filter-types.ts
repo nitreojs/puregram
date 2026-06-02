@@ -1,5 +1,5 @@
 /// AUTO-GENERATED FILE — do not edit by hand
-/// Bot API 10.0.0
+/// Bot API 10.0
 /// source: https://corefork.telegram.org/bots/api
 /// generated at: 2026-05-26T22:17:04.458Z
 /// see scripts/emit.ts in @puregram/api

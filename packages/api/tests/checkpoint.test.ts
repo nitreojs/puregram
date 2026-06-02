@@ -12,7 +12,7 @@ describe('schema checkpoint', () => {
   it('has at least one schema/<version>.json', async () => {
     const schemaDir = resolve(__dirname, '..', 'schema')
     const files = await readdir(schemaDir)
-    const versionFiles = files.filter(f => /^\d+\.\d+\.\d+\.json$/.test(f))
+    const versionFiles = files.filter(f => /^\d+\.\d+\.json$/.test(f))
 
     expect(versionFiles.length).toBeGreaterThan(0)
   })
@@ -20,7 +20,7 @@ describe('schema checkpoint', () => {
   it('latest checkpoint contains canonical methods and objects', async () => {
     const schemaDir = resolve(__dirname, '..', 'schema')
     const files = await readdir(schemaDir)
-    const versionFiles = files.filter(f => /^\d+\.\d+\.\d+\.json$/.test(f)).sort()
+    const versionFiles = files.filter(f => /^\d+\.\d+\.json$/.test(f)).sort()
     const latest = versionFiles[versionFiles.length - 1]
 
     const raw = await readFile(resolve(schemaDir, latest), 'utf8')

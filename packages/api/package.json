@@ -17,7 +17,7 @@
   },
   "files": [
     "lib",
-    "schema"
+    "schema/*.json"
   ],
   "engines": {
     "node": ">=22.0.0"

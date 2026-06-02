@@ -266,6 +266,33 @@ deepLink.videoChat({ username: 'mychannel', hash: 'abc123', live: true })
 - **phone** (for `attachInChat`) — digits only, no `+` prefix
 - **share url / text** — free-form; these *are* `encodeURIComponent`-escaped
 
+<a name='peer-id'></a>
+### `parsePeerId` / `toMtprotoId` / `toBotApiId` — bot api ↔ mtproto ids
+
+telegram clients, `t.me/c/…` links, and mtproto libraries (mtcute, gramjs) speak *bare* mtproto ids. the bot api hands out *marked* ids where the sign / `-100…` prefix encodes the peer kind. these helpers convert between the two and classify a marked id without a `getChat` round-trip
+
+```ts
+import {
+  parsePeerId, toMtprotoId, toBotApiId,
+  getPeerType, isUserId, isChatId, isChannelId
+} from '@puregram/utils'
+
+parsePeerId(-1001234567890) // { type: 'channel', id: 1234567890 }
+parsePeerId(-987654321)     // { type: 'chat', id: 987654321 }
+parsePeerId(123456789)      // { type: 'user', id: 123456789 }
+
+toMtprotoId(-1001234567890)       // 1234567890
+toBotApiId(1234567890, 'channel') // -1001234567890
+
+getPeerType(-1001234567890) // 'channel'
+isChannelId(-1001234567890) // true
+isUserId(0)                 // false — guards never throw
+```
+
+mapping: user `id` (positive) ↔ bare `id`; basic group `-id` ↔ bare `id`; supergroup/channel `-1000000000000 - id` ↔ bare `id`. `type` is coarse — `'channel'` covers **both** supergroups and broadcast channels, since they share the `-100…` marking and can't be told apart from the id alone
+
+the converting helpers (`parsePeerId`, `toMtprotoId`, `getPeerType`, `toBotApiId`) throw `PeerIdError` on structurally-impossible input — `0`, `-1000000000000`, non-integers, unsafe integers; `toBotApiId` also rejects a non-positive bare id. the `isXId` guards return `false` instead. ranges are lenient (no upper-bound check), so a future telegram id-ceiling bump keeps working
+
 ---
 
 ## typescript usage
@@ -279,6 +306,8 @@ import type {
   AttachChooseTarget,
   CasinoValue,
   ParsedCommand,
+  ParsedPeerId,
+  PeerType,
   SlotMachineValue,
   StartAppOpts,
   StartOpts,
@@ -291,6 +320,8 @@ import type {
 - **`SlotMachineValue`** — `readonly [CasinoValue, CasinoValue, CasinoValue]`, the return type of `getCasinoValues`
 - **`WebAppValidateParams`** — params object shape for `WebApp.validate`
 - **`ParsedCommand`** — return shape of `parseCommand`
+- **`ParsedPeerId`** — `{ type, id }`, the return shape of `parsePeerId` (`id` is the bare mtproto id)
+- **`PeerType`** — `'user' | 'chat' | 'channel'`, the coarse peer kind (`'channel'` = supergroup or broadcast channel)
 - **`AdminRight`** — closed enum of telegram admin right identifiers
 - **`WebAppMode`** — `'compact' | 'fullscreen'`, for `deepLink.startApp`
 - **`AttachChooseTarget`** — `'users' | 'bots' | 'groups' | 'channels'`, for `deepLink.startAttach`

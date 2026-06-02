@@ -16,4 +16,16 @@ export {
   type WebAppMode
 } from './deep-link'
 export { parseCommand, type ParsedCommand } from './parse-command'
+export {
+  getPeerType,
+  isChannelId,
+  isChatId,
+  isUserId,
+  parsePeerId,
+  PeerIdError,
+  toBotApiId,
+  toMtprotoId,
+  type ParsedPeerId,
+  type PeerType
+} from './peer-id'
 export { WebApp, type WebAppValidateParams } from './web-app'

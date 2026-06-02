@@ -92,6 +92,7 @@ docs/api/
 
 # Other
 .superpowers/
+.docs/
 packages/*/lib/
 packages/storage/storages/*/lib/
 .vscode/

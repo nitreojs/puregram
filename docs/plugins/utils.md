@@ -235,6 +235,40 @@ deepLink.videoChat({ username: 'mychannel', live: true })
 - **phone** (for `attachInChat`) — digits only, no `+` prefix
 - **share url / text** — free-form; these are `encodeURIComponent`-escaped
 
+## peer ids — bot api ↔ mtproto
+
+telegram clients (and `t.me/c/…` links, and mtproto libraries like mtcute) speak
+*bare* mtproto ids. the bot api hands out *marked* ids where the sign / `-100…`
+prefix encodes the peer kind. these helpers convert between the two and classify
+a marked id without a `getChat` round-trip
+
+```ts
+import {
+  parsePeerId, toMtprotoId, toBotApiId,
+  getPeerType, isUserId, isChatId, isChannelId
+} from '@puregram/utils'
+
+parsePeerId(-1001234567890) // { type: 'channel', id: 1234567890 }
+parsePeerId(-987654321)     // { type: 'chat', id: 987654321 }
+parsePeerId(123456789)      // { type: 'user', id: 123456789 }
+
+toMtprotoId(-1001234567890)       // 1234567890
+toBotApiId(1234567890, 'channel') // -1001234567890
+
+getPeerType(-1001234567890) // 'channel'
+isChannelId(-1001234567890) // true
+isUserId(0)                 // false — guards never throw
+```
+
+`type` is coarse: `'channel'` covers **both** supergroups and broadcast channels,
+since they share the `-100…` marking and can't be told apart from the id alone
+
+the converting helpers (`parsePeerId`, `toMtprotoId`, `getPeerType`, `toBotApiId`)
+throw `PeerIdError` on structurally-impossible input — `0`, `-1000000000000`,
+non-integers, unsafe integers; `toBotApiId` also rejects a non-positive bare id.
+the `isXId` guards return `false` instead of throwing. ranges are lenient (no
+upper-bound check), so a future telegram id-ceiling bump keeps working
+
 ## types
 
 ```ts
@@ -246,6 +280,8 @@ import type {
   WebAppMode,             // 'compact' | 'fullscreen'
   AttachChooseTarget,     // 'users' | 'bots' | 'groups' | 'channels'
   AttachChatTarget,       // { username: string } | { phone: string }
+  PeerType,               // 'user' | 'chat' | 'channel'
+  ParsedPeerId,           // { type, id }
   StartOpts,
   StartGroupOpts,
   StartChannelOpts,
@@ -257,7 +293,7 @@ import type {
   VideoChatOpts
 } from '@puregram/utils'
 
-import { CasinoValue } from '@puregram/utils'
+import { CasinoValue, PeerIdError } from '@puregram/utils'
 ```
 
 ## see also

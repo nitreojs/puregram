@@ -48,6 +48,7 @@
     "formdata-node": "^6.0.3"
   },
   "devDependencies": {
+    "tsc-alias": "1",
     "tsx": "^4.7.0",
     "typescript": "^5.4.0",
     "vitest": "^1.4.0"

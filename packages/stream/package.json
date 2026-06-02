@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "@puregram/markup": "workspace:^",
+    "tsc-alias": "1",
     "typescript": "^5.4.0",
     "vitest": "^1.4.0"
   },

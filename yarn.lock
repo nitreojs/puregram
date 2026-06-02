@@ -1154,6 +1154,7 @@ __metadata:
   resolution: "@puregram/api@workspace:packages/api"
   dependencies:
     cheerio: "npm:^1.0.0"
+    tsc-alias: "npm:1"
     tsx: "npm:^4.7.0"
     typescript: "npm:^5.4.0"
     undici: "npm:^6.0.0"
@@ -1167,6 +1168,7 @@ __metadata:
   dependencies:
     "@puregram/api": "workspace:~"
     puregram: "workspace:^"
+    tsc-alias: "npm:1"
     typescript: "npm:^5.4.0"
     vitest: "npm:^1.4.0"
   languageName: unknown
@@ -1176,6 +1178,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@puregram/file-id@workspace:packages/file-id"
   dependencies:
+    tsc-alias: "npm:1"
     typescript: "npm:^5.4.0"
     vitest: "npm:^1.4.0"
   languageName: unknown
@@ -1188,6 +1191,7 @@ __metadata:
     "@puregram/api": "workspace:~"
     "@puregram/storage": "workspace:^"
     puregram: "workspace:^"
+    tsc-alias: "npm:1"
     tsx: "npm:^4.19.0"
     typescript: "npm:^5.4.0"
     vitest: "npm:^1.4.0"
@@ -1198,6 +1202,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@puregram/inline-message-id@workspace:packages/inline-message-id"
   dependencies:
+    tsc-alias: "npm:1"
     typescript: "npm:^5.4.0"
     vitest: "npm:^1.4.0"
   languageName: unknown
@@ -1209,6 +1214,7 @@ __metadata:
   dependencies:
     "@puregram/api": "workspace:~"
     puregram: "workspace:^"
+    tsc-alias: "npm:1"
     typescript: "npm:^5.4.0"
     vitest: "npm:^1.4.0"
   languageName: unknown
@@ -1220,6 +1226,7 @@ __metadata:
   dependencies:
     "@puregram/storage": "workspace:^"
     puregram: "workspace:^"
+    tsc-alias: "npm:1"
     typescript: "npm:^5.4.0"
     vitest: "npm:^1.4.0"
   languageName: unknown
@@ -1232,6 +1239,7 @@ __metadata:
     "@puregram/api": "workspace:~"
     "@puregram/storage": "workspace:^"
     puregram: "workspace:^"
+    tsc-alias: "npm:1"
     typescript: "npm:^5.4.0"
     vitest: "npm:^1.4.0"
   languageName: unknown
@@ -1244,6 +1252,7 @@ __metadata:
     "@puregram/api": "workspace:~"
     "@puregram/session": "workspace:^"
     puregram: "workspace:^"
+    tsc-alias: "npm:1"
     tsx: "npm:^4.19.0"
     typescript: "npm:^5.4.0"
     vitest: "npm:^1.4.0"
@@ -1257,6 +1266,7 @@ __metadata:
     "@puregram/api": "workspace:~"
     "@puregram/storage": "workspace:^"
     puregram: "workspace:^"
+    tsc-alias: "npm:1"
     tsx: "npm:^4.19.0"
     typescript: "npm:^5.4.0"
     vitest: "npm:^1.4.0"
@@ -1268,6 +1278,7 @@ __metadata:
   resolution: "@puregram/storage-redis@workspace:packages/storage/storages/redis"
   dependencies:
     "@puregram/storage": "workspace:^"
+    tsc-alias: "npm:1"
     typescript: "npm:^5.4.0"
     vitest: "npm:^1.4.0"
   peerDependencies:
@@ -1280,6 +1291,7 @@ __metadata:
   resolution: "@puregram/storage-sqlite@workspace:packages/storage/storages/sqlite"
   dependencies:
     "@puregram/storage": "workspace:^"
+    tsc-alias: "npm:1"
     typescript: "npm:^5.4.0"
     vitest: "npm:^1.4.0"
   peerDependencies:
@@ -1291,6 +1303,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@puregram/storage@workspace:packages/storage"
   dependencies:
+    tsc-alias: "npm:1"
     typescript: "npm:^5.4.0"
     vitest: "npm:^1.4.0"
   languageName: unknown
@@ -1302,6 +1315,7 @@ __metadata:
   dependencies:
     "@puregram/markup": "workspace:^"
     puregram: "workspace:^"
+    tsc-alias: "npm:1"
     typescript: "npm:^5.4.0"
     vitest: "npm:^1.4.0"
   peerDependencies:
@@ -1319,6 +1333,7 @@ __metadata:
     "@puregram/api": "workspace:~"
     "@puregram/storage": "workspace:^"
     puregram: "workspace:^"
+    tsc-alias: "npm:1"
     typescript: "npm:^5.4.0"
     vitest: "npm:^1.4.0"
   languageName: unknown
@@ -1329,6 +1344,7 @@ __metadata:
   resolution: "@puregram/throttler@workspace:packages/throttler"
   dependencies:
     puregram: "workspace:^"
+    tsc-alias: "npm:1"
     typescript: "npm:^5.4.0"
     vitest: "npm:^1.4.0"
   languageName: unknown
@@ -1338,6 +1354,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@puregram/utils@workspace:packages/utils"
   dependencies:
+    tsc-alias: "npm:1"
     typescript: "npm:^5.4.0"
     vitest: "npm:^1.4.0"
   languageName: unknown
@@ -6307,6 +6324,7 @@ __metadata:
     "@puregram/api": "workspace:~"
     form-data-encoder: "npm:^4.0.2"
     formdata-node: "npm:^6.0.3"
+    tsc-alias: "npm:1"
     tsx: "npm:^4.7.0"
     typescript: "npm:^5.4.0"
     vitest: "npm:^1.4.0"

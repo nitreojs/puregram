@@ -1,7 +1,7 @@
 import { inspect } from 'node:util'
 
 import type { TelegramResponseParameters } from '@puregram/api'
-import { WEBHOOK_REPLY_SAFE_METHODS } from '@puregram/api'
+import { METHOD_PARAMS, WEBHOOK_REPLY_SAFE_METHODS } from '@puregram/api'
 
 import { createDebug } from '../debug'
 import type { HookRegistry, RequestContext } from '../dispatch/hooks'
@@ -10,6 +10,8 @@ import type { HttpClient } from '../http/client'
 import { needsMultipart, buildSimpleMultipart, buildMediaGroupMultipart } from '../http/multipart'
 import type { ResolvedTelegramOptions } from '../options'
 import { replyAls } from '../transport/webhook/reply'
+
+import { mergeDefaultParams } from './default-params'
 
 const debug = createDebug('puregram:api')
 // full request params + raw response body — noisy, lives on its own child namespace
@@ -35,13 +37,14 @@ export async function runRequest (
   method: string,
   rawParams: Record<string, unknown> | undefined
 ) {
+  const params = mergeDefaultParams(deps.options.defaultParams, method, rawParams, METHOD_PARAMS[method])
   const retry = resolveRetry(deps.options.retryOnFloodWait)
   let attempt = 0
 
   // eslint-disable-next-line no-constant-condition
   while (true) {
     try {
-      return await runOnce(deps, method, rawParams)
+      return await runOnce(deps, method, params)
     } catch (error) {
       if (retry === undefined || attempt >= retry.max) {
         throw error

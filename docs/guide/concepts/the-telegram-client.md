@@ -57,8 +57,32 @@ const tg = new Telegram({
 | `apiHeaders` | `Record<string, string>` | `{}` | extra headers merged onto every request |
 | `useTestDc` | `boolean` | `false` | route to the telegram test datacenter |
 | `useLocal` | `boolean` | `false` | local bot api server mode |
+| `defaultParams` | `DefaultParams` | `{}` | params merged into every outgoing call — `'*'` applies where valid, per-method overrides, call-site wins |
 | `retryOnFloodWait` | `boolean \| RetryOnFloodWaitOptions` | `false` | auto-sleep and retry on 429 responses |
 | `swallowDispatchErrors` | `boolean` | `false` | suppress unhandled dispatch errors reaching node's `uncaughtException` |
+
+## default request params
+
+`defaultParams` injects params into every outgoing api call so you stop repeating them at the call site. precedence is **call-site > per-method > `'*'`**, and object-valued params are replaced wholesale (never deep-merged):
+
+```ts
+const tg = Telegram.fromToken(process.env.TOKEN!, {
+  defaultParams: {
+    // '*' applies to any method that accepts the param
+    '*': { parse_mode: 'HTML' },
+    // per-method keys are typed to that method's params and override '*'
+    sendMessage: { link_preview_options: { is_disabled: true } }
+  }
+})
+
+// parse_mode: 'HTML' is added for you
+await tg.send(chatId, '<b>bold</b>')
+
+// the call site always wins
+await tg.api.sendMessage({ chat_id: chatId, text: '*md*', parse_mode: 'MarkdownV2' })
+```
+
+a `'*'` default only lands on methods that actually accept the param — `'*': { parse_mode: 'HTML' }` never adds `parse_mode` to `sendDice`. it's set once on the client, with no runtime setter
 
 ## lifecycle
 

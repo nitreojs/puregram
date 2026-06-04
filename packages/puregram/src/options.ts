@@ -1,5 +1,6 @@
 import type { TelegramUser } from '@puregram/api'
 
+import type { DefaultParams } from './api/default-params'
 import type { HttpClient } from './http/client'
 
 /** opt-in 429 auto-retry config — `true` => one retry, no wait cap. object form overrides both knobs */
@@ -23,6 +24,12 @@ export interface TelegramOptions {
   apiHeaders?: Record<string, string>
   useTestDc?: boolean
   useLocal?: boolean
+  /**
+   * per-call params merged into every outgoing api call. `'*'` applies to any method
+   * that accepts the param; a per-method key overrides `'*'`; an explicit call-site
+   * value wins over both. set once here — there is no runtime setter
+   */
+  defaultParams?: DefaultParams
   /**
    * when the bot api answers with 429 + `parameters.retry_after`, sleep that many
    * seconds and retry the same call. defaults to `false` — opt-in to preserve
@@ -75,6 +82,7 @@ export const DEFAULT_OPTIONS: Omit<ResolvedTelegramOptions, 'token' | 'httpClien
   },
   useTestDc: false,
   useLocal: false,
+  defaultParams: {},
   retryOnFloodWait: false,
   swallowDispatchErrors: false
 }

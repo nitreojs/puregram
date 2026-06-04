@@ -20,6 +20,7 @@ export type { Has, Modify } from './util-types'
 export type { UpdateHandler, OnOptions, Priority } from './dispatch-runtime'
 export type { Formattable } from './formattable'
 export { FORMATTABLE_FIELDS } from './generated/formattable-fields'
+export { METHOD_PARAMS } from './generated/method-params'
 export { WEBHOOK_REPLY_SAFE_METHODS } from './generated/webhook-reply-safe'
 export {
   defineFilter,

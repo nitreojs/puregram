@@ -8,6 +8,7 @@ import { emitFactories } from './lib/emitter/emit-factories'
 import { emitFilters } from './lib/emitter/emit-filters'
 import { emitFormattableFields } from './lib/emitter/emit-formattable-fields'
 import { emitInspect } from './lib/emitter/emit-inspect'
+import { emitMethodParams } from './lib/emitter/emit-method-params'
 import { emitMethods } from './lib/emitter/emit-methods'
 import { emitServiceEvents } from './lib/emitter/emit-service-events'
 import { emitShortcuts } from './lib/emitter/emit-shortcuts'
@@ -26,6 +27,7 @@ async function main () {
     ['inspect.ts', emitInspect(schema)],
     ['types.ts', emitTypes(schema)],
     ['methods.ts', emitMethods(schema)],
+    ['method-params.ts', emitMethodParams(schema)],
     ['api-methods.ts', emitApiMethods(schema)],
     ['enums.ts', emitEnums(schema)],
     ['structures.ts', emitStructures(schema)],

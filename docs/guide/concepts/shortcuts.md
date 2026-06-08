@@ -117,6 +117,44 @@ tg.onMessage(message =>
 )
 ```
 
+## `update.thread` — staying in a forum topic
+
+forum-topic (and discussion-thread) messages carry a `message_thread_id`. to keep your replies in the same topic you'd otherwise repeat it on every call. `update.thread` is an opt-in namespace that mirrors every thread-capable shortcut and auto-fills `message_thread_id` for you — alongside the usual `chat_id`, and `reply_parameters.message_id` on the reply twins:
+
+```ts
+tg.onMessage(async (message) => {
+  // both stay inside the topic this message came from
+  await message.thread?.send('still in this topic')
+  await message.thread?.sendPhoto(MediaSource.path('./photo.png'))
+
+  // reply twins work here too
+  await message.thread?.reply('threaded reply')
+
+  // a typing indicator scoped to the topic
+  await message.thread?.sendChatAction('typing')
+})
+```
+
+`thread` is `undefined` when the message isn't in a thread — a normal group message, a channel post, the forum's *General* topic — so reach for it with `?.`. or narrow with `hasMessageThreadId()` to drop the `?.`:
+
+```ts
+tg.onMessage(async (message) => {
+  if (message.hasMessageThreadId()) {
+    await message.thread.send('no ?. needed past the guard')
+  }
+})
+```
+
+the namespace covers everything that accepts a `message_thread_id` — the `send` / `reply` families, `copy` / `forward`, and even forum-topic management like `editForumTopic` / `closeForumTopic` — all with the ids pre-filled
+
+plain `update.send(...)` never threads on its own; it's deliberately hands-off. and because `thread` pins you to the *current* topic it doesn't take a `message_thread_id` of its own — to target a **different** thread, use the top-level shortcut where `message_thread_id` is just a param:
+
+```ts
+tg.onMessage(message =>
+  message.send('over in another topic', { message_thread_id: 1234 })
+)
+```
+
 ## `update.api` — the raw layer from inside a handler
 
 every update also exposes `update.api`, which is a direct reference to `tg.api`. this gives you access to any raw method without needing to close over `tg`:

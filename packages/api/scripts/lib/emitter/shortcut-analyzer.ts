@@ -1,6 +1,6 @@
 import type { Schema, SchemaField, SchemaMethod } from '../schema-types'
 
-import { buildUpdateKinds, type ShortcutAnchor, type UpdateKindSpec } from './updates-config'
+import { buildUpdateKinds, THREAD_ANCHOR, type ShortcutAnchor, type UpdateKindSpec } from './updates-config'
 
 export interface ReplyBinding {
   verb: string
@@ -79,4 +79,52 @@ function bindMethod (kind: UpdateKindSpec, method: SchemaMethod) {
   }
 
   return { method: method.name, filledArgs, userArgs }
+}
+
+// thread-scoped twin of analyzeShortcuts. same binding, but every method additionally fills
+// message_thread_id from the update. only methods that actually accept a message_thread_id arg
+// are included (send*, copy*/forward*, forum-topic management), and only for kinds whose payload
+// carries the field — so the emitted companion never references a non-existent raw.message_thread_id
+export function analyzeThreadShortcuts (schema: Schema, kinds: UpdateKindSpec[] = buildUpdateKinds(schema)) {
+  const result: ShortcutAnalysis = { byKind: {} }
+
+  for (const kind of kinds) {
+    result.byKind[kind.kindName] = []
+
+    if (kind.anchors.length === 0 || !payloadHasThreadField(kind, schema)) {
+      continue
+    }
+
+    const anchors = [...kind.anchors, THREAD_ANCHOR]
+    const messageId = anchors.find(a => a.schemaArg === 'message_id')
+
+    for (const method of schema.methods) {
+      if (!method.arguments.some(a => a.name === 'message_thread_id')) {
+        continue
+      }
+
+      const bound = bindMethod({ ...kind, anchors }, method)
+
+      if (!bound) {
+        continue
+      }
+
+      result.byKind[kind.kindName]!.push(bound)
+
+      if (messageId && method.name.startsWith('send') && method.arguments.some(a => a.name === 'reply_parameters')) {
+        result.byKind[kind.kindName]!.push({
+          ...bound,
+          reply: { verb: replyVerbFor(method.name), messageId }
+        })
+      }
+    }
+  }
+
+  return result
+}
+
+function payloadHasThreadField (kind: UpdateKindSpec, schema: Schema) {
+  const obj = schema.objects.find(o => o.name === kind.payloadType.replace(/^Telegram/, ''))
+
+  return obj?.kind === 'object' && obj.fields.some(f => f.name === 'message_thread_id')
 }

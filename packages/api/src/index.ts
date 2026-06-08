@@ -15,7 +15,7 @@ export * from './generated/dispatch'
 
 export * from './structures-handcrafted'
 
-export type { TelegramLike } from './telegram-like'
+export type { TelegramLike, ActionControllerLike, ActionControllerOptions, ActionControllerParams } from './telegram-like'
 export type { Has, Modify } from './util-types'
 export type { UpdateHandler, OnOptions, Priority } from './dispatch-runtime'
 export type { Formattable } from './formattable'

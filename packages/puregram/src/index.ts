@@ -13,6 +13,7 @@ export { PluginConflict, PluginCycle, PluginMissingDep } from './plugins/install
 
 export type { HttpClient, HttpDownloadResponse, HttpRequestInput, HttpResponse } from './http/client'
 export type { DownloadTarget } from './api/download'
+export { ChatActionController } from './api/chat-action'
 export { resolveDownloadTarget } from './api/download'
 export type {
   DispatchErrorContext,

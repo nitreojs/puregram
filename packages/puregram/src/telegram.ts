@@ -1,13 +1,16 @@
 import type {
+  ActionControllerParams,
   CallbackQueryUpdate,
   Filter,
   MessageUpdate,
+  SendChatActionParams,
   TelegramDispatchers,
   TelegramShortcuts,
   TelegramUser
 } from '@puregram/api'
 import { and, defineFilter, isFilter } from '@puregram/api'
 
+import { ChatActionController } from './api/chat-action'
 import type { DownloadTarget } from './api/download'
 import {
   download as downloadHelper,
@@ -519,6 +522,45 @@ export class Telegram<Ext = unknown> {
   /** resolve the public download URL. calls `getFile` if needed — pass a resolved `File` to skip the round-trip */
   async getFileURL (target: DownloadTarget) {
     return getFileURLHelper(this.downloadDeps(), target)
+  }
+
+  /**
+   * create a controller that re-sends `sendChatAction(action)` every `interval`
+   * ms (default `5000`) until `stop()` is called — telegram clears the action
+   * after ~5 seconds, so a long task needs it refreshed
+   *
+   * @example
+   * ```ts
+   * const controller = tg.createActionController(chatId, 'typing')
+   * controller.start()
+   * // ... long task ...
+   * controller.stop()
+   * ```
+   */
+  createActionController (chatId: number | string, action: SendChatActionParams['action'], options?: ActionControllerParams) {
+    return new ChatActionController(this, chatId, action, options)
+  }
+
+  /**
+   * run `fn` while continuously sending `sendChatAction(action)`. the action
+   * auto-stops when `fn` settles — even if it throws — and `fn`'s result is
+   * returned
+   *
+   * @example
+   * ```ts
+   * const photo = await tg.withChatAction(chatId, 'upload_photo', () => buildPhoto())
+   * ```
+   */
+  async withChatAction <T> (chatId: number | string, action: SendChatActionParams['action'], fn: () => Promise<T> | T, options?: ActionControllerParams) {
+    const controller = this.createActionController(chatId, action, options)
+
+    controller.start()
+
+    try {
+      return await fn()
+    } finally {
+      controller.stop()
+    }
   }
 
   async dropPendingUpdates (value?: boolean | string[]) {

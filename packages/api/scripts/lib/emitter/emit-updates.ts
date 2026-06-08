@@ -1023,15 +1023,29 @@ function emitExtra (extra: UpdateExtra) {
 
   const body = ts.factory.createBlock(parseStatements(extra.body), true)
   const params = extra.params ? parseParams(extra.params) : []
+  const typeParameters = extra.typeParams ? parseTypeParams(extra.typeParams) : undefined
   const node = ts.factory.createMethodDeclaration(
     undefined, undefined,
     ts.factory.createIdentifier(extra.name),
-    undefined, undefined, params,
+    undefined, typeParameters, params,
     returnType,
     body
   )
 
   return doc ? jsDoc(doc, node) : node
+}
+
+function parseTypeParams (src: string) {
+  const file = ts.createSourceFile('extra.ts', `function _${src}() {}`, ts.ScriptTarget.ES2022, false, ts.ScriptKind.TS)
+  const stmt = file.statements[0] as ts.FunctionDeclaration
+
+  if (!stmt || !ts.isFunctionDeclaration(stmt) || !stmt.typeParameters) {
+    throw new Error(`failed to parse extras typeParams: ${src}`)
+  }
+
+  return stmt.typeParameters.map(tp => ts.factory.createTypeParameterDeclaration(
+    tp.modifiers, tp.name, tp.constraint, tp.default
+  ))
 }
 
 function parseParams (src: string) {

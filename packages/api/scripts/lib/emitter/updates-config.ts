@@ -8,7 +8,7 @@ export interface ShortcutAnchor {
 
 export type UpdateExtra =
   | { kind: 'getter', name: string, expression: string, returnType: string, jsdoc?: string }
-  | { kind: 'method', name: string, params?: string, body: string, returnType: string, jsdoc?: string }
+  | { kind: 'method', name: string, params?: string, body: string, returnType: string, jsdoc?: string, typeParams?: string }
 
 export interface UpdateKindSpec {
   kindName: string
@@ -56,7 +56,10 @@ const MESSAGE_EXTRAS: UpdateExtra[] = [
   { kind: 'method', name: 'download', body: PICK_DOWNLOAD + 'return t == null ? Promise.resolve(null) : this.tg.download(t)', returnType: 'Promise<Buffer | null>', jsdoc: 'download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`' },
   { kind: 'method', name: 'downloadStream', body: PICK_DOWNLOAD + 'return t == null ? Promise.resolve(null) : this.tg.downloadStream(t)', returnType: 'Promise<import("node:stream").Readable | null>', jsdoc: 'download the message attachment as a node `Readable`. returns `null` if no media' },
   { kind: 'method', name: 'downloadIterable', body: PICK_DOWNLOAD + 'return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t)', returnType: 'Promise<AsyncIterable<Uint8Array> | null>', jsdoc: 'download the message attachment as an async-iterable byte stream. returns `null` if no media' },
-  { kind: 'method', name: 'downloadToFile', params: 'path: string', body: PICK_DOWNLOAD + 'return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null)', returnType: 'Promise<void | null>', jsdoc: 'download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written' }
+  { kind: 'method', name: 'downloadToFile', params: 'path: string', body: PICK_DOWNLOAD + 'return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null)', returnType: 'Promise<void | null>', jsdoc: 'download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written' },
+
+  { kind: 'method', name: 'createActionController', params: 'action: import("../telegram-like").ActionControllerLike["action"], options?: import("../telegram-like").ActionControllerParams', body: 'return this.tg.createActionController(this.raw.chat.id, action, options)', returnType: 'import("../telegram-like").ActionControllerLike', jsdoc: 'create a controller that re-sends `sendChatAction(action)` every `interval` ms (default 5000) until `stop()` is called — telegram clears the action after ~5 seconds, so a long task needs it refreshed' },
+  { kind: 'method', name: 'withChatAction', typeParams: '<T>', params: 'action: import("../telegram-like").ActionControllerLike["action"], fn: () => Promise<T> | T, options?: import("../telegram-like").ActionControllerParams', body: 'return this.tg.withChatAction(this.raw.chat.id, action, fn, options)', returnType: 'Promise<T>', jsdoc: 'run `fn` while continuously sending `sendChatAction(action)`. the action auto-stops when `fn` settles — even if it throws — and `fn`\'s result is returned' }
 ]
 
 const MESSAGE_REACTION_EXTRAS: UpdateExtra[] = [

@@ -6,7 +6,7 @@ import { camelCase, getterNameFor } from './field-names'
 import { formatModule } from './format'
 import { detectWidenedMethodArgs } from './formattable-detect'
 import { versionString } from './load-schema'
-import { analyzeShortcuts, type BoundShortcut } from './shortcut-analyzer'
+import { analyzeShortcuts, analyzeThreadShortcuts, type BoundShortcut } from './shortcut-analyzer'
 import { METHOD_POSITIONALS } from './shortcuts-config'
 import { ARRAY_WRAPPER_NAMES, arrayWrapperFor, isWrappedStructure } from './structures-config'
 import { jsDoc, importTypeNamed, importNamed, typeRefToTs } from './ts-factory'
@@ -54,6 +54,7 @@ export function verbFor (sc: BoundShortcut) {
 export function emitUpdates (schema: Schema) {
   const kinds = buildUpdateKinds(schema)
   const analysis = analyzeShortcuts(schema, kinds)
+  const threadAnalysis = analyzeThreadShortcuts(schema, kinds)
   const objectsByName = new Map<string, SchemaObject>(schema.objects.map(o => [o.name, o]))
   const widenedArgs = detectWidenedMethodArgs(schema)
 
@@ -107,11 +108,34 @@ export function emitUpdates (schema: Schema) {
   const nodes: ts.Node[] = []
   const emittedBases = new Set<string>()
 
+  // one thread companion per payload type that carries message_thread_id (just TelegramMessage
+  // today). all message-shape kinds share the same thread surface, so one class backs them all
+  const threadCompanionByPayload = new Map<string, string>()
+
+  for (const kind of kinds) {
+    const list = threadAnalysis.byKind[kind.kindName] ?? []
+
+    if (list.length === 0 || threadCompanionByPayload.has(kind.payloadType)) {
+      continue
+    }
+
+    const companionName = `${kind.payloadType.replace(/^Telegram/, '')}ThreadShortcuts`
+
+    threadCompanionByPayload.set(kind.payloadType, companionName)
+    nodes.push(emitThreadCompanion(companionName, kind.payloadType, list, widenedArgs))
+  }
+
   for (const kind of kinds) {
     const baseName = baseKeyByKind.get(kind.kindName)
 
     if (baseName === undefined) {
-      nodes.push(emitUpdateClass(kind, objectsByName, analysis.byKind[kind.kindName] ?? [], widenedArgs))
+      nodes.push(emitUpdateClass(
+        kind,
+        objectsByName,
+        analysis.byKind[kind.kindName] ?? [],
+        widenedArgs,
+        threadCompanionByPayload.get(kind.payloadType)
+      ))
       continue
     }
 
@@ -121,7 +145,14 @@ export function emitUpdates (schema: Schema) {
       const group = groupedByBase.get(baseName) ?? []
       const head = group[0] ?? kind
 
-      nodes.push(emitSharedBase(baseName, head, objectsByName, analysis.byKind[head.kindName] ?? [], widenedArgs))
+      nodes.push(emitSharedBase(
+        baseName,
+        head,
+        objectsByName,
+        analysis.byKind[head.kindName] ?? [],
+        widenedArgs,
+        threadCompanionByPayload.get(head.payloadType)
+      ))
     }
 
     nodes.push(emitVariantSubclass(kind, baseName))
@@ -365,7 +396,8 @@ function buildPayloadMembers (
   payloadObject: SchemaObject | undefined,
   reservedNames: Set<string>,
   extrasNames: Set<string>,
-  objectsByName: Map<string, SchemaObject>
+  objectsByName: Map<string, SchemaObject>,
+  threadCompanion?: string
 ) {
   const members: ts.ClassElement[] = []
 
@@ -392,7 +424,7 @@ function buildPayloadMembers (
   return {
     memoMembers: members,
     getterMembers: buildGetterMembers(payloadObject, reservedNames, objectsByName),
-    hasMembers: buildAutoHasMembers(payloadObject, reservedNames, extrasNames, objectsByName)
+    hasMembers: buildAutoHasMembers(payloadObject, reservedNames, extrasNames, objectsByName, threadCompanion)
   }
 }
 
@@ -432,7 +464,8 @@ function buildAutoHasMembers (
   payloadObject: SchemaObject | undefined,
   reservedNames: Set<string>,
   extrasNames: Set<string>,
-  objectsByName: Map<string, SchemaObject>
+  objectsByName: Map<string, SchemaObject>,
+  threadCompanion?: string
 ) {
   const members: ts.ClassElement[] = []
 
@@ -458,7 +491,7 @@ function buildAutoHasMembers (
     }
 
     reservedNames.add(hasName)
-    members.push(emitAutoHasMethod(f, camelName, hasName, objectsByName))
+    members.push(emitAutoHasMethod(f, camelName, hasName, objectsByName, threadCompanion))
   }
 
   return members
@@ -572,7 +605,8 @@ function emitSharedBase (
   kind: UpdateKindSpec,
   objectsByName: Map<string, SchemaObject>,
   shortcuts: BoundShortcut[],
-  widenedArgs: Map<string, Set<string>>
+  widenedArgs: Map<string, Set<string>>,
+  threadCompanion?: string
 ) {
   const members: ts.ClassElement[] = []
 
@@ -598,13 +632,18 @@ function emitSharedBase (
     reservedNames.add(verbFor(sc))
   }
 
+  if (threadCompanion) {
+    reservedNames.add('thread')
+  }
+
   const extrasNames = new Set((kind.extras ?? []).map(e => e.name))
 
   const { memoMembers, getterMembers, hasMembers } = buildPayloadMembers(
     payloadObject,
     reservedNames,
     extrasNames,
-    objectsByName
+    objectsByName,
+    threadCompanion
   )
 
   members.push(...memoMembers)
@@ -625,6 +664,10 @@ function emitSharedBase (
 
   for (const sc of shortcuts) {
     members.push(emitShortcutMethod(sc, widenedArgs))
+  }
+
+  if (threadCompanion) {
+    members.push(emitThreadGetter(threadCompanion))
   }
 
   // base uses `this.constructor.name` so each subclass prints its own name in node's
@@ -696,7 +739,8 @@ function emitUpdateClass (
   kind: UpdateKindSpec,
   objectsByName: Map<string, SchemaObject>,
   shortcuts: BoundShortcut[],
-  widenedArgs: Map<string, Set<string>>
+  widenedArgs: Map<string, Set<string>>,
+  threadCompanion?: string
 ) {
   const members: ts.ClassElement[] = []
 
@@ -772,6 +816,10 @@ function emitUpdateClass (
     reservedNames.add(verbFor(sc))
   }
 
+  if (threadCompanion) {
+    reservedNames.add('thread')
+  }
+
   // extras win over auto-emitted has*() — pre-compute names for the skip check below
   const extrasNames = new Set((kind.extras ?? []).map(e => e.name))
 
@@ -815,7 +863,7 @@ function emitUpdateClass (
       }
 
       reservedNames.add(hasName)
-      members.push(emitAutoHasMethod(f, camelName, hasName, objectsByName))
+      members.push(emitAutoHasMethod(f, camelName, hasName, objectsByName, threadCompanion))
     }
   }
 
@@ -871,6 +919,10 @@ function emitUpdateClass (
 
   for (const sc of shortcuts) {
     members.push(emitShortcutMethod(sc, widenedArgs))
+  }
+
+  if (threadCompanion) {
+    members.push(emitThreadGetter(threadCompanion))
   }
 
   const anyType = ts.factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword)
@@ -1012,7 +1064,8 @@ function emitAutoHasMethod (
   f: SchemaField,
   camelName: string,
   hasName: string,
-  objectsByName: Map<string, SchemaObject>
+  objectsByName: Map<string, SchemaObject>,
+  threadCompanion?: string
 ) {
   const isArray = f.type.kind === 'array'
 
@@ -1047,19 +1100,30 @@ function emitAutoHasMethod (
     ? buildWrapperReturnType(info, false)
     : typeRefToTs(f.type)
 
+  const predicateProps = [
+    ts.factory.createPropertySignature(
+      undefined,
+      ts.factory.createIdentifier(camelName),
+      undefined,
+      concreteFieldType
+    )
+  ]
+
+  if (threadCompanion && f.name === 'message_thread_id') {
+    predicateProps.push(ts.factory.createPropertySignature(
+      undefined,
+      ts.factory.createIdentifier('thread'),
+      undefined,
+      ts.factory.createTypeReferenceNode(threadCompanion)
+    ))
+  }
+
   const returnType = ts.factory.createTypePredicateNode(
     undefined,
     ts.factory.createThisTypeNode(),
     ts.factory.createIntersectionTypeNode([
       ts.factory.createThisTypeNode(),
-      ts.factory.createTypeLiteralNode([
-        ts.factory.createPropertySignature(
-          undefined,
-          ts.factory.createIdentifier(camelName),
-          undefined,
-          concreteFieldType
-        )
-      ])
+      ts.factory.createTypeLiteralNode(predicateProps)
     ])
   )
 
@@ -1359,6 +1423,73 @@ function emitShortcutMethod (sc: BoundShortcut, widenedArgs: Map<string, Set<str
     : `shortcut for \`tg.api.${sc.method}\``
 
   return jsDoc(doc, method)
+}
+
+// companion class backing `update.thread`. holds raw + tg like an update and carries the same
+// send/reply/copy methods, each additionally filling message_thread_id (see emitShortcutMethod —
+// it reads this.raw / this.tg, satisfied by the shared constructor)
+function emitThreadCompanion (
+  companionName: string,
+  payloadType: string,
+  shortcuts: BoundShortcut[],
+  widenedArgs: Map<string, Set<string>>
+) {
+  const members: ts.ClassElement[] = [emitConstructor(payloadType)]
+
+  for (const sc of shortcuts) {
+    members.push(emitShortcutMethod(sc, widenedArgs))
+  }
+
+  return jsDoc(
+    `thread-scoped shortcuts for \`${payloadType}\` — every call auto-fills \`message_thread_id\`. returned by \`update.thread\``,
+    ts.factory.createClassDeclaration(
+      [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
+      ts.factory.createIdentifier(companionName),
+      undefined,
+      undefined,
+      members
+    )
+  )
+}
+
+function emitThreadGetter (companionName: string) {
+  const threadAccess = ts.factory.createPropertyAccessExpression(
+    ts.factory.createPropertyAccessExpression(ts.factory.createThis(), 'raw'),
+    'message_thread_id'
+  )
+
+  const body = ts.factory.createBlock([
+    ts.factory.createReturnStatement(
+      ts.factory.createConditionalExpression(
+        ts.factory.createBinaryExpression(threadAccess, ts.SyntaxKind.EqualsEqualsToken, ts.factory.createNull()),
+        ts.factory.createToken(ts.SyntaxKind.QuestionToken),
+        ts.factory.createIdentifier('undefined'),
+        ts.factory.createToken(ts.SyntaxKind.ColonToken),
+        ts.factory.createNewExpression(
+          ts.factory.createIdentifier(companionName),
+          undefined,
+          [
+            ts.factory.createPropertyAccessExpression(ts.factory.createThis(), 'raw'),
+            ts.factory.createPropertyAccessExpression(ts.factory.createThis(), 'tg')
+          ]
+        )
+      )
+    )
+  ], true)
+
+  return jsDoc(
+    'thread-scoped shortcuts — auto-fill `message_thread_id` on every call. `undefined` when this message is not in a thread / forum topic',
+    ts.factory.createGetAccessorDeclaration(
+      undefined,
+      ts.factory.createIdentifier('thread'),
+      [],
+      ts.factory.createUnionTypeNode([
+        ts.factory.createTypeReferenceNode(companionName),
+        ts.factory.createKeywordTypeNode(ts.SyntaxKind.UndefinedKeyword)
+      ]),
+      body
+    )
+  )
 }
 
 function emitUpdateKindUnion () {

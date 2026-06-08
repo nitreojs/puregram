@@ -24,6 +24,15 @@ const MESSAGE_ANCHORS: ShortcutAnchor[] = [
   { schemaArg: 'message_id', accessPath: ['raw', 'message_id'] }
 ]
 
+// not part of MESSAGE_ANCHORS on purpose — message_thread_id is opt-in via the `thread`
+// namespace, never auto-injected on plain update.send(). nonNull because the namespace only
+// exists when raw.message_thread_id is set
+export const THREAD_ANCHOR: ShortcutAnchor = {
+  schemaArg: 'message_thread_id',
+  accessPath: ['raw', 'message_thread_id'],
+  nonNull: true
+}
+
 const PICK_DOWNLOAD = 'const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;'
 
 const MESSAGE_EXTRAS: UpdateExtra[] = [

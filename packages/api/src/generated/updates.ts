@@ -2971,6 +2971,18 @@ class MessageShared {
         const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
     }
+    /**
+     * create a controller that re-sends `sendChatAction(action)` every `interval` ms (default 5000) until `stop()` is called — telegram clears the action after ~5 seconds, so a long task needs it refreshed
+     */
+    createActionController(action: import("../telegram-like").ActionControllerLike["action"], options?: import("../telegram-like").ActionControllerParams): import("../telegram-like").ActionControllerLike {
+        return this.tg.createActionController(this.raw.chat.id, action, options);
+    }
+    /**
+     * run `fn` while continuously sending `sendChatAction(action)`. the action auto-stops when `fn` settles — even if it throws — and `fn`'s result is returned
+     */
+    withChatAction<T>(action: import("../telegram-like").ActionControllerLike["action"], fn: () => Promise<T> | T, options?: import("../telegram-like").ActionControllerParams): Promise<T> {
+        return this.tg.withChatAction(this.raw.chat.id, action, fn, options);
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -6925,6 +6937,18 @@ export class GuestMessageUpdate {
     downloadToFile(path: string): Promise<void | null> {
         const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null);
+    }
+    /**
+     * create a controller that re-sends `sendChatAction(action)` every `interval` ms (default 5000) until `stop()` is called — telegram clears the action after ~5 seconds, so a long task needs it refreshed
+     */
+    createActionController(action: import("../telegram-like").ActionControllerLike["action"], options?: import("../telegram-like").ActionControllerParams): import("../telegram-like").ActionControllerLike {
+        return this.tg.createActionController(this.raw.chat.id, action, options);
+    }
+    /**
+     * run `fn` while continuously sending `sendChatAction(action)`. the action auto-stops when `fn` settles — even if it throws — and `fn`'s result is returned
+     */
+    withChatAction<T>(action: import("../telegram-like").ActionControllerLike["action"], fn: () => Promise<T> | T, options?: import("../telegram-like").ActionControllerParams): Promise<T> {
+        return this.tg.withChatAction(this.raw.chat.id, action, fn, options);
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;

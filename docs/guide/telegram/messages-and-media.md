@@ -223,6 +223,45 @@ await tg.api.sendMediaGroup({
 })
 ```
 
+## chat actions — `typing`, `upload_photo`, …
+
+telegram clears a chat action (the "typing…" / "sending photo…" hint) after ~5 seconds, so a long task needs it refreshed. two helpers run that loop for you — on `tg` for any chat, and on an update with `chat_id` auto-filled.
+
+`withChatAction` is the safe default: it runs your callback with the action on, stops it the moment the callback settles — even if it throws — and returns the callback's result:
+
+```ts
+tg.onMessage(async (message) => {
+  const answer = await message.withChatAction('typing', () => generateReply(message.text))
+
+  await message.reply(answer)
+})
+
+// off an update, anywhere — pass the chat id yourself:
+const photo = await tg.withChatAction(chatId, 'upload_photo', () => buildPhoto())
+```
+
+for manual control, `createActionController` returns a controller you `start()` and `stop()` yourself:
+
+```ts
+const controller = message.createActionController('typing')
+
+controller.start()
+
+try {
+  await longTask()
+} finally {
+  controller.stop() // don't forget this
+}
+```
+
+tune the loop with `interval` (default `5000` ms), `wait` (initial delay, default `0`), and `timeout` (auto-stop after N ms; `0` disables it). any extra `sendChatAction` params pass straight through, so you can scope the action to a forum topic:
+
+```ts
+message.createActionController('typing', { interval: 4000, message_thread_id: 42 })
+```
+
+the loop also stops on its own if a `sendChatAction` call errors — chat gone, bot kicked, and so on
+
 ## see also
 
 - [keyboards](/guide/telegram/keyboards) — attaching `reply_markup` to any message

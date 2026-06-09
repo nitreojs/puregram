@@ -157,7 +157,7 @@ tg.onMessage(message =>
 
 ## business connections
 
-messages from a business account (the `business_message` / `edited_business_message` updates) carry a `business_connection_id`. it's anchored just like `chat_id` — every update shortcut that accepts it (`send`, `reply`, `edit*`, `pin`, `sendChatAction`, the `thread` namespace, …) fills it for you, so your reply goes back out on the same connection:
+messages from a business account (the `business_message` / `edited_business_message` updates) carry a `business_connection_id`. it's anchored just like `chat_id` — every update shortcut that accepts it (`send`, `reply`, `edit*`, `pin`, `sendChatAction`, `createActionController` / `withChatAction`, the `thread` namespace, …) fills it for you, so your reply goes back out on the same connection:
 
 ```ts
 tg.onBusinessMessage(message => message.reply('handled on the business connection'))

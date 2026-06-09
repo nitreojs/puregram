@@ -109,6 +109,16 @@ await tg.react(CHAT_ID, 42, [Reaction.emoji('👍')])
 await tg.react(CHAT_ID, 42, [])
 ```
 
+inside a handler, `update.react(...)` does the same for the current message — `chat_id` / `message_id` auto-filled — and additionally takes a plain emoji string for the common case:
+
+```ts
+tg.onMessage(async (message) => {
+  await message.react('👍')                                          // single emoji, the easy way
+  await message.react([Reaction.emoji('🔥'), Reaction.emoji('👀')]) // or a reaction array
+  await message.react([])                                            // clear reactions
+})
+```
+
 ### factories
 
 | factory | what it builds |

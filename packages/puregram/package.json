@@ -60,6 +60,10 @@
     "url": "https://github.com/puregram/puregram",
     "directory": "packages/puregram"
   },
+  "homepage": "https://github.com/puregram/puregram/tree/v3/packages/puregram#readme",
+  "bugs": {
+    "url": "https://github.com/puregram/puregram/issues"
+  },
   "keywords": [
     "telegram",
     "telegram-api",

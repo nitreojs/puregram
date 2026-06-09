@@ -98,7 +98,6 @@ packages/storage/storages/*/lib/
 .vscode/
 .claude/
 CLAUDE.md
-AGENTS.md
 /playground/
 .DS_Store
 **/yarn.lock

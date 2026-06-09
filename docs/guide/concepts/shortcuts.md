@@ -155,6 +155,22 @@ tg.onMessage(message =>
 )
 ```
 
+## business connections
+
+messages from a business account (the `business_message` / `edited_business_message` updates) carry a `business_connection_id`. it's anchored just like `chat_id` — every update shortcut that accepts it (`send`, `reply`, `edit*`, `pin`, `sendChatAction`, the `thread` namespace, …) fills it for you, so your reply goes back out on the same connection:
+
+```ts
+tg.onBusinessMessage(message => message.reply('handled on the business connection'))
+```
+
+it's filled only when the message actually has one, and it's dropped from the shortcut's params — so to act as the bot itself rather than the business account, drop to `tg.api`:
+
+```ts
+tg.onBusinessMessage(message =>
+  tg.api.sendMessage({ chat_id: message.chat.id, text: 'from the bot, not the business' })
+)
+```
+
 ## `update.api` — the raw layer from inside a handler
 
 every update also exposes `update.api`, which is a direct reference to `tg.api`. this gives you access to any raw method without needing to close over `tg`:

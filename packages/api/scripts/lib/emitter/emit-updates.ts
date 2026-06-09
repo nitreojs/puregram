@@ -35,7 +35,6 @@ const SHORTCUT_RENAMES: Record<string, string> = {
   stopMessageLiveLocation: 'stopLiveLocation',
   pinChatMessage: 'pin',
   unpinChatMessage: 'unpin',
-  setMessageReaction: 'react',
   answerCallbackQuery: 'answer',
   answerInlineQuery: 'answer',
   answerShippingQuery: 'answer',

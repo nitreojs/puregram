@@ -2982,6 +2982,12 @@ class MessageShared {
     withChatAction<T>(action: import("../telegram-like").ActionControllerLike["action"], fn: () => Promise<T> | T, options?: import("../telegram-like").ActionControllerParams): Promise<T> {
         return this.tg.withChatAction(this.raw.chat.id, action, fn, { ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }), ...options });
     }
+    /**
+     * react to this message — an emoji string for the common case, or a reaction array for custom / multiple
+     */
+    react(reaction: string | TelegramReactionType[], params?: Omit<import("./methods").SetMessageReactionParams, "chat_id" | "message_id" | "reaction">): Promise<true> {
+        return this.tg.api.setMessageReaction({ chat_id: this.raw.chat.id, message_id: this.raw.message_id, reaction: typeof reaction === "string" ? [{ type: "emoji", emoji: reaction }] : reaction, ...params });
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -4963,7 +4969,7 @@ class MessageShared {
     /**
      * shortcut for `tg.api.setMessageReaction`
      */
-    react(reactions: TelegramReactionType[], params: {
+    setMessageReaction(reactions: TelegramReactionType[], params: {
         is_big?: boolean;
     } = {}) {
         return this.tg.api.setMessageReaction({
@@ -6946,6 +6952,12 @@ export class GuestMessageUpdate {
      */
     withChatAction<T>(action: import("../telegram-like").ActionControllerLike["action"], fn: () => Promise<T> | T, options?: import("../telegram-like").ActionControllerParams): Promise<T> {
         return this.tg.withChatAction(this.raw.chat.id, action, fn, { ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }), ...options });
+    }
+    /**
+     * react to this message — an emoji string for the common case, or a reaction array for custom / multiple
+     */
+    react(reaction: string | TelegramReactionType[], params?: Omit<import("./methods").SetMessageReactionParams, "chat_id" | "message_id" | "reaction">): Promise<true> {
+        return this.tg.api.setMessageReaction({ chat_id: this.raw.chat.id, message_id: this.raw.message_id, reaction: typeof reaction === "string" ? [{ type: "emoji", emoji: reaction }] : reaction, ...params });
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -9567,7 +9579,7 @@ class ChatMemberUpdatedShared {
     /**
      * shortcut for `tg.api.setMessageReaction`
      */
-    react(messageId: number, reactions: TelegramReactionType[], params: {
+    setMessageReaction(messageId: number, reactions: TelegramReactionType[], params: {
         is_big?: boolean;
     } = {}) {
         return this.tg.api.setMessageReaction({
@@ -11176,7 +11188,7 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.setMessageReaction`
      */
-    react(messageId: number, reactions: TelegramReactionType[], params: {
+    setMessageReaction(messageId: number, reactions: TelegramReactionType[], params: {
         is_big?: boolean;
     } = {}) {
         return this.tg.api.setMessageReaction({

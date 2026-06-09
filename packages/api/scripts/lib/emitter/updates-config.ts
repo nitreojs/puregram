@@ -4,6 +4,7 @@ export interface ShortcutAnchor {
   schemaArg: string
   accessPath: string[]
   nonNull?: boolean
+  optional?: boolean
 }
 
 export type UpdateExtra =
@@ -31,6 +32,12 @@ export const THREAD_ANCHOR: ShortcutAnchor = {
   schemaArg: 'message_thread_id',
   accessPath: ['raw', 'message_thread_id'],
   nonNull: true
+}
+
+export const BUSINESS_ANCHOR: ShortcutAnchor = {
+  schemaArg: 'business_connection_id',
+  accessPath: ['raw', 'business_connection_id'],
+  optional: true
 }
 
 const PICK_DOWNLOAD = 'const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;'

@@ -1253,11 +1253,36 @@ function emitPrimitiveGetter (f: SchemaField, camelName: string) {
 
 function emitShortcutMethod (sc: BoundShortcut, widenedArgs: Map<string, Set<string>>) {
   const filledProps = sc.filledArgs.map((anchor) => {
-    let access: ts.Expression = ts.factory.createThis()
+    const buildAccess = () => {
+      let access: ts.Expression = ts.factory.createThis()
 
-    for (const part of anchor.accessPath) {
-      access = ts.factory.createPropertyAccessExpression(access, part)
+      for (const part of anchor.accessPath) {
+        access = ts.factory.createPropertyAccessExpression(access, part)
+      }
+
+      return access
     }
+
+    if (anchor.optional) {
+      return ts.factory.createSpreadAssignment(
+        ts.factory.createParenthesizedExpression(
+          ts.factory.createBinaryExpression(
+            ts.factory.createBinaryExpression(
+              buildAccess(),
+              ts.SyntaxKind.ExclamationEqualsToken,
+              ts.factory.createNull()
+            ),
+            ts.SyntaxKind.AmpersandAmpersandToken,
+            ts.factory.createObjectLiteralExpression(
+              [ts.factory.createPropertyAssignment(anchor.schemaArg, buildAccess())],
+              false
+            )
+          )
+        )
+      )
+    }
+
+    let access = buildAccess()
 
     if (anchor.nonNull) {
       access = ts.factory.createAsExpression(

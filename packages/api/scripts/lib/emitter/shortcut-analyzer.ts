@@ -1,6 +1,6 @@
 import type { Schema, SchemaField, SchemaMethod } from '../schema-types'
 
-import { buildUpdateKinds, THREAD_ANCHOR, type ShortcutAnchor, type UpdateKindSpec } from './updates-config'
+import { buildUpdateKinds, BUSINESS_ANCHOR, THREAD_ANCHOR, type ShortcutAnchor, type UpdateKindSpec } from './updates-config'
 
 export interface ReplyBinding {
   verb: string
@@ -37,11 +37,13 @@ export function analyzeShortcuts (schema: Schema, kinds: UpdateKindSpec[] = buil
     const messageId = kind.anchors.find(a => a.schemaArg === 'message_id')
 
     for (const method of schema.methods) {
-      const bound = bindMethod(kind, method)
+      const raw = bindMethod(kind, method)
 
-      if (!bound) {
+      if (!raw) {
         continue
       }
+
+      const bound = augmentBusiness(raw, kind, schema)
 
       result.byKind[kind.kindName]!.push(bound)
 
@@ -58,6 +60,24 @@ export function analyzeShortcuts (schema: Schema, kinds: UpdateKindSpec[] = buil
   }
 
   return result
+}
+
+function augmentBusiness (bound: BoundShortcut, kind: UpdateKindSpec, schema: Schema) {
+  const arg = bound.userArgs.find(a => a.name === 'business_connection_id')
+
+  if (!arg || !payloadHasField(kind, schema, 'business_connection_id')) {
+    return bound
+  }
+
+  const anchor = arg.required
+    ? { ...BUSINESS_ANCHOR, optional: false, nonNull: true }
+    : BUSINESS_ANCHOR
+
+  return {
+    ...bound,
+    filledArgs: [...bound.filledArgs, anchor],
+    userArgs: bound.userArgs.filter(a => a.name !== 'business_connection_id')
+  }
 }
 
 function bindMethod (kind: UpdateKindSpec, method: SchemaMethod) {
@@ -91,7 +111,7 @@ export function analyzeThreadShortcuts (schema: Schema, kinds: UpdateKindSpec[] 
   for (const kind of kinds) {
     result.byKind[kind.kindName] = []
 
-    if (kind.anchors.length === 0 || !payloadHasThreadField(kind, schema)) {
+    if (kind.anchors.length === 0 || !payloadHasField(kind, schema, 'message_thread_id')) {
       continue
     }
 
@@ -103,11 +123,13 @@ export function analyzeThreadShortcuts (schema: Schema, kinds: UpdateKindSpec[] 
         continue
       }
 
-      const bound = bindMethod({ ...kind, anchors }, method)
+      const raw = bindMethod({ ...kind, anchors }, method)
 
-      if (!bound) {
+      if (!raw) {
         continue
       }
+
+      const bound = augmentBusiness(raw, kind, schema)
 
       result.byKind[kind.kindName]!.push(bound)
 
@@ -123,8 +145,8 @@ export function analyzeThreadShortcuts (schema: Schema, kinds: UpdateKindSpec[] 
   return result
 }
 
-function payloadHasThreadField (kind: UpdateKindSpec, schema: Schema) {
+function payloadHasField (kind: UpdateKindSpec, schema: Schema, field: string) {
   const obj = schema.objects.find(o => o.name === kind.payloadType.replace(/^Telegram/, ''))
 
-  return obj?.kind === 'object' && obj.fields.some(f => f.name === 'message_thread_id')
+  return obj?.kind === 'object' && obj.fields.some(f => f.name === field)
 }

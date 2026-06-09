@@ -17,7 +17,7 @@ async function loadSchema () {
 
 // fixture's sendMessage has no reply_parameters — augment it (and add a sendPhoto)
 // so the reply-binding path has something to bite on
-function withReplyableMethods (schema: Schema): Schema {
+function withReplyableMethods (schema: Schema) {
   const replyParam = {
     name: 'reply_parameters',
     description: 'description of the message to reply to',
@@ -105,5 +105,74 @@ describe('analyzeShortcuts', () => {
     // getMe has no anchors so never binds; sendMessage without the reply marker is the plain send
     expect(onMessage.find(s => s.method === 'getMe')).toBeUndefined()
     expect(onMessage.some(s => s.reply && s.method === 'getMe')).toBe(false)
+  })
+})
+
+async function withBusiness () {
+  const schema = JSON.parse(
+    await readFile(resolve(__dirname, '../fixtures/small-schema.json'), 'utf8')
+  ) as Schema
+
+  const message = schema.objects.find(o => o.name === 'Message')
+
+  if (message?.kind === 'object') {
+    message.fields.push({
+      name: 'business_connection_id', description: 'biz', required: false, type: { kind: 'string' }
+    })
+  }
+
+  schema.methods.find(m => m.name === 'sendMessage')!.arguments.push({
+    name: 'business_connection_id', description: 'biz', required: false, type: { kind: 'string' }
+  })
+
+  schema.methods.push({
+    name: 'getBusinessConnection',
+    description: 'Business-account method with no chat_id.',
+    multipartOnly: false,
+    arguments: [
+      { name: 'business_connection_id', description: 'biz', required: true, type: { kind: 'string' } }
+    ],
+    returnType: { kind: 'reference', name: 'BusinessConnection' }
+  })
+
+  schema.methods.push({
+    name: 'sendChecklist',
+    description: 'Business-only send with a required business_connection_id.',
+    multipartOnly: false,
+    arguments: [
+      { name: 'business_connection_id', description: 'biz', required: true, type: { kind: 'string' } },
+      { name: 'chat_id', description: 'chat', required: true, type: { kind: 'integer' } }
+    ],
+    returnType: { kind: 'reference', name: 'Message' }
+  })
+
+  return schema
+}
+
+describe('analyzeShortcuts — business_connection_id augment', () => {
+  it('augments chat_id-bound methods with an optional business_connection_id fill', async () => {
+    const result = analyzeShortcuts(await withBusiness())
+    const send = (result.byKind.message ?? []).find(s => s.method === 'sendMessage' && !s.reply)
+
+    expect(send).toBeDefined()
+    expect(send!.filledArgs.map(a => a.schemaArg).sort()).toEqual(['business_connection_id', 'chat_id'])
+    expect(send!.filledArgs.find(a => a.schemaArg === 'business_connection_id')?.optional).toBe(true)
+    expect(send!.userArgs.some(a => a.name === 'business_connection_id')).toBe(false)
+  })
+
+  it('does not turn a business-account method (no chat_id) into an update shortcut', async () => {
+    const result = analyzeShortcuts(await withBusiness())
+
+    expect((result.byKind.message ?? []).find(s => s.method === 'getBusinessConnection')).toBeUndefined()
+  })
+
+  it('fills a required business_connection_id non-optionally', async () => {
+    const result = analyzeShortcuts(await withBusiness())
+    const checklist = (result.byKind.message ?? []).find(s => s.method === 'sendChecklist')
+
+    const anchor = checklist?.filledArgs.find(a => a.schemaArg === 'business_connection_id')
+
+    expect(anchor?.optional).toBe(false)
+    expect(anchor?.nonNull).toBe(true)
   })
 })

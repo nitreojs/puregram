@@ -55,6 +55,10 @@
   },
   "license": "MPL-2.0",
   "author": "starkow",
+  "homepage": "https://puregram.cool/docs",
+  "bugs": {
+    "url": "https://github.com/puregram/puregram/issues"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/puregram/puregram",

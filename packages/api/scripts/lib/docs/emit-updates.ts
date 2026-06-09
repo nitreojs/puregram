@@ -5,7 +5,7 @@ import type { UpdateExtra, UpdateKindSpec } from '../emitter/updates-config'
 import { buildUpdateKinds } from '../emitter/updates-config'
 import type { Schema } from '../schema-types'
 
-import { cell, GENERATED_BANNER } from './shared'
+import { cell, codeCell, GENERATED_BANNER } from './shared'
 
 const objectAnchor = (payloadType: string) => `/api/objects#${payloadType.replace(/^Telegram/, '').toLowerCase()}`
 const methodAnchor = (method: string) => `/api/methods#${method.toLowerCase()}`
@@ -36,7 +36,7 @@ function renderHelpers (extras: UpdateExtra[]) {
       ? `${extra.name}(${extra.params ?? ''})`
       : extra.name
 
-    lines.push(`| \`${signature}\` | ${extra.kind} | ${cell(extra.jsdoc ?? '')} |`)
+    lines.push(`| \`${codeCell(signature)}\` | ${extra.kind} | ${cell(extra.jsdoc ?? '')} |`)
   }
 
   lines.push('')

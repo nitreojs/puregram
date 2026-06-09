@@ -11,3 +11,8 @@ export function escapeAngles (text: string) {
 export function cell (text: string) {
   return escapeAngles(text).replace(/\n/g, ' ').replace(/\\/g, '\\\\').replace(/\|/g, '\\|')
 }
+
+// code spans keep angle brackets literal, but a raw pipe (union / `Omit<…>` types) still splits the table cell
+export function codeCell (code: string) {
+  return code.replace(/\|/g, '\\|')
+}

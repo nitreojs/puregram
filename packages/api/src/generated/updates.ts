@@ -143,7 +143,6 @@ export class MessageThreadShortcuts {
      * shortcut for `tg.api.sendAnimation`
      */
     sendAnimation(animation: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         duration?: number;
         width?: number;
@@ -167,6 +166,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             animation: animation,
             ...params
         });
@@ -175,7 +175,6 @@ export class MessageThreadShortcuts {
      * reply shortcut for `tg.api.sendAnimation` — sets `reply_parameters` to this message
      */
     replyWithAnimation(animation: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         duration?: number;
         width?: number;
@@ -199,6 +198,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             animation: animation,
             ...params,
             reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
@@ -208,7 +208,6 @@ export class MessageThreadShortcuts {
      * shortcut for `tg.api.sendAudio`
      */
     sendAudio(audio: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
@@ -230,6 +229,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             audio: audio,
             ...params
         });
@@ -238,7 +238,6 @@ export class MessageThreadShortcuts {
      * reply shortcut for `tg.api.sendAudio` — sets `reply_parameters` to this message
      */
     replyWithAudio(audio: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
@@ -260,6 +259,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             audio: audio,
             ...params,
             reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
@@ -268,12 +268,11 @@ export class MessageThreadShortcuts {
     /**
      * shortcut for `tg.api.sendChatAction`
      */
-    sendChatAction(action: string, params: {
-        business_connection_id?: string;
-    } = {}) {
+    sendChatAction(action: string, params: {} = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             action: action,
             ...params
         });
@@ -282,7 +281,6 @@ export class MessageThreadShortcuts {
      * shortcut for `tg.api.sendContact`
      */
     sendContact(phoneNumber: string, firstName: string, params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         last_name?: string;
         vcard?: string;
@@ -299,6 +297,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             phone_number: phoneNumber,
             first_name: firstName,
             ...params
@@ -308,7 +307,6 @@ export class MessageThreadShortcuts {
      * reply shortcut for `tg.api.sendContact` — sets `reply_parameters` to this message
      */
     replyWithContact(phoneNumber: string, firstName: string, params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         last_name?: string;
         vcard?: string;
@@ -325,6 +323,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             phone_number: phoneNumber,
             first_name: firstName,
             ...params,
@@ -335,7 +334,6 @@ export class MessageThreadShortcuts {
      * shortcut for `tg.api.sendDice`
      */
     sendDice(params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         emoji?: string;
         disable_notification?: boolean;
@@ -351,6 +349,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendDice({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             ...params
         });
     }
@@ -358,7 +357,6 @@ export class MessageThreadShortcuts {
      * reply shortcut for `tg.api.sendDice` — sets `reply_parameters` to this message
      */
     replyWithDice(params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         emoji?: string;
         disable_notification?: boolean;
@@ -374,6 +372,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendDice({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             ...params,
             reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
         });
@@ -382,7 +381,6 @@ export class MessageThreadShortcuts {
      * shortcut for `tg.api.sendDocument`
      */
     sendDocument(document: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         thumbnail?: TelegramInputFile | string;
         caption?: string | Formattable;
@@ -402,6 +400,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             document: document,
             ...params
         });
@@ -410,7 +409,6 @@ export class MessageThreadShortcuts {
      * reply shortcut for `tg.api.sendDocument` — sets `reply_parameters` to this message
      */
     replyWithDocument(document: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         thumbnail?: TelegramInputFile | string;
         caption?: string | Formattable;
@@ -430,6 +428,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             document: document,
             ...params,
             reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
@@ -439,7 +438,6 @@ export class MessageThreadShortcuts {
      * shortcut for `tg.api.sendGame`
      */
     sendGame(gameShortName: string, params: {
-        business_connection_id?: string;
         disable_notification?: boolean;
         protect_content?: boolean;
         allow_paid_broadcast?: boolean;
@@ -452,6 +450,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             game_short_name: gameShortName,
             ...params
         });
@@ -460,7 +459,6 @@ export class MessageThreadShortcuts {
      * reply shortcut for `tg.api.sendGame` — sets `reply_parameters` to this message
      */
     replyWithGame(gameShortName: string, params: {
-        business_connection_id?: string;
         disable_notification?: boolean;
         protect_content?: boolean;
         allow_paid_broadcast?: boolean;
@@ -473,6 +471,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             game_short_name: gameShortName,
             ...params,
             reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
@@ -567,7 +566,6 @@ export class MessageThreadShortcuts {
      * shortcut for `tg.api.sendLivePhoto`
      */
     sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
@@ -587,6 +585,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             live_photo: livePhoto,
             photo: photo,
             ...params
@@ -596,7 +595,6 @@ export class MessageThreadShortcuts {
      * reply shortcut for `tg.api.sendLivePhoto` — sets `reply_parameters` to this message
      */
     replyWithLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
@@ -616,6 +614,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             live_photo: livePhoto,
             photo: photo,
             ...params,
@@ -626,7 +625,6 @@ export class MessageThreadShortcuts {
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         horizontal_accuracy?: number;
         live_period?: number;
@@ -645,6 +643,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             latitude: latitude,
             longitude: longitude,
             ...params
@@ -654,7 +653,6 @@ export class MessageThreadShortcuts {
      * reply shortcut for `tg.api.sendLocation` — sets `reply_parameters` to this message
      */
     replyWithLocation(latitude: number, longitude: number, params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         horizontal_accuracy?: number;
         live_period?: number;
@@ -673,6 +671,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             latitude: latitude,
             longitude: longitude,
             ...params,
@@ -683,7 +682,6 @@ export class MessageThreadShortcuts {
      * shortcut for `tg.api.sendMediaGroup`
      */
     sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         disable_notification?: boolean;
         protect_content?: boolean;
@@ -694,6 +692,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             media: media,
             ...params
         });
@@ -702,7 +701,6 @@ export class MessageThreadShortcuts {
      * reply shortcut for `tg.api.sendMediaGroup` — sets `reply_parameters` to this message
      */
     replyWithMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         disable_notification?: boolean;
         protect_content?: boolean;
@@ -713,6 +711,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             media: media,
             ...params,
             reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
@@ -722,7 +721,6 @@ export class MessageThreadShortcuts {
      * shortcut for `tg.api.sendMessage`
      */
     send(text: string | Formattable, params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
@@ -740,6 +738,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             text: text,
             ...params
         });
@@ -748,7 +747,6 @@ export class MessageThreadShortcuts {
      * reply shortcut for `tg.api.sendMessage` — sets `reply_parameters` to this message
      */
     reply(text: string | Formattable, params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
@@ -766,6 +764,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             text: text,
             ...params,
             reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
@@ -790,7 +789,6 @@ export class MessageThreadShortcuts {
      * shortcut for `tg.api.sendPaidMedia`
      */
     sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         payload?: string;
         caption?: string | Formattable;
@@ -809,6 +807,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             star_count: starCount,
             media: media,
             ...params
@@ -818,7 +817,6 @@ export class MessageThreadShortcuts {
      * reply shortcut for `tg.api.sendPaidMedia` — sets `reply_parameters` to this message
      */
     replyWithPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         payload?: string;
         caption?: string | Formattable;
@@ -837,6 +835,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             star_count: starCount,
             media: media,
             ...params,
@@ -847,7 +846,6 @@ export class MessageThreadShortcuts {
      * shortcut for `tg.api.sendPhoto`
      */
     sendPhoto(photo: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
@@ -867,6 +865,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             photo: photo,
             ...params
         });
@@ -875,7 +874,6 @@ export class MessageThreadShortcuts {
      * reply shortcut for `tg.api.sendPhoto` — sets `reply_parameters` to this message
      */
     replyWithPhoto(photo: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
@@ -895,6 +893,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             photo: photo,
             ...params,
             reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
@@ -904,7 +903,6 @@ export class MessageThreadShortcuts {
      * shortcut for `tg.api.sendPoll`
      */
     sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: {
-        business_connection_id?: string;
         question_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         question_entities?: TelegramMessageEntity[];
         is_anonymous?: boolean;
@@ -940,6 +938,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             question: question,
             options: options,
             ...params
@@ -949,7 +948,6 @@ export class MessageThreadShortcuts {
      * reply shortcut for `tg.api.sendPoll` — sets `reply_parameters` to this message
      */
     replyWithPoll(question: string | Formattable, options: TelegramInputPollOption[], params: {
-        business_connection_id?: string;
         question_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         question_entities?: TelegramMessageEntity[];
         is_anonymous?: boolean;
@@ -985,6 +983,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             question: question,
             options: options,
             ...params,
@@ -995,7 +994,6 @@ export class MessageThreadShortcuts {
      * shortcut for `tg.api.sendSticker`
      */
     sendSticker(sticker: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         emoji?: string;
         disable_notification?: boolean;
@@ -1011,6 +1009,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             sticker: sticker,
             ...params
         });
@@ -1019,7 +1018,6 @@ export class MessageThreadShortcuts {
      * reply shortcut for `tg.api.sendSticker` — sets `reply_parameters` to this message
      */
     replyWithSticker(sticker: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         emoji?: string;
         disable_notification?: boolean;
@@ -1035,6 +1033,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             sticker: sticker,
             ...params,
             reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
@@ -1044,7 +1043,6 @@ export class MessageThreadShortcuts {
      * shortcut for `tg.api.sendVenue`
      */
     sendVenue(latitude: number, longitude: number, title: string, address: string, params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         foursquare_id?: string;
         foursquare_type?: string;
@@ -1063,6 +1061,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             latitude: latitude,
             longitude: longitude,
             title: title,
@@ -1074,7 +1073,6 @@ export class MessageThreadShortcuts {
      * reply shortcut for `tg.api.sendVenue` — sets `reply_parameters` to this message
      */
     replyWithVenue(latitude: number, longitude: number, title: string, address: string, params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         foursquare_id?: string;
         foursquare_type?: string;
@@ -1093,6 +1091,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             latitude: latitude,
             longitude: longitude,
             title: title,
@@ -1105,7 +1104,6 @@ export class MessageThreadShortcuts {
      * shortcut for `tg.api.sendVideo`
      */
     sendVideo(video: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         duration?: number;
         width?: number;
@@ -1132,6 +1130,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             video: video,
             ...params
         });
@@ -1140,7 +1139,6 @@ export class MessageThreadShortcuts {
      * reply shortcut for `tg.api.sendVideo` — sets `reply_parameters` to this message
      */
     replyWithVideo(video: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         duration?: number;
         width?: number;
@@ -1167,6 +1165,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             video: video,
             ...params,
             reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
@@ -1176,7 +1175,6 @@ export class MessageThreadShortcuts {
      * shortcut for `tg.api.sendVideoNote`
      */
     sendVideoNote(videoNote: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         duration?: number;
         length?: number;
@@ -1194,6 +1192,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             video_note: videoNote,
             ...params
         });
@@ -1202,7 +1201,6 @@ export class MessageThreadShortcuts {
      * reply shortcut for `tg.api.sendVideoNote` — sets `reply_parameters` to this message
      */
     replyWithVideoNote(videoNote: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         duration?: number;
         length?: number;
@@ -1220,6 +1218,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             video_note: videoNote,
             ...params,
             reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
@@ -1229,7 +1228,6 @@ export class MessageThreadShortcuts {
      * shortcut for `tg.api.sendVoice`
      */
     sendVoice(voice: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
@@ -1248,6 +1246,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             voice: voice,
             ...params
         });
@@ -1256,7 +1255,6 @@ export class MessageThreadShortcuts {
      * reply shortcut for `tg.api.sendVoice` — sets `reply_parameters` to this message
      */
     replyWithVoice(voice: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
@@ -1275,6 +1273,7 @@ export class MessageThreadShortcuts {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             voice: voice,
             ...params,
             reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
@@ -3290,7 +3289,6 @@ class MessageShared {
      * shortcut for `tg.api.editMessageCaption`
      */
     editCaption(params: {
-        business_connection_id?: string;
         inline_message_id?: string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
@@ -3303,6 +3301,7 @@ class MessageShared {
         return this.tg.api.editMessageCaption({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             ...params
         });
     }
@@ -3310,7 +3309,6 @@ class MessageShared {
      * shortcut for `tg.api.editMessageChecklist`
      */
     editMessageChecklist(params: {
-        business_connection_id: string;
         checklist: TelegramInputChecklist;
         reply_markup?: TelegramInlineKeyboardMarkup | {
             toJSON: () => TelegramInlineKeyboardMarkup;
@@ -3319,6 +3317,7 @@ class MessageShared {
         return this.tg.api.editMessageChecklist({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            business_connection_id: this.raw.business_connection_id as NonNullable<typeof this.raw.business_connection_id>,
             ...params
         });
     }
@@ -3326,7 +3325,6 @@ class MessageShared {
      * shortcut for `tg.api.editMessageLiveLocation`
      */
     editLiveLocation(latitude: number, longitude: number, params: {
-        business_connection_id?: string;
         inline_message_id?: string;
         live_period?: number;
         horizontal_accuracy?: number;
@@ -3339,6 +3337,7 @@ class MessageShared {
         return this.tg.api.editMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             latitude: latitude,
             longitude: longitude,
             ...params
@@ -3348,7 +3347,6 @@ class MessageShared {
      * shortcut for `tg.api.editMessageMedia`
      */
     editMedia(media: TelegramInputMedia, params: {
-        business_connection_id?: string;
         inline_message_id?: string;
         reply_markup?: TelegramInlineKeyboardMarkup | {
             toJSON: () => TelegramInlineKeyboardMarkup;
@@ -3357,6 +3355,7 @@ class MessageShared {
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             media: media,
             ...params
         });
@@ -3365,7 +3364,6 @@ class MessageShared {
      * shortcut for `tg.api.editMessageReplyMarkup`
      */
     editReplyMarkup(params: {
-        business_connection_id?: string;
         inline_message_id?: string;
         reply_markup?: TelegramInlineKeyboardMarkup | {
             toJSON: () => TelegramInlineKeyboardMarkup;
@@ -3374,6 +3372,7 @@ class MessageShared {
         return this.tg.api.editMessageReplyMarkup({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             ...params
         });
     }
@@ -3381,7 +3380,6 @@ class MessageShared {
      * shortcut for `tg.api.editMessageText`
      */
     edit(text: string | Formattable, params: {
-        business_connection_id?: string;
         inline_message_id?: string;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
@@ -3393,6 +3391,7 @@ class MessageShared {
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             text: text,
             ...params
         });
@@ -3556,12 +3555,12 @@ class MessageShared {
      * shortcut for `tg.api.pinChatMessage`
      */
     pin(params: {
-        business_connection_id?: string;
         disable_notification?: boolean;
     } = {}) {
         return this.tg.api.pinChatMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             ...params
         });
     }
@@ -3596,12 +3595,11 @@ class MessageShared {
     /**
      * shortcut for `tg.api.readBusinessMessage`
      */
-    readBusinessMessage(params: {
-        business_connection_id: string;
-    }) {
+    readBusinessMessage(params: {} = {}) {
         return this.tg.api.readBusinessMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            business_connection_id: this.raw.business_connection_id as NonNullable<typeof this.raw.business_connection_id>,
             ...params
         });
     }
@@ -3663,7 +3661,6 @@ class MessageShared {
      * shortcut for `tg.api.sendAnimation`
      */
     sendAnimation(animation: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         duration?: number;
@@ -3687,6 +3684,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             animation: animation,
             ...params
         });
@@ -3695,7 +3693,6 @@ class MessageShared {
      * reply shortcut for `tg.api.sendAnimation` — sets `reply_parameters` to this message
      */
     replyWithAnimation(animation: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         duration?: number;
@@ -3719,6 +3716,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             animation: animation,
             ...params,
             reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
@@ -3728,7 +3726,6 @@ class MessageShared {
      * shortcut for `tg.api.sendAudio`
      */
     sendAudio(audio: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
@@ -3750,6 +3747,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             audio: audio,
             ...params
         });
@@ -3758,7 +3756,6 @@ class MessageShared {
      * reply shortcut for `tg.api.sendAudio` — sets `reply_parameters` to this message
      */
     replyWithAudio(audio: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
@@ -3780,6 +3777,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             audio: audio,
             ...params,
             reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
@@ -3789,11 +3787,11 @@ class MessageShared {
      * shortcut for `tg.api.sendChatAction`
      */
     sendChatAction(action: string, params: {
-        business_connection_id?: string;
         message_thread_id?: number;
     } = {}) {
         return this.tg.api.sendChatAction({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             action: action,
             ...params
         });
@@ -3802,7 +3800,6 @@ class MessageShared {
      * shortcut for `tg.api.sendChecklist`
      */
     sendChecklist(checklist: TelegramInputChecklist, params: {
-        business_connection_id: string;
         disable_notification?: boolean;
         protect_content?: boolean;
         message_effect_id?: string;
@@ -3810,9 +3807,10 @@ class MessageShared {
         reply_markup?: TelegramInlineKeyboardMarkup | {
             toJSON: () => TelegramInlineKeyboardMarkup;
         };
-    }) {
+    } = {}) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            business_connection_id: this.raw.business_connection_id as NonNullable<typeof this.raw.business_connection_id>,
             checklist: checklist,
             ...params
         });
@@ -3821,7 +3819,6 @@ class MessageShared {
      * reply shortcut for `tg.api.sendChecklist` — sets `reply_parameters` to this message
      */
     replyWithChecklist(checklist: TelegramInputChecklist, params: {
-        business_connection_id: string;
         disable_notification?: boolean;
         protect_content?: boolean;
         message_effect_id?: string;
@@ -3829,9 +3826,10 @@ class MessageShared {
         reply_markup?: TelegramInlineKeyboardMarkup | {
             toJSON: () => TelegramInlineKeyboardMarkup;
         };
-    }) {
+    } = {}) {
         return this.tg.api.sendChecklist({
             chat_id: this.raw.chat.id,
+            business_connection_id: this.raw.business_connection_id as NonNullable<typeof this.raw.business_connection_id>,
             checklist: checklist,
             ...params,
             reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
@@ -3841,7 +3839,6 @@ class MessageShared {
      * shortcut for `tg.api.sendContact`
      */
     sendContact(phoneNumber: string, firstName: string, params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         last_name?: string;
@@ -3858,6 +3855,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             phone_number: phoneNumber,
             first_name: firstName,
             ...params
@@ -3867,7 +3865,6 @@ class MessageShared {
      * reply shortcut for `tg.api.sendContact` — sets `reply_parameters` to this message
      */
     replyWithContact(phoneNumber: string, firstName: string, params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         last_name?: string;
@@ -3884,6 +3881,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             phone_number: phoneNumber,
             first_name: firstName,
             ...params,
@@ -3894,7 +3892,6 @@ class MessageShared {
      * shortcut for `tg.api.sendDice`
      */
     sendDice(params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         emoji?: string;
@@ -3910,6 +3907,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendDice({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             ...params
         });
     }
@@ -3917,7 +3915,6 @@ class MessageShared {
      * reply shortcut for `tg.api.sendDice` — sets `reply_parameters` to this message
      */
     replyWithDice(params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         emoji?: string;
@@ -3933,6 +3930,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendDice({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             ...params,
             reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
         });
@@ -3941,7 +3939,6 @@ class MessageShared {
      * shortcut for `tg.api.sendDocument`
      */
     sendDocument(document: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         thumbnail?: TelegramInputFile | string;
@@ -3961,6 +3958,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             document: document,
             ...params
         });
@@ -3969,7 +3967,6 @@ class MessageShared {
      * reply shortcut for `tg.api.sendDocument` — sets `reply_parameters` to this message
      */
     replyWithDocument(document: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         thumbnail?: TelegramInputFile | string;
@@ -3989,6 +3986,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             document: document,
             ...params,
             reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
@@ -3998,7 +3996,6 @@ class MessageShared {
      * shortcut for `tg.api.sendGame`
      */
     sendGame(gameShortName: string, params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         disable_notification?: boolean;
         protect_content?: boolean;
@@ -4011,6 +4008,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             game_short_name: gameShortName,
             ...params
         });
@@ -4019,7 +4017,6 @@ class MessageShared {
      * reply shortcut for `tg.api.sendGame` — sets `reply_parameters` to this message
      */
     replyWithGame(gameShortName: string, params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         disable_notification?: boolean;
         protect_content?: boolean;
@@ -4032,6 +4029,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendGame({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             game_short_name: gameShortName,
             ...params,
             reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
@@ -4142,7 +4140,6 @@ class MessageShared {
      * shortcut for `tg.api.sendLivePhoto`
      */
     sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
@@ -4162,6 +4159,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             live_photo: livePhoto,
             photo: photo,
             ...params
@@ -4171,7 +4169,6 @@ class MessageShared {
      * reply shortcut for `tg.api.sendLivePhoto` — sets `reply_parameters` to this message
      */
     replyWithLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
@@ -4191,6 +4188,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             live_photo: livePhoto,
             photo: photo,
             ...params,
@@ -4201,7 +4199,6 @@ class MessageShared {
      * shortcut for `tg.api.sendLocation`
      */
     sendLocation(latitude: number, longitude: number, params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         horizontal_accuracy?: number;
@@ -4220,6 +4217,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             latitude: latitude,
             longitude: longitude,
             ...params
@@ -4229,7 +4227,6 @@ class MessageShared {
      * reply shortcut for `tg.api.sendLocation` — sets `reply_parameters` to this message
      */
     replyWithLocation(latitude: number, longitude: number, params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         horizontal_accuracy?: number;
@@ -4248,6 +4245,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             latitude: latitude,
             longitude: longitude,
             ...params,
@@ -4258,7 +4256,6 @@ class MessageShared {
      * shortcut for `tg.api.sendMediaGroup`
      */
     sendMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         disable_notification?: boolean;
@@ -4269,6 +4266,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             media: media,
             ...params
         });
@@ -4277,7 +4275,6 @@ class MessageShared {
      * reply shortcut for `tg.api.sendMediaGroup` — sets `reply_parameters` to this message
      */
     replyWithMediaGroup(media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         disable_notification?: boolean;
@@ -4288,6 +4285,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendMediaGroup({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             media: media,
             ...params,
             reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
@@ -4297,7 +4295,6 @@ class MessageShared {
      * shortcut for `tg.api.sendMessage`
      */
     send(text: string | Formattable, params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
@@ -4315,6 +4312,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             text: text,
             ...params
         });
@@ -4323,7 +4321,6 @@ class MessageShared {
      * reply shortcut for `tg.api.sendMessage` — sets `reply_parameters` to this message
      */
     reply(text: string | Formattable, params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
@@ -4341,6 +4338,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             text: text,
             ...params,
             reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
@@ -4365,7 +4363,6 @@ class MessageShared {
      * shortcut for `tg.api.sendPaidMedia`
      */
     sendPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         payload?: string;
@@ -4384,6 +4381,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             star_count: starCount,
             media: media,
             ...params
@@ -4393,7 +4391,6 @@ class MessageShared {
      * reply shortcut for `tg.api.sendPaidMedia` — sets `reply_parameters` to this message
      */
     replyWithPaidMedia(starCount: number, media: TelegramInputPaidMedia[], params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         payload?: string;
@@ -4412,6 +4409,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendPaidMedia({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             star_count: starCount,
             media: media,
             ...params,
@@ -4422,7 +4420,6 @@ class MessageShared {
      * shortcut for `tg.api.sendPhoto`
      */
     sendPhoto(photo: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
@@ -4442,6 +4439,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             photo: photo,
             ...params
         });
@@ -4450,7 +4448,6 @@ class MessageShared {
      * reply shortcut for `tg.api.sendPhoto` — sets `reply_parameters` to this message
      */
     replyWithPhoto(photo: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
@@ -4470,6 +4467,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             photo: photo,
             ...params,
             reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
@@ -4479,7 +4477,6 @@ class MessageShared {
      * shortcut for `tg.api.sendPoll`
      */
     sendPoll(question: string | Formattable, options: TelegramInputPollOption[], params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         question_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         question_entities?: TelegramMessageEntity[];
@@ -4515,6 +4512,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             question: question,
             options: options,
             ...params
@@ -4524,7 +4522,6 @@ class MessageShared {
      * reply shortcut for `tg.api.sendPoll` — sets `reply_parameters` to this message
      */
     replyWithPoll(question: string | Formattable, options: TelegramInputPollOption[], params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         question_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         question_entities?: TelegramMessageEntity[];
@@ -4560,6 +4557,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendPoll({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             question: question,
             options: options,
             ...params,
@@ -4570,7 +4568,6 @@ class MessageShared {
      * shortcut for `tg.api.sendSticker`
      */
     sendSticker(sticker: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         emoji?: string;
@@ -4586,6 +4583,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             sticker: sticker,
             ...params
         });
@@ -4594,7 +4592,6 @@ class MessageShared {
      * reply shortcut for `tg.api.sendSticker` — sets `reply_parameters` to this message
      */
     replyWithSticker(sticker: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         emoji?: string;
@@ -4610,6 +4607,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             sticker: sticker,
             ...params,
             reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
@@ -4619,7 +4617,6 @@ class MessageShared {
      * shortcut for `tg.api.sendVenue`
      */
     sendVenue(latitude: number, longitude: number, title: string, address: string, params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         foursquare_id?: string;
@@ -4638,6 +4635,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             latitude: latitude,
             longitude: longitude,
             title: title,
@@ -4649,7 +4647,6 @@ class MessageShared {
      * reply shortcut for `tg.api.sendVenue` — sets `reply_parameters` to this message
      */
     replyWithVenue(latitude: number, longitude: number, title: string, address: string, params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         foursquare_id?: string;
@@ -4668,6 +4665,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             latitude: latitude,
             longitude: longitude,
             title: title,
@@ -4680,7 +4678,6 @@ class MessageShared {
      * shortcut for `tg.api.sendVideo`
      */
     sendVideo(video: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         duration?: number;
@@ -4707,6 +4704,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             video: video,
             ...params
         });
@@ -4715,7 +4713,6 @@ class MessageShared {
      * reply shortcut for `tg.api.sendVideo` — sets `reply_parameters` to this message
      */
     replyWithVideo(video: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         duration?: number;
@@ -4742,6 +4739,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             video: video,
             ...params,
             reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
@@ -4751,7 +4749,6 @@ class MessageShared {
      * shortcut for `tg.api.sendVideoNote`
      */
     sendVideoNote(videoNote: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         duration?: number;
@@ -4769,6 +4766,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             video_note: videoNote,
             ...params
         });
@@ -4777,7 +4775,6 @@ class MessageShared {
      * reply shortcut for `tg.api.sendVideoNote` — sets `reply_parameters` to this message
      */
     replyWithVideoNote(videoNote: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         duration?: number;
@@ -4795,6 +4792,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             video_note: videoNote,
             ...params,
             reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
@@ -4804,7 +4802,6 @@ class MessageShared {
      * shortcut for `tg.api.sendVoice`
      */
     sendVoice(voice: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
@@ -4823,6 +4820,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             voice: voice,
             ...params
         });
@@ -4831,7 +4829,6 @@ class MessageShared {
      * reply shortcut for `tg.api.sendVoice` — sets `reply_parameters` to this message
      */
     replyWithVoice(voice: TelegramInputFile | string, params: {
-        business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
         caption?: string | Formattable;
@@ -4850,6 +4847,7 @@ class MessageShared {
     } = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             voice: voice,
             ...params,
             reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
@@ -4979,7 +4977,6 @@ class MessageShared {
      * shortcut for `tg.api.stopMessageLiveLocation`
      */
     stopLiveLocation(params: {
-        business_connection_id?: string;
         inline_message_id?: string;
         reply_markup?: TelegramInlineKeyboardMarkup | {
             toJSON: () => TelegramInlineKeyboardMarkup;
@@ -4988,6 +4985,7 @@ class MessageShared {
         return this.tg.api.stopMessageLiveLocation({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             ...params
         });
     }
@@ -4995,7 +4993,6 @@ class MessageShared {
      * shortcut for `tg.api.stopPoll`
      */
     stopPoll(params: {
-        business_connection_id?: string;
         reply_markup?: TelegramInlineKeyboardMarkup | {
             toJSON: () => TelegramInlineKeyboardMarkup;
         };
@@ -5003,6 +5000,7 @@ class MessageShared {
         return this.tg.api.stopPoll({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             ...params
         });
     }
@@ -5070,12 +5068,11 @@ class MessageShared {
     /**
      * shortcut for `tg.api.unpinChatMessage`
      */
-    unpin(params: {
-        business_connection_id?: string;
-    } = {}) {
+    unpin(params: {} = {}) {
         return this.tg.api.unpinChatMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             ...params
         });
     }

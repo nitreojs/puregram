@@ -105,6 +105,7 @@ builders return marker nodes that know how to render in either dialect — use t
 | `rich.time(label, unix, format?)` | `![label](tg://time?unix=…)` | `<tg-time unix="…">label</tg-time>` |
 | `rich.reference(text, name)` | `[text](#name)` | `<a href="#name">text</a>` |
 | `rich.anchor(name)` | `<a name="…"></a>` | `<a name="…"></a>` |
+| `rich.footnoteRef(id, label?)` | `[^id]` | `<a href="#id">label</a>` |
 
 builder content args (`text`, `x`) accept `string | RichNode | Rich | RichContent[]` — strings inside builders are escaped too, so `rich.bold(userInput)` is always safe.
 
@@ -134,6 +135,7 @@ builder content args (`text`, `x`) accept `string | RichNode | Rich | RichConten
 | `rich.collage(items, { caption? })` | `<tg-collage>…media nodes…</tg-collage>` (both dialects) |
 | `rich.slideshow(items, { caption? })` | `<tg-slideshow>…media nodes…</tg-slideshow>` (both dialects) |
 | `rich.table(rows, { header?, align?, bordered?, striped?, caption? })` | md GFM table (first row = header); html `<table>` with `th`/`td`, `align`, `<caption>`, `bordered`/`striped` attrs |
+| `rich.footnote(id, definition)` | the definition behind a `footnoteRef(id)` marker. md `[^id]: …` / html `<tg-reference name="id">…</tg-reference>` |
 
 media builders (`media`, `photo`, `video`, `audio`, `map`, `collage`, `slideshow`) accept **http(s) urls only** — `file_id` and upload-based embedding are not supported by the bot api rich-message format.
 

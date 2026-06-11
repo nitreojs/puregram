@@ -240,3 +240,11 @@ export function table (rows: RichContent[][], options: TableOptions = {}) {
     return `<table${attrs}>${cap}${body}</table>`
   })
 }
+
+/** footnote definition — the text behind a `footnoteRef(id)` marker (usually placed at the end) */
+export function footnote (id: string, definition: RichContent) {
+  return makeNode('block', d =>
+    d === 'markdown'
+      ? `[^${id}]: ${renderContent(definition, d)}`
+      : `<tg-reference name="${escape(id, 'html')}">${renderContent(definition, d)}</tg-reference>`)
+}

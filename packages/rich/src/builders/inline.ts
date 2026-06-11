@@ -71,3 +71,11 @@ export function reference (text: RichContent, name: string) {
 export function anchor (name: string) {
   return makeNode('inline', _d => `<a name="${escape(name, 'html')}"></a>`)
 }
+
+/** footnote reference marker — pairs with a `footnote(id, …)` definition */
+export function footnoteRef (id: string, label?: RichContent) {
+  return makeNode('inline', d =>
+    d === 'markdown'
+      ? `[^${id}]`
+      : `<a href="#${escape(id, 'html')}">${label === undefined ? escape(id, 'html') : renderContent(label, d)}</a>`)
+}

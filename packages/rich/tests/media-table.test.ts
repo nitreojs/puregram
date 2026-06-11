@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest'
 
 import {
-  footer, pullQuote, taskList, media, photo, video, audio, map, collage, slideshow, table
+  footer, pullQuote, taskList, media, photo, video, audio, map, collage, slideshow, table, footnote
 } from '../src/builders/block'
+import { footnoteRef } from '../src/builders/inline'
 
 const md = (n: { render: (d: 'markdown' | 'html') => string }) => n.render('markdown')
 const html = (n: { render: (d: 'markdown' | 'html') => string }) => n.render('html')
@@ -78,5 +79,15 @@ describe('table', () => {
   it('renders html with th/td, align, caption, bordered/striped', () => {
     expect(html(table([['H1', 'H2'], ['a', 'b']], { align: [undefined as never, 'right'], bordered: true, striped: true, caption: 'cap' })))
       .toBe('<table bordered striped><caption>cap</caption><tr><th>H1</th><th align="right">H2</th></tr><tr><td>a</td><td align="right">b</td></tr></table>')
+  })
+})
+
+describe('footnote', () => {
+  it('renders marker + definition per dialect', () => {
+    expect(md(footnoteRef('1'))).toBe('[^1]')
+    expect(html(footnoteRef('1', 'see'))).toBe('<a href="#1">see</a>')
+    expect(html(footnoteRef('1'))).toBe('<a href="#1">1</a>')
+    expect(md(footnote('1', 'the definition'))).toBe('[^1]: the definition')
+    expect(html(footnote('1', 'the definition'))).toBe('<tg-reference name="1">the definition</tg-reference>')
   })
 })

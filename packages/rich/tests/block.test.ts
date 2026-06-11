@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 
 import {
   heading, paragraph, codeBlock, blockquote, divider,
-  list, orderedList, details, mathBlock, h1, h3, h6
+  list, orderedList, details, mathBlock, h1, h3, h6, quote, pre, hr, fn
 } from '../src/builders/block'
 
 const md = (n: { render: (d: 'markdown' | 'html') => string }) => n.render('markdown')
@@ -54,5 +54,14 @@ describe('h1..h6 aliases', () => {
     expect(md(h1('a'))).toBe('# a')
     expect(md(h3('a'))).toBe('### a')
     expect(html(h6('a'))).toBe('<h6>a</h6>')
+  })
+})
+
+describe('aliases', () => {
+  it('quote / pre / hr / fn mirror their originals', () => {
+    expect(md(quote('q'))).toBe('>q')
+    expect(md(pre('x', 'ts'))).toBe('```ts\nx\n```')
+    expect(html(hr())).toBe('<hr/>')
+    expect(md(fn('1', 'def'))).toBe('[^1]: def')
   })
 })

@@ -261,3 +261,12 @@ export function footnote (id: string, definition: RichContent) {
       ? `[^${id}]: ${renderContent(definition, d)}`
       : `<tg-reference name="${escape(id, 'html')}">${renderContent(definition, d)}</tg-reference>`)
 }
+
+/** alias for `blockquote` */
+export const quote = blockquote
+/** alias for `codeBlock` */
+export const pre = codeBlock
+/** alias for `divider` */
+export const hr = divider
+/** alias for `footnote` */
+export const fn = footnote

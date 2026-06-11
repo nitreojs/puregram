@@ -79,3 +79,16 @@ export function footnoteRef (id: string, label?: RichContent) {
       ? `[^${id}]`
       : `<a href="#${escape(id, 'html')}">${label === undefined ? escape(id, 'html') : renderContent(label, d)}</a>`)
 }
+
+/** alias for `strikethrough` */
+export const strike = strikethrough
+/** alias for `subscript` */
+export const sub = subscript
+/** alias for `superscript` */
+export const sup = superscript
+/** alias for `mentionUser` */
+export const mention = mentionUser
+/** alias for `customEmoji` */
+export const emoji = customEmoji
+/** alias for `footnoteRef` */
+export const fnRef = footnoteRef

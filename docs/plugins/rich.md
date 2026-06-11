@@ -187,10 +187,10 @@ await message.replyWithRich(rich.md`# ${heading}`)
 await message.editRich(rich.md`# updated ${status}`)
 ```
 
-a `Rich` value can also be passed directly to `tg.api.sendRichMessage` — `rich_message` accepts `TelegramInputRichMessage | RichLike` and `Rich` implements `RichLike`:
+a `Rich` value can also be passed directly to `telegram.api.sendRichMessage` — `rich_message` accepts `TelegramInputRichMessage | RichLike` and `Rich` implements `RichLike`:
 
 ```ts
-await tg.api.sendRichMessage({
+await telegram.api.sendRichMessage({
   chat_id,
   rich_message: rich.md`# ${title}`
 })
@@ -233,4 +233,4 @@ import type {
 
 - [markup](/plugins/markup/) — entity-based formatting for plain messages, no `parse_mode`
 - [formatting text](/guide/telegram/formatting-text) — the raw `parse_mode` path, for comparison
-- [plugins & .extend](/guide/concepts/plugins) — how `tg.extend` works in general
+- [plugins & .extend](/guide/concepts/plugins) — how `telegram.extend` works in general

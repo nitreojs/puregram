@@ -183,10 +183,10 @@ await message.replyWithRich(rich.md`# ${heading}`)
 await message.editRich(rich.md`# updated`)
 ```
 
-a `Rich` value can also be passed directly to `tg.api.sendRichMessage` — `rich_message` accepts `TelegramInputRichMessage | RichLike` and `Rich` implements `RichLike`, so no manual unwrap is needed:
+a `Rich` value can also be passed directly to `telegram.api.sendRichMessage` — `rich_message` accepts `TelegramInputRichMessage | RichLike` and `Rich` implements `RichLike`, so no manual unwrap is needed:
 
 ```ts
-await tg.api.sendRichMessage({
+await telegram.api.sendRichMessage({
   chat_id,
   rich_message: rich.md`# ${title}`
 })

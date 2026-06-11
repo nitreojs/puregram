@@ -40,3 +40,18 @@ describe('makeTemplate', () => {
     expect(html`<b>${'<x>'}</b>`.content).toBe('<b>&#60;x&#62;</b>')
   })
 })
+
+describe('block-array form', () => {
+  it('composes a plain array of block nodes, blank-line separated', () => {
+    const h = makeNode('block', () => '# a')
+    const l = makeNode('block', () => '- x\n- y')
+
+    expect(md([h, l]).content).toBe('# a\n\n- x\n- y')
+  })
+
+  it('renders the array in the tag dialect', () => {
+    const n = makeNode('block', d => (d === 'markdown' ? '---' : '<hr/>'))
+
+    expect(html([n, n]).content).toBe('<hr/>\n\n<hr/>')
+  })
+})

@@ -1,4 +1,4 @@
-import type { Dialect } from './node'
+import type { Dialect, RichNode } from './node'
 import { type RichContent, renderContent } from './render'
 import { Rich } from './rich'
 
@@ -26,13 +26,20 @@ function dedent (skeleton: string) {
 
 export interface RichTemplate {
   (source: string): Rich
+  (blocks: readonly RichNode[]): Rich
   (strings: TemplateStringsArray, ...values: RichContent[]): Rich
 }
 
 export function makeTemplate (dialect: Dialect) {
-  return ((first: string | TemplateStringsArray, ...values: RichContent[]) => {
+  return ((first: string | TemplateStringsArray | readonly RichNode[], ...values: RichContent[]) => {
     if (typeof first === 'string') {
       return new Rich(dialect, first)
+    }
+
+    // block-array form: rich.md([heading(...), list(...)]) — a plain array (no `.raw` template
+    // marker) composes top-level blocks, joined by a blank line
+    if (!('raw' in first)) {
+      return new Rich(dialect, first.map(node => renderContent(node, dialect)).join('\n\n'))
     }
 
     // dedent the literal skeleton only (\x00 marks interpolation seams so values aren't dedented)

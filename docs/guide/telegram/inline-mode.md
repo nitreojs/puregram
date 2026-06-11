@@ -155,7 +155,7 @@ tg.on('inline_query', async (query) => {
 | `InputMessageContent.venue(lat, lng, title, address, params?)` | venue |
 | `InputMessageContent.contact(phoneNumber, firstName, params?)` | contact |
 | `InputMessageContent.invoice(params)` | invoice (all fields required, takes the full param object) |
-| `InputMessageContent.rich.md(markdown, params?)` / `.html(html, params?)` | rich message — telegram parses the dialect server-side (bot api 10.1) |
+| `InputMessageContent.rich.md(markdown, params?)` / `.html(html, params?)` | rich message — telegram parses the dialect server-side |
 
 ```ts
 import { InputMessageContent } from 'puregram'

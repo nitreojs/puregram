@@ -46,7 +46,7 @@ const richHtml = (html: string, extras: RichExtras = {} as RichExtras) => richBo
  * ```
  */
 export class InputMessageContent {
-  /** rich-message body — pick a dialect, server parses it (bot api 10.1) */
+  /** rich-message body — pick a dialect, server parses it */
   static rich = {
     /** markdown rich body */
     markdown: richMarkdown,

@@ -20,6 +20,7 @@ puregram core is a thin wrapper. everything beyond the bot api — state, wizard
 ## text & data
 
 - [markup](/plugins/markup/) — entity-aware text formatting, no `parse_mode`
+- [rich](/plugins/rich) — safe rich-message emitter (headings, lists, code blocks, formulas, and more)
 - [callback-data](/plugins/callback-data) — typed, packed `callback_data`
 
 ## rate limiting

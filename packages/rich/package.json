@@ -31,5 +31,8 @@
     "vitest": "^1.4.0"
   },
   "license": "MPL-2.0",
-  "author": "starkow"
+  "author": "starkow",
+  "publishConfig": {
+    "access": "public"
+  }
 }

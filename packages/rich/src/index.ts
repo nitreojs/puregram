@@ -1,1 +1,6 @@
-export const VERSION = '0.0.0'
+export { rich } from './namespace'
+export { Rich } from './rich'
+export { RichError } from './error'
+export { type RichNode, type Dialect, makeNode, isRichNode } from './node'
+export { type RichContent } from './render'
+export * from './builders'

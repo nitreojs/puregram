@@ -1,5 +1,6 @@
 import type {
   Formattable,
+  RichLike,
   TelegramInputContactMessageContent,
   TelegramInputInvoiceMessageContent,
   TelegramInputLocationMessageContent,
@@ -46,15 +47,19 @@ const richHtml = (html: string, extras: RichExtras = {} as RichExtras) => richBo
  * ```
  */
 export class InputMessageContent {
-  /** rich-message body — pick a dialect, server parses it */
-  static rich = {
-    /** markdown rich body */
-    markdown: richMarkdown,
-    /** markdown rich body (alias) */
-    md: richMarkdown,
-    /** html rich body */
-    html: richHtml
-  }
+  /** rich-message body — pass a `Rich`, or build a dialect string via `.md` / `.markdown` / `.html` */
+  static rich = Object.assign(
+    (content: RichLike) =>
+      ({ rich_message: content.toInputRichMessage() }) as unknown as TelegramInputRichMessageContent,
+    {
+      /** markdown rich body */
+      markdown: richMarkdown,
+      /** markdown rich body (alias) */
+      md: richMarkdown,
+      /** html rich body */
+      html: richHtml
+    }
+  )
 
   /** text message body */
   static text (text: string | Formattable, params: TextExtras = {} as TextExtras) {

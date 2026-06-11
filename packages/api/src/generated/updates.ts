@@ -10193,6 +10193,18 @@ export class ChatJoinRequestUpdate {
     get api(): TelegramLike["api"] {
         return this.tg.api;
     }
+    /**
+     * approve this join request
+     */
+    approve(): Promise<true> {
+        return this.tg.api.approveChatJoinRequest({ chat_id: this.raw.chat.id, user_id: this.raw.from.id });
+    }
+    /**
+     * decline this join request
+     */
+    decline(): Promise<true> {
+        return this.tg.api.declineChatJoinRequest({ chat_id: this.raw.chat.id, user_id: this.raw.from.id });
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }

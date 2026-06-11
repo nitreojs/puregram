@@ -206,11 +206,17 @@ const UNIVERSAL_EXTRAS: UpdateExtra[] = [
   { kind: 'getter', name: 'api', expression: 'this.tg.api', returnType: "TelegramLike['api']", jsdoc: 'shortcut for `tg.api` — call any bot api method directly from the wrapped update' }
 ]
 
+const CHAT_JOIN_REQUEST_EXTRAS: UpdateExtra[] = [
+  { kind: 'method', name: 'approve', body: 'return this.tg.api.approveChatJoinRequest({ chat_id: this.raw.chat.id, user_id: this.raw.from.id })', returnType: 'Promise<true>', jsdoc: 'approve this join request' },
+  { kind: 'method', name: 'decline', body: 'return this.tg.api.declineChatJoinRequest({ chat_id: this.raw.chat.id, user_id: this.raw.from.id })', returnType: 'Promise<true>', jsdoc: 'decline this join request' }
+]
+
 const KIND_EXTRAS: Record<string, UpdateExtra[]> = {
   callback_query: CALLBACK_QUERY_EXTRAS,
   chat_member: CHAT_MEMBER_EXTRAS,
   my_chat_member: CHAT_MEMBER_EXTRAS,
-  message_reaction: MESSAGE_REACTION_EXTRAS
+  message_reaction: MESSAGE_REACTION_EXTRAS,
+  chat_join_request: CHAT_JOIN_REQUEST_EXTRAS
 }
 
 export function buildUpdateKinds (schema: Schema) {

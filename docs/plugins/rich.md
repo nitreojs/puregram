@@ -82,7 +82,7 @@ template literals are **dedented** (common leading indentation stripped) so you 
 | `null` / `undefined` / `false` | empty string |
 
 **escape sets:**
-- markdown: backslash-escapes `` \ ` * _ ~ = | [ ] ( ) # > ! + - < ``
+- markdown: backslash-escapes `` \ ` * _ ~ = | [ ] ( ) # ! + - ``; `& < >` become numeric entities (telegram renders `\<` literally, but accepts entities)
 - html: `& < > "` → numeric entities (always safe)
 
 because strings are always escaped, user content in `${userText}` is safe in both dialects.

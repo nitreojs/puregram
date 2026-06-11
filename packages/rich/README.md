@@ -46,7 +46,7 @@ template literals are **dedented** (common leading indentation stripped) so you 
 | `${null \| undefined \| false}` | empty string |
 
 **escape sets:**
-- markdown: backslash-escapes the rich-md specials `` \ ` * _ ~ = | [ ] ( ) # > ! + - < ``
+- markdown: backslash-escapes the rich-md specials `` \ ` * _ ~ = | [ ] ( ) # ! + - ``; `& < >` become numeric entities (telegram renders `\<` literally, but accepts entities)
 - html: `& < > "` → numeric entities (`&#38;` etc. — numeric is always safe)
 
 since strings are always escaped, user input in `${userText}` is safe in both dialects.

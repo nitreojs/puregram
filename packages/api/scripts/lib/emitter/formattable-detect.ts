@@ -10,6 +10,11 @@ function isStringType (ref: SchemaTypeRef) {
   return ref.kind === 'string'
 }
 
+/** an `InputRichMessage`-typed arg/field — widened to `TelegramInputRichMessage | RichLike` */
+export function isRichMessageRef (ref: SchemaTypeRef) {
+  return ref.kind === 'reference' && ref.name === 'InputRichMessage'
+}
+
 function isMessageEntityArray (ref: SchemaTypeRef) {
   return ref.kind === 'array' && ref.of.kind === 'reference' && ref.of.name === 'MessageEntity'
 }

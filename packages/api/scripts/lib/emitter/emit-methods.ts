@@ -3,7 +3,7 @@ import ts from 'typescript'
 import type { Schema, SchemaMethod, SchemaTypeRef } from '../schema-types'
 
 import { formatModule } from './format'
-import { detectWidenedMethodArgs } from './formattable-detect'
+import { detectWidenedMethodArgs, isRichMessageRef } from './formattable-detect'
 import { versionString } from './load-schema'
 import { typeRefToTs, tsExportInterface, tsExportTypeAlias, importTypeNamed } from './ts-factory'
 
@@ -20,6 +20,10 @@ export function emitMethods (schema: Schema) {
 
   if (widenedArgs.size > 0) {
     imports.push(importTypeNamed(['Formattable'], '../formattable'))
+  }
+
+  if (schema.methods.some(m => m.arguments.some(a => isRichMessageRef(a.type)))) {
+    imports.push(importTypeNamed(['RichLike'], '../rich-like'))
   }
 
   for (const method of schema.methods) {
@@ -76,6 +80,12 @@ function emitParamsInterface (method: SchemaMethod, widened: ReadonlySet<string>
         // accept either the bot-api shape or any class with matching toJSON() —
         // covers Keyboard / InlineKeyboard / ForceReply / RemoveKeyboard at the call site
         type = wrapWithToJSON(type)
+      } else if (isRichMessageRef(a.type)) {
+        // accept a @puregram/rich `Rich` (or any RichLike) — its toJSON unwraps on serialize
+        type = ts.factory.createUnionTypeNode([
+          type,
+          ts.factory.createTypeReferenceNode('RichLike')
+        ])
       } else if (widened.has(a.name)) {
         type = ts.factory.createUnionTypeNode([
           type,

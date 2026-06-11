@@ -6,6 +6,7 @@
 
 import type { TelegramAcceptedGiftTypes, TelegramBotAccessSettings, TelegramBotCommand, TelegramBotCommandScope, TelegramBotDescription, TelegramBotName, TelegramBotShortDescription, TelegramBusinessConnection, TelegramChatAdministratorRights, TelegramChatFullInfo, TelegramChatInviteLink, TelegramChatMember, TelegramChatPermissions, TelegramFile, TelegramForceReply, TelegramForumTopic, TelegramGameHighScore, TelegramGifts, TelegramInlineKeyboardMarkup, TelegramInlineQueryResult, TelegramInlineQueryResultsButton, TelegramInputChecklist, TelegramInputFile, TelegramInputMedia, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaLivePhoto, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPaidMedia, TelegramInputPollMedia, TelegramInputPollOption, TelegramInputProfilePhoto, TelegramInputRichMessage, TelegramInputSticker, TelegramInputStoryContent, TelegramKeyboardButton, TelegramLabeledPrice, TelegramLinkPreviewOptions, TelegramMaskPosition, TelegramMenuButton, TelegramMessage, TelegramMessageEntity, TelegramMessageId, TelegramOwnedGifts, TelegramPassportElementError, TelegramPoll, TelegramPreparedInlineMessage, TelegramPreparedKeyboardButton, TelegramReactionType, TelegramReplyKeyboardMarkup, TelegramReplyKeyboardRemove, TelegramReplyParameters, TelegramSentGuestMessage, TelegramSentWebAppMessage, TelegramShippingOption, TelegramStarAmount, TelegramStarTransactions, TelegramSticker, TelegramStickerSet, TelegramStory, TelegramStoryArea, TelegramSuggestedPostParameters, TelegramUpdate, TelegramUser, TelegramUserChatBoosts, TelegramUserProfileAudios, TelegramUserProfilePhotos, TelegramWebhookInfo } from "./types";
 import type { Formattable } from "../formattable";
+import type { RichLike } from "../rich-like";
 /**
  * Use this method to add a new sticker to a set created by the bot. Emoji sticker sets can have up to 200 stickers. Other sticker sets can have up to 120 stickers. Returns True on success.
  */
@@ -1324,7 +1325,7 @@ export interface EditMessageTextParams {
     /**
      * New rich content of the message; required if text isn't specified
      */
-    rich_message?: TelegramInputRichMessage;
+    rich_message?: TelegramInputRichMessage | RichLike;
     /**
      * A JSON-serialized object for an inline keyboard
      */
@@ -4037,7 +4038,7 @@ export interface SendRichMessageParams {
     /**
      * The message to be sent
      */
-    rich_message: TelegramInputRichMessage;
+    rich_message: TelegramInputRichMessage | RichLike;
     /**
      * Sends the message silently. Users will receive a notification with no sound.
      */
@@ -4094,7 +4095,7 @@ export interface SendRichMessageDraftParams {
     /**
      * The partial message to be streamed
      */
-    rich_message: TelegramInputRichMessage;
+    rich_message: TelegramInputRichMessage | RichLike;
 }
 
 /**

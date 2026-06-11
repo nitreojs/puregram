@@ -6,6 +6,7 @@ export interface MethodPositional {
 export const METHOD_POSITIONALS: Record<string, MethodPositional[]> = {
   sendMessage: [{ name: 'chat', schemaArg: 'chat_id' }, { name: 'text', schemaArg: 'text' }],
   sendMessageDraft: [{ name: 'chat', schemaArg: 'chat_id' }, { name: 'text', schemaArg: 'text' }],
+  sendRichMessage: [{ name: 'chat', schemaArg: 'chat_id' }, { name: 'richMessage', schemaArg: 'rich_message' }],
   sendPhoto: [{ name: 'chat', schemaArg: 'chat_id' }, { name: 'photo', schemaArg: 'photo' }],
   sendAudio: [{ name: 'chat', schemaArg: 'chat_id' }, { name: 'audio', schemaArg: 'audio' }],
   sendDocument: [{ name: 'chat', schemaArg: 'chat_id' }, { name: 'document', schemaArg: 'document' }],

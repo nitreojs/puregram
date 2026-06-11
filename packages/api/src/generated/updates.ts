@@ -8,6 +8,7 @@ import type { TelegramBusinessBotRights, TelegramBusinessConnection, TelegramBus
 import type { TelegramLike } from "../telegram-like";
 import type { Has } from "../util-types";
 import type { Formattable } from "../formattable";
+import type { RichLike } from "../rich-like";
 import { Animation, Audio, Chat, ChatBoost, ChatInviteLink, ChatMember, ChatShared, Contact, Dice, Document, ExternalReplyInfo, ForumTopicCreated, ForumTopicEdited, Game, Giveaway, GiveawayCompleted, GiveawayWinners, InlineKeyboardMarkup, Invoice, LinkPreviewOptions, LivePhoto, Location, Message, MessageEntity, OrderInfo, PassportData, PhotoSize, Poll, PollMedia, PollOption, ProximityAlertTriggered, ReactionCount, ShippingAddress, Sticker, Story, SuccessfulPayment, TextQuote, User, UsersShared, Venue, Video, VideoChatEnded, VideoChatParticipantsInvited, VideoChatScheduled, VideoNote, Voice, WebAppData, WriteAccessAllowed } from "./structures";
 import { Photo } from "../structures-handcrafted";
 import { INSPECT, makeInspect } from "./inspect";
@@ -993,9 +994,8 @@ export class MessageThreadShortcuts {
     /**
      * shortcut for `tg.api.sendRichMessage`
      */
-    sendRichMessage(params: {
+    sendRichMessage(richMessage: TelegramInputRichMessage | RichLike, params: {
         direct_messages_topic_id?: number;
-        rich_message: TelegramInputRichMessage;
         disable_notification?: boolean;
         protect_content?: boolean;
         allow_paid_broadcast?: boolean;
@@ -1005,20 +1005,20 @@ export class MessageThreadShortcuts {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
-    }) {
+    } = {}) {
         return this.tg.api.sendRichMessage({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
             ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
+            rich_message: richMessage,
             ...params
         });
     }
     /**
      * reply shortcut for `tg.api.sendRichMessage` — sets `reply_parameters` to this message
      */
-    replyWithRichMessage(params: {
+    replyWithRichMessage(richMessage: TelegramInputRichMessage | RichLike, params: {
         direct_messages_topic_id?: number;
-        rich_message: TelegramInputRichMessage;
         disable_notification?: boolean;
         protect_content?: boolean;
         allow_paid_broadcast?: boolean;
@@ -1028,11 +1028,12 @@ export class MessageThreadShortcuts {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
-    }) {
+    } = {}) {
         return this.tg.api.sendRichMessage({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
             ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
+            rich_message: richMessage,
             ...params,
             reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
         });
@@ -1367,9 +1368,8 @@ export class MessageThreadShortcuts {
     /**
      * shortcut for `tg.api.sendRichMessage`
      */
-    sendRich(params: {
+    sendRich(richMessage: TelegramInputRichMessage | RichLike, params: {
         direct_messages_topic_id?: number;
-        rich_message: TelegramInputRichMessage;
         disable_notification?: boolean;
         protect_content?: boolean;
         allow_paid_broadcast?: boolean;
@@ -1379,20 +1379,20 @@ export class MessageThreadShortcuts {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
-    }) {
+    } = {}) {
         return this.tg.api.sendRichMessage({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
             ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
+            rich_message: richMessage,
             ...params
         });
     }
     /**
      * reply shortcut for `tg.api.sendRichMessage` — sets `reply_parameters` to this message
      */
-    replyWithRich(params: {
+    replyWithRich(richMessage: TelegramInputRichMessage | RichLike, params: {
         direct_messages_topic_id?: number;
-        rich_message: TelegramInputRichMessage;
         disable_notification?: boolean;
         protect_content?: boolean;
         allow_paid_broadcast?: boolean;
@@ -1402,11 +1402,12 @@ export class MessageThreadShortcuts {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
-    }) {
+    } = {}) {
         return this.tg.api.sendRichMessage({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
             ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
+            rich_message: richMessage,
             ...params,
             reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
         });
@@ -3137,6 +3138,12 @@ class MessageShared {
     react(reaction: string | TelegramReactionType[], params?: Omit<import("./methods").SetMessageReactionParams, "chat_id" | "message_id" | "reaction">): Promise<true> {
         return this.tg.api.setMessageReaction({ chat_id: this.raw.chat.id, message_id: this.raw.message_id, reaction: typeof reaction === "string" ? [{ type: "emoji", emoji: reaction }] : reaction, ...params });
     }
+    /**
+     * edit this message to rich content (build it with @puregram/rich)
+     */
+    editRich(richMessage: TelegramInputRichMessage | RichLike, params?: Omit<import("./methods").EditMessageTextParams, "chat_id" | "message_id" | "rich_message" | "text">): Promise<TelegramMessage> {
+        return this.tg.api.editMessageText({ chat_id: this.raw.chat.id, message_id: this.raw.message_id, rich_message: richMessage, ...params });
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -4723,10 +4730,9 @@ class MessageShared {
     /**
      * shortcut for `tg.api.sendRichMessage`
      */
-    sendRichMessage(params: {
+    sendRichMessage(richMessage: TelegramInputRichMessage | RichLike, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
-        rich_message: TelegramInputRichMessage;
         disable_notification?: boolean;
         protect_content?: boolean;
         allow_paid_broadcast?: boolean;
@@ -4736,20 +4742,20 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
-    }) {
+    } = {}) {
         return this.tg.api.sendRichMessage({
             chat_id: this.raw.chat.id,
             ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
+            rich_message: richMessage,
             ...params
         });
     }
     /**
      * reply shortcut for `tg.api.sendRichMessage` — sets `reply_parameters` to this message
      */
-    replyWithRichMessage(params: {
+    replyWithRichMessage(richMessage: TelegramInputRichMessage | RichLike, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
-        rich_message: TelegramInputRichMessage;
         disable_notification?: boolean;
         protect_content?: boolean;
         allow_paid_broadcast?: boolean;
@@ -4759,10 +4765,11 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
-    }) {
+    } = {}) {
         return this.tg.api.sendRichMessage({
             chat_id: this.raw.chat.id,
             ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
+            rich_message: richMessage,
             ...params,
             reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
         });
@@ -5321,10 +5328,9 @@ class MessageShared {
     /**
      * shortcut for `tg.api.sendRichMessage`
      */
-    sendRich(params: {
+    sendRich(richMessage: TelegramInputRichMessage | RichLike, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
-        rich_message: TelegramInputRichMessage;
         disable_notification?: boolean;
         protect_content?: boolean;
         allow_paid_broadcast?: boolean;
@@ -5334,20 +5340,20 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
-    }) {
+    } = {}) {
         return this.tg.api.sendRichMessage({
             chat_id: this.raw.chat.id,
             ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
+            rich_message: richMessage,
             ...params
         });
     }
     /**
      * reply shortcut for `tg.api.sendRichMessage` — sets `reply_parameters` to this message
      */
-    replyWithRich(params: {
+    replyWithRich(richMessage: TelegramInputRichMessage | RichLike, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
-        rich_message: TelegramInputRichMessage;
         disable_notification?: boolean;
         protect_content?: boolean;
         allow_paid_broadcast?: boolean;
@@ -5357,10 +5363,11 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
-    }) {
+    } = {}) {
         return this.tg.api.sendRichMessage({
             chat_id: this.raw.chat.id,
             ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
+            rich_message: richMessage,
             ...params,
             reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
         });
@@ -7257,6 +7264,12 @@ export class GuestMessageUpdate {
      */
     react(reaction: string | TelegramReactionType[], params?: Omit<import("./methods").SetMessageReactionParams, "chat_id" | "message_id" | "reaction">): Promise<true> {
         return this.tg.api.setMessageReaction({ chat_id: this.raw.chat.id, message_id: this.raw.message_id, reaction: typeof reaction === "string" ? [{ type: "emoji", emoji: reaction }] : reaction, ...params });
+    }
+    /**
+     * edit this message to rich content (build it with @puregram/rich)
+     */
+    editRich(richMessage: TelegramInputRichMessage | RichLike, params?: Omit<import("./methods").EditMessageTextParams, "chat_id" | "message_id" | "rich_message" | "text">): Promise<TelegramMessage> {
+        return this.tg.api.editMessageText({ chat_id: this.raw.chat.id, message_id: this.raw.message_id, rich_message: richMessage, ...params });
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -9630,11 +9643,10 @@ class ChatMemberUpdatedShared {
     /**
      * shortcut for `tg.api.sendRichMessage`
      */
-    sendRichMessage(params: {
+    sendRichMessage(richMessage: TelegramInputRichMessage | RichLike, params: {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
-        rich_message: TelegramInputRichMessage;
         disable_notification?: boolean;
         protect_content?: boolean;
         allow_paid_broadcast?: boolean;
@@ -9644,9 +9656,10 @@ class ChatMemberUpdatedShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
-    }) {
+    } = {}) {
         return this.tg.api.sendRichMessage({
             chat_id: this.raw.chat.id,
+            rich_message: richMessage,
             ...params
         });
     }
@@ -10058,11 +10071,10 @@ class ChatMemberUpdatedShared {
     /**
      * shortcut for `tg.api.sendRichMessage`
      */
-    sendRich(params: {
+    sendRich(richMessage: TelegramInputRichMessage | RichLike, params: {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
-        rich_message: TelegramInputRichMessage;
         disable_notification?: boolean;
         protect_content?: boolean;
         allow_paid_broadcast?: boolean;
@@ -10072,9 +10084,10 @@ class ChatMemberUpdatedShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
-    }) {
+    } = {}) {
         return this.tg.api.sendRichMessage({
             chat_id: this.raw.chat.id,
+            rich_message: richMessage,
             ...params
         });
     }
@@ -11375,11 +11388,10 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.sendRichMessage`
      */
-    sendRichMessage(params: {
+    sendRichMessage(richMessage: TelegramInputRichMessage | RichLike, params: {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
-        rich_message: TelegramInputRichMessage;
         disable_notification?: boolean;
         protect_content?: boolean;
         allow_paid_broadcast?: boolean;
@@ -11389,9 +11401,10 @@ export class ChatJoinRequestUpdate {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
-    }) {
+    } = {}) {
         return this.tg.api.sendRichMessage({
             chat_id: this.raw.chat.id,
+            rich_message: richMessage,
             ...params
         });
     }
@@ -11803,11 +11816,10 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.sendRichMessage`
      */
-    sendRich(params: {
+    sendRich(richMessage: TelegramInputRichMessage | RichLike, params: {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
-        rich_message: TelegramInputRichMessage;
         disable_notification?: boolean;
         protect_content?: boolean;
         allow_paid_broadcast?: boolean;
@@ -11817,9 +11829,10 @@ export class ChatJoinRequestUpdate {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
-    }) {
+    } = {}) {
         return this.tg.api.sendRichMessage({
             chat_id: this.raw.chat.id,
+            rich_message: richMessage,
             ...params
         });
     }

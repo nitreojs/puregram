@@ -4,7 +4,7 @@ import type { Schema, SchemaField, SchemaObject, SchemaTypeRef } from '../schema
 
 import { camelCase, getterNameFor } from './field-names'
 import { formatModule } from './format'
-import { detectWidenedMethodArgs } from './formattable-detect'
+import { detectWidenedMethodArgs, isRichMessageRef } from './formattable-detect'
 import { versionString } from './load-schema'
 import { analyzeShortcuts, analyzeThreadShortcuts, type BoundShortcut } from './shortcut-analyzer'
 import { METHOD_POSITIONALS } from './shortcuts-config'
@@ -213,6 +213,10 @@ export function emitUpdates (schema: Schema) {
     return sc.userArgs.some(a => widened.has(a.name))
   }))
 
+  // RichLike is referenced by any inlined rich_message arg (sendRich) and by the editRich extra
+  const usesRichLike = Object.entries(analysis.byKind).some(([, list]) =>
+    list.some(sc => sc.userArgs.some(a => isRichMessageRef(a.type))))
+
   const usedArrayWrappers = collectUsedArrayWrappers(kinds, objectsByName)
 
   const imports = [
@@ -220,6 +224,7 @@ export function emitUpdates (schema: Schema) {
     importTypeNamed(['TelegramLike'], '../telegram-like'),
     ...(usesHas ? [importTypeNamed(['Has'], '../util-types')] : []),
     ...(usesFormattable ? [importTypeNamed(['Formattable'], '../formattable')] : []),
+    ...(usesRichLike ? [importTypeNamed(['RichLike'], '../rich-like')] : []),
     ...(wrappedNames.size > 0 ? [importNamed([...wrappedNames].sort(), './structures')] : []),
     ...(usedArrayWrappers.length > 0
       ? [importNamed(usedArrayWrappers, '../structures-handcrafted')]
@@ -1292,7 +1297,12 @@ function emitShortcutMethod (sc: BoundShortcut, widenedArgs: Map<string, Set<str
   const positionalParams = positionals.map((p) => {
     let type = typeRefToTs(p.arg.type)
 
-    if (widened.has(p.schemaArg)) {
+    if (isRichMessageRef(p.arg.type)) {
+      type = ts.factory.createUnionTypeNode([
+        type,
+        ts.factory.createTypeReferenceNode('RichLike')
+      ])
+    } else if (widened.has(p.schemaArg)) {
       type = ts.factory.createUnionTypeNode([
         type,
         ts.factory.createTypeReferenceNode('Formattable')

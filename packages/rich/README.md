@@ -123,6 +123,19 @@ builder content args (`text`, `x`) accept `string | RichNode | Rich | RichConten
 | `rich.orderedList(items, { start? })` | `1.` / `<ol start="…">` |
 | `rich.details(summary, body, { open? })` | `<details><summary>` (legal in both dialects) |
 | `rich.mathBlock(latex)` | `$$latex$$` / `<tg-math-block>latex</tg-math-block>` |
+| `rich.footer(content)` | `<footer>…</footer>` (both dialects) |
+| `rich.pullQuote(content, cite?)` | `<aside>…<cite>cite</cite></aside>` (both dialects) |
+| `rich.taskList(items)` | `items` is `{ text, done? }[]`. md `- [ ]` / `- [x]`; html `<ul><li>☐/☑ …</li></ul>` |
+| `rich.media(url, { type?, caption?, spoiler? })` | http(s) url only. md `![](url)`; html `<img>`/`<video>`/`<audio>` (`<figure><figcaption>` when captioned) |
+| `rich.photo(url, { caption?, spoiler? })` | `media` with type fixed to `photo` |
+| `rich.video(url, { caption?, spoiler? })` | `media` with type fixed to `video` |
+| `rich.audio(url, { caption?, spoiler? })` | `media` with type fixed to `audio` |
+| `rich.map(lat, long, { zoom?, caption? })` | `<tg-map lat long zoom/>` (both dialects; `<figure>` when captioned) |
+| `rich.collage(items, { caption? })` | `<tg-collage>…media nodes…</tg-collage>` (both dialects) |
+| `rich.slideshow(items, { caption? })` | `<tg-slideshow>…media nodes…</tg-slideshow>` (both dialects) |
+| `rich.table(rows, { header?, align?, bordered?, striped?, caption? })` | md GFM table (first row = header); html `<table>` with `th`/`td`, `align`, `<caption>`, `bordered`/`striped` attrs |
+
+media builders (`media`, `photo`, `video`, `audio`, `map`, `collage`, `slideshow`) accept **http(s) urls only** — `file_id` and upload-based embedding are not supported by the bot api rich-message format.
 
 ---
 
@@ -207,10 +220,6 @@ await telegram.api.sendRichMessage({
 `.toInputRichMessage()` is still available as a low-level escape hatch when you need the raw shape.
 
 ---
-
-## what's coming
-
-tables, media embeds, `pullQuote`, `footer`, `taskList`, `map`, `collage`, and `slideshow` are specified and will be added incrementally.
 
 ---
 

@@ -1246,6 +1246,7 @@ because i felt like it — see the issues:
 - [`@puregram/flow`][@flow]: conversational primitives — `waitFor`, `prompt`, `collectMediaGroup`, persistent flows
 - [`@puregram/callback-data`][@callback-data]: typed callback-data builder with binary-packed payloads + dispatch-ready filter
 - [`@puregram/markup`][@markup]: tagged-template entity-aware text formatting
+- [`@puregram/rich`][@rich]: safe emitter for rich-message html/markdown — templates + block builders, no raw string juggling
 - [`@puregram/media-cacher`][@media-cacher]: transparent `file_id` caching, skips re-uploading repeated media
 - [`@puregram/rate-limit`][@rate-limit]: per-user fixed-window rate limiting
 - [`@puregram/file-id`][@file-id]: parse, inspect and serialize telegram `file_id` and `file_unique_id` strings
@@ -1267,6 +1268,7 @@ because i felt like it — see the issues:
 [@flow]: ../flow
 [@callback-data]: ../callback-data
 [@markup]: ../markup
+[@rich]: ../rich
 [@media-cacher]: ../media-cacher
 [@rate-limit]: ../rate-limit
 [@file-id]: ../file-id

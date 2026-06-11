@@ -56,6 +56,18 @@ calling a tag as a plain function (no backticks) passes the string straight thro
 rich.md('# already formatted')
 ```
 
+the same tags also accept a **block array** — an array of block nodes joined with a blank line between each block. use this form when building structured content from data rather than writing prose inline:
+
+```ts
+rich.md([
+  rich.heading(1, title),
+  rich.list(items.map(i => rich.paragraph(i.text))),
+  rich.codeBlock(snippet, 'ts')
+])
+```
+
+use the template for prose; use the array form for composing top-level blocks from data.
+
 ## interpolation model
 
 template literals are **dedented** (common leading indentation stripped) so you can write at the natural indent level of your code. the interpolation rules mirror `@puregram/markup`:

@@ -69,6 +69,18 @@ calling a tag as a plain function passes the string through as-is (no escaping, 
 rich.md('# already formatted')
 ```
 
+the same tags also accept a **block array** — pass an array of block nodes built with the block builders and they are joined with a blank line between each block. use this form when building content from data rather than prose:
+
+```ts
+rich.md([
+  rich.heading(1, title),
+  rich.list(items.map(i => rich.paragraph(i.text))),
+  rich.codeBlock(snippet, 'ts')
+])
+```
+
+use the template for inline prose; use the array form when composing top-level blocks from data.
+
 ---
 
 ## inline builders

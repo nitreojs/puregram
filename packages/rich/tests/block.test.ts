@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 
 import {
   heading, paragraph, codeBlock, blockquote, divider,
-  list, orderedList, details, mathBlock
+  list, orderedList, details, mathBlock, h1, h3, h6
 } from '../src/builders/block'
 
 const md = (n: { render: (d: 'markdown' | 'html') => string }) => n.render('markdown')
@@ -46,5 +46,13 @@ describe('block builders', () => {
   it('marks blocks with block level', () => {
     expect(heading(1, 'A').level).toBe('block')
     expect(list(['a']).level).toBe('block')
+  })
+})
+
+describe('h1..h6 aliases', () => {
+  it('mirror heading(level, content)', () => {
+    expect(md(h1('a'))).toBe('# a')
+    expect(md(h3('a'))).toBe('### a')
+    expect(html(h6('a'))).toBe('<h6>a</h6>')
   })
 })

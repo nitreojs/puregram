@@ -8,6 +8,19 @@ export function heading (level: 1 | 2 | 3 | 4 | 5 | 6, content: RichContent) {
     d === 'markdown' ? `${'#'.repeat(level)} ${renderContent(content, d)}` : `<h${level}>${renderContent(content, d)}</h${level}>`)
 }
 
+/** `heading(1, content)` */
+export const h1 = (content: RichContent) => heading(1, content)
+/** `heading(2, content)` */
+export const h2 = (content: RichContent) => heading(2, content)
+/** `heading(3, content)` */
+export const h3 = (content: RichContent) => heading(3, content)
+/** `heading(4, content)` */
+export const h4 = (content: RichContent) => heading(4, content)
+/** `heading(5, content)` */
+export const h5 = (content: RichContent) => heading(5, content)
+/** `heading(6, content)` */
+export const h6 = (content: RichContent) => heading(6, content)
+
 /** paragraph block */
 export function paragraph (content: RichContent) {
   return makeNode('block', (d) => {

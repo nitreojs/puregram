@@ -1,10 +1,11 @@
-// inline + block markdown specials that could inject formatting if user text were spliced raw.
-// `>` `#` `-` `+` are block markers only at line start, but escaping them everywhere is harmless
-const MD_SPECIALS = /[\\`*_~=|[\]()#>!+\-<]/g
+// markdown specials. `&` `<` `>` become html entities (rich-markdown renders `\<` with the
+// backslash showing, but accepts entities); the rest backslash-escape cleanly
+const MD_SPECIALS = /[&<>\\`*_~=|[\]()#!+-]/g
+const MD_ENTITY: Record<string, string> = { '&': '&#38;', '<': '&#60;', '>': '&#62;' }
 
-/** backslash-escape rich-markdown specials so interpolated text renders literally */
+/** escape interpolated text so it renders literally in rich-markdown */
 export function escapeMarkdown (text: string) {
-  return text.replace(MD_SPECIALS, '\\$&')
+  return text.replace(MD_SPECIALS, ch => MD_ENTITY[ch] ?? `\\${ch}`)
 }
 
 const HTML_SPECIALS: Record<string, string> = {

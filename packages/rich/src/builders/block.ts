@@ -67,8 +67,16 @@ export function orderedList (items: RichContent[], options: { start?: number } =
 
 /** collapsible block (html-only tag; valid inside markdown too) */
 export function details (summary: RichContent, body: RichContent, options: { open?: boolean } = {}) {
-  return makeNode('block', d =>
-    `<details${options.open ? ' open' : ''}><summary>${renderContent(summary, d)}</summary>${renderContent(body, d)}</details>`)
+  const open = options.open ? ' open' : ''
+
+  // a markdown body must be blank-line-separated or telegram renders it as literal html content
+  return makeNode('block', (d) => {
+    const head = `<details${open}><summary>${renderContent(summary, d)}</summary>`
+
+    return d === 'markdown'
+      ? `${head}\n\n${renderContent(body, d)}\n\n</details>`
+      : `${head}${renderContent(body, d)}</details>`
+  })
 }
 
 /** block-level LaTeX formula (content is raw latex, not escaped) */

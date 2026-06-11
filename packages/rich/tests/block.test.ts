@@ -37,6 +37,8 @@ describe('block builders', () => {
   it('renders details + math block', () => {
     expect(html(details('Title', 'Content'))).toBe('<details><summary>Title</summary>Content</details>')
     expect(html(details('Title', 'Content', { open: true }))).toBe('<details open><summary>Title</summary>Content</details>')
+    // markdown body needs blank-line separation or telegram won't parse it as markdown
+    expect(md(details('Title', 'Content'))).toBe('<details><summary>Title</summary>\n\nContent\n\n</details>')
     expect(md(mathBlock('E=mc^2'))).toBe('$$E=mc^2$$')
     expect(html(mathBlock('E=mc^2'))).toBe('<tg-math-block>E=mc^2</tg-math-block>')
   })

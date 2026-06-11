@@ -4,13 +4,13 @@ import { escapeMarkdown, escapeHtml } from '../src/escape'
 
 describe('escapeMarkdown', () => {
   it('backslash-escapes inline + block markdown specials', () => {
-    expect(escapeMarkdown('*x* _y_ ~z~ `c` [a](b) #h >q |s| =m !i')).toBe(
-      '\\*x\\* \\_y\\_ \\~z\\~ \\`c\\` \\[a\\]\\(b\\) \\#h \\>q \\|s\\| \\=m \\!i'
+    expect(escapeMarkdown('*x* _y_ ~z~ `c` [a](b) #h |s| =m !i')).toBe(
+      '\\*x\\* \\_y\\_ \\~z\\~ \\`c\\` \\[a\\]\\(b\\) \\#h \\|s\\| \\=m \\!i'
     )
   })
 
-  it('escapes backslash itself and a leading-tag <', () => {
-    expect(escapeMarkdown('a\\b <c>')).toBe('a\\\\b \\<c\\>')
+  it('escapes backslash itself; html-significant chars become entities (not \\< which telegram shows literally)', () => {
+    expect(escapeMarkdown('a\\b <c> & >')).toBe('a\\\\b &#60;c&#62; &#38; &#62;')
   })
 
   it('leaves ordinary text untouched', () => {

@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
-/// Bot API 10.0
+/// Bot API 10.1
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-05-26T22:17:04.458Z
+/// generated at: 2026-06-11T18:13:44.015Z
 /// see scripts/emit.ts in @puregram/api
 
 import * as api from "./methods";
@@ -18,6 +18,12 @@ export interface ApiMethods {
      * [bot api docs](https://core.telegram.org/bots/api#answercallbackquery)
      */
     answerCallbackQuery: api.answerCallbackQuery;
+    /**
+     * Use this method to process a received chat join request query. Returns True on success.
+     *
+     * [bot api docs](https://core.telegram.org/bots/api#answerchatjoinrequestquery)
+     */
+    answerChatJoinRequestQuery: api.answerChatJoinRequestQuery;
     /**
      * Use this method to reply to a received guest message. On success, a SentGuestMessage object is returned.
      *
@@ -271,7 +277,7 @@ export interface ApiMethods {
      */
     editMessageLiveLocation: api.editMessageLiveLocation;
     /**
-     * Use this method to edit animation, audio, document, live photo, photo, or video messages, or to add media to text messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo, a live photo, or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file_id or specify a URL. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
+     * Use this method to edit animation, audio, document, live photo, photo, or video messages, or to replace a text or a rich message with a media. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo, a live photo, or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file_id or specify a URL. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
      *
      * [bot api docs](https://core.telegram.org/bots/api#editmessagemedia)
      */
@@ -283,7 +289,7 @@ export interface ApiMethods {
      */
     editMessageReplyMarkup: api.editMessageReplyMarkup;
     /**
-     * Use this method to edit text and game messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
+     * Use this method to edit text, rich and game messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
      *
      * [bot api docs](https://core.telegram.org/bots/api#editmessagetext)
      */
@@ -663,6 +669,12 @@ export interface ApiMethods {
      */
     sendChatAction: api.sendChatAction;
     /**
+     * Use this method to process a received chat join request query by showing a Mini App to the user before deciding the outcome. Returns True on success.
+     *
+     * [bot api docs](https://core.telegram.org/bots/api#sendchatjoinrequestwebapp)
+     */
+    sendChatJoinRequestWebApp: api.sendChatJoinRequestWebApp;
+    /**
      * Use this method to send a checklist on behalf of a connected business account. On success, the sent Message is returned.
      *
      * [bot api docs](https://core.telegram.org/bots/api#sendchecklist)
@@ -752,6 +764,18 @@ export interface ApiMethods {
      * [bot api docs](https://core.telegram.org/bots/api#sendpoll)
      */
     sendPoll: api.sendPoll;
+    /**
+     * Use this method to send rich messages. If the message contains a block with a media element, then the bot must have the right to send the media to the chat. On success, the sent Message is returned.
+     *
+     * [bot api docs](https://core.telegram.org/bots/api#sendrichmessage)
+     */
+    sendRichMessage: api.sendRichMessage;
+    /**
+     * Use this method to stream a partial rich message to a user while the message is being generated. Note that the streamed draft is ephemeral and acts as a temporary 30-second preview - once the output is finalized, you must call sendRichMessage with the complete message to persist it in the user's chat. Returns True on success.
+     *
+     * [bot api docs](https://core.telegram.org/bots/api#sendrichmessagedraft)
+     */
+    sendRichMessageDraft: api.sendRichMessageDraft;
     /**
      * Use this method to send static .WEBP, animated .TGS, or video .WEBM stickers. On success, the sent Message is returned.
      *

@@ -10,44 +10,15 @@ import { analyzeShortcuts, analyzeThreadShortcuts, type BoundShortcut } from './
 import { METHOD_POSITIONALS } from './shortcuts-config'
 import { ARRAY_WRAPPER_NAMES, arrayWrapperFor, isWrappedStructure } from './structures-config'
 import { jsDoc, importTypeNamed, importNamed, typeRefToTs } from './ts-factory'
-import { buildUpdateKinds, type UpdateExtra, type UpdateKindSpec } from './updates-config'
+import { buildUpdateKinds, shortcutNameFor, type UpdateExtra, type UpdateKindSpec } from './updates-config'
 
 interface WrapperInfo {
   name: string
   isArray: boolean
 }
 
-// per-update verb renames — separate from telegram-level SHORTCUTS so a method can be
-// a per-update shortcut (`answer` on CallbackQueryUpdate) without joining the telegram-level list
-const SHORTCUT_RENAMES: Record<string, string> = {
-  sendMessage: 'send',
-  forwardMessage: 'forward',
-  forwardMessages: 'forwardMany',
-  copyMessage: 'copy',
-  copyMessages: 'copyMany',
-  deleteMessage: 'delete',
-  deleteMessages: 'deleteMany',
-  editMessageText: 'edit',
-  editMessageCaption: 'editCaption',
-  editMessageMedia: 'editMedia',
-  editMessageReplyMarkup: 'editReplyMarkup',
-  editMessageLiveLocation: 'editLiveLocation',
-  stopMessageLiveLocation: 'stopLiveLocation',
-  pinChatMessage: 'pin',
-  unpinChatMessage: 'unpin',
-  answerCallbackQuery: 'answer',
-  answerInlineQuery: 'answer',
-  answerShippingQuery: 'answer',
-  answerPreCheckoutQuery: 'answer',
-  answerGuestQuery: 'answer'
-}
-
-function shortcutNameFor (method: string) {
-  return SHORTCUT_RENAMES[method] ?? method
-}
-
 export function verbFor (sc: BoundShortcut) {
-  return sc.reply ? sc.reply.verb : shortcutNameFor(sc.method)
+  return sc.verbOverride ?? (sc.reply ? sc.reply.verb : shortcutNameFor(sc.method))
 }
 
 export function emitUpdates (schema: Schema) {

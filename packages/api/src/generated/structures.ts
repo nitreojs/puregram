@@ -1,10 +1,10 @@
 /// AUTO-GENERATED FILE — do not edit by hand
-/// Bot API 10.0
+/// Bot API 10.1
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-05-26T22:17:04.458Z
+/// generated at: 2026-06-11T18:13:44.015Z
 /// see scripts/emit.ts in @puregram/api
 
-import type { TelegramAnimation, TelegramAudio, TelegramCallbackGame, TelegramChat, TelegramChatBackground, TelegramChatBoost, TelegramChatBoostAdded, TelegramChatBoostRemoved, TelegramChatBoostSource, TelegramChatBoostUpdated, TelegramChatInviteLink, TelegramChatJoinRequest, TelegramChatLocation, TelegramChatMember, TelegramChatMemberUpdated, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChatPermissions, TelegramChatPhoto, TelegramChatShared, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramChosenInlineResult, TelegramContact, TelegramCopyTextButton, TelegramDice, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramDocument, TelegramEncryptedCredentials, TelegramEncryptedPassportElement, TelegramExternalReplyInfo, TelegramFile, TelegramForumTopicClosed, TelegramForumTopicCreated, TelegramForumTopicEdited, TelegramForumTopicReopened, TelegramGame, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveaway, TelegramGiveawayCompleted, TelegramGiveawayCreated, TelegramGiveawayWinners, TelegramInlineKeyboardButton, TelegramInlineKeyboardMarkup, TelegramInlineQuery, TelegramInvoice, TelegramLinkPreviewOptions, TelegramLivePhoto, TelegramLocation, TelegramLoginUrl, TelegramManagedBotCreated, TelegramMaskPosition, TelegramMaybeInaccessibleMessage, TelegramMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageEntity, TelegramMessageId, TelegramMessageOrigin, TelegramMessageReactionCountUpdated, TelegramMessageReactionUpdated, TelegramOrderInfo, TelegramPaidMediaInfo, TelegramPaidMessagePriceChanged, TelegramPassportData, TelegramPhotoSize, TelegramPoll, TelegramPollAnswer, TelegramPollMedia, TelegramPollOption, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramPreCheckoutQuery, TelegramProximityAlertTriggered, TelegramReactionCount, TelegramReactionType, TelegramRefundedPayment, TelegramSharedUser, TelegramShippingAddress, TelegramShippingQuery, TelegramSticker, TelegramStickerSet, TelegramStory, TelegramSuccessfulPayment, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostRefunded, TelegramSwitchInlineQueryChosenChat, TelegramTextQuote, TelegramUniqueGiftInfo, TelegramUser, TelegramUserProfilePhotos, TelegramUsersShared, TelegramVenue, TelegramVideo, TelegramVideoChatEnded, TelegramVideoChatParticipantsInvited, TelegramVideoChatScheduled, TelegramVideoChatStarted, TelegramVideoNote, TelegramVideoQuality, TelegramVoice, TelegramWebAppData, TelegramWebAppInfo, TelegramWriteAccessAllowed } from "./types";
+import type { TelegramAnimation, TelegramAudio, TelegramCallbackGame, TelegramChat, TelegramChatBackground, TelegramChatBoost, TelegramChatBoostAdded, TelegramChatBoostRemoved, TelegramChatBoostSource, TelegramChatBoostUpdated, TelegramChatInviteLink, TelegramChatJoinRequest, TelegramChatLocation, TelegramChatMember, TelegramChatMemberUpdated, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChatPermissions, TelegramChatPhoto, TelegramChatShared, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramChosenInlineResult, TelegramContact, TelegramCopyTextButton, TelegramDice, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramDocument, TelegramEncryptedCredentials, TelegramEncryptedPassportElement, TelegramExternalReplyInfo, TelegramFile, TelegramForumTopicClosed, TelegramForumTopicCreated, TelegramForumTopicEdited, TelegramForumTopicReopened, TelegramGame, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveaway, TelegramGiveawayCompleted, TelegramGiveawayCreated, TelegramGiveawayWinners, TelegramInlineKeyboardButton, TelegramInlineKeyboardMarkup, TelegramInlineQuery, TelegramInvoice, TelegramLink, TelegramLinkPreviewOptions, TelegramLivePhoto, TelegramLocation, TelegramLoginUrl, TelegramManagedBotCreated, TelegramMaskPosition, TelegramMaybeInaccessibleMessage, TelegramMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageEntity, TelegramMessageId, TelegramMessageOrigin, TelegramMessageReactionCountUpdated, TelegramMessageReactionUpdated, TelegramOrderInfo, TelegramPaidMediaInfo, TelegramPaidMessagePriceChanged, TelegramPassportData, TelegramPhotoSize, TelegramPoll, TelegramPollAnswer, TelegramPollMedia, TelegramPollOption, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramPreCheckoutQuery, TelegramProximityAlertTriggered, TelegramReactionCount, TelegramReactionType, TelegramRefundedPayment, TelegramRichMessage, TelegramSharedUser, TelegramShippingAddress, TelegramShippingQuery, TelegramSticker, TelegramStickerSet, TelegramStory, TelegramSuccessfulPayment, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostRefunded, TelegramSwitchInlineQueryChosenChat, TelegramTextQuote, TelegramUniqueGiftInfo, TelegramUser, TelegramUserProfilePhotos, TelegramUsersShared, TelegramVenue, TelegramVideo, TelegramVideoChatEnded, TelegramVideoChatParticipantsInvited, TelegramVideoChatScheduled, TelegramVideoChatStarted, TelegramVideoNote, TelegramVideoQuality, TelegramVoice, TelegramWebAppData, TelegramWebAppInfo, TelegramWriteAccessAllowed } from "./types";
 import type { Has } from "../util-types";
 import { INSPECT, makeInspect } from "./inspect";
 import { Photo, VideoQualities } from "../structures-handcrafted";
@@ -620,6 +620,12 @@ export class ChatJoinRequest {
         return this._inviteLink;
     }
     /**
+     * Optional. Identifier of the join request query. If present, then the bot must call sendChatJoinRequestWebApp or directly call answerChatJoinRequestQuery within 10 seconds.
+     */
+    get queryId(): string | undefined {
+        return this.raw.query_id;
+    }
+    /**
      * true if `bio` is set
      */
     hasBio(): this is this & {
@@ -634,6 +640,14 @@ export class ChatJoinRequest {
         inviteLink: ChatInviteLink;
     } {
         return this.raw.invite_link != null;
+    }
+    /**
+     * true if `query_id` is set
+     */
+    hasQueryId(): this is this & {
+        queryId: string;
+    } {
+        return this.raw.query_id != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("ChatJoinRequest", this, depth, options, inspect);
@@ -799,7 +813,7 @@ export class ChatPermissions {
         return new ChatPermissions(raw);
     }
     /**
-     * Optional. True, if the user is allowed to send text messages, contacts, giveaways, giveaway winners, invoices, locations and venues
+     * Optional. True, if the user is allowed to send text messages, rich messages, contacts, giveaways, giveaway winners, invoices, locations and venues
      */
     get canSendMessages(): boolean | undefined {
         return this.raw.can_send_messages;
@@ -3326,6 +3340,12 @@ export class Message {
         return this.raw.effect_id;
     }
     /**
+     * Optional. Message is a rich formatted message
+     */
+    get richMessage(): TelegramRichMessage | undefined {
+        return this.raw.rich_message;
+    }
+    /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set.
      */
     get animation(): Animation | undefined {
@@ -4121,6 +4141,14 @@ export class Message {
         effectId: string;
     } {
         return this.raw.effect_id != null;
+    }
+    /**
+     * true if `rich_message` is set
+     */
+    hasRichMessage(): this is this & {
+        richMessage: TelegramRichMessage;
+    } {
+        return this.raw.rich_message != null;
     }
     /**
      * true if `animation` is set
@@ -5588,6 +5616,12 @@ export class PollMedia {
         return this._document;
     }
     /**
+     * Optional. The HTTP link attached to the poll option
+     */
+    get link(): TelegramLink | undefined {
+        return this.raw.link;
+    }
+    /**
      * Optional. Media is a live photo, information about the live photo
      */
     get livePhoto(): LivePhoto | undefined {
@@ -5664,6 +5698,14 @@ export class PollMedia {
         document: Document;
     } {
         return this.raw.document != null;
+    }
+    /**
+     * true if `link` is set
+     */
+    hasLink(): this is this & {
+        link: TelegramLink;
+    } {
+        return this.raw.link != null;
     }
     /**
      * true if `live_photo` is set
@@ -6597,6 +6639,12 @@ export class User {
         return this.raw.can_manage_bots;
     }
     /**
+     * Optional. True, if the bot supports join request queries and can be assigned to process them. Returned only in getMe.
+     */
+    get supportsJoinRequestQueries(): boolean | undefined {
+        return this.raw.supports_join_request_queries;
+    }
+    /**
      * true if `last_name` is set
      */
     hasLastName(): this is this & {
@@ -6683,6 +6731,14 @@ export class User {
         canManageBots: boolean;
     } {
         return this.raw.can_manage_bots != null;
+    }
+    /**
+     * true if `supports_join_request_queries` is set
+     */
+    hasSupportsJoinRequestQueries(): this is this & {
+        supportsJoinRequestQueries: boolean;
+    } {
+        return this.raw.supports_join_request_queries != null;
     }
     /**
      * display name; first name plus last name when present, otherwise just first name

@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
-/// Bot API 10.0
+/// Bot API 10.1
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-05-26T22:17:04.458Z
+/// generated at: 2026-06-11T18:13:44.015Z
 /// see scripts/emit.ts in @puregram/api
 
 import type { Formattable } from "../formattable";
@@ -1124,6 +1124,10 @@ export interface TelegramChatFullInfo {
      * Optional. The number of Telegram Stars a general user has to pay to send a message to the chat
      */
     paid_message_star_count?: number;
+    /**
+     * Optional. The bot that processes join request queries in the chat. The field is only available to chat administrators.
+     */
+    guard_bot?: TelegramUser;
 }
 
 /**
@@ -1204,6 +1208,10 @@ export interface TelegramChatJoinRequest {
      * Optional. Chat invite link that was used by the user to send the join request
      */
     invite_link?: TelegramChatInviteLink;
+    /**
+     * Optional. Identifier of the join request query. If present, then the bot must call sendChatJoinRequestWebApp or directly call answerChatJoinRequestQuery within 10 seconds.
+     */
+    query_id?: string;
 }
 
 /**
@@ -1413,7 +1421,7 @@ export interface TelegramChatMemberRestricted {
      */
     is_member: boolean;
     /**
-     * True, if the user is allowed to send text messages, contacts, giveaways, giveaway winners, invoices, locations and venues
+     * True, if the user is allowed to send text messages, rich messages, contacts, giveaways, giveaway winners, invoices, locations and venues
      */
     can_send_messages: boolean;
     /**
@@ -1545,7 +1553,7 @@ export interface TelegramChatOwnerLeft {
  */
 export interface TelegramChatPermissions {
     /**
-     * Optional. True, if the user is allowed to send text messages, contacts, giveaways, giveaway winners, invoices, locations and venues
+     * Optional. True, if the user is allowed to send text messages, rich messages, contacts, giveaways, giveaway winners, invoices, locations and venues
      */
     can_send_messages?: boolean;
     /**
@@ -3968,6 +3976,20 @@ export interface TelegramInputMediaDocument {
 }
 
 /**
+ * Represents an HTTP link to be sent.
+ */
+export interface TelegramInputMediaLink {
+    /**
+     * Type of the result, must be link
+     */
+    type: "link";
+    /**
+     * HTTP URL of the link
+     */
+    url: string;
+}
+
+/**
  * Represents a live photo to be sent.
  */
 export interface TelegramInputMediaLivePhoto {
@@ -4184,9 +4206,9 @@ export interface TelegramInputMediaVideo {
 }
 
 /**
- * This object represents the content of a message to be sent as a result of an inline query. Telegram clients currently support the following 5 types:
+ * This object represents the content of a message to be sent as a result of an inline query. Telegram clients currently support the following types:
  */
-export type TelegramInputMessageContent = TelegramInputTextMessageContent | TelegramInputLocationMessageContent | TelegramInputVenueMessageContent | TelegramInputContactMessageContent | TelegramInputInvoiceMessageContent;
+export type TelegramInputMessageContent = TelegramInputTextMessageContent | TelegramInputRichMessageContent | TelegramInputLocationMessageContent | TelegramInputVenueMessageContent | TelegramInputContactMessageContent | TelegramInputInvoiceMessageContent;
 
 /**
  * This object describes the paid media to be sent. Currently, it can be one of
@@ -4297,7 +4319,7 @@ export interface TelegramInputPollOption {
 /**
  * This object represents the content of a poll option to be sent. It should be one of
  */
-export type TelegramInputPollOptionMedia = TelegramInputMediaAnimation | TelegramInputMediaLivePhoto | TelegramInputMediaLocation | TelegramInputMediaPhoto | TelegramInputMediaSticker | TelegramInputMediaVenue | TelegramInputMediaVideo;
+export type TelegramInputPollOptionMedia = TelegramInputMediaAnimation | TelegramInputMediaLink | TelegramInputMediaLivePhoto | TelegramInputMediaLocation | TelegramInputMediaPhoto | TelegramInputMediaSticker | TelegramInputMediaVenue | TelegramInputMediaVideo;
 
 /**
  * This object describes a profile photo to set. Currently, it can be one of
@@ -4334,6 +4356,38 @@ export interface TelegramInputProfilePhotoStatic {
      * The static profile photo. Profile photos can't be reused and can only be uploaded as a new file, so you can pass “attach://<file_attach_name>” if the photo was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
      */
     photo: string;
+}
+
+/**
+ * Describes a rich message to be sent. Exactly one of the fields html or markdown must be used.
+ */
+export interface TelegramInputRichMessage {
+    /**
+     * Optional. Content of the rich message to send described using HTML formatting. See rich message formatting options for more details.
+     */
+    html?: string;
+    /**
+     * Optional. Content of the rich message to send described using Markdown formatting. See rich message formatting options for more details.
+     */
+    markdown?: string;
+    /**
+     * Optional. Pass True if the rich message must be shown right-to-left
+     */
+    is_rtl?: boolean;
+    /**
+     * Optional. Pass True to skip automatic detection of entities (e.g., URLs, email addresses, username mentions, hashtags, cashtags, bot commands, or phone numbers) in the text
+     */
+    skip_entity_detection?: boolean;
+}
+
+/**
+ * Represents the content of a rich message to be sent as the result of an inline query.
+ */
+export interface TelegramInputRichMessageContent {
+    /**
+     * Yes
+     */
+    rich_message: TelegramInputRichMessage;
 }
 
 /**
@@ -4663,6 +4717,16 @@ export interface TelegramLabeledPrice {
      * Price of the product in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
      */
     amount: number;
+}
+
+/**
+ * Represents an HTTP link.
+ */
+export interface TelegramLink {
+    /**
+     * URL of the link
+     */
+    url: string;
 }
 
 /**
@@ -5047,6 +5111,10 @@ export interface TelegramMessage {
      * Optional. Unique identifier of the message effect added to the message
      */
     effect_id?: string;
+    /**
+     * Optional. Message is a rich formatted message
+     */
+    rich_message?: TelegramRichMessage;
     /**
      * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set.
      */
@@ -6230,6 +6298,10 @@ export interface TelegramPollMedia {
      */
     document?: TelegramDocument;
     /**
+     * Optional. The HTTP link attached to the poll option
+     */
+    link?: TelegramLink;
+    /**
      * Optional. Media is a live photo, information about the live photo
      */
     live_photo?: TelegramLivePhoto;
@@ -6635,6 +6707,896 @@ export interface TelegramRevenueWithdrawalStateSucceeded {
     date: number;
     /**
      * An HTTPS URL that can be used to see transaction details
+     */
+    url: string;
+}
+
+/**
+ * This object represents a block in a rich formatted message. Currently, it can be any of the following types:
+ */
+export type TelegramRichBlock = TelegramRichBlockParagraph | TelegramRichBlockSectionHeading | TelegramRichBlockPreformatted | TelegramRichBlockFooter | TelegramRichBlockDivider | TelegramRichBlockMathematicalExpression | TelegramRichBlockAnchor | TelegramRichBlockList | TelegramRichBlockBlockQuotation | TelegramRichBlockPullQuotation | TelegramRichBlockCollage | TelegramRichBlockSlideshow | TelegramRichBlockTable | TelegramRichBlockDetails | TelegramRichBlockMap | TelegramRichBlockAnimation | TelegramRichBlockAudio | TelegramRichBlockPhoto | TelegramRichBlockVideo | TelegramRichBlockVoiceNote | TelegramRichBlockThinking;
+
+/**
+ * A block with an anchor, corresponding to the HTML tag <a> with the attribute name.
+ */
+export interface TelegramRichBlockAnchor {
+    /**
+     * Type of the block, always “anchor”
+     */
+    type: "anchor";
+    /**
+     * The name of the anchor
+     */
+    name: string;
+}
+
+/**
+ * A block with an animation, corresponding to the HTML tag <video>.
+ */
+export interface TelegramRichBlockAnimation {
+    /**
+     * Type of the block, always “animation”
+     */
+    type: "animation";
+    /**
+     * The animation
+     */
+    animation: TelegramAnimation;
+    /**
+     * Optional. True, if the media preview is covered by a spoiler animation
+     */
+    has_spoiler?: true;
+    /**
+     * Optional. Caption of the block
+     */
+    caption?: TelegramRichBlockCaption;
+}
+
+/**
+ * A block with a music file, corresponding to the HTML tag <audio>.
+ */
+export interface TelegramRichBlockAudio {
+    /**
+     * Type of the block, always “audio”
+     */
+    type: "audio";
+    /**
+     * The audio
+     */
+    audio: TelegramAudio;
+    /**
+     * Optional. Caption of the block
+     */
+    caption?: TelegramRichBlockCaption;
+}
+
+/**
+ * A block quotation, corresponding to the HTML tag <blockquote>.
+ */
+export interface TelegramRichBlockBlockQuotation {
+    /**
+     * Type of the block, always “blockquote”
+     */
+    type: "blockquote";
+    /**
+     * Content of the block
+     */
+    blocks: TelegramRichBlock[];
+    /**
+     * Optional. Credit of the block
+     */
+    credit?: TelegramRichText;
+}
+
+/**
+ * Caption of a rich formatted block.
+ */
+export interface TelegramRichBlockCaption {
+    /**
+     * Block caption
+     */
+    text: TelegramRichText;
+    /**
+     * Optional. Block credit which corresponds to the HTML tag <cite>
+     */
+    credit?: TelegramRichText;
+}
+
+/**
+ * A collage, corresponding to the custom HTML tag <tg-collage>.
+ */
+export interface TelegramRichBlockCollage {
+    /**
+     * Type of the block, always “collage”
+     */
+    type: "collage";
+    /**
+     * Elements of the collage
+     */
+    blocks: TelegramRichBlock[];
+    /**
+     * Optional. Caption of the block
+     */
+    caption?: TelegramRichBlockCaption;
+}
+
+/**
+ * An expandable block for details disclosure, corresponding to the HTML tag <details>.
+ */
+export interface TelegramRichBlockDetails {
+    /**
+     * Type of the block, always “details”
+     */
+    type: "details";
+    /**
+     * Always shown summary of the block
+     */
+    summary: TelegramRichText;
+    /**
+     * Content of the block
+     */
+    blocks: TelegramRichBlock[];
+    /**
+     * Optional. True, if the content of the block is visible by default
+     */
+    is_open?: true;
+}
+
+/**
+ * A divider, corresponding to the HTML tag <hr/>.
+ */
+export interface TelegramRichBlockDivider {
+    /**
+     * Type of the block, always “divider”
+     */
+    type: "divider";
+}
+
+/**
+ * A footer, corresponding to the HTML tag <footer>.
+ */
+export interface TelegramRichBlockFooter {
+    /**
+     * Type of the block, always “footer”
+     */
+    type: "footer";
+    /**
+     * Text of the block
+     */
+    text: TelegramRichText;
+}
+
+/**
+ * A list of blocks, corresponding to the HTML tag <ul> or <ol> with multiple nested tags <li>.
+ */
+export interface TelegramRichBlockList {
+    /**
+     * Type of the block, always “list”
+     */
+    type: "list";
+    /**
+     * Items of the list
+     */
+    items: TelegramRichBlockListItem[];
+}
+
+/**
+ * An item of a list.
+ */
+export interface TelegramRichBlockListItem {
+    /**
+     * Label of the item
+     */
+    label: string;
+    /**
+     * The content of the item
+     */
+    blocks: TelegramRichBlock[];
+    /**
+     * Optional. True, if the item has a checkbox
+     */
+    has_checkbox?: true;
+    /**
+     * Optional. True, if the item has a checked checkbox
+     */
+    is_checked?: true;
+    /**
+     * Optional. For ordered lists, the numeric value of the item label
+     */
+    value?: number;
+    /**
+     * Optional. For ordered lists, the type of the item label; must be one of “a” for lowercase letters, “A” for uppercase letters, “i” for lowercase Roman numerals, “I” for uppercase Roman numerals, or “1” for decimal numbers
+     */
+    type?: "one";
+}
+
+/**
+ * A block with a map, corresponding to the custom HTML tag <tg-map>.
+ */
+export interface TelegramRichBlockMap {
+    /**
+     * Type of the block, always “map”
+     */
+    type: "map";
+    /**
+     * Location of the center of the map
+     */
+    location: TelegramLocation;
+    /**
+     * Map zoom level; 13-20
+     */
+    zoom: number;
+    /**
+     * Expected width of the map
+     */
+    width: number;
+    /**
+     * Expected height of the map
+     */
+    height: number;
+    /**
+     * Optional. Caption of the block
+     */
+    caption?: TelegramRichBlockCaption;
+}
+
+/**
+ * A block with a mathematical expression in LaTeX format, corresponding to the custom HTML tag <tg-math-block>.
+ */
+export interface TelegramRichBlockMathematicalExpression {
+    /**
+     * Type of the block, always “mathematical_expression”
+     */
+    type: "mathematical_expression";
+    /**
+     * The mathematical expression in LaTeX format
+     */
+    expression: string;
+}
+
+/**
+ * A text paragraph, corresponding to the HTML tag <p>.
+ */
+export interface TelegramRichBlockParagraph {
+    /**
+     * Type of the block, always “paragraph”
+     */
+    type: "paragraph";
+    /**
+     * Text of the block
+     */
+    text: TelegramRichText;
+}
+
+/**
+ * A block with a photo, corresponding to the HTML tag <photo>.
+ */
+export interface TelegramRichBlockPhoto {
+    /**
+     * Type of the block, always “photo”
+     */
+    type: "photo";
+    /**
+     * Available sizes of the photo
+     */
+    photo: TelegramPhotoSize[];
+    /**
+     * Optional. True, if the media preview is covered by a spoiler animation
+     */
+    has_spoiler?: true;
+    /**
+     * Optional. Caption of the block
+     */
+    caption?: TelegramRichBlockCaption;
+}
+
+/**
+ * A preformatted text block, corresponding to the nested HTML tags <pre> and <code>.
+ */
+export interface TelegramRichBlockPreformatted {
+    /**
+     * Type of the block, always “pre”
+     */
+    type: "pre";
+    /**
+     * Text of the block
+     */
+    text: TelegramRichText;
+    /**
+     * Optional. The programming language of the text
+     */
+    language?: string;
+}
+
+/**
+ * A quotation with centered text, loosely corresponding to the HTML tag <aside>.
+ */
+export interface TelegramRichBlockPullQuotation {
+    /**
+     * Type of the block, always “pullquote”
+     */
+    type: "pullquote";
+    /**
+     * Text of the block
+     */
+    text: TelegramRichText;
+    /**
+     * Optional. Credit of the block
+     */
+    credit?: TelegramRichText;
+}
+
+/**
+ * A section heading, corresponding to the HTML tags <h1>, <h2>, <h3>, <h4>, <h5>, or <h6>.
+ */
+export interface TelegramRichBlockSectionHeading {
+    /**
+     * Type of the block, always “heading”
+     */
+    type: "heading";
+    /**
+     * Text of the block
+     */
+    text: TelegramRichText;
+    /**
+     * Relative size of the text font; 1-6, 1 is the largest, 6 is the smallest
+     */
+    size: number;
+}
+
+/**
+ * A slideshow, corresponding to the custom HTML tag <tg-slideshow>.
+ */
+export interface TelegramRichBlockSlideshow {
+    /**
+     * Type of the block, always “slideshow”
+     */
+    type: "slideshow";
+    /**
+     * Elements of the slideshow
+     */
+    blocks: TelegramRichBlock[];
+    /**
+     * Optional. Caption of the block
+     */
+    caption?: TelegramRichBlockCaption;
+}
+
+/**
+ * A table, corresponding to the HTML tag <table>.
+ */
+export interface TelegramRichBlockTable {
+    /**
+     * Type of the block, always “table”
+     */
+    type: "table";
+    /**
+     * Cells of the table
+     */
+    cells: TelegramRichBlockTableCell[][];
+    /**
+     * Optional. True, if the table has borders
+     */
+    is_bordered?: true;
+    /**
+     * Optional. True, if the table is striped
+     */
+    is_striped?: true;
+    /**
+     * Optional. Caption of the table
+     */
+    caption?: TelegramRichText;
+}
+
+/**
+ * Cell in a table.
+ */
+export interface TelegramRichBlockTableCell {
+    /**
+     * Optional. Text in the cell. If omitted, then the cell is invisible.
+     */
+    text?: TelegramRichText;
+    /**
+     * Optional. True, if the cell is a header cell
+     */
+    is_header?: true;
+    /**
+     * Optional. The number of columns the cell spans if it is bigger than 1
+     */
+    colspan?: number;
+    /**
+     * Optional. The number of rows the cell spans if it is bigger than 1
+     */
+    rowspan?: number;
+    /**
+     * Horizontal cell content alignment. Currently, must be one of “left”, “center”, or “right”.
+     */
+    align: "left" | "center" | "right";
+    /**
+     * Vertical cell content alignment. Currently, must be one of “top”, “middle”, or “bottom”.
+     */
+    valign: "top" | "middle" | "bottom";
+}
+
+/**
+ * A block with a “Thinking…” placeholder, corresponding to the custom HTML tag <tg-thinking>. The block may be used only in sendRichMessageDraft, therefore it can't be received in messages. See https://t.me/addemoji/AIActions for examples of custom emoji, which are recommended for usage in the block.
+ */
+export interface TelegramRichBlockThinking {
+    /**
+     * Type of the block, always “thinking”
+     */
+    type: "thinking";
+    /**
+     * Text of the block. See https://t.me/addemoji/AIActions for examples of custom emoji, which are recommended for usage in the block.
+     */
+    text: TelegramRichText;
+}
+
+/**
+ * A block with a video, corresponding to the HTML tag <video>.
+ */
+export interface TelegramRichBlockVideo {
+    /**
+     * Type of the block, always “video”
+     */
+    type: "video";
+    /**
+     * The video
+     */
+    video: TelegramVideo;
+    /**
+     * Optional. True, if the media preview is covered by a spoiler animation
+     */
+    has_spoiler?: true;
+    /**
+     * Optional. Caption of the block
+     */
+    caption?: TelegramRichBlockCaption;
+}
+
+/**
+ * A block with a voice note, corresponding to the HTML tag <audio>.
+ */
+export interface TelegramRichBlockVoiceNote {
+    /**
+     * Type of the block, always “voice_note”
+     */
+    type: "voice_note";
+    /**
+     * The voice note
+     */
+    voice_note: TelegramVoice;
+    /**
+     * Optional. Caption of the block
+     */
+    caption?: TelegramRichBlockCaption;
+}
+
+/**
+ * Rich formatted message.
+ */
+export interface TelegramRichMessage {
+    /**
+     * Content of the message
+     */
+    blocks: TelegramRichBlock[];
+    /**
+     * Optional. True, if the rich message must be shown right-to-left
+     */
+    is_rtl?: boolean;
+}
+
+/**
+ * This object represents a rich formatted text. Currently, it can be either a String for plain text, an Array of RichText, or any of the following types:
+ */
+export type TelegramRichText = string | TelegramRichText[] | TelegramRichTextBold | TelegramRichTextItalic | TelegramRichTextUnderline | TelegramRichTextStrikethrough | TelegramRichTextSpoiler | TelegramRichTextDateTime | TelegramRichTextTextMention | TelegramRichTextSubscript | TelegramRichTextSuperscript | TelegramRichTextMarked | TelegramRichTextCode | TelegramRichTextCustomEmoji | TelegramRichTextMathematicalExpression | TelegramRichTextUrl | TelegramRichTextEmailAddress | TelegramRichTextPhoneNumber | TelegramRichTextBankCardNumber | TelegramRichTextMention | TelegramRichTextHashtag | TelegramRichTextCashtag | TelegramRichTextBotCommand | TelegramRichTextAnchor | TelegramRichTextAnchorLink | TelegramRichTextReference | TelegramRichTextReferenceLink;
+
+/**
+ * An anchor.
+ */
+export interface TelegramRichTextAnchor {
+    /**
+     * Type of the rich text, always “anchor”
+     */
+    type: "anchor";
+    /**
+     * The name of the anchor
+     */
+    name: string;
+}
+
+/**
+ * A link to an anchor.
+ */
+export interface TelegramRichTextAnchorLink {
+    /**
+     * Type of the rich text, always “anchor_link”
+     */
+    type: "anchor_link";
+    /**
+     * The link text
+     */
+    text: TelegramRichText;
+    /**
+     * The name of the anchor. If the name is empty, then the link brings back to the top of the message.
+     */
+    anchor_name: string;
+}
+
+/**
+ * A text with a bank card number.
+ */
+export interface TelegramRichTextBankCardNumber {
+    /**
+     * Type of the rich text, always “bank_card_number”
+     */
+    type: "bank_card_number";
+    /**
+     * The text
+     */
+    text: TelegramRichText;
+    /**
+     * The bank card number
+     */
+    bank_card_number: string;
+}
+
+/**
+ * A bold text.
+ */
+export interface TelegramRichTextBold {
+    /**
+     * Type of the rich text, always “bold”
+     */
+    type: "bold";
+    /**
+     * The text
+     */
+    text: TelegramRichText;
+}
+
+/**
+ * A bot command.
+ */
+export interface TelegramRichTextBotCommand {
+    /**
+     * Type of the rich text, always “bot_command”
+     */
+    type: "bot_command";
+    /**
+     * The text
+     */
+    text: TelegramRichText;
+    /**
+     * The bot command
+     */
+    bot_command: string;
+}
+
+/**
+ * A cashtag.
+ */
+export interface TelegramRichTextCashtag {
+    /**
+     * Type of the rich text, always “cashtag”
+     */
+    type: "cashtag";
+    /**
+     * The text
+     */
+    text: TelegramRichText;
+    /**
+     * The cashtag
+     */
+    cashtag: string;
+}
+
+/**
+ * A monowidth text.
+ */
+export interface TelegramRichTextCode {
+    /**
+     * Type of the rich text, always “code”
+     */
+    type: "code";
+    /**
+     * The text
+     */
+    text: TelegramRichText;
+}
+
+/**
+ * A custom emoji.
+ */
+export interface TelegramRichTextCustomEmoji {
+    /**
+     * Type of the rich text, always “custom_emoji”
+     */
+    type: "custom_emoji";
+    /**
+     * Unique identifier of the custom emoji. Use getCustomEmojiStickers to get full information about the sticker.
+     */
+    custom_emoji_id: string;
+    /**
+     * Alternative emoji for the custom emoji
+     */
+    alternative_text: string;
+}
+
+/**
+ * Formatted date and time.
+ */
+export interface TelegramRichTextDateTime {
+    /**
+     * Type of the rich text, always “date_time”
+     */
+    type: "date_time";
+    /**
+     * The text
+     */
+    text: TelegramRichText;
+    /**
+     * The Unix time associated with the entity
+     */
+    unix_time: number;
+    /**
+     * The string that defines the formatting of the date and time. See date-time entity formatting for more details.
+     */
+    date_time_format: string;
+}
+
+/**
+ * A text with an email address.
+ */
+export interface TelegramRichTextEmailAddress {
+    /**
+     * Type of the rich text, always “email_address”
+     */
+    type: "email_address";
+    /**
+     * The text
+     */
+    text: TelegramRichText;
+    /**
+     * The email address
+     */
+    email_address: string;
+}
+
+/**
+ * A hashtag.
+ */
+export interface TelegramRichTextHashtag {
+    /**
+     * Type of the rich text, always “hashtag”
+     */
+    type: "hashtag";
+    /**
+     * The text
+     */
+    text: TelegramRichText;
+    /**
+     * The hashtag
+     */
+    hashtag: string;
+}
+
+/**
+ * An italicized text.
+ */
+export interface TelegramRichTextItalic {
+    /**
+     * Type of the rich text, always “italic”
+     */
+    type: "italic";
+    /**
+     * The text
+     */
+    text: TelegramRichText;
+}
+
+/**
+ * A marked text.
+ */
+export interface TelegramRichTextMarked {
+    /**
+     * Type of the rich text, always “marked”
+     */
+    type: "marked";
+    /**
+     * The text
+     */
+    text: TelegramRichText;
+}
+
+/**
+ * A mathematical expression.
+ */
+export interface TelegramRichTextMathematicalExpression {
+    /**
+     * Type of the rich text, always “mathematical_expression”
+     */
+    type: "mathematical_expression";
+    /**
+     * The expression in LaTeX format
+     */
+    expression: string;
+}
+
+/**
+ * A mention by a username.
+ */
+export interface TelegramRichTextMention {
+    /**
+     * Type of the rich text, always “mention”
+     */
+    type: "mention";
+    /**
+     * The text
+     */
+    text: TelegramRichText;
+    /**
+     * The username
+     */
+    username: string;
+}
+
+/**
+ * A text with a phone number.
+ */
+export interface TelegramRichTextPhoneNumber {
+    /**
+     * Type of the rich text, always “phone_number”
+     */
+    type: "phone_number";
+    /**
+     * The text
+     */
+    text: TelegramRichText;
+    /**
+     * The phone number
+     */
+    phone_number: string;
+}
+
+/**
+ * A reference.
+ */
+export interface TelegramRichTextReference {
+    /**
+     * Type of the rich text, always “reference”
+     */
+    type: "reference";
+    /**
+     * Text of the reference
+     */
+    text: TelegramRichText;
+    /**
+     * The name of the reference
+     */
+    name: string;
+}
+
+/**
+ * A link to a reference.
+ */
+export interface TelegramRichTextReferenceLink {
+    /**
+     * Type of the rich text, always “reference_link”
+     */
+    type: "reference_link";
+    /**
+     * The link text
+     */
+    text: TelegramRichText;
+    /**
+     * The name of the reference
+     */
+    reference_name: string;
+}
+
+/**
+ * A text covered by a spoiler.
+ */
+export interface TelegramRichTextSpoiler {
+    /**
+     * Type of the rich text, always “spoiler”
+     */
+    type: "spoiler";
+    /**
+     * The text
+     */
+    text: TelegramRichText;
+}
+
+/**
+ * A strikethrough text.
+ */
+export interface TelegramRichTextStrikethrough {
+    /**
+     * Type of the rich text, always “strikethrough”
+     */
+    type: "strikethrough";
+    /**
+     * The text
+     */
+    text: TelegramRichText;
+}
+
+/**
+ * A subscript text.
+ */
+export interface TelegramRichTextSubscript {
+    /**
+     * Type of the rich text, always “subscript”
+     */
+    type: "subscript";
+    /**
+     * The text
+     */
+    text: TelegramRichText;
+}
+
+/**
+ * A superscript text.
+ */
+export interface TelegramRichTextSuperscript {
+    /**
+     * Type of the rich text, always “superscript”
+     */
+    type: "superscript";
+    /**
+     * The text
+     */
+    text: TelegramRichText;
+}
+
+/**
+ * A mention of a Telegram user by their identifier.
+ */
+export interface TelegramRichTextTextMention {
+    /**
+     * Type of the rich text, always “text_mention”
+     */
+    type: "text_mention";
+    /**
+     * The text
+     */
+    text: TelegramRichText;
+    /**
+     * The mentioned user
+     */
+    user: TelegramUser;
+}
+
+/**
+ * An underlined text.
+ */
+export interface TelegramRichTextUnderline {
+    /**
+     * Type of the rich text, always “underline”
+     */
+    type: "underline";
+    /**
+     * The text
+     */
+    text: TelegramRichText;
+}
+
+/**
+ * A text with a link.
+ */
+export interface TelegramRichTextUrl {
+    /**
+     * Type of the rich text, always “url”
+     */
+    type: "url";
+    /**
+     * The text
+     */
+    text: TelegramRichText;
+    /**
+     * URL of the link
      */
     url: string;
 }
@@ -7795,6 +8757,10 @@ export interface TelegramUser {
      * Optional. True, if other bots can be created to be controlled by the bot. Returned only in getMe.
      */
     can_manage_bots?: boolean;
+    /**
+     * Optional. True, if the bot supports join request queries and can be assigned to process them. Returned only in getMe.
+     */
+    supports_join_request_queries?: boolean;
 }
 
 /**

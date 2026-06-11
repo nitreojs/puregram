@@ -1,12 +1,13 @@
 /// AUTO-GENERATED FILE — do not edit by hand
-/// Bot API 10.0
+/// Bot API 10.1
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-05-26T22:17:04.458Z
+/// generated at: 2026-06-11T18:13:44.015Z
 /// see scripts/emit.ts in @puregram/api
 
 export const METHOD_PARAMS: Record<string, readonly string[]> = {
     "addStickerToSet": ["user_id", "name", "sticker"],
     "answerCallbackQuery": ["callback_query_id", "text", "show_alert", "url", "cache_time"],
+    "answerChatJoinRequestQuery": ["chat_join_request_query_id", "result"],
     "answerGuestQuery": ["guest_query_id", "result"],
     "answerInlineQuery": ["inline_query_id", "results", "cache_time", "is_personal", "next_offset", "button"],
     "answerPreCheckoutQuery": ["pre_checkout_query_id", "ok", "error_message"],
@@ -51,7 +52,7 @@ export const METHOD_PARAMS: Record<string, readonly string[]> = {
     "editMessageLiveLocation": ["business_connection_id", "chat_id", "message_id", "inline_message_id", "latitude", "longitude", "live_period", "horizontal_accuracy", "heading", "proximity_alert_radius", "reply_markup"],
     "editMessageMedia": ["business_connection_id", "chat_id", "message_id", "inline_message_id", "media", "reply_markup"],
     "editMessageReplyMarkup": ["business_connection_id", "chat_id", "message_id", "inline_message_id", "reply_markup"],
-    "editMessageText": ["business_connection_id", "chat_id", "message_id", "inline_message_id", "text", "parse_mode", "entities", "link_preview_options", "reply_markup"],
+    "editMessageText": ["business_connection_id", "chat_id", "message_id", "inline_message_id", "text", "parse_mode", "entities", "link_preview_options", "rich_message", "reply_markup"],
     "editStory": ["business_connection_id", "story_id", "content", "caption", "parse_mode", "caption_entities", "areas"],
     "editUserStarSubscription": ["user_id", "telegram_payment_charge_id", "is_canceled"],
     "exportChatInviteLink": ["chat_id"],
@@ -114,6 +115,7 @@ export const METHOD_PARAMS: Record<string, readonly string[]> = {
     "sendAnimation": ["business_connection_id", "chat_id", "message_thread_id", "direct_messages_topic_id", "animation", "duration", "width", "height", "thumbnail", "caption", "parse_mode", "caption_entities", "show_caption_above_media", "has_spoiler", "disable_notification", "protect_content", "allow_paid_broadcast", "message_effect_id", "suggested_post_parameters", "reply_parameters", "reply_markup"],
     "sendAudio": ["business_connection_id", "chat_id", "message_thread_id", "direct_messages_topic_id", "audio", "caption", "parse_mode", "caption_entities", "duration", "performer", "title", "thumbnail", "disable_notification", "protect_content", "allow_paid_broadcast", "message_effect_id", "suggested_post_parameters", "reply_parameters", "reply_markup"],
     "sendChatAction": ["business_connection_id", "chat_id", "message_thread_id", "action"],
+    "sendChatJoinRequestWebApp": ["chat_join_request_query_id", "web_app_url"],
     "sendChecklist": ["business_connection_id", "chat_id", "checklist", "disable_notification", "protect_content", "message_effect_id", "reply_parameters", "reply_markup"],
     "sendContact": ["business_connection_id", "chat_id", "message_thread_id", "direct_messages_topic_id", "phone_number", "first_name", "last_name", "vcard", "disable_notification", "protect_content", "allow_paid_broadcast", "message_effect_id", "suggested_post_parameters", "reply_parameters", "reply_markup"],
     "sendDice": ["business_connection_id", "chat_id", "message_thread_id", "direct_messages_topic_id", "emoji", "disable_notification", "protect_content", "allow_paid_broadcast", "message_effect_id", "suggested_post_parameters", "reply_parameters", "reply_markup"],
@@ -129,6 +131,8 @@ export const METHOD_PARAMS: Record<string, readonly string[]> = {
     "sendPaidMedia": ["business_connection_id", "chat_id", "message_thread_id", "direct_messages_topic_id", "star_count", "media", "payload", "caption", "parse_mode", "caption_entities", "show_caption_above_media", "disable_notification", "protect_content", "allow_paid_broadcast", "suggested_post_parameters", "reply_parameters", "reply_markup"],
     "sendPhoto": ["business_connection_id", "chat_id", "message_thread_id", "direct_messages_topic_id", "photo", "caption", "parse_mode", "caption_entities", "show_caption_above_media", "has_spoiler", "disable_notification", "protect_content", "allow_paid_broadcast", "message_effect_id", "suggested_post_parameters", "reply_parameters", "reply_markup"],
     "sendPoll": ["business_connection_id", "chat_id", "message_thread_id", "question", "question_parse_mode", "question_entities", "options", "is_anonymous", "type", "allows_multiple_answers", "allows_revoting", "shuffle_options", "allow_adding_options", "hide_results_until_closes", "members_only", "country_codes", "correct_option_ids", "explanation", "explanation_parse_mode", "explanation_entities", "explanation_media", "open_period", "close_date", "is_closed", "description", "description_parse_mode", "description_entities", "media", "disable_notification", "protect_content", "allow_paid_broadcast", "message_effect_id", "reply_parameters", "reply_markup"],
+    "sendRichMessage": ["business_connection_id", "chat_id", "message_thread_id", "direct_messages_topic_id", "rich_message", "disable_notification", "protect_content", "allow_paid_broadcast", "message_effect_id", "suggested_post_parameters", "reply_parameters", "reply_markup"],
+    "sendRichMessageDraft": ["chat_id", "message_thread_id", "draft_id", "rich_message"],
     "sendSticker": ["business_connection_id", "chat_id", "message_thread_id", "direct_messages_topic_id", "sticker", "emoji", "disable_notification", "protect_content", "allow_paid_broadcast", "message_effect_id", "suggested_post_parameters", "reply_parameters", "reply_markup"],
     "sendVenue": ["business_connection_id", "chat_id", "message_thread_id", "direct_messages_topic_id", "latitude", "longitude", "title", "address", "foursquare_id", "foursquare_type", "google_place_id", "google_place_type", "disable_notification", "protect_content", "allow_paid_broadcast", "message_effect_id", "suggested_post_parameters", "reply_parameters", "reply_markup"],
     "sendVideo": ["business_connection_id", "chat_id", "message_thread_id", "direct_messages_topic_id", "video", "duration", "width", "height", "thumbnail", "cover", "start_timestamp", "caption", "parse_mode", "caption_entities", "show_caption_above_media", "has_spoiler", "supports_streaming", "disable_notification", "protect_content", "allow_paid_broadcast", "message_effect_id", "suggested_post_parameters", "reply_parameters", "reply_markup"],

@@ -3,6 +3,8 @@ import type {
   TelegramInputContactMessageContent,
   TelegramInputInvoiceMessageContent,
   TelegramInputLocationMessageContent,
+  TelegramInputRichMessage,
+  TelegramInputRichMessageContent,
   TelegramInputTextMessageContent,
   TelegramInputVenueMessageContent
 } from '@puregram/api'
@@ -14,6 +16,14 @@ type LocationExtras = Camelize<Omit<TelegramInputLocationMessageContent, 'latitu
 type VenueExtras = Camelize<Omit<TelegramInputVenueMessageContent, 'latitude' | 'longitude' | 'title' | 'address'>>
 type ContactExtras = Camelize<Omit<TelegramInputContactMessageContent, 'phone_number' | 'first_name'>>
 type InvoiceParams = Camelize<TelegramInputInvoiceMessageContent>
+type RichExtras = Camelize<Omit<TelegramInputRichMessage, 'html' | 'markdown'>>
+
+function richBody (body: { html: string } | { markdown: string }, extras: RichExtras) {
+  return { rich_message: { ...body, ...unCamelize(extras) } } as unknown as TelegramInputRichMessageContent
+}
+
+const richMarkdown = (markdown: string, extras: RichExtras = {} as RichExtras) => richBody({ markdown }, extras)
+const richHtml = (html: string, extras: RichExtras = {} as RichExtras) => richBody({ html }, extras)
 
 /**
  * static factories for `InputMessageContent` payloads used by `InlineQueryResult*`
@@ -36,6 +46,16 @@ type InvoiceParams = Camelize<TelegramInputInvoiceMessageContent>
  * ```
  */
 export class InputMessageContent {
+  /** rich-message body — pick a dialect, server parses it (bot api 10.1) */
+  static rich = {
+    /** markdown rich body */
+    markdown: richMarkdown,
+    /** markdown rich body (alias) */
+    md: richMarkdown,
+    /** html rich body */
+    html: richHtml
+  }
+
   /** text message body */
   static text (text: string | Formattable, params: TextExtras = {} as TextExtras) {
     return { message_text: text, ...unCamelize(params) }

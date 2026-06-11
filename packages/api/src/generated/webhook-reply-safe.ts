@@ -1,12 +1,13 @@
 /// AUTO-GENERATED FILE — do not edit by hand
-/// Bot API 10.0
+/// Bot API 10.1
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-05-26T22:17:04.458Z
+/// generated at: 2026-06-11T18:13:44.015Z
 /// see scripts/emit.ts in @puregram/api
 
 export const WEBHOOK_REPLY_SAFE_METHODS: ReadonlySet<string> = new Set<string>([
     "addStickerToSet",
     "answerCallbackQuery",
+    "answerChatJoinRequestQuery",
     "answerInlineQuery",
     "answerPreCheckoutQuery",
     "answerShippingQuery",
@@ -54,8 +55,10 @@ export const WEBHOOK_REPLY_SAFE_METHODS: ReadonlySet<string> = new Set<string>([
     "replaceStickerInSet",
     "restrictChatMember",
     "sendChatAction",
+    "sendChatJoinRequestWebApp",
     "sendGift",
     "sendMessageDraft",
+    "sendRichMessageDraft",
     "setBusinessAccountBio",
     "setBusinessAccountGiftSettings",
     "setBusinessAccountName",

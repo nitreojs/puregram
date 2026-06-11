@@ -146,7 +146,7 @@ tg.on('inline_query', async (query) => {
 
 ## InputMessageContent
 
-`InputMessageContent` builds the body of the message that gets sent when a user picks an inline result. the five variants:
+`InputMessageContent` builds the body of the message that gets sent when a user picks an inline result. the variants:
 
 | factory | sends |
 |---|---|
@@ -155,6 +155,7 @@ tg.on('inline_query', async (query) => {
 | `InputMessageContent.venue(lat, lng, title, address, params?)` | venue |
 | `InputMessageContent.contact(phoneNumber, firstName, params?)` | contact |
 | `InputMessageContent.invoice(params)` | invoice (all fields required, takes the full param object) |
+| `InputMessageContent.rich.md(markdown, params?)` / `.html(html, params?)` | rich message — telegram parses the dialect server-side (bot api 10.1) |
 
 ```ts
 import { InputMessageContent } from 'puregram'
@@ -170,10 +171,13 @@ InputMessageContent.venue(55.75, 37.61, 'red square', 'moscow, russia')
 
 // contact
 InputMessageContent.contact('+7 999 123 4567', 'ivan', { lastName: 'petrov' })
+
+// rich message — pick a dialect, telegram parses it
+InputMessageContent.rich.md('# hello\n\nwhat is **up**')
 ```
 
 ::: tip no `type` discriminator
-unlike most bot-api discriminated unions, `InputMessageContent` variants carry **no `type` field** — telegram disambiguates them structurally (text has `message_text`, location has `latitude`/`longitude`, contact has `phone_number`). the factory is hand-crafted for this reason
+unlike most bot-api discriminated unions, `InputMessageContent` variants carry **no `type` field** — telegram disambiguates them structurally (text has `message_text`, location has `latitude`/`longitude`, contact has `phone_number`, rich has `rich_message`). the factory is hand-crafted for this reason
 :::
 
 the optional `params` on `text` accepts camelCase `TelegramInputTextMessageContent` fields: `parseMode`, `entities`, `linkPreviewOptions`, `disableWebPagePreview`

@@ -1,10 +1,10 @@
 /// AUTO-GENERATED FILE — do not edit by hand
-/// Bot API 10.0
+/// Bot API 10.1
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-05-26T22:17:04.458Z
+/// generated at: 2026-06-11T18:13:44.015Z
 /// see scripts/emit.ts in @puregram/api
 
-import type { TelegramAcceptedGiftTypes, TelegramBotAccessSettings, TelegramBotCommand, TelegramBotCommandScope, TelegramBotDescription, TelegramBotName, TelegramBotShortDescription, TelegramBusinessConnection, TelegramChatAdministratorRights, TelegramChatFullInfo, TelegramChatInviteLink, TelegramChatMember, TelegramChatPermissions, TelegramFile, TelegramForceReply, TelegramForumTopic, TelegramGameHighScore, TelegramGifts, TelegramInlineKeyboardMarkup, TelegramInlineQueryResult, TelegramInlineQueryResultsButton, TelegramInputChecklist, TelegramInputFile, TelegramInputMedia, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaLivePhoto, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPaidMedia, TelegramInputPollMedia, TelegramInputPollOption, TelegramInputProfilePhoto, TelegramInputSticker, TelegramInputStoryContent, TelegramKeyboardButton, TelegramLabeledPrice, TelegramLinkPreviewOptions, TelegramMaskPosition, TelegramMenuButton, TelegramMessage, TelegramMessageEntity, TelegramMessageId, TelegramOwnedGifts, TelegramPassportElementError, TelegramPoll, TelegramPreparedInlineMessage, TelegramPreparedKeyboardButton, TelegramReactionType, TelegramReplyKeyboardMarkup, TelegramReplyKeyboardRemove, TelegramReplyParameters, TelegramSentGuestMessage, TelegramSentWebAppMessage, TelegramShippingOption, TelegramStarAmount, TelegramStarTransactions, TelegramSticker, TelegramStickerSet, TelegramStory, TelegramStoryArea, TelegramSuggestedPostParameters, TelegramUpdate, TelegramUser, TelegramUserChatBoosts, TelegramUserProfileAudios, TelegramUserProfilePhotos, TelegramWebhookInfo } from "./types";
+import type { TelegramAcceptedGiftTypes, TelegramBotAccessSettings, TelegramBotCommand, TelegramBotCommandScope, TelegramBotDescription, TelegramBotName, TelegramBotShortDescription, TelegramBusinessConnection, TelegramChatAdministratorRights, TelegramChatFullInfo, TelegramChatInviteLink, TelegramChatMember, TelegramChatPermissions, TelegramFile, TelegramForceReply, TelegramForumTopic, TelegramGameHighScore, TelegramGifts, TelegramInlineKeyboardMarkup, TelegramInlineQueryResult, TelegramInlineQueryResultsButton, TelegramInputChecklist, TelegramInputFile, TelegramInputMedia, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaLivePhoto, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPaidMedia, TelegramInputPollMedia, TelegramInputPollOption, TelegramInputProfilePhoto, TelegramInputRichMessage, TelegramInputSticker, TelegramInputStoryContent, TelegramKeyboardButton, TelegramLabeledPrice, TelegramLinkPreviewOptions, TelegramMaskPosition, TelegramMenuButton, TelegramMessage, TelegramMessageEntity, TelegramMessageId, TelegramOwnedGifts, TelegramPassportElementError, TelegramPoll, TelegramPreparedInlineMessage, TelegramPreparedKeyboardButton, TelegramReactionType, TelegramReplyKeyboardMarkup, TelegramReplyKeyboardRemove, TelegramReplyParameters, TelegramSentGuestMessage, TelegramSentWebAppMessage, TelegramShippingOption, TelegramStarAmount, TelegramStarTransactions, TelegramSticker, TelegramStickerSet, TelegramStory, TelegramStoryArea, TelegramSuggestedPostParameters, TelegramUpdate, TelegramUser, TelegramUserChatBoosts, TelegramUserProfileAudios, TelegramUserProfilePhotos, TelegramWebhookInfo } from "./types";
 import type { Formattable } from "../formattable";
 /**
  * Use this method to add a new sticker to a set created by the bot. Emoji sticker sets can have up to 200 stickers. Other sticker sets can have up to 120 stickers. Returns True on success.
@@ -59,6 +59,25 @@ export interface AnswerCallbackQueryParams {
  * Use this method to send answers to callback queries sent from inline keyboards. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, True is returned.
  */
 export type answerCallbackQuery = (params: AnswerCallbackQueryParams) => Promise<true>;
+
+/**
+ * Use this method to process a received chat join request query. Returns True on success.
+ */
+export interface AnswerChatJoinRequestQueryParams {
+    /**
+     * Unique identifier of the join request query
+     */
+    chat_join_request_query_id: string;
+    /**
+     * Result of the query. Must be either “approve” to allow the user to join the chat, “decline” to disallow the user to join the chat, or “queue” to leave the decision to other administrators.
+     */
+    result: "approve" | "decline" | "queue";
+}
+
+/**
+ * Use this method to process a received chat join request query. Returns True on success.
+ */
+export type answerChatJoinRequestQuery = (params: AnswerChatJoinRequestQueryParams) => Promise<true>;
 
 /**
  * Use this method to reply to a received guest message. On success, a SentGuestMessage object is returned.
@@ -1197,7 +1216,7 @@ export interface EditMessageLiveLocationParams {
 export type editMessageLiveLocation = (params: EditMessageLiveLocationParams) => Promise<TelegramMessage>;
 
 /**
- * Use this method to edit animation, audio, document, live photo, photo, or video messages, or to add media to text messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo, a live photo, or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file_id or specify a URL. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
+ * Use this method to edit animation, audio, document, live photo, photo, or video messages, or to replace a text or a rich message with a media. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo, a live photo, or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file_id or specify a URL. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
  */
 export interface EditMessageMediaParams {
     /**
@@ -1229,7 +1248,7 @@ export interface EditMessageMediaParams {
 }
 
 /**
- * Use this method to edit animation, audio, document, live photo, photo, or video messages, or to add media to text messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo, a live photo, or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file_id or specify a URL. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
+ * Use this method to edit animation, audio, document, live photo, photo, or video messages, or to replace a text or a rich message with a media. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo, a live photo, or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file_id or specify a URL. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
  */
 export type editMessageMedia = (params: EditMessageMediaParams) => Promise<TelegramMessage>;
 
@@ -1267,7 +1286,7 @@ export interface EditMessageReplyMarkupParams {
 export type editMessageReplyMarkup = (params: EditMessageReplyMarkupParams) => Promise<TelegramMessage>;
 
 /**
- * Use this method to edit text and game messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
+ * Use this method to edit text, rich and game messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
  */
 export interface EditMessageTextParams {
     /**
@@ -1287,9 +1306,9 @@ export interface EditMessageTextParams {
      */
     inline_message_id?: string;
     /**
-     * New text of the message, 1-4096 characters after entities parsing
+     * New text of the message, 1-4096 characters after entity parsing; required if rich_message isn't specified
      */
-    text: string | Formattable;
+    text?: string | Formattable;
     /**
      * Mode for parsing entities in the message text. See formatting options for more details.
      */
@@ -1303,6 +1322,10 @@ export interface EditMessageTextParams {
      */
     link_preview_options?: TelegramLinkPreviewOptions;
     /**
+     * New rich content of the message; required if text isn't specified
+     */
+    rich_message?: TelegramInputRichMessage;
+    /**
      * A JSON-serialized object for an inline keyboard
      */
     reply_markup?: TelegramInlineKeyboardMarkup | {
@@ -1311,7 +1334,7 @@ export interface EditMessageTextParams {
 }
 
 /**
- * Use this method to edit text and game messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
+ * Use this method to edit text, rich and game messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
  */
 export type editMessageText = (params: EditMessageTextParams) => Promise<TelegramMessage>;
 
@@ -2848,6 +2871,25 @@ export interface SendChatActionParams {
 export type sendChatAction = (params: SendChatActionParams) => Promise<true>;
 
 /**
+ * Use this method to process a received chat join request query by showing a Mini App to the user before deciding the outcome. Returns True on success.
+ */
+export interface SendChatJoinRequestWebAppParams {
+    /**
+     * Unique identifier of the join request query
+     */
+    chat_join_request_query_id: string;
+    /**
+     * The URL of the Mini App to be opened
+     */
+    web_app_url: string;
+}
+
+/**
+ * Use this method to process a received chat join request query by showing a Mini App to the user before deciding the outcome. Returns True on success.
+ */
+export type sendChatJoinRequestWebApp = (params: SendChatJoinRequestWebAppParams) => Promise<true>;
+
+/**
  * Use this method to send a checklist on behalf of a connected business account. On success, the sent Message is returned.
  */
 export interface SendChecklistParams {
@@ -3971,6 +4013,94 @@ export interface SendPollParams {
  * Use this method to send a native poll. On success, the sent Message is returned.
  */
 export type sendPoll = (params: SendPollParams) => Promise<TelegramMessage>;
+
+/**
+ * Use this method to send rich messages. If the message contains a block with a media element, then the bot must have the right to send the media to the chat. On success, the sent Message is returned.
+ */
+export interface SendRichMessageParams {
+    /**
+     * Unique identifier of the business connection on behalf of which the message will be sent
+     */
+    business_connection_id?: string;
+    /**
+     * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
+     */
+    chat_id: number | string;
+    /**
+     * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+     */
+    message_thread_id?: number;
+    /**
+     * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+     */
+    direct_messages_topic_id?: number;
+    /**
+     * The message to be sent
+     */
+    rich_message: TelegramInputRichMessage;
+    /**
+     * Sends the message silently. Users will receive a notification with no sound.
+     */
+    disable_notification?: boolean;
+    /**
+     * Protects the contents of the sent message from forwarding and saving
+     */
+    protect_content?: boolean;
+    /**
+     * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
+     */
+    allow_paid_broadcast?: boolean;
+    /**
+     * Unique identifier of the message effect to be added to the message; for private chats only
+     */
+    message_effect_id?: string;
+    /**
+     * A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+     */
+    suggested_post_parameters?: TelegramSuggestedPostParameters;
+    /**
+     * Description of the message to reply to
+     */
+    reply_parameters?: TelegramReplyParameters;
+    /**
+     * Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.
+     */
+    reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+        toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+    };
+}
+
+/**
+ * Use this method to send rich messages. If the message contains a block with a media element, then the bot must have the right to send the media to the chat. On success, the sent Message is returned.
+ */
+export type sendRichMessage = (params: SendRichMessageParams) => Promise<TelegramMessage>;
+
+/**
+ * Use this method to stream a partial rich message to a user while the message is being generated. Note that the streamed draft is ephemeral and acts as a temporary 30-second preview - once the output is finalized, you must call sendRichMessage with the complete message to persist it in the user's chat. Returns True on success.
+ */
+export interface SendRichMessageDraftParams {
+    /**
+     * Unique identifier for the target private chat
+     */
+    chat_id: number;
+    /**
+     * Unique identifier for the target message thread
+     */
+    message_thread_id?: number;
+    /**
+     * Unique identifier of the message draft; must be non-zero. Changes to drafts with the same identifier are animated.
+     */
+    draft_id: number;
+    /**
+     * The partial message to be streamed
+     */
+    rich_message: TelegramInputRichMessage;
+}
+
+/**
+ * Use this method to stream a partial rich message to a user while the message is being generated. Note that the streamed draft is ephemeral and acts as a temporary 30-second preview - once the output is finalized, you must call sendRichMessage with the complete message to persist it in the user's chat. Returns True on success.
+ */
+export type sendRichMessageDraft = (params: SendRichMessageDraftParams) => Promise<true>;
 
 /**
  * Use this method to send static .WEBP, animated .TGS, or video .WEBM stickers. On success, the sent Message is returned.

@@ -1,6 +1,6 @@
 import type { Schema, SchemaField, SchemaMethod } from '../schema-types'
 
-import { buildUpdateKinds, BUSINESS_ANCHOR, THREAD_ANCHOR, type ShortcutAnchor, type UpdateKindSpec } from './updates-config'
+import { buildUpdateKinds, shortcutNameFor, replyVerbForSendName, SHORTCUT_ALIASES, BUSINESS_ANCHOR, THREAD_ANCHOR, type ShortcutAnchor, type UpdateKindSpec } from './updates-config'
 
 export interface ReplyBinding {
   verb: string
@@ -13,15 +13,33 @@ export interface BoundShortcut {
   userArgs: SchemaField[]
   // present on the reply twin of a send* shortcut — fills `reply_parameters.message_id`
   reply?: ReplyBinding
+  // forces the emitted name, bypassing the canonical rename — used for alias twins
+  verbOverride?: string
 }
 
 export interface ShortcutAnalysis {
   byKind: Record<string, BoundShortcut[]>
 }
 
-// sendMessage → reply, sendPhoto → replyWithPhoto, sendVideoNote → replyWithVideoNote
 function replyVerbFor (method: string) {
-  return method === 'sendMessage' ? 'reply' : `replyWith${method.slice('send'.length)}`
+  return replyVerbForSendName(shortcutNameFor(method))
+}
+
+// for every shortcut whose method has an alias, append a clone that emits under the short name
+function expandAliases (result: ShortcutAnalysis) {
+  for (const list of Object.values(result.byKind)) {
+    const aliases: BoundShortcut[] = []
+
+    for (const sc of list) {
+      const base = SHORTCUT_ALIASES[sc.method]
+
+      if (base !== undefined) {
+        aliases.push({ ...sc, verbOverride: sc.reply ? replyVerbForSendName(base) : base })
+      }
+    }
+
+    list.push(...aliases)
+  }
 }
 
 export function analyzeShortcuts (schema: Schema, kinds: UpdateKindSpec[] = buildUpdateKinds(schema)) {
@@ -58,6 +76,8 @@ export function analyzeShortcuts (schema: Schema, kinds: UpdateKindSpec[] = buil
       }
     }
   }
+
+  expandAliases(result)
 
   return result
 }
@@ -141,6 +161,8 @@ export function analyzeThreadShortcuts (schema: Schema, kinds: UpdateKindSpec[] 
       }
     }
   }
+
+  expandAliases(result)
 
   return result
 }

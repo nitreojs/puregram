@@ -20,6 +20,49 @@ export interface UpdateKindSpec {
   extras?: UpdateExtra[]
 }
 
+// per-update verb renames — separate from telegram-level SHORTCUTS so a method can be
+// a per-update shortcut (`answer` on CallbackQueryUpdate) without joining the telegram-level list
+export const SHORTCUT_RENAMES: Record<string, string> = {
+  sendMessage: 'send',
+  forwardMessage: 'forward',
+  forwardMessages: 'forwardMany',
+  copyMessage: 'copy',
+  copyMessages: 'copyMany',
+  deleteMessage: 'delete',
+  deleteMessages: 'deleteMany',
+  editMessageText: 'edit',
+  editMessageCaption: 'editCaption',
+  editMessageMedia: 'editMedia',
+  editMessageReplyMarkup: 'editReplyMarkup',
+  editMessageLiveLocation: 'editLiveLocation',
+  stopMessageLiveLocation: 'stopLiveLocation',
+  pinChatMessage: 'pin',
+  unpinChatMessage: 'unpin',
+  answerCallbackQuery: 'answer',
+  answerInlineQuery: 'answer',
+  answerShippingQuery: 'answer',
+  answerPreCheckoutQuery: 'answer',
+  answerGuestQuery: 'answer',
+  answerChatJoinRequestQuery: 'answer'
+}
+
+export function shortcutNameFor (method: string) {
+  return SHORTCUT_RENAMES[method] ?? method
+}
+
+// extra short names emitted alongside the canonical shortcut, not in place of it — so both
+// `update.sendRichMessage` and `update.sendRich` exist. reply twins alias too (replyWithRich)
+export const SHORTCUT_ALIASES: Record<string, string> = {
+  sendRichMessage: 'sendRich',
+  sendMessageDraft: 'sendDraft',
+  sendRichMessageDraft: 'sendRichDraft'
+}
+
+// send → reply, sendPhoto → replyWithPhoto, sendRich → replyWithRich
+export function replyVerbForSendName (name: string) {
+  return name === 'send' ? 'reply' : `replyWith${name.slice('send'.length)}`
+}
+
 const MESSAGE_ANCHORS: ShortcutAnchor[] = [
   { schemaArg: 'chat_id', accessPath: ['raw', 'chat', 'id'] },
   { schemaArg: 'message_id', accessPath: ['raw', 'message_id'] }
@@ -112,6 +155,10 @@ const CHAT_MEMBER_EXTRAS: UpdateExtra[] = [
 const TOP_LEVEL_ANCHOR_OVERRIDES: Record<string, ShortcutAnchor[]> = {
   deleted_business_messages: [],
   guest_message: [{ schemaArg: 'guest_query_id', accessPath: ['raw', 'guest_query_id'], nonNull: true }],
+  chat_join_request: [
+    { schemaArg: 'chat_id', accessPath: ['raw', 'chat', 'id'] },
+    { schemaArg: 'chat_join_request_query_id', accessPath: ['raw', 'query_id'], nonNull: true }
+  ],
   message_reaction: [],
   message_reaction_count: [],
   chat_boost: [],

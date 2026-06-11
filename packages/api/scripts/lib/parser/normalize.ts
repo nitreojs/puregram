@@ -5,7 +5,13 @@ import type { SchemaField, SchemaMethod, SchemaObject, SchemaTypeRef } from '../
 
 // objects the docs phrase as unions but using "support the following N types" rather than "one of",
 // so the heuristic in `extractObject` misses them. listing here forces union treatment
-const FORCED_UNION_NAMES = new Set(['InlineQueryResult', 'InputMessageContent'])
+const FORCED_UNION_NAMES = new Set(['InlineQueryResult', 'InputMessageContent', 'RichBlock', 'RichText'])
+
+// union members that aren't section links — RichText also admits a bare string and a nested array,
+// neither of which the <ul> of subtype links can express
+const UNION_EXTRA_MEMBERS: Record<string, SchemaTypeRef[]> = {
+  RichText: [{ kind: 'string' }, { kind: 'array', of: { kind: 'reference', name: 'RichText' } }]
+}
 
 const PRIMITIVE_MAP: Record<string, SchemaTypeRef> = {
   Integer: { kind: 'integer' },
@@ -275,7 +281,7 @@ function extractObject (
       name,
       description,
       documentationLink: `https://core.telegram.org/bots/api#${name.toLowerCase()}`,
-      members
+      members: [...(UNION_EXTRA_MEMBERS[name] ?? []), ...members]
     }
   }
 

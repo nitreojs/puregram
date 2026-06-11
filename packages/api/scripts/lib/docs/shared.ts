@@ -13,6 +13,7 @@ export function cell (text: string) {
 }
 
 // code spans keep angle brackets literal, but a raw pipe (union / `Omit<…>` types) still splits the table cell
+// escape backslashes before pipes so the pipe-escaping backslash can't be swallowed by a preceding one
 export function codeCell (code: string) {
-  return code.replace(/\|/g, '\\|')
+  return code.replace(/\\/g, '\\\\').replace(/\|/g, '\\|')
 }

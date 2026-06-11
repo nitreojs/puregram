@@ -10,7 +10,7 @@ inline mode lets users trigger your bot by typing `@yourbot …` in any chat. te
 ```ts
 import { InlineQueryResult, InputMessageContent } from 'puregram'
 
-tg.on('inline_query', q => q.answer({
+telegram.on('inline_query', query => query.answer({
   results: [
     InlineQueryResult.article({
       id: '1',
@@ -30,7 +30,7 @@ turn on inline mode in @BotFather with `/setinline` before telegram will deliver
 the `inline_query` update exposes an `answer` shortcut that fills `inline_query_id` automatically:
 
 ```ts
-tg.on('inline_query', async (query) => {
+telegram.on('inline_query', async (query) => {
   await query.answer({
     results: [ /* InlineQueryResult entries */ ],
     cache_time: 300,       // seconds; defaults to 300
@@ -106,7 +106,7 @@ query.answer({
 ```ts
 import { InlineQueryResult, InputMessageContent, InlineKeyboard } from 'puregram'
 
-tg.on('inline_query', async (query) => {
+telegram.on('inline_query', async (query) => {
   await query.answer({
     results: [
       // article — sends custom text when picked
@@ -155,7 +155,8 @@ tg.on('inline_query', async (query) => {
 | `InputMessageContent.venue(lat, lng, title, address, params?)` | venue |
 | `InputMessageContent.contact(phoneNumber, firstName, params?)` | contact |
 | `InputMessageContent.invoice(params)` | invoice (all fields required, takes the full param object) |
-| `InputMessageContent.rich.md(markdown, params?)` / `.html(html, params?)` | rich message — telegram parses the dialect server-side |
+| `InputMessageContent.rich(richObject)` | rich message — pass a `Rich` from `@puregram/rich`; auto-unwraps to `{ rich_message: … }` |
+| `InputMessageContent.rich.md(markdown, params?)` / `.html(html, params?)` | rich message — build from a raw dialect string; telegram parses it server-side |
 
 ```ts
 import { InputMessageContent } from 'puregram'
@@ -172,8 +173,36 @@ InputMessageContent.venue(55.75, 37.61, 'red square', 'moscow, russia')
 // contact
 InputMessageContent.contact('+7 999 123 4567', 'ivan', { lastName: 'petrov' })
 
-// rich message — pick a dialect, telegram parses it
+// rich message — pass a Rich from @puregram/rich (picks the dialect it was built with)
+InputMessageContent.rich(rich.md`# hello\n\nwhat is **up**`)
+
+// rich message — build from a raw dialect string
 InputMessageContent.rich.md('# hello\n\nwhat is **up**')
+```
+
+### rich inline-query results
+
+`InputMessageContent.rich(richObject)` makes it straightforward to send structured rich content when a user picks an inline result. pass any `Rich` (from `@puregram/rich`) and the dialect is carried through automatically:
+
+```ts
+import { rich } from '@puregram/rich'
+import { InlineQueryResult, InputMessageContent } from 'puregram'
+
+telegram.on('inline_query', async (query) => {
+  await query.answer({
+    results: [
+      InlineQueryResult.article({
+        id: '1',
+        title: 'rich result',
+        content: InputMessageContent.rich(rich.md`
+          # ${query.query}
+
+          what is **up**
+        `)
+      })
+    ]
+  })
+})
 ```
 
 ::: tip no `type` discriminator
@@ -187,7 +216,7 @@ the optional `params` on `text` accepts camelCase `TelegramInputTextMessageConte
 when a user selects a result, telegram fires a `chosen_inline_result` update (requires enabling inline feedback in @BotFather):
 
 ```ts
-tg.on('chosen_inline_result', (result) => {
+telegram.on('chosen_inline_result', (result) => {
   console.log(result.from.id, 'chose result', result.resultId, 'for query', result.query)
 
   // if the result had an inline keyboard, inlineMessageId lets you edit it
@@ -211,5 +240,6 @@ tg.on('chosen_inline_result', (result) => {
 
 - [keyboards](/guide/telegram/keyboards) — `InlineKeyboard` for `replyMarkup` on results
 - [formatting text](/guide/telegram/formatting-text) — `parse_mode` and entities in `InputMessageContent.text`
+- [`@puregram/rich`](/plugins/rich) — `Rich` envelope and tagged-template authoring for `InputMessageContent.rich(…)`
 - [dispatch & filters](/guide/handling-updates/dispatch-and-filters) — registering `inline_query` handlers
 - [methods](/api/methods) — full generated method list

@@ -223,6 +223,33 @@ await telegram.api.sendRichMessage({
 
 `.toInputRichMessage()` is still available as a low-level escape hatch when you need the raw shape.
 
+### inline queries
+
+`InputMessageContent.rich(richObject)` in core accepts a `Rich` directly — use it to send structured rich content as the body of an inline-query result:
+
+```ts
+import { rich } from '@puregram/rich'
+import { InlineQueryResult, InputMessageContent } from 'puregram'
+
+telegram.on('inline_query', async (query) => {
+  await query.answer({
+    results: [
+      InlineQueryResult.article({
+        id: '1',
+        title: 'rich result',
+        content: InputMessageContent.rich(rich.md`
+          # ${query.query}
+
+          what is **up**
+        `)
+      })
+    ]
+  })
+})
+```
+
+the callable form auto-unwraps the `Rich` envelope (calls `.toInputRichMessage()` and wraps in `{ rich_message: … }`). the `.md` / `.markdown` / `.html` sub-forms are still available when building from a raw dialect string.
+
 ---
 
 ---

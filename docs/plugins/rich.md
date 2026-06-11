@@ -227,6 +227,33 @@ await telegram.api.sendRichMessage({
 
 `.toInputRichMessage()` is still available when you need the raw shape explicitly.
 
+### inline queries
+
+`InputMessageContent.rich(richObject)` in core accepts a `Rich` directly, making rich content usable as the body of an inline-query result:
+
+```ts
+import { rich } from '@puregram/rich'
+import { InlineQueryResult, InputMessageContent } from 'puregram'
+
+telegram.on('inline_query', async (query) => {
+  await query.answer({
+    results: [
+      InlineQueryResult.article({
+        id: '1',
+        title: 'rich result',
+        content: InputMessageContent.rich(rich.md`
+          # ${query.query}
+
+          what is **up**
+        `)
+      })
+    ]
+  })
+})
+```
+
+`InputMessageContent.rich(richObject)` unwraps the `Rich` envelope — calling `.toInputRichMessage()` and wrapping the result in `{ rich_message: … }`. the `.md` / `.markdown` / `.html` sub-forms are still available when building from a raw dialect string rather than a `Rich`.
+
 ## errors
 
 `RichError` is thrown when a `Rich` value of the wrong dialect is interpolated into a template:

@@ -1,0 +1,36 @@
+{
+  "name": "@puregram/rich",
+  "version": "0.0.0",
+  "private": true,
+  "description": "safe rich-message (html/markdown) emitter for puregram",
+  "type": "module",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    }
+  },
+  "files": [
+    "lib"
+  ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "build": "rm -rf lib && tsc --project tsconfig.json && tsc-alias -p tsconfig.json --resolve-full-paths",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@puregram/api": "workspace:~"
+  },
+  "devDependencies": {
+    "tsc-alias": "1",
+    "typescript": "^5.4.0",
+    "vitest": "^1.4.0"
+  },
+  "license": "MPL-2.0",
+  "author": "starkow"
+}

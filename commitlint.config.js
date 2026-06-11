@@ -14,6 +14,7 @@ module.exports = {
       'markup',
       'media-cacher',
       'rate-limit',
+      'rich',
       'scenes',
       'session',
       'storage',

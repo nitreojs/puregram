@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { makeTemplate } from '../src/template'
+
 import { makeNode } from '../src/node'
 import { Rich } from '../src/rich'
+import { makeTemplate } from '../src/template'
 
 const md = makeTemplate('markdown')
 const html = makeTemplate('html')
@@ -9,6 +10,7 @@ const html = makeTemplate('html')
 describe('makeTemplate', () => {
   it('passes literal text through and escapes interpolated strings', () => {
     const r = md`# heading ${'*not bold*'}`
+
     expect(r).toBeInstanceOf(Rich)
     expect(r.dialect).toBe('markdown')
     expect(r.content).toBe('# heading \\*not bold\\*')
@@ -16,6 +18,7 @@ describe('makeTemplate', () => {
 
   it('renders interpolated nodes without escaping', () => {
     const bold = makeNode('inline', () => '**b**')
+
     expect(md`x ${bold} y`.content).toBe('x **b** y')
   })
 
@@ -25,6 +28,7 @@ describe('makeTemplate', () => {
 
       body
     `
+
     expect(r.content).toBe('# title\n\nbody')
   })
 

@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+
 import { escapeMarkdown, escapeHtml } from '../src/escape'
 
 describe('escapeMarkdown', () => {

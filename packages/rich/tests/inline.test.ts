@@ -1,5 +1,6 @@
 // packages/rich/tests/inline.test.ts
 import { describe, expect, it } from 'vitest'
+
 import {
   bold, italic, underline, strikethrough, spoiler, code, marked,
   subscript, superscript, link, mentionUser, math, customEmoji, time, reference, anchor

@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest'
-import { renderContent } from '../src/render'
-import { makeNode } from '../src/node'
-import { Rich } from '../src/rich'
+
 import { RichError } from '../src/error'
+import { makeNode } from '../src/node'
+import { renderContent } from '../src/render'
+import { Rich } from '../src/rich'
 
 describe('renderContent', () => {
   it('escapes strings per dialect', () => {

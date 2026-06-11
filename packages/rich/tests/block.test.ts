@@ -1,5 +1,6 @@
 // packages/rich/tests/block.test.ts
 import { describe, expect, it } from 'vitest'
+
 import {
   heading, paragraph, codeBlock, blockquote, divider,
   list, orderedList, details, mathBlock

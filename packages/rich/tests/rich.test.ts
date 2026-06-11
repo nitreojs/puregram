@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+
 import { Rich } from '../src/rich'
 
 describe('Rich', () => {
@@ -9,6 +10,7 @@ describe('Rich', () => {
 
   it('includes is_rtl / skip_entity_detection only when set', () => {
     const r = new Rich('markdown', 'x').rtl().noEntityDetection()
+
     expect(r.toInputRichMessage()).toEqual({ markdown: 'x', is_rtl: true, skip_entity_detection: true })
   })
 
@@ -18,6 +20,7 @@ describe('Rich', () => {
 
   it('toJSON mirrors toInputRichMessage', () => {
     const r = new Rich('html', 'x')
+
     expect(r.toJSON()).toEqual(r.toInputRichMessage())
   })
 })

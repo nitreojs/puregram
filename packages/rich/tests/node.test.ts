@@ -1,9 +1,11 @@
 import { describe, expect, it } from 'vitest'
+
 import { makeNode, isRichNode } from '../src/node'
 
 describe('makeNode / isRichNode', () => {
   it('builds a node that renders per dialect', () => {
     const n = makeNode('inline', d => (d === 'markdown' ? '**x**' : '<b>x</b>'))
+
     expect(n.level).toBe('inline')
     expect(n.render('markdown')).toBe('**x**')
     expect(n.render('html')).toBe('<b>x</b>')

@@ -1,5 +1,6 @@
 // packages/rich/tests/index.test.ts
 import { describe, expect, it } from 'vitest'
+
 import { rich, Rich, RichError } from '../src/index'
 
 describe('rich namespace', () => {
@@ -17,6 +18,7 @@ describe('rich namespace', () => {
 
       ${rich.list(['one', 'two'])}
     `
+
     expect(r.content).toBe("# report\n\nwhat's up **guys** $E=mc^2$\n\n- one\n- two")
     expect(r.toInputRichMessage()).toEqual({
       markdown: "# report\n\nwhat's up **guys** $E=mc^2$\n\n- one\n- two"

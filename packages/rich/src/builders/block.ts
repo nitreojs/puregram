@@ -1,4 +1,5 @@
-import { makeNode } from '../node'
+import { escapeMarkdownUrl } from '../escape'
+import { type RichNode, makeNode } from '../node'
 import { type RichContent, escape, renderContent } from '../render'
 
 /** section heading, level 1-6 */
@@ -82,4 +83,160 @@ export function details (summary: RichContent, body: RichContent, options: { ope
 /** block-level LaTeX formula (content is raw latex, not escaped) */
 export function mathBlock (latex: string) {
   return makeNode('block', d => (d === 'markdown' ? `$$${latex}$$` : `<tg-math-block>${latex}</tg-math-block>`))
+}
+
+/** footer block (html-only tag, valid in markdown too) */
+export function footer (content: RichContent) {
+  return makeNode('block', d => `<footer>${renderContent(content, d)}</footer>`)
+}
+
+/** pull quote (html-only tag), optionally crediting a source */
+export function pullQuote (content: RichContent, cite?: RichContent) {
+  return makeNode('block', (d) => {
+    const credit = cite === undefined ? '' : `<cite>${renderContent(cite, d)}</cite>`
+
+    return `<aside>${renderContent(content, d)}${credit}</aside>`
+  })
+}
+
+/** markdown checkbox list */
+export function taskList (items: { text: RichContent, done?: boolean }[]) {
+  return makeNode('block', d =>
+    d === 'markdown'
+      ? items.map(i => `- [${i.done ? 'x' : ' '}] ${renderContent(i.text, d)}`).join('\n')
+      : `<ul>${items.map(i => `<li>${i.done ? '☑' : '☐'} ${renderContent(i.text, d)}</li>`).join('')}</ul>`)
+}
+
+export type MediaType = 'photo' | 'video' | 'audio'
+
+export interface MediaOptions {
+  type?: MediaType
+  caption?: RichContent
+  spoiler?: boolean
+}
+
+// telegram infers media type from mime/url, but the html tag must be chosen up front
+function inferMediaType (url: string) {
+  const ext = (/\.([a-z0-9]+)(?:[?#]|$)/i.exec(url)?.[1] ?? '').toLowerCase()
+
+  if (['mp4', 'mov', 'webm', 'gif'].includes(ext)) {
+    return 'video'
+  }
+
+  if (['mp3', 'ogg', 'oga', 'm4a', 'wav'].includes(ext)) {
+    return 'audio'
+  }
+
+  return 'photo'
+}
+
+/** media block by http(s) url (photo / video / audio) */
+export function media (url: string, options: MediaOptions = {}) {
+  return makeNode('block', (d) => {
+    if (d === 'markdown') {
+      const title = options.caption === undefined ? '' : ` "${renderContent(options.caption, d).replace(/"/g, '&#34;')}"`
+
+      return `![](${escapeMarkdownUrl(url)}${title})`
+    }
+
+    const type = options.type ?? inferMediaType(url)
+    const spoiler = options.spoiler ? ' tg-spoiler' : ''
+    const element = type === 'photo'
+      ? `<img src="${escape(url, 'html')}"${spoiler}/>`
+      : `<${type} src="${escape(url, 'html')}"${spoiler}></${type}>`
+
+    return options.caption === undefined
+      ? element
+      : `<figure>${element}<figcaption>${renderContent(options.caption, d)}</figcaption></figure>`
+  })
+}
+
+/** photo media block */
+export function photo (url: string, options: Omit<MediaOptions, 'type'> = {}) {
+  return media(url, { ...options, type: 'photo' })
+}
+
+/** video media block */
+export function video (url: string, options: Omit<MediaOptions, 'type'> = {}) {
+  return media(url, { ...options, type: 'video' })
+}
+
+/** audio media block */
+export function audio (url: string, options: Omit<MediaOptions, 'type'> = {}) {
+  return media(url, { ...options, type: 'audio' })
+}
+
+/** location map (html-only tag) */
+export function map (latitude: number, longitude: number, options: { zoom?: number, caption?: RichContent } = {}) {
+  return makeNode('block', (d) => {
+    const zoom = options.zoom === undefined ? '' : ` zoom="${options.zoom}"`
+    const element = `<tg-map lat="${latitude}" long="${longitude}"${zoom}/>`
+
+    return options.caption === undefined
+      ? element
+      : `<figure>${element}<figcaption>${renderContent(options.caption, d)}</figcaption></figure>`
+  })
+}
+
+function mediaGroup (tag: string, items: readonly RichNode[], caption: RichContent | undefined) {
+  return makeNode('block', (d) => {
+    const cap = caption === undefined ? '' : `<figcaption>${renderContent(caption, d)}</figcaption>`
+
+    if (d === 'markdown') {
+      // media inside a collage/slideshow must be blank-line-separated for telegram to parse it
+      return `<${tag}>\n\n${items.map(i => renderContent(i, d)).join('\n')}\n\n${cap}</${tag}>`
+    }
+
+    return `<${tag}>${items.map(i => renderContent(i, d)).join('')}${cap}</${tag}>`
+  })
+}
+
+/** photo/video collage (html-only tag) */
+export function collage (items: readonly RichNode[], options: { caption?: RichContent } = {}) {
+  return mediaGroup('tg-collage', items, options.caption)
+}
+
+/** photo/video slideshow (html-only tag) */
+export function slideshow (items: readonly RichNode[], options: { caption?: RichContent } = {}) {
+  return mediaGroup('tg-slideshow', items, options.caption)
+}
+
+export type Align = 'left' | 'center' | 'right'
+
+export interface TableOptions {
+  header?: boolean
+  align?: Align[]
+  bordered?: boolean
+  striped?: boolean
+  caption?: RichContent
+}
+
+const ALIGN_MD: Record<Align, string> = { left: ':--', center: ':-:', right: '--:' }
+
+/** table of inline cells. markdown emits a gfm table (the first row is the header) */
+export function table (rows: RichContent[][], options: TableOptions = {}) {
+  const header = options.header ?? true
+
+  return makeNode('block', (d) => {
+    if (d === 'markdown') {
+      // renderContent already escapes `|` (it's a markdown special), so cells are pipe-safe
+      const row = (cells: RichContent[]) => `| ${cells.map(c => renderContent(c, d)).join(' | ')} |`
+      const head = rows[0] ?? []
+      const separator = `| ${head.map((_, i) => ALIGN_MD[options.align?.[i] ?? 'left']).join(' | ')} |`
+
+      return [row(head), separator, ...rows.slice(1).map(row)].join('\n')
+    }
+
+    const attrs = `${options.bordered ? ' bordered' : ''}${options.striped ? ' striped' : ''}`
+    const cap = options.caption === undefined ? '' : `<caption>${renderContent(options.caption, d)}</caption>`
+    const cells = (cs: RichContent[], head: boolean) => cs.map((c, i) => {
+      const tag = head ? 'th' : 'td'
+      const align = options.align?.[i] ? ` align="${options.align[i] as Align}"` : ''
+
+      return `<${tag}${align}>${renderContent(c, d)}</${tag}>`
+    }).join('')
+    const body = rows.map((r, ri) => `<tr>${cells(r, header && ri === 0)}</tr>`).join('')
+
+    return `<table${attrs}>${cap}${body}</table>`
+  })
 }

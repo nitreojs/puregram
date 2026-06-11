@@ -44,3 +44,15 @@ describe('inline builders', () => {
     expect(md(anchor('chapter-1'))).toBe('<a name="chapter-1"></a>')
   })
 })
+
+describe('inline url-injection safety', () => {
+  it('escapes the link destination so a hostile href cannot break out', () => {
+    expect(md(link('t', 'https://x/?a=1)evil'))).toBe('[t](https://x/?a=1\\)evil)')
+    expect(md(link('t', 'a(b)c\\d e'))).toBe('[t](a\\(b\\)c\\\\d%20e)')
+  })
+
+  it('escapes hostile customEmoji id and time format in markdown urls', () => {
+    expect(md(customEmoji('5)evil', 'x'))).toBe('![x](tg://emoji?id=5\\)evil)')
+    expect(md(time('l', 1, 'x)evil'))).toBe('![l](tg://time?unix=1&format=x\\)evil)')
+  })
+})

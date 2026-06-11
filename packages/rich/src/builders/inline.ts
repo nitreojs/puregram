@@ -1,3 +1,4 @@
+import { escapeMarkdownUrl } from '../escape'
 import { type Dialect, makeNode } from '../node'
 import { type RichContent, escape, renderContent } from '../render'
 
@@ -26,9 +27,9 @@ export const subscript = wrap(x => `<sub>${x}</sub>`, x => `<sub>${x}</sub>`)
 /** superscript text (no markdown token — html in both) */
 export const superscript = wrap(x => `<sup>${x}</sup>`, x => `<sup>${x}</sup>`)
 
-// a url-attribute escaper: markdown leaves urls bare, html escapes attribute quotes/brackets
+// a url escaper: markdown escapes the link-destination terminators, html escapes attribute quotes
 function url (raw: string, dialect: Dialect) {
-  return dialect === 'markdown' ? raw : escape(raw, 'html')
+  return dialect === 'markdown' ? escapeMarkdownUrl(raw) : escape(raw, 'html')
 }
 
 /** inline link */
@@ -50,7 +51,7 @@ export function math (latex: string) {
 /** custom emoji by document id, with alternative text */
 export function customEmoji (id: string, alt: string) {
   return makeNode('inline', d =>
-    d === 'markdown' ? `![${escape(alt, d)}](tg://emoji?id=${id})` : `<tg-emoji emoji-id="${escape(id, 'html')}">${escape(alt, 'html')}</tg-emoji>`)
+    d === 'markdown' ? `![${escape(alt, d)}](${escapeMarkdownUrl(`tg://emoji?id=${id}`)})` : `<tg-emoji emoji-id="${escape(id, 'html')}">${escape(alt, 'html')}</tg-emoji>`)
 }
 
 /** auto-formatted date-time (see telegram's date-time entity formatting for `format`) */
@@ -58,7 +59,7 @@ export function time (label: RichContent, unix: number, format = '') {
   const query = `tg://time?unix=${unix}${format ? `&format=${format}` : ''}`
 
   return makeNode('inline', d =>
-    d === 'markdown' ? `![${renderContent(label, d)}](${query})` : `<tg-time unix="${unix}"${format ? ` format="${escape(format, 'html')}"` : ''}>${renderContent(label, d)}</tg-time>`)
+    d === 'markdown' ? `![${renderContent(label, d)}](${escapeMarkdownUrl(query)})` : `<tg-time unix="${unix}"${format ? ` format="${escape(format, 'html')}"` : ''}>${renderContent(label, d)}</tg-time>`)
 }
 
 /** in-document reference link to an anchor / `tg-reference` name */

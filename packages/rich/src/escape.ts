@@ -18,3 +18,9 @@ const HTML_SPECIALS: Record<string, string> = {
 export function escapeHtml (text: string) {
   return text.replace(/[&<>"]/g, ch => HTML_SPECIALS[ch] as string)
 }
+
+// a url inside markdown `[text](url)` is terminated by `)` or whitespace — escape the parens and
+// backslash, percent-encode whitespace, so an attacker-controlled url can't break out of the link
+export function escapeMarkdownUrl (url: string) {
+  return url.replace(/[\\()]/g, '\\$&').replace(/\s/g, encodeURIComponent)
+}

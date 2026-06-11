@@ -115,7 +115,7 @@ builder content args (`text`, `x`) accept `string | RichNode | Rich | RichConten
 
 | builder | notes |
 |---|---|
-| `rich.heading(level, content)` | `level` is `1`–`6`. renders `#…######` / `<h1>…<h6>` |
+| `rich.heading(level, content)` | `level` is `1`–`6`. renders `#…######` / `<h1>…<h6>`. `rich.h1(content)`…`rich.h6(content)` are aliases |
 | `rich.paragraph(content)` | bare text in markdown / `<p>` in html |
 | `rich.codeBlock(code, language?)` | fenced ` ``` ` / `<pre><code class="language-…">` |
 | `rich.blockquote(content)` | `>` lines / `<blockquote>` |

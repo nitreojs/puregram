@@ -1,9 +1,9 @@
-import type { TelegramInputRichMessage } from '@puregram/api'
+import type { RichLike, TelegramInputRichMessage } from '@puregram/api'
 
 import type { Dialect } from './node'
 
 /** the emitted rich message — a dialect string + the InputRichMessage options */
-export class Rich {
+export class Rich implements RichLike {
   isRtl?: boolean
   skipEntityDetection?: boolean
 

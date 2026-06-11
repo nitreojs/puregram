@@ -13,18 +13,14 @@ the result is a `Rich` envelope with a `.toInputRichMessage()` method that maps 
 ```ts
 import { rich } from '@puregram/rich'
 
-const r = rich.md`
+// inside a message handler
+await message.sendRich(rich.md`
   # ${title}
 
   ${rich.bold('status:')} ${status}
 
   ${rich.list(items)}
-`
-
-await tg.api.sendRichMessage({
-  chat_id,
-  rich_message: r.toInputRichMessage()
-})
+`)
 ```
 
 ### installation
@@ -167,23 +163,36 @@ r.rtl().noEntityDetection().toInputRichMessage()
 
 ## sending
 
-`@puregram/rich` is a standalone emitter — phase-1 integration means you pass the envelope directly to `tg.api.sendRichMessage`. tighter `tg`-level integration (so a `Rich` value can go into `tg.send(rich)` without the manual unwrap) is coming.
+the shortest path is via per-update shortcuts — `chat_id` and `message_id` are filled automatically:
 
 ```ts
 import { rich } from '@puregram/rich'
 
-const r = rich.html`
+// inside a message handler
+await message.sendRich(rich.html`
   <h1>${title}</h1>
   <p>sent by ${rich.mentionUser(authorName, authorId)}</p>
   ${rich.divider()}
   ${rich.codeBlock(snippet, 'ts')}
-`
+`)
 
+// reply to the incoming message
+await message.replyWithRich(rich.md`# ${heading}`)
+
+// edit the bot's own message to rich content
+await message.editRich(rich.md`# updated`)
+```
+
+a `Rich` value can also be passed directly to `tg.api.sendRichMessage` — `rich_message` accepts `TelegramInputRichMessage | RichLike` and `Rich` implements `RichLike`, so no manual unwrap is needed:
+
+```ts
 await tg.api.sendRichMessage({
-  chat_id: update.chatId,
-  rich_message: r.toInputRichMessage()
+  chat_id,
+  rich_message: rich.md`# ${title}`
 })
 ```
+
+`.toInputRichMessage()` is still available as a low-level escape hatch when you need the raw shape.
 
 ---
 

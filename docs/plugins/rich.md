@@ -10,18 +10,14 @@ a tagged-template emitter for telegram's **rich messages** — structured conten
 ```ts
 import { rich } from '@puregram/rich'
 
-const r = rich.md`
+// inside a message handler
+await message.sendRich(rich.md`
   # ${title}
 
   ${rich.bold('status:')} ${status}
 
   ${rich.list(items)}
-`
-
-await tg.api.sendRichMessage({
-  chat_id,
-  rich_message: r.toInputRichMessage()
-})
+`)
 ```
 
 ## install
@@ -42,7 +38,7 @@ pnpm add @puregram/rich
 
 :::
 
-`@puregram/rich` has no puregram peer dependency at this stage — it only depends on `@puregram/api` for the `TelegramInputRichMessage` type. you use it by calling `.toInputRichMessage()` and passing the result to `tg.api.sendRichMessage(...)`. tighter `tg`-level integration is coming.
+`@puregram/rich` depends on `@puregram/api` for types. `Rich` implements `RichLike`, so it can be passed directly wherever `rich_message` is accepted — no manual `.toInputRichMessage()` needed. per-update shortcuts (`message.sendRich`, `message.replyWithRich`, `message.editRich`) are covered in the [sending](#sending) section below.
 
 ## the two dialects
 
@@ -171,27 +167,36 @@ r.rtl().noEntityDetection().toInputRichMessage()
 
 ## sending
 
-pass `.toInputRichMessage()` to `tg.api.sendRichMessage`:
+per-update shortcuts fill `chat_id` and `message_id` automatically:
 
 ```ts
 import { rich } from '@puregram/rich'
 
-const r = rich.html`
+// send a new rich message in the same chat
+await message.sendRich(rich.html`
   <h1>${title}</h1>
   <p>posted by ${rich.mentionUser(authorName, authorId)}</p>
   ${rich.divider()}
   ${rich.codeBlock(snippet, 'ts')}
-`
+`)
 
+// reply to the incoming message
+await message.replyWithRich(rich.md`# ${heading}`)
+
+// edit the bot's own message to rich content
+await message.editRich(rich.md`# updated ${status}`)
+```
+
+a `Rich` value can also be passed directly to `tg.api.sendRichMessage` — `rich_message` accepts `TelegramInputRichMessage | RichLike` and `Rich` implements `RichLike`:
+
+```ts
 await tg.api.sendRichMessage({
-  chat_id: update.chatId,
-  rich_message: r.toInputRichMessage()
+  chat_id,
+  rich_message: rich.md`# ${title}`
 })
 ```
 
-::: info
-tighter integration — passing a `Rich` directly to `tg.send(rich)` without the manual `.toInputRichMessage()` unwrap — is planned for a follow-up phase
-:::
+`.toInputRichMessage()` is still available when you need the raw shape explicitly.
 
 ## coming incrementally
 

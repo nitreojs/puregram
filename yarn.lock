@@ -1245,6 +1245,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@puregram/rich@workspace:packages/rich":
+  version: 0.0.0-use.local
+  resolution: "@puregram/rich@workspace:packages/rich"
+  dependencies:
+    "@puregram/api": "workspace:~"
+    tsc-alias: "npm:1"
+    typescript: "npm:^5.4.0"
+    vitest: "npm:^1.4.0"
+  languageName: unknown
+  linkType: soft
+
 "@puregram/scenes@npm:*, @puregram/scenes@workspace:packages/scenes":
   version: 0.0.0-use.local
   resolution: "@puregram/scenes@workspace:packages/scenes"

@@ -127,6 +127,7 @@ export default defineConfig({
           text: '★ plugins',
           items: [
             { text: 'rich', link: '/plugins/rich' },
+            { text: 'rich for LLMs', link: '/plugins/rich-llm-grammar' },
             { text: 'scenes', link: '/plugins/scenes' },
             { text: 'session', link: '/plugins/session' },
             { text: 'storage', link: '/plugins/storage' },

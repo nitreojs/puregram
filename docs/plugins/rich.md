@@ -283,6 +283,7 @@ import type {
 
 ## see also
 
+- [rich grammar for LLMs](/plugins/rich-llm-grammar) — a system prompt that constrains a model's output to this same grammar
 - [markup](/plugins/markup/) — entity-based formatting for plain messages, no `parse_mode`
 - [formatting text](/guide/telegram/formatting-text) — the raw `parse_mode` path, for comparison
 - [plugins & .extend](/guide/concepts/plugins) — how `telegram.extend` works in general

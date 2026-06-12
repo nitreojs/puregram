@@ -270,6 +270,7 @@ import type {
 ## see also
 
 - [plugins & .extend](/guide/concepts/plugins) — how `.extend(plugin)` works
+- [rich grammar for LLMs](/plugins/rich-llm-grammar) — keep a streamed model's output inside telegram's rich grammar
 - [markup plugin](/plugins/markup/) — parse `MarkdownV2` / `HTML` into entities (required for `parseMode`)
 - [throttler plugin](/plugins/throttler) — outbound rate limiting for bots that send at scale
 - [/api/methods](/api/methods) — `sendMessage`, `sendMessageDraft` on the wire

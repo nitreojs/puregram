@@ -196,7 +196,7 @@ the engine is identical — same adapters, pacing, callbacks, `draft_id`, abort 
 | `signal` | `AbortSignal` | — | aborts mid-stream, finalizes last-good text |
 | `message_thread_id` | `number` | — | forwarded to `sendMessage` / `sendMessageDraft` |
 | `reply_parameters` | `ReplyParameters` | — | forwarded to `sendMessage` |
-| `link_preview_options` | `LinkPreviewOptions` | — | forwarded to `sendMessage` |
+| `link_preview_options` | `LinkPreviewOptions` | — | forwarded to `sendMessage`; ignored in rich mode |
 | `disable_notification` | `boolean` | — | forwarded to `sendMessage` |
 | `protect_content` | `boolean` | — | forwarded to `sendMessage` |
 | `reply_markup` | `ReplyMarkup` | — | only attached to the terminal `sendMessage`, not to drafts |

@@ -5,13 +5,20 @@ import {
 import type { TelegramMessage } from '@puregram/api'
 import { createPlugin, type Telegram } from 'puregram'
 
-import { runStream, type StreamApi, type StreamResult } from './core'
+import { runStream, type RichDialect, type StreamApi, type StreamResult } from './core'
 import type { ParseMode } from './formatted'
 import { normalize, type StreamSource } from './normalize'
+
+/** the two rich wire methods this plugin reaches for; `tg.api` satisfies it structurally */
+interface RichApi {
+  sendRichMessage: (params: Record<string, unknown>) => Promise<TelegramMessage>
+  sendRichMessageDraft: (params: Record<string, unknown>) => Promise<unknown>
+}
 
 /** options accepted by both `tg.stream` and `update.stream` */
 export interface StreamCallOptions {
   parseMode?: ParseMode
+  rich?: boolean | RichDialect
   editIntervalMs?: number
   maxEditBackoff?: number
   thinkingPlaceholder?: boolean
@@ -96,6 +103,12 @@ export function stream () {
     name: 'stream',
     install: (tg: Telegram) => {
       const api = tg.api as unknown as StreamApi
+      const richSource = tg.api as unknown as RichApi
+      const richApi: StreamApi = {
+        sendMessage: params => richSource.sendRichMessage(params),
+        sendMessageDraft: params => richSource.sendRichMessageDraft(params)
+      }
+      const pickApi = (rich: boolean | RichDialect | undefined) => rich ? richApi : api
 
       let counter = 0
       const nextOffset = () => {
@@ -111,7 +124,7 @@ export function stream () {
         const { chat_id: chatId, source, draftIdOffset, ...rest } = params
         const normalized = normalize(source)
 
-        return runStream(api, {
+        return runStream(pickApi(rest.rich), {
           ...rest,
           chatId,
           source: normalized,
@@ -128,7 +141,7 @@ export function stream () {
             const { draftIdOffset, ...rest } = options
             const normalized = normalize(source)
 
-            return runStream(api, {
+            return runStream(pickApi(rest.rich), {
               ...rest,
               chatId: this.raw.chat.id,
               source: normalized,

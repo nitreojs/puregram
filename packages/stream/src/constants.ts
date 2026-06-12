@@ -7,6 +7,9 @@ export const DRAFT_SAFETY_MS = 2_000
 /** bot api hard cap on message text length */
 export const MAX_CHUNK = 4096
 
+/** bot api hard cap on rich-message text length */
+export const MAX_RICH_CHUNK = 32_768
+
 /** draft_id must be non-zero; ids are reduced modulo this range to fit a 32-bit positive int */
 export const DRAFT_ID_MAX = 0xFFFF_FFFF
 

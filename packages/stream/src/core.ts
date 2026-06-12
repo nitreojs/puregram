@@ -2,7 +2,7 @@ import type { TelegramMessage } from '@puregram/api'
 
 import {
   DEFAULT_EDIT_INTERVAL_MS, DEFAULT_MAX_EDIT_BACKOFF,
-  DRAFT_ID_MAX, DRAFT_SAFETY_MS, DRAFT_TTL_MS, MAX_CHUNK
+  DRAFT_ID_MAX, DRAFT_SAFETY_MS, DRAFT_TTL_MS, MAX_CHUNK, MAX_RICH_CHUNK
 } from './constants'
 import { parseLenient, parseStrict, type ParseMode } from './formatted'
 
@@ -30,11 +30,15 @@ export interface StreamCallbacks {
   onError?: (err: unknown) => void | Promise<void>
 }
 
+/** rich-message dialect — exactly one of these is written into `rich_message` */
+export type RichDialect = 'markdown' | 'html'
+
 /** full options for `runStream`; aggregates the call-site shape into a single struct */
 export interface RunStreamOptions extends StreamForwardOptions, StreamCallbacks {
   chatId: number
   source: AsyncIterable<string>
   parseMode?: ParseMode
+  rich?: boolean | RichDialect
   editIntervalMs?: number
   maxEditBackoff?: number
   thinkingPlaceholder?: boolean
@@ -74,21 +78,51 @@ interface SendPayload {
   fallbackParseMode?: ParseMode
 }
 
+/** per-run strategy: which rollover cap to use and how to turn a payload into wire content fields */
+interface StreamMode {
+  rich: boolean
+  maxChunk: number
+  body: (payload: SendPayload) => Record<string, unknown>
+}
+
+function resolveMode (rich: boolean | RichDialect | undefined) {
+  if (rich === undefined || rich === false) {
+    return {
+      rich: false,
+      maxChunk: MAX_CHUNK,
+      body: (payload: SendPayload) => {
+        const fields: Record<string, unknown> = { text: payload.text }
+
+        if (payload.entities && payload.entities.length > 0) {
+          fields.entities = payload.entities
+        } else if (payload.fallbackParseMode !== undefined) {
+          fields.parse_mode = payload.fallbackParseMode
+        }
+
+        return fields
+      }
+    }
+  }
+
+  const dialect: RichDialect = rich === true ? 'markdown' : rich
+
+  return {
+    rich: true,
+    maxChunk: MAX_RICH_CHUNK,
+    body: (payload: SendPayload) => ({ rich_message: { [dialect]: payload.text } })
+  }
+}
+
 function buildSendParams (
   chatId: number,
   payload: SendPayload,
   opts: StreamForwardOptions,
+  mode: StreamMode,
   isTerminal: boolean
 ) {
   const params: Record<string, unknown> = {
     chat_id: chatId,
-    text: payload.text
-  }
-
-  if (payload.entities && payload.entities.length > 0) {
-    params.entities = payload.entities
-  } else if (payload.fallbackParseMode !== undefined) {
-    params.parse_mode = payload.fallbackParseMode
+    ...mode.body(payload)
   }
 
   if (opts.message_thread_id !== undefined) {
@@ -99,7 +133,8 @@ function buildSendParams (
     params.reply_parameters = opts.reply_parameters
   }
 
-  if (opts.link_preview_options !== undefined) {
+  // rich messages own their link handling — sendRichMessage has no link_preview_options
+  if (!mode.rich && opts.link_preview_options !== undefined) {
     params.link_preview_options = opts.link_preview_options
   }
 
@@ -129,6 +164,11 @@ interface DraftSlot {
  * `sendMessageDraft` previews under a soft edit interval, and finalizes each window via `sendMessage`
  */
 export async function runStream (api: StreamApi, opts: RunStreamOptions) {
+  if (opts.rich && opts.parseMode !== undefined) {
+    throw new Error('[@puregram/stream] `rich` and `parseMode` are mutually exclusive — rich messages carry their own dialect')
+  }
+
+  const mode = resolveMode(opts.rich)
   const editInterval = opts.editIntervalMs ?? DEFAULT_EDIT_INTERVAL_MS
   const maxBackoff = opts.maxEditBackoff ?? DEFAULT_MAX_EDIT_BACKOFF
   const wantThinking = opts.thinkingPlaceholder ?? true
@@ -180,7 +220,7 @@ export async function runStream (api: StreamApi, opts: RunStreamOptions) {
 
         while (remaining.length > 0) {
           const slot = currentSlot()
-          const room = MAX_CHUNK - slot.text.length
+          const room = mode.maxChunk - slot.text.length
 
           if (remaining.length <= room) {
             slot.text += remaining; remaining = ''
@@ -212,7 +252,7 @@ export async function runStream (api: StreamApi, opts: RunStreamOptions) {
       await api.sendMessageDraft({
         chat_id: opts.chatId,
         draft_id: currentSlot().id,
-        text: '',
+        ...mode.body({ text: '' }),
         ...(opts.message_thread_id !== undefined ? { message_thread_id: opts.message_thread_id } : {})
       })
 
@@ -254,7 +294,7 @@ export async function runStream (api: StreamApi, opts: RunStreamOptions) {
         return { text: slot.text }
       })
 
-      const sent = await api.sendMessage(buildSendParams(opts.chatId, payload, opts, true))
+      const sent = await api.sendMessage(buildSendParams(opts.chatId, payload, opts, mode, true))
 
       result.messages.push(sent)
       opts.onDraftFinalized?.(sent)
@@ -296,11 +336,7 @@ export async function runStream (api: StreamApi, opts: RunStreamOptions) {
       const draftParams: Record<string, unknown> = {
         chat_id: opts.chatId,
         draft_id: slot.id,
-        text: payload.text
-      }
-
-      if (payload.entities && payload.entities.length > 0) {
-        draftParams.entities = payload.entities
+        ...mode.body(payload)
       }
 
       if (opts.message_thread_id !== undefined) {
@@ -332,7 +368,7 @@ export async function runStream (api: StreamApi, opts: RunStreamOptions) {
     })
 
     try {
-      const sent = await api.sendMessage(buildSendParams(opts.chatId, payload, opts, true))
+      const sent = await api.sendMessage(buildSendParams(opts.chatId, payload, opts, mode, true))
 
       result.messages.push(sent)
       opts.onDraftFinalized?.(sent)

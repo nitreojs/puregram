@@ -220,3 +220,176 @@ describe('runStream — core state machine', () => {
     expect(messages[0]!.reply_markup).toEqual({ inline_keyboard: [] })
   })
 })
+
+describe('runStream — rich mode', () => {
+  beforeEach(() => {
+    vi.useFakeTimers({ shouldAdvanceTime: true })
+  })
+
+  afterEach(() => {
+    vi.useRealTimers()
+    vi.restoreAllMocks()
+  })
+
+  it('finalizes with rich_message markdown and no text/entities', async () => {
+    const { api, messages } = makeMockApi()
+
+    await runStream(api, {
+      chatId: 1,
+      source: fromArray(['# hi', ' there']),
+      draftIdOffset: 1,
+      editIntervalMs: 0,
+      thinkingPlaceholder: false,
+      rich: 'markdown'
+    })
+
+    expect(messages).toHaveLength(1)
+    expect(messages[0]!.rich_message).toEqual({ markdown: '# hi there' })
+    expect(messages[0]!.text).toBeUndefined()
+    expect(messages[0]!.entities).toBeUndefined()
+  })
+
+  it('rich: true defaults to the markdown dialect', async () => {
+    const { api, messages } = makeMockApi()
+
+    await runStream(api, {
+      chatId: 1,
+      source: fromArray(['x']),
+      draftIdOffset: 1,
+      editIntervalMs: 0,
+      thinkingPlaceholder: false,
+      rich: true
+    })
+
+    expect(messages[0]!.rich_message).toEqual({ markdown: 'x' })
+  })
+
+  it('html dialect routes to rich_message.html', async () => {
+    const { api, messages } = makeMockApi()
+
+    await runStream(api, {
+      chatId: 1,
+      source: fromArray(['<b>hi</b>']),
+      draftIdOffset: 1,
+      editIntervalMs: 0,
+      thinkingPlaceholder: false,
+      rich: 'html'
+    })
+
+    expect(messages[0]!.rich_message).toEqual({ html: '<b>hi</b>' })
+  })
+
+  it('drafts carry rich_message, never text', async () => {
+    const { api, drafts } = makeMockApi()
+
+    await runStream(api, {
+      chatId: 1,
+      source: fromArray(['hello', ' world']),
+      draftIdOffset: 1,
+      editIntervalMs: 5,
+      thinkingPlaceholder: false,
+      rich: 'markdown'
+    })
+
+    expect(drafts.length).toBeGreaterThanOrEqual(1)
+
+    for (const draft of drafts) {
+      expect(draft.text).toBeUndefined()
+      expect((draft.rich_message as { markdown?: string }).markdown).toBeDefined()
+    }
+  })
+
+  it('does not roll over at the 4096 text cap', async () => {
+    const { api, messages } = makeMockApi()
+
+    await runStream(api, {
+      chatId: 1,
+      source: fromArray(['a'.repeat(5000)]),
+      draftIdOffset: 0,
+      editIntervalMs: 0,
+      thinkingPlaceholder: false,
+      rich: 'markdown'
+    })
+
+    expect(messages).toHaveLength(1)
+    expect((messages[0]!.rich_message as { markdown: string }).markdown.length).toBe(5000)
+  })
+
+  it('rolls over after 32768 chars', async () => {
+    const { api, messages } = makeMockApi()
+
+    await runStream(api, {
+      chatId: 1,
+      source: fromArray(['a'.repeat(32768), 'b'.repeat(50)]),
+      draftIdOffset: 0,
+      editIntervalMs: 0,
+      thinkingPlaceholder: false,
+      rich: 'markdown'
+    })
+
+    expect(messages).toHaveLength(2)
+    expect((messages[0]!.rich_message as { markdown: string }).markdown.length).toBe(32768)
+    expect((messages[1]!.rich_message as { markdown: string }).markdown).toBe('b'.repeat(50))
+  })
+
+  it('drops link_preview_options in rich mode', async () => {
+    const { api, messages } = makeMockApi()
+
+    await runStream(api, {
+      chatId: 1,
+      source: fromArray(['hi']),
+      draftIdOffset: 0,
+      editIntervalMs: 0,
+      thinkingPlaceholder: false,
+      rich: 'markdown',
+      link_preview_options: { is_disabled: true }
+    })
+
+    expect(messages[0]!.link_preview_options).toBeUndefined()
+    expect(messages[0]!.rich_message).toEqual({ markdown: 'hi' })
+  })
+
+  it('still forwards reply_parameters in rich mode', async () => {
+    const { api, messages } = makeMockApi()
+
+    await runStream(api, {
+      chatId: 1,
+      source: fromArray(['hi']),
+      draftIdOffset: 0,
+      editIntervalMs: 0,
+      thinkingPlaceholder: false,
+      rich: 'markdown',
+      reply_parameters: { message_id: 99 }
+    })
+
+    expect(messages[0]!.reply_parameters).toEqual({ message_id: 99 })
+  })
+
+  it('emits an empty rich_message thinking placeholder', async () => {
+    const { api, drafts } = makeMockApi()
+
+    await runStream(api, {
+      chatId: 1,
+      source: fromArray(['a']),
+      draftIdOffset: 10,
+      editIntervalMs: 0,
+      thinkingPlaceholder: true,
+      rich: 'markdown'
+    })
+
+    expect(drafts[0]).toMatchObject({ rich_message: { markdown: '' }, draft_id: 10 })
+  })
+
+  it('throws when rich and parseMode are both set', async () => {
+    const { api } = makeMockApi()
+
+    await expect(runStream(api, {
+      chatId: 1,
+      source: fromArray(['hi']),
+      draftIdOffset: 0,
+      thinkingPlaceholder: false,
+      rich: 'markdown',
+      parseMode: 'HTML'
+    })).rejects.toThrow(/mutually exclusive/)
+  })
+})

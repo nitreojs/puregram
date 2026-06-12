@@ -156,6 +156,31 @@ await message.stream(generate())
 | `fromBytes` | `AsyncIterable<Uint8Array>` (utf-8 decoded) |
 | `fromEventEmitter` | node `EventEmitter` — listens on `'text'` events by default |
 
+## rich-message streaming
+
+pass `rich` to stream into a telegram **rich message** instead of flat `parse_mode` text. rich markdown renders headings, lists, code blocks, tables and math, and the per-message limit jumps from 4096 to 32768 — far fewer mid-stream rollovers
+
+```ts
+await message.stream(fromOpenAI(completion), { rich: true })     // markdown (default)
+await message.stream(fromOpenAI(completion), { rich: 'html' })   // telegram rich html
+
+await telegram.stream({ chat_id: 12345, source, rich: 'markdown' })
+```
+
+`rich` accepts:
+
+| value | dialect |
+|---|---|
+| `true` | markdown (LLM-native) |
+| `'markdown'` | markdown |
+| `'html'` | telegram rich html |
+
+the engine is identical — same adapters, pacing, callbacks, `draft_id`, abort and reply/thread forwarding — only the wire calls swap to `sendRichMessageDraft` / `sendRichMessage` and the content ships as `rich_message: { markdown }` (or `{ html }`)
+
+- **private chats only** — same as text streaming (drafts are private-only)
+- **`rich` and `parseMode` are mutually exclusive** — rich owns its dialect; setting both throws
+- **`link_preview_options` is ignored** in rich mode — `sendRichMessage` has no such param
+
 ## options
 
 `StreamCallOptions` — passed as the second argument to `update.stream(source, options?)` or spread into `tg.stream({ chat_id, source, ...options })`:
@@ -163,6 +188,7 @@ await message.stream(generate())
 | option | type | default | notes |
 |---|---|---|---|
 | `parseMode` | `'MarkdownV2' \| 'HTML'` | plain text | lenient per-tick, strict on finalize. requires `@puregram/markup` |
+| `rich` | `boolean \| 'markdown' \| 'html'` | off | stream into a rich message — `true` = markdown, mutually exclusive with `parseMode` |
 | `editIntervalMs` | `number` | `250` | soft floor between `sendMessageDraft` calls (ms) |
 | `maxEditBackoff` | `number` | `4000` | drop a draft tick when local backoff exceeds this |
 | `thinkingPlaceholder` | `boolean` | `true` | emit an empty draft eagerly on start so users see the "typing" animation |
@@ -198,6 +224,7 @@ interface StreamResult {
 | source throws mid-stream | stop pulling, finalize last-good via `sendMessage`, call `onError`, rethrow |
 | `AbortSignal.abort()` | stop pulling, finalize last-good, set `result.aborted = true`, no rethrow |
 | chat is not private | throws synchronously before consuming the source |
+| `rich` + `parseMode` both set | throws before consuming the source |
 | `maxEditBackoff` exceeded | drop the draft tick, `skipped += 1`, continue |
 | terminal `sendMessage` fails | never dropped — bubbles up |
 | strict-parse failure on finalize | falls back to raw text, `onError` called |
@@ -247,6 +274,7 @@ import {
   DRAFT_TTL_MS,
   DRAFT_SAFETY_MS,
   MAX_CHUNK,
+  MAX_RICH_CHUNK,
   DRAFT_ID_MAX,
   DEFAULT_EDIT_INTERVAL_MS,
   DEFAULT_MAX_EDIT_BACKOFF
@@ -263,7 +291,8 @@ import type {
   StreamForwardOptions,
   StreamCallbacks,
   ParseMode,
-  ParsedPayload
+  ParsedPayload,
+  RichDialect
 } from '@puregram/stream'
 ```
 

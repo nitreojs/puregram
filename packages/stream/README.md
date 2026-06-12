@@ -128,11 +128,29 @@ await message.stream(generate())
 | `fromBytes`         | `AsyncIterable<Uint8Array>` (utf-8)    |
 | `fromEventEmitter`  | node `EventEmitter` (default `'text'`) |
 
+## rich-message streaming
+
+pass `rich` to stream into a telegram **rich message** (`sendRichMessageDraft` + `sendRichMessage`) instead of flat `parse_mode` text. rich markdown renders headings, lists, code blocks, tables and math, and the limit is 32768 (vs 4096) so rollovers are rarer
+
+```ts
+await message.stream(openAIStream, { rich: true })     // markdown (default)
+await message.stream(openAIStream, { rich: 'html' })   // telegram rich html
+await telegram.stream({ chat_id, source, rich: 'markdown' })
+```
+
+same engine — adapters, pacing, callbacks, abort, reply/thread forwarding all reused. only the wire calls and content field swap (`rich_message: { markdown }` / `{ html }`)
+
+- **private chats only** (drafts are private-only)
+- **`rich` and `parseMode` are mutually exclusive** — setting both throws
+- **`link_preview_options` is ignored** in rich mode (`sendRichMessage` has no such param)
+- `is_rtl` / `skip_entity_detection` are not exposed
+
 ## options
 
 | option                | type                                    | default | notes                                                              |
 |-----------------------|-----------------------------------------|---------|--------------------------------------------------------------------|
 | `parseMode`           | `'MarkdownV2' \| 'HTML'`                | plain   | lenient per-tick, strict on finalize. needs `@puregram/markup`     |
+| `rich`                | `boolean \| 'markdown' \| 'html'`       | off     | rich message — `true`=markdown, mutually exclusive with `parseMode` |
 | `editIntervalMs`      | `number`                                | `250`   | soft floor between `sendMessageDraft` calls                        |
 | `maxEditBackoff`      | `number`                                | `4000`  | drop a draft tick if local backoff exceeds this                    |
 | `thinkingPlaceholder` | `boolean`                               | `true`  | emit an empty draft eagerly on start                               |

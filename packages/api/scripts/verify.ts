@@ -16,12 +16,14 @@ import { emitStructures } from './lib/emitter/emit-structures'
 import { emitTypes } from './lib/emitter/emit-types'
 import { emitUpdates } from './lib/emitter/emit-updates'
 import { loadLatestSchema } from './lib/emitter/load-schema'
+import { applyMethodReturnOverrides } from './lib/emitter/method-overrides'
 import { applySoftEnums } from './lib/emitter/soft-enums'
 
 async function main () {
   const schema = await loadLatestSchema()
 
   applySoftEnums(schema)
+  applyMethodReturnOverrides(schema)
 
   const expected: [string, string][] = [
     ['inspect.ts', emitInspect(schema)],

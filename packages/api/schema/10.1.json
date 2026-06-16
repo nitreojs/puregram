@@ -11329,11 +11329,40 @@
       ]
     },
     {
-      "kind": "object",
+      "kind": "union",
       "name": "BotCommandScope",
       "description": "This object represents the scope to which bot commands are applied. Currently, the following 7 scopes are supported:",
       "documentationLink": "https://core.telegram.org/bots/api#botcommandscope",
-      "fields": []
+      "members": [
+        {
+          "kind": "reference",
+          "name": "BotCommandScopeDefault"
+        },
+        {
+          "kind": "reference",
+          "name": "BotCommandScopeAllPrivateChats"
+        },
+        {
+          "kind": "reference",
+          "name": "BotCommandScopeAllGroupChats"
+        },
+        {
+          "kind": "reference",
+          "name": "BotCommandScopeAllChatAdministrators"
+        },
+        {
+          "kind": "reference",
+          "name": "BotCommandScopeChat"
+        },
+        {
+          "kind": "reference",
+          "name": "BotCommandScopeChatAdministrators"
+        },
+        {
+          "kind": "reference",
+          "name": "BotCommandScopeChatMember"
+        }
+      ]
     },
     {
       "kind": "object",
@@ -13103,11 +13132,36 @@
       ]
     },
     {
-      "kind": "object",
+      "kind": "union",
       "name": "ChatMember",
       "description": "This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported:",
       "documentationLink": "https://core.telegram.org/bots/api#chatmember",
-      "fields": []
+      "members": [
+        {
+          "kind": "reference",
+          "name": "ChatMemberOwner"
+        },
+        {
+          "kind": "reference",
+          "name": "ChatMemberAdministrator"
+        },
+        {
+          "kind": "reference",
+          "name": "ChatMemberMember"
+        },
+        {
+          "kind": "reference",
+          "name": "ChatMemberRestricted"
+        },
+        {
+          "kind": "reference",
+          "name": "ChatMemberLeft"
+        },
+        {
+          "kind": "reference",
+          "name": "ChatMemberBanned"
+        }
+      ]
     },
     {
       "kind": "object",

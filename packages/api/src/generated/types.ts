@@ -338,8 +338,7 @@ export interface TelegramBotCommand {
 /**
  * This object represents the scope to which bot commands are applied. Currently, the following 7 scopes are supported:
  */
-export interface TelegramBotCommandScope {
-}
+export type TelegramBotCommandScope = TelegramBotCommandScopeDefault | TelegramBotCommandScopeAllPrivateChats | TelegramBotCommandScopeAllGroupChats | TelegramBotCommandScopeAllChatAdministrators | TelegramBotCommandScopeChat | TelegramBotCommandScopeChatAdministrators | TelegramBotCommandScopeChatMember;
 
 /**
  * Represents the scope of bot commands, covering all group and supergroup chat administrators.
@@ -1231,8 +1230,7 @@ export interface TelegramChatLocation {
 /**
  * This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported:
  */
-export interface TelegramChatMember {
-}
+export type TelegramChatMember = TelegramChatMemberOwner | TelegramChatMemberAdministrator | TelegramChatMemberMember | TelegramChatMemberRestricted | TelegramChatMemberLeft | TelegramChatMemberBanned;
 
 /**
  * Represents a chat member that has some additional privileges.

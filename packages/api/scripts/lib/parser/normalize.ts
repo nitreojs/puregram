@@ -3,10 +3,6 @@ import type { AnyNode } from 'domhandler'
 
 import type { SchemaField, SchemaMethod, SchemaObject, SchemaTypeRef } from '../schema-types'
 
-// objects the docs phrase as unions but using "support the following N types" rather than "one of",
-// so the heuristic in `extractObject` misses them. listing here forces union treatment
-const FORCED_UNION_NAMES = new Set(['InlineQueryResult', 'InputMessageContent', 'RichBlock', 'RichText'])
-
 // union members that aren't section links — RichText also admits a bare string and a nested array,
 // neither of which the <ul> of subtype links can express
 const UNION_EXTRA_MEMBERS: Record<string, SchemaTypeRef[]> = {
@@ -154,7 +150,9 @@ function collectDescription (_$: cheerio.CheerioAPI, $h4: cheerio.Cheerio<AnyNod
   return parts.join('\n').trim()
 }
 
-// recovers union members for objects like `BackgroundFill` that list variants in adjacent `<ul>`
+// subtype links from an adjacent <ul>/<ol> — the structural signal that marks a no-field
+// object as a union (BackgroundFill, ChatMember, …). prose <p> links are deliberately
+// excluded so stray references ("Use @BotFather", "see Message") never look like variants
 function collectSectionLinks ($: cheerio.CheerioAPI, $h4: cheerio.Cheerio<AnyNode>) {
   const links: string[] = []
   let $cursor = $h4.next()
@@ -166,7 +164,7 @@ function collectSectionLinks ($: cheerio.CheerioAPI, $h4: cheerio.Cheerio<AnyNod
       break
     }
 
-    if (tag === 'P' || tag === 'UL' || tag === 'OL') {
+    if (tag === 'UL' || tag === 'OL') {
       $cursor.find('a').each((_, a) => {
         const text = $(a).text().trim()
 
@@ -264,24 +262,19 @@ function extractObject (
 ) {
   const fieldRows = $table.find('tbody > tr').toArray()
 
-  // some objects are unions (ChatMember, BackgroundFill) — no field table; members live
-  // inline ("must be one of: A, B, C") or in an adjacent <ul> of links.
-  // also forced for objects that the docs phrase differently ("support the following N types") but
-  // the rest of the codebase wants treated as a union — currently InlineQueryResult and InputMessageContent
-  if (fieldRows.length === 0 && (/one of/i.test(description) || FORCED_UNION_NAMES.has(name))) {
-    let members = extractUnionMembersFromDescription(description)
+  // unions have no field table; their variants are listed in an adjacent <ul>/<ol> of
+  // subtype links (collected into sectionLinks). genuinely empty objects (CallbackGame,
+  // ForumTopicClosed, …) have neither a table nor such a list, so the presence of member
+  // links alone tells unions apart — no per-name allow-list or prose phrasing needed
+  const memberLinks = sectionLinks.filter(l => l !== name)
 
-    if (members.length === 0 && sectionLinks.length > 0) {
-      // exclude self-reference — union name often appears in description anchors
-      members = sectionLinks.filter(l => l !== name).map(n => parseTypeRef(n))
-    }
-
+  if (fieldRows.length === 0 && memberLinks.length > 0) {
     return {
       kind: 'union' as const,
       name,
       description,
       documentationLink: `https://core.telegram.org/bots/api#${name.toLowerCase()}`,
-      members: [...(UNION_EXTRA_MEMBERS[name] ?? []), ...members]
+      members: [...(UNION_EXTRA_MEMBERS[name] ?? []), ...memberLinks.map(n => parseTypeRef(n))]
     }
   }
 
@@ -431,24 +424,4 @@ function extractEnumeration (desc: string, fieldName: string) {
   }
 
   return []
-}
-
-function extractUnionMembersFromDescription (description: string) {
-  // strict PascalCase only — anything looser ("the menu button opens") false-matches
-  const match = description.match(/one of[\s\S]*?:\s*([A-Z][A-Za-z0-9]+(?:\s*,\s*[A-Z][A-Za-z0-9]+)*(?:\s*(?:,|\sand)\s*[A-Z][A-Za-z0-9]+)?)/)
-
-  if (!match) {
-    return []
-  }
-
-  const candidates = match[1]!
-    .split(/\s*,\s*|\s+and\s+|\s+or\s+/g)
-    .map(s => s.trim())
-    .filter(s => /^[A-Z][A-Za-z0-9]+$/.test(s))
-
-  if (candidates.length === 0) {
-    return []
-  }
-
-  return candidates.map(name => parseTypeRef(name))
 }

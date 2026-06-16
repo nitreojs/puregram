@@ -5,7 +5,7 @@ import type { Schema, SchemaField, SchemaObject, SchemaTypeRef } from '../schema
 import { getterNameFor } from './field-names'
 import { formatModule } from './format'
 import { versionString } from './load-schema'
-import { isWrappedStructure } from './structures-config'
+import { hasWrapperClass } from './structures-config'
 import { importNamed, importTypeNamed, jsDoc, typeRefToTs } from './ts-factory'
 import { buildUpdateKinds, type UpdateKindSpec } from './updates-config'
 
@@ -120,7 +120,7 @@ function wrapperType (ref: SchemaTypeRef, objectsByName: Map<string, SchemaObjec
 }
 
 function isObjectWrapper (name: string, objectsByName: Map<string, SchemaObject>) {
-  return isWrappedStructure(name) && objectsByName.get(name)?.kind === 'object'
+  return hasWrapperClass(name, objectsByName.get(name)?.kind)
 }
 
 function collectRefs (

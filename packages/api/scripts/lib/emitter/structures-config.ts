@@ -1,4 +1,4 @@
-import type { SchemaTypeRef } from '../schema-types'
+import type { SchemaObject, SchemaTypeRef } from '../schema-types'
 
 // objects that get wrapper classes — those reached through update payloads or method
 // return values. keep alphabetical for clean diffs
@@ -80,8 +80,23 @@ export const WRAPPED_STRUCTURES = [
 
 export type WrappedStructureName = typeof WRAPPED_STRUCTURES[number]
 
+// union-kind structures that still get a wrapper class. most unions get none (MessageOrigin,
+// ChatBoostSource, …), but ChatMember exposes status helpers (isAdmin/isCreator/isMember) and is
+// reached through ChatMemberUpdated + getChatAdministrators, so it keeps a (fieldless) wrapper
+export const UNION_WRAPPERS = new Set<string>(['ChatMember'])
+
 export function isWrappedStructure (name: string) {
   return (WRAPPED_STRUCTURES as readonly string[]).includes(name)
+}
+
+// whether `name` gets a generated wrapper class: a wrapped object always does; a wrapped union
+// only when it's a designated union wrapper
+export function hasWrapperClass (name: string, kind: SchemaObject['kind'] | undefined) {
+  if (!isWrappedStructure(name)) {
+    return false
+  }
+
+  return kind === 'object' || (kind === 'union' && UNION_WRAPPERS.has(name))
 }
 
 // synthetic collection wrappers — `T[]` fields emit as a handcrafted wrapper class

@@ -41,4 +41,37 @@ describe('extractFromHtml', () => {
       expect(from!.required).toBe(false)
     }
   })
+
+  it('classifies no-field objects by their subtype <ul>: list -> union, none -> empty object', () => {
+    const html = `
+      <h4>ChatMember</h4>
+      <p>This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported:</p>
+      <ul>
+        <li><a href="#chatmemberowner">ChatMemberOwner</a></li>
+        <li><a href="#chatmemberadministrator">ChatMemberAdministrator</a></li>
+        <li><a href="#chatmembermember">ChatMemberMember</a></li>
+      </ul>
+      <h4>VideoChatStarted</h4>
+      <p>This object represents a service message about a video chat started in the chat. Currently holds no information.</p>
+      <h4>CallbackGame</h4>
+      <p>A placeholder, currently holds no information. Use <a href="https://t.me/botfather">@BotFather</a> to set up your game.</p>
+    `
+
+    const { objects } = extractFromHtml(html)
+
+    const chatMember = objects.find(o => o.name === 'ChatMember')
+
+    expect(chatMember!.kind).toBe('union')
+    if (chatMember!.kind === 'union') {
+      expect(chatMember.members).toEqual([
+        { kind: 'reference', name: 'ChatMemberOwner' },
+        { kind: 'reference', name: 'ChatMemberAdministrator' },
+        { kind: 'reference', name: 'ChatMemberMember' }
+      ])
+    }
+
+    // no subtype list -> genuinely empty object, not a union (the prose <a> to @BotFather is ignored)
+    expect(objects.find(o => o.name === 'VideoChatStarted')!.kind).toBe('object')
+    expect(objects.find(o => o.name === 'CallbackGame')!.kind).toBe('object')
+  })
 })

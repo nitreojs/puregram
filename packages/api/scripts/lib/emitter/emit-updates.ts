@@ -8,7 +8,7 @@ import { detectWidenedMethodArgs, isRichMessageRef } from './formattable-detect'
 import { versionString } from './load-schema'
 import { analyzeShortcuts, analyzeThreadShortcuts, type BoundShortcut } from './shortcut-analyzer'
 import { METHOD_POSITIONALS } from './shortcuts-config'
-import { ARRAY_WRAPPER_NAMES, arrayWrapperFor, isWrappedStructure } from './structures-config'
+import { ARRAY_WRAPPER_NAMES, arrayWrapperFor, hasWrapperClass, isWrappedStructure } from './structures-config'
 import { jsDoc, importTypeNamed, importNamed, typeRefToTs } from './ts-factory'
 import { buildUpdateKinds, shortcutNameFor, type UpdateExtra, type UpdateKindSpec } from './updates-config'
 
@@ -167,7 +167,8 @@ export function emitUpdates (schema: Schema) {
     }
   }
 
-  // emit-structures only emits classes for object-kind schema entries — drop union-kind names
+  // keep only names emit-structures actually emits a class for — wrapped objects and the
+  // designated union wrappers (ChatMember); plain unions (MessageOrigin, …) get no class
   const wrappedNames = new Set<string>()
 
   for (const k of kinds) {
@@ -181,9 +182,7 @@ export function emitUpdates (schema: Schema) {
   }
 
   for (const name of [...wrappedNames]) {
-    const obj = objectsByName.get(name)
-
-    if (!obj || obj.kind !== 'object') {
+    if (!hasWrapperClass(name, objectsByName.get(name)?.kind)) {
       wrappedNames.delete(name)
     }
   }
@@ -266,13 +265,7 @@ function collectWrapperNames (ref: SchemaTypeRef, into: Set<string>): void {
 }
 
 function isWrappedObjectClass (objectsByName: Map<string, SchemaObject>, name: string) {
-  if (!isWrappedStructure(name)) {
-    return false
-  }
-
-  const obj = objectsByName.get(name)
-
-  return obj?.kind === 'object'
+  return hasWrapperClass(name, objectsByName.get(name)?.kind)
 }
 
 function refToObjectClassName (ref: SchemaTypeRef, objectsByName: Map<string, SchemaObject>) {

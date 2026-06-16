@@ -5,7 +5,7 @@ import type { Schema, SchemaField, SchemaObject, SchemaTypeRef } from '../schema
 import { camelCase, getterNameFor } from './field-names'
 import { formatModule } from './format'
 import { versionString } from './load-schema'
-import { ARRAY_WRAPPER_NAMES, arrayWrapperFor, isWrappedStructure } from './structures-config'
+import { ARRAY_WRAPPER_NAMES, arrayWrapperFor, hasWrapperClass } from './structures-config'
 import { renderStructureExtras } from './structures-extras'
 import { jsDoc, importTypeNamed, importNamed, typeRefToTs } from './ts-factory'
 
@@ -15,13 +15,20 @@ interface WrapperInfo {
 }
 
 export function emitStructures (schema: Schema) {
-  const wrappedObjects = schema.objects.filter(
-    // eslint-disable-next-line local-rules/no-redundant-return-type -- type predicate needed for union narrowing
-    (o): o is Extract<SchemaObject, { kind: 'object' }> =>
-      o.kind === 'object' && isWrappedStructure(o.name)
-  )
+  // object wrappers map straight through; designated union wrappers (ChatMember) have no schema
+  // fields, so they emit as a fieldless wrapper — just `raw` + handcrafted helpers + inspect
+  const wrappedObjects: Extract<SchemaObject, { kind: 'object' }>[] = []
 
-  // object-kind only — union-kind names (MessageOrigin, ChatBoostSource) get no class
+  for (const o of schema.objects) {
+    if (!hasWrapperClass(o.name, o.kind)) {
+      continue
+    }
+
+    wrappedObjects.push(o.kind === 'object'
+      ? o
+      : { kind: 'object', name: o.name, description: o.description, fields: [] })
+  }
+
   const wrappedClassNames = new Set(wrappedObjects.map(o => o.name))
 
   const nodes: ts.Node[] = []

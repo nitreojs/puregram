@@ -7046,7 +7046,7 @@
         },
         {
           "name": "draft_id",
-          "description": "Unique identifier of the message draft; must be non-zero. Changes of drafts with the same identifier are animated.",
+          "description": "Unique identifier of the message draft; must be non-zero. Changes to drafts with the same identifier are animated.",
           "required": true,
           "type": {
             "kind": "integer"
@@ -18559,7 +18559,7 @@
       "fields": [
         {
           "name": "type",
-          "description": "Type of the result, must be animation",
+          "description": "Type of the media, must be animation",
           "required": true,
           "type": {
             "kind": "string",
@@ -18662,7 +18662,7 @@
       "fields": [
         {
           "name": "type",
-          "description": "Type of the result, must be audio",
+          "description": "Type of the media, must be audio",
           "required": true,
           "type": {
             "kind": "string",
@@ -18749,7 +18749,7 @@
       "fields": [
         {
           "name": "type",
-          "description": "Type of the result, must be document",
+          "description": "Type of the media, must be document",
           "required": true,
           "type": {
             "kind": "string",
@@ -18820,7 +18820,7 @@
       "fields": [
         {
           "name": "type",
-          "description": "Type of the result, must be link",
+          "description": "Type of the media, must be link",
           "required": true,
           "type": {
             "kind": "string",
@@ -18847,7 +18847,7 @@
       "fields": [
         {
           "name": "type",
-          "description": "Type of the result, must be live_photo",
+          "description": "Type of the media, must be live_photo",
           "required": true,
           "type": {
             "kind": "string",
@@ -18926,7 +18926,7 @@
       "fields": [
         {
           "name": "type",
-          "description": "Type of the result, must be location",
+          "description": "Type of the media, must be location",
           "required": true,
           "type": {
             "kind": "string",
@@ -18969,7 +18969,7 @@
       "fields": [
         {
           "name": "type",
-          "description": "Type of the result, must be photo",
+          "description": "Type of the media, must be photo",
           "required": true,
           "type": {
             "kind": "string",
@@ -19040,7 +19040,7 @@
       "fields": [
         {
           "name": "type",
-          "description": "Type of the result, must be sticker",
+          "description": "Type of the media, must be sticker",
           "required": true,
           "type": {
             "kind": "string",
@@ -19075,7 +19075,7 @@
       "fields": [
         {
           "name": "type",
-          "description": "Type of the result, must be venue",
+          "description": "Type of the media, must be venue",
           "required": true,
           "type": {
             "kind": "string",
@@ -19158,7 +19158,7 @@
       "fields": [
         {
           "name": "type",
-          "description": "Type of the result, must be video",
+          "description": "Type of the media, must be video",
           "required": true,
           "type": {
             "kind": "string",
@@ -19725,7 +19725,7 @@
       "fields": [
         {
           "name": "rich_message",
-          "description": "Yes",
+          "description": "The message to be sent",
           "required": true,
           "type": {
             "kind": "reference",
@@ -29692,6 +29692,6 @@
   "source": {
     "corefork": "https://corefork.telegram.org/bots/api",
     "core": "https://core.telegram.org/bots/api",
-    "fetchedAt": "2026-06-11T18:13:44.015Z"
+    "fetchedAt": "2026-06-17T04:59:16.605Z"
   }
 }

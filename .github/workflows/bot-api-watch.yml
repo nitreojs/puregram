@@ -127,6 +127,7 @@ jobs:
           labels: |
             bot-api
             auto-generated
+            @puregram/api
           delete-branch: true
 
       - name: no change

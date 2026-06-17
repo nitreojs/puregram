@@ -75,11 +75,11 @@ jobs:
             current_patch=$(echo "$current" | cut -d. -f3)
             new_patch=$((current_patch + 1))
             next="${target_mm}.${new_patch}"
-            title="chore(api): resync @puregram/api ${next}"
+            title="feat(api): @puregram/api@${next}"
             summary="re-synced bot api **${target_mm}** schema; regenerated \`@puregram/api\` → **${next}**"
           else
             next="${target_mm}.0"
-            title="feat(api): bot api ${target_mm} (@puregram/api ${next})"
+            title="feat(api): @puregram/api@${next}"
             summary="telegram shipped bot api **${target_mm}**; regenerated \`@puregram/api\` → **${next}**"
           fi
 

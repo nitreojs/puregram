@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
 /// Bot API 10.1
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-06-11T18:13:44.015Z
+/// generated at: 2026-06-17T04:59:16.605Z
 /// see scripts/emit.ts in @puregram/api
 
 import type { Formattable } from "../formattable";
@@ -3852,7 +3852,7 @@ export type TelegramInputMedia = TelegramInputMediaAnimation | TelegramInputMedi
  */
 export interface TelegramInputMediaAnimation {
     /**
-     * Type of the result, must be animation
+     * Type of the media, must be animation
      */
     type: "animation";
     /**
@@ -3902,7 +3902,7 @@ export interface TelegramInputMediaAnimation {
  */
 export interface TelegramInputMediaAudio {
     /**
-     * Type of the result, must be audio
+     * Type of the media, must be audio
      */
     type: "audio";
     /**
@@ -3944,7 +3944,7 @@ export interface TelegramInputMediaAudio {
  */
 export interface TelegramInputMediaDocument {
     /**
-     * Type of the result, must be document
+     * Type of the media, must be document
      */
     type: "document";
     /**
@@ -3978,7 +3978,7 @@ export interface TelegramInputMediaDocument {
  */
 export interface TelegramInputMediaLink {
     /**
-     * Type of the result, must be link
+     * Type of the media, must be link
      */
     type: "link";
     /**
@@ -3992,7 +3992,7 @@ export interface TelegramInputMediaLink {
  */
 export interface TelegramInputMediaLivePhoto {
     /**
-     * Type of the result, must be live_photo
+     * Type of the media, must be live_photo
      */
     type: "live_photo";
     /**
@@ -4030,7 +4030,7 @@ export interface TelegramInputMediaLivePhoto {
  */
 export interface TelegramInputMediaLocation {
     /**
-     * Type of the result, must be location
+     * Type of the media, must be location
      */
     type: "location";
     /**
@@ -4052,7 +4052,7 @@ export interface TelegramInputMediaLocation {
  */
 export interface TelegramInputMediaPhoto {
     /**
-     * Type of the result, must be photo
+     * Type of the media, must be photo
      */
     type: "photo";
     /**
@@ -4086,7 +4086,7 @@ export interface TelegramInputMediaPhoto {
  */
 export interface TelegramInputMediaSticker {
     /**
-     * Type of the result, must be sticker
+     * Type of the media, must be sticker
      */
     type: "sticker";
     /**
@@ -4104,7 +4104,7 @@ export interface TelegramInputMediaSticker {
  */
 export interface TelegramInputMediaVenue {
     /**
-     * Type of the result, must be venue
+     * Type of the media, must be venue
      */
     type: "venue";
     /**
@@ -4146,7 +4146,7 @@ export interface TelegramInputMediaVenue {
  */
 export interface TelegramInputMediaVideo {
     /**
-     * Type of the result, must be video
+     * Type of the media, must be video
      */
     type: "video";
     /**
@@ -4383,7 +4383,7 @@ export interface TelegramInputRichMessage {
  */
 export interface TelegramInputRichMessageContent {
     /**
-     * Yes
+     * The message to be sent
      */
     rich_message: TelegramInputRichMessage;
 }

@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
 /// Bot API 10.1
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-06-11T18:13:44.015Z
+/// generated at: 2026-06-17T04:59:16.605Z
 /// see scripts/emit.ts in @puregram/api
 
 export const METHOD_PARAMS: Record<string, readonly string[]> = {

@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
 /// Bot API 10.1
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-06-17T04:59:16.605Z
+/// generated at: 2026-06-18T09:43:22.985Z
 /// see scripts/emit.ts in @puregram/api
 
 import type { Formattable } from "../formattable";
@@ -1208,7 +1208,7 @@ export interface TelegramChatJoinRequest {
      */
     invite_link?: TelegramChatInviteLink;
     /**
-     * Optional. Identifier of the join request query. If present, then the bot must call sendChatJoinRequestWebApp or directly call answerChatJoinRequestQuery within 10 seconds.
+     * Optional. Identifier of the join request query; for bots assigned to process join request only. If present, then the bot must call sendChatJoinRequestWebApp or directly call answerChatJoinRequestQuery within 10 seconds.
      */
     query_id?: string;
 }
@@ -6967,7 +6967,7 @@ export interface TelegramRichBlockParagraph {
 }
 
 /**
- * A block with a photo, corresponding to the HTML tag <photo>.
+ * A block with a photo, corresponding to the HTML tag <img>.
  */
 export interface TelegramRichBlockPhoto {
     /**

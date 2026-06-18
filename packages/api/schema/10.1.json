@@ -5281,7 +5281,7 @@
     },
     {
       "name": "sendChatJoinRequestWebApp",
-      "description": "Use this method to process a received chat join request query by showing a Mini App to the user before deciding the outcome. Returns True on success.",
+      "description": "Use this method to process a received chat join request query by showing a Mini App to the user before deciding the outcome. Call answerChatJoinRequestQuery to resolve the join request query based on the user interaction with the Mini App. Returns True on success.",
       "documentationLink": "https://core.telegram.org/bots/api#sendchatjoinrequestwebapp",
       "multipartOnly": false,
       "arguments": [
@@ -7801,7 +7801,7 @@
       "arguments": [
         {
           "name": "business_connection_id",
-          "description": "Unique identifier of the business connection on behalf of which the message will be sent",
+          "description": "Unique identifier of the business connection on behalf of which the message will be sent. Bot can send rich messages on behalf of a business account only if the corresponding user can send rich messages.",
           "required": false,
           "type": {
             "kind": "string"
@@ -13098,7 +13098,7 @@
         },
         {
           "name": "query_id",
-          "description": "Optional. Identifier of the join request query. If present, then the bot must call sendChatJoinRequestWebApp or directly call answerChatJoinRequestQuery within 10 seconds.",
+          "description": "Optional. Identifier of the join request query; for bots assigned to process join request only. If present, then the bot must call sendChatJoinRequestWebApp or directly call answerChatJoinRequestQuery within 10 seconds.",
           "required": false,
           "type": {
             "kind": "string"
@@ -25240,7 +25240,7 @@
     {
       "kind": "object",
       "name": "RichBlockPhoto",
-      "description": "A block with a photo, corresponding to the HTML tag <photo>.",
+      "description": "A block with a photo, corresponding to the HTML tag <img>.",
       "documentationLink": "https://core.telegram.org/bots/api#richblockphoto",
       "fields": [
         {
@@ -29692,6 +29692,6 @@
   "source": {
     "corefork": "https://corefork.telegram.org/bots/api",
     "core": "https://core.telegram.org/bots/api",
-    "fetchedAt": "2026-06-17T04:59:16.605Z"
+    "fetchedAt": "2026-06-18T09:43:22.985Z"
   }
 }

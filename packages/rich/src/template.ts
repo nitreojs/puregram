@@ -21,7 +21,7 @@ function dedent (skeleton: string) {
     min = 0
   }
 
-  return lines.map(line => line.slice(min)).join('\n').replace(/^\n+/, '').replace(/\s+$/, '')
+  return lines.map(line => line.slice(min)).join('\n').replace(/^\n+/, '').trimEnd()
 }
 
 export interface RichTemplate {

@@ -98,7 +98,14 @@ function buildBody (scope, pkg, version, releaseSha) {
 
   const header = `[${pkg}@${version}](https://www.npmjs.com/package/${pkg}/v/${version})`
 
-  return bullets.length > 0 ? `${header}\n\n${bullets.join('\n')}` : `${header}\n\n_no notable changes_`
+  if (bullets.length > 0) {
+    return `${header}\n\n${bullets.join('\n')}`
+  }
+
+  // an empty body almost always means a bot-api resync for @puregram/api; everything else is a plain no-op
+  const empty = scope === 'api' ? '_resynced with the latest bot api schema_' : '_no notable changes_'
+
+  return `${header}\n\n${empty}`
 }
 
 function releaseExists (tag) {

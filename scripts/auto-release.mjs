@@ -17,6 +17,14 @@ const DRY_RUN = process.env.DRY_RUN === '1'
 const RELEASE_RE = /^feat\(([^)]+)\): (\S+)@(\d+\.\d+\.\d+)(?: \(#\d+\))?$/
 const CONVENTIONAL_RE = /^(\w+)\(([^)]+)\)!?: (.+)$/
 
+// the bot-api watcher historically used these forms before switching to the standard
+// `feat(api): @puregram/api@x.y.z`; treat them as release markers too, so a resync bounds
+// against the previous release and never lists itself as a changelog entry
+const RESYNC_RE = /^chore\(api\): resync @puregram\/api \d+\.\d+\.\d+(?: \(#\d+\))?$/
+const BOTAPI_RE = /^feat\(api\): bot api \d+\.\d+\.\d+(?: \(#\d+\))?$/
+
+const isReleaseMarker = (subject) => RELEASE_RE.test(subject) || RESYNC_RE.test(subject) || BOTAPI_RE.test(subject)
+
 const git = (...args) => execFileSync('git', args, { encoding: 'utf8' }).trim()
 const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 
@@ -49,14 +57,16 @@ function pushedCommits () {
 
 // most recent release commit for the same package strictly before `releaseSha`
 function previousReleaseSha (scope, pkg, releaseSha) {
-  const re = new RegExp(`^feat\\(${escapeRe(scope)}\\): ${escapeRe(pkg)}@\\d`)
+  const featRe = new RegExp(`^feat\\(${escapeRe(scope)}\\): ${escapeRe(pkg)}@\\d`)
+  const isMarker = (subject) =>
+    featRe.test(subject) || (scope === 'api' && (RESYNC_RE.test(subject) || BOTAPI_RE.test(subject)))
 
   for (const { sha, subject } of logLines(releaseSha)) {
     if (sha === releaseSha) {
       continue
     }
 
-    if (re.test(subject)) {
+    if (isMarker(subject)) {
       return sha
     }
   }
@@ -79,7 +89,7 @@ function buildBody (scope, pkg, version, releaseSha) {
 
     const [, type, sc] = match
 
-    if (sc !== scope || type === 'docs' || RELEASE_RE.test(subject)) {
+    if (sc !== scope || type === 'docs' || isReleaseMarker(subject)) {
       continue
     }
 

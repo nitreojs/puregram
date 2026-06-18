@@ -121,9 +121,7 @@ jobs:
             - `packages/session/src/generated/augmentations/**`
             - `@puregram/api` version bump → `${{ env.next }}`
 
-            review the diff before merging — schema bumps occasionally need manual
-            touch-ups in handcrafted code (telegram routinely renames fields in
-            "minor" bumps)
+            review the diff before merging — schema bumps occasionally need manual touch-ups in handcrafted code (telegram routinely renames fields in "minor" bumps)
           labels: |
             bot-api
             auto-generated

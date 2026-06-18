@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
 /// Bot API 10.1
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-06-17T04:59:16.605Z
+/// generated at: 2026-06-18T09:43:22.985Z
 /// see scripts/emit.ts in @puregram/api
 
 import * as api from "./methods";
@@ -669,7 +669,7 @@ export interface ApiMethods {
      */
     sendChatAction: api.sendChatAction;
     /**
-     * Use this method to process a received chat join request query by showing a Mini App to the user before deciding the outcome. Returns True on success.
+     * Use this method to process a received chat join request query by showing a Mini App to the user before deciding the outcome. Call answerChatJoinRequestQuery to resolve the join request query based on the user interaction with the Mini App. Returns True on success.
      *
      * [bot api docs](https://core.telegram.org/bots/api#sendchatjoinrequestwebapp)
      */

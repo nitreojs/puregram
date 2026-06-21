@@ -60,6 +60,7 @@ export {
   BotCommands,
   InputPollOption,
   InputSticker,
+  Invoice,
   LabeledPrice,
   MenuButton,
   ShippingOption

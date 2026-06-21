@@ -9,6 +9,7 @@ import {
   InputMessageContent,
   InputPollOption,
   InputSticker,
+  Invoice,
   LabeledPrice,
   LinkPreview,
   MediaGroup,
@@ -357,5 +358,71 @@ describe('MenuButton', () => {
   it('webApp wraps text + url', () => {
     expect(MenuButton.webApp('open', 'https://example.com'))
       .toEqual({ type: 'web_app', text: 'open', web_app: { url: 'https://example.com' } })
+  })
+})
+
+describe('Invoice', () => {
+  it('fiat builds a snake_case body and camel→snake the optional fields', () => {
+    const body = Invoice.fiat({
+      title: 'Coffee',
+      description: 'a good cup',
+      payload: 'order_42',
+      providerToken: 'PROVIDER',
+      currency: 'EUR',
+      prices: [LabeledPrice.of('cup', 500)],
+      isFlexible: true,
+      maxTipAmount: 100,
+      photoUrl: 'https://x/p.png'
+    })
+
+    expect(body).toEqual({
+      title: 'Coffee',
+      description: 'a good cup',
+      payload: 'order_42',
+      provider_token: 'PROVIDER',
+      currency: 'EUR',
+      prices: [{ label: 'cup', amount: 500 }],
+      is_flexible: true,
+      max_tip_amount: 100,
+      photo_url: 'https://x/p.png'
+    })
+  })
+
+  it('stars pins currency to XTR and sends an empty provider token', () => {
+    const body = Invoice.stars({
+      title: 'Pro plan',
+      description: 'monthly',
+      payload: 'sub_pro',
+      prices: [LabeledPrice.of('1 month', 250)],
+      subscriptionPeriod: 2592000
+    })
+
+    expect(body).toEqual({
+      title: 'Pro plan',
+      description: 'monthly',
+      payload: 'sub_pro',
+      prices: [{ label: '1 month', amount: 250 }],
+      subscription_period: 2592000,
+      currency: 'XTR',
+      provider_token: ''
+    })
+  })
+
+  it('stars without a subscription period omits it', () => {
+    const body = Invoice.stars({
+      title: 'Tip',
+      description: 'thanks',
+      payload: 'tip_1',
+      prices: [LabeledPrice.of('tip', 50)]
+    })
+
+    expect(body).toEqual({
+      title: 'Tip',
+      description: 'thanks',
+      payload: 'tip_1',
+      prices: [{ label: 'tip', amount: 50 }],
+      currency: 'XTR',
+      provider_token: ''
+    })
   })
 })

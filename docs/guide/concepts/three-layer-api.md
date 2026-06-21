@@ -115,6 +115,36 @@ await tg.api.call('someBetaMethod', { foo: 'bar' })
 
 `tg.api.call` always throws on errors — there's no `suppress` option here
 
+## iterating paginated endpoints
+
+some bot api methods return one page at a time. the `iter*` helpers auto-page them — `for await` yields items one by one, or `.collect()` drains the rest into an array carrying the `total` telegram reported:
+
+```ts
+// star transactions, gifts, profile photos/audios — paged transparently
+for await (const transaction of tg.iterStarTransactions()) {
+  console.log(transaction.amount)
+}
+
+const photos = await tg.iterUserProfilePhotos(userId).collect()
+console.log(photos.length, photos.total)
+```
+
+covers the six paged endpoints: `iterUserProfilePhotos`, `iterUserProfileAudios`, `iterStarTransactions`, `iterUserGifts`, `iterChatGifts`, `iterBusinessAccountGifts`. each takes the same options as its `get*` method (minus the offset, which the iterator manages); pass `{ limit }` to tune the page size
+
+## acting as a business account
+
+`tg.business(connectionId)` returns a scoped copy of `tg.api` that injects `business_connection_id` into every call — for when a [business connection](https://core.telegram.org/bots/business) lets your bot act on an account's behalf. a call-site `business_connection_id` still wins:
+
+```ts
+tg.onBusinessMessage(async (message) => {
+  const business = tg.business(message.raw.business_connection_id!)
+
+  await business.sendMessage({ chat_id: message.chat.id, text: 'on behalf of the account' })
+})
+```
+
+it's the same proxy as `tg.api` — every method (and `suppress`) works identically, only `business_connection_id` is pre-filled
+
 ::: tip which layer should i use day to day?
 layer 3 (`update.send`, `update.delete`, `update.answer`, ...) inside handlers. layer 2 (`tg.send`, `tg.sendPhoto`, ...) when you need to push a message outside of a handler (e.g. from a cron job). layer 1 (`tg.api.X`) when the curated shortcuts don't cover the parameter you need
 :::

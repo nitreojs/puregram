@@ -5,7 +5,7 @@ description: flood-wait retries, dispatch error handling, and concurrency contro
 
 # resilience
 
-three opt-in knobs that make your bot less fragile under real-world traffic and telegram's rate limits
+a handful of opt-in knobs that make your bot less fragile under real-world traffic and telegram's rate limits
 
 ## `retryOnFloodWait` — auto-retry on 429
 
@@ -23,15 +23,23 @@ const tg = new Telegram({
   token: process.env.TOKEN!,
   retryOnFloodWait: { max: 3, maxWaitMs: 10_000 }
 })
+
+// also retry 5xx + network errors with exponential backoff (3s, 6s, 12s, … capped at 1h)
+const tg = new Telegram({
+  token: process.env.TOKEN!,
+  retryOnFloodWait: { max: 3, on: ['flood', 'server', 'network'], backoff: { base: 3000 } }
+})
 ```
 
 | field | type | default | description |
 |---|---|---|---|
 | `max` | `number` | `1` | max retries per call before propagating the `ApiError` |
 | `maxWaitMs` | `number` | `Infinity` | if `retry_after × 1000` exceeds this, give up and throw instead |
+| `on` | `RetryReason[]` | `['flood']` | which failures to retry — `'flood'` (429 + `retry_after`), `'server'` (api 5xx), `'network'` (transport/fetch errors) |
+| `backoff` | `{ base?, max? }` | `{ base: 3000, max: 3_600_000 }` | exponential backoff for `server`/`network` retries — `base × 2 ** attempt`, capped at `max` (ms) |
 
 ::: tip what triggers a retry
-only `429` errors with a numeric `retry_after` in `parameters` trigger the sleep-and-retry path. every other error short-circuits as usual. calls with `suppress: true` keep their semantics (raw error object returned, no retry)
+with the default `on: ['flood']`, only `429` errors with a numeric `retry_after` in `parameters` trigger the sleep-and-retry path — every other error short-circuits as usual. add `'server'` / `'network'` to opt into 5xx and transport-failure retries (exponential `backoff`). calls with `suppress: true` keep their semantics (raw error object returned, no retry)
 :::
 
 ## `tg.catch` + `swallowDispatchErrors`
@@ -93,6 +101,21 @@ if two updates from the same chat arrive simultaneously and both modify the same
 ::: tip concurrency vs maxInFlight
 `concurrency` caps how many dispatches *run* at once; the rest queue in memory. under sustained overload that queue grows without bound. `maxInFlight` caps *running + queued* by pausing `getUpdates` once the limit is hit — telegram holds the backlog server-side until the bot catches up, so memory stays flat. use `concurrency` to protect downstream services, `maxInFlight` to protect the process itself
 :::
+
+## auto-answering + de-duplicating updates
+
+two more constructor knobs for everyday operator hygiene, both off by default:
+
+- **`autoAnswerCallbackQuery`** — if a `callback_query` handler finishes without calling `update.answer(...)`, puregram answers it for you so the client's loading spinner never hangs. pass `true` for an empty answer, or an object (`{ text, show_alert, … }`) for a default answer
+- **`dedupeUpdates`** — drop updates whose `update_id` was seen recently (webhook retries, overlapping `getUpdates`). `true` keeps a window of the last 1000 ids; pass `{ max }` to size it
+
+```ts
+const tg = new Telegram({
+  token: process.env.TOKEN!,
+  autoAnswerCallbackQuery: true,        // or { text: 'done' }
+  dedupeUpdates: true                   // or { max: 5000 }
+})
+```
 
 ## see also
 

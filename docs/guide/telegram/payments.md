@@ -71,6 +71,35 @@ const options = [
 
 `ShippingOption.of(id, title, prices)` — `id` is your internal identifier, `title` is shown to the user, `prices` is an array of `LabeledPrice` portions
 
+## Invoice
+
+`LabeledPrice` builds the line items; `Invoice` builds the whole invoice body — and encodes telegram's payments split as types. `Invoice.stars(...)` pins `currency` to `'XTR'`, sends an empty `provider_token`, allows `subscriptionPeriod`, and rejects the fiat-only knobs (tips, shipping, `is_flexible`). `Invoice.fiat(...)` requires a `providerToken` + ISO 4217 `currency`, allows tips/shipping/flexible, and rejects `subscriptionPeriod`. pass the wrong field and it's a compile error, not a runtime `400`
+
+```ts
+import { Invoice, LabeledPrice } from 'puregram'
+
+// telegram stars — currency is forced to XTR; `providerToken` won't even typecheck here
+const link = await tg.api.createInvoiceLink(Invoice.stars({
+  title: 'pro plan', description: 'monthly', payload: 'sub_pro',
+  prices: [LabeledPrice.of('1 month', 250)],   // amount = stars
+  subscriptionPeriod: 2_592_000                 // 30 days, xtr-only
+}))
+
+// fiat — provider token + currency required; spread into sendInvoice with a chat_id
+await tg.api.sendInvoice({
+  chat_id,
+  ...Invoice.fiat({
+    title: 'coffee', description: 'a good cup', payload: 'order_42',
+    providerToken: process.env.PROVIDER_TOKEN!,
+    currency: 'EUR',
+    prices: [LabeledPrice.of('cup', 500), LabeledPrice.of('shipping', 150)],
+    isFlexible: true
+  })
+})
+```
+
+the result carries only the invoice-definition fields (no `chat_id`, no delivery options) — spread it into `sendInvoice` or pass it straight to `createInvoiceLink`. add `business_connection_id` at the call site (or use `tg.business(...)`)
+
 ## the payment flow
 
 telegram's payment flow has four stages. all four update kinds are first-class in puregram:

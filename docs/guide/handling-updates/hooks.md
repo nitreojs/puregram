@@ -27,6 +27,7 @@ tg.useHook('onBeforeRequest', (context: RequestContext, next) => {
 ```ts
 tg.useHook('onBeforeRequest', fn)      // request hook — Middleware<RequestContext>
 tg.useHook('onAfterRequest', fn)       // request hook
+tg.useHook('onApiCall', fn)            // around hook — wraps the actual fetch
 tg.useHook('onUpdate', fn, options)    // dispatch middleware (same as tg.use)
 tg.useHook('onInit', fn)               // lifecycle — runs after plugins install
 tg.useHook('onShutdown', fn)           // lifecycle — runs on tg.shutdown()
@@ -42,6 +43,7 @@ every `tg.api.X(...)` call passes through four ordered stages. each is a named h
 | --- | --- | --- | --- |
 | 1 | `onBeforeRequest` | `method`, `params` | mutate params, add default options, abort early |
 | 2 | `onRequestIntercept` | `method`, `params`, `url`, `init` | swap http client, rewrite url |
+| — | `onApiCall` *(around — wraps the fetch)* | `method`, `params`, `url`, `init` | time, trace, retry, or short-circuit the call |
 | — | *(fetch happens here)* | — | — |
 | 3 | `onResponseIntercept` | `method`, `params`, `url`, `init`, `response`, `json` | inspect or rewrite the response before puregram processes it |
 | 4 | `onAfterRequest` | all fields | cleanup, metrics, cache updates |
@@ -63,6 +65,22 @@ tg.useHook('onAfterRequest', (ctx: RequestContext, next) => {
   return next()
 })
 ```
+
+## the around hook
+
+`onApiCall` is the odd one out. instead of firing at a point, it *wraps* the fetch — you register it as a middleware and call `next()` to let the request through. everything before `await next()` runs on the way out, everything after runs once the response is back. it's where you time, trace, retry, or short-circuit a call:
+
+```ts
+import type { RequestContext } from 'puregram'
+
+tg.useHook('onApiCall', async (ctx: RequestContext, next) => {
+  const started = Date.now()
+  await next() // the actual fetch happens here
+  console.log('[api]', ctx.method, `${Date.now() - started}ms`)
+})
+```
+
+it sits around the fetch, between `onRequestIntercept` and `onResponseIntercept`. unlike the four point hooks it runs only when you register one — with none registered the call runs directly, so there's no cost otherwise
 
 ## request context shape
 

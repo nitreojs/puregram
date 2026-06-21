@@ -27,7 +27,7 @@ all fields are optional:
 |---|---|---|---|
 | `offset` | `number` | none | starting `update_id` for the next `getUpdates`. rarely needed — useful for resume-from-checkpoint flows |
 | `timeout` | `number` (sec) | telegram's default | long-poll timeout passed to `getUpdates` |
-| `allowedUpdates` | `string[]` | `tg.options.allowedUpdates` | restrict which update kinds telegram delivers. `[]` means "everything except opt-in kinds" |
+| `allowedUpdates` | `string[] \| 'auto'` | `tg.options.allowedUpdates` | restrict which update kinds telegram delivers. `[]` means "everything except opt-in kinds"; `'auto'` derives the set from your registered handlers |
 | `dropPendingUpdates` | `boolean \| string[]` | `false` | drain the queued backlog before subscribing. `true` drops all; pass an array to drop only listed kinds |
 | `concurrency` | `number` | `Infinity` | cap the number of concurrent dispatches |
 | `maxInFlight` | `number` | `Infinity` | backpressure — stop pulling new updates while this many dispatches are in flight (running + queued), resume as they settle |
@@ -43,6 +43,23 @@ const tg = new Telegram({
 ```
 
 a per-call `allowedUpdates` overrides the constructor default for that call only
+
+set `allowedUpdates: 'auto'` (constructor or per-call) and puregram derives the minimal set from your registered handlers — `onMessage` + `onCallbackQuery` becomes `['message', 'callback_query']`, with opt-in kinds pulled in only when you actually handle them:
+
+```ts
+const tg = new Telegram({
+  token: process.env.TOKEN!,
+  allowedUpdates: 'auto'
+})
+
+tg.onMessage(handler)
+tg.onCallbackQuery(handler)
+
+// puregram subscribes to exactly ['message', 'callback_query']
+await tg.startPolling()
+```
+
+handlers gated by opaque raw predicates (a bare `tg.onUpdate(fn)`) can't be analysed, so `'auto'` safely falls back to telegram's default subscription
 
 ## opting into every update kind
 

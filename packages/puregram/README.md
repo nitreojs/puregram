@@ -68,6 +68,8 @@ it's that easy!
   - [usage](#usage)
   - [calling api methods](#calling-api-methods)
     - [`suppress`ing api errors](#suppressing-errors)
+    - [iterating paginated endpoints](#iterators)
+    - [acting as a business account](#business)
   - [sending media (`MediaSource`)](#sending-media)
   - [`InputMedia` and friends](#input-media)
   - [using markdown (`parse_mode`)](#using-markdown)
@@ -85,6 +87,7 @@ it's that easy!
   - [`retryOnFloodWait` — auto-retry on 429](#retry-on-flood-wait)
   - [`tg.catch` + `swallowDispatchErrors`](#tg-catch)
   - [polling concurrency + per-key sequentialization](#polling-concurrency)
+  - [auto-answering + de-duplicating updates](#auto-answer-dedupe)
 - [debug logs](#debug-logs)
 - [**typescript usage**](#typescript-usage)
 - [**faq**](#faq)
@@ -217,6 +220,38 @@ if (Telegram.isErrorResponse(result)) {
 ```
 
 **note**: `telegram.api.call('method', params)` always throws — there's no `suppress` on the string escape hatch
+
+<a name='iterators'></a>
+#### iterating paginated endpoints
+
+some bot api methods return one page at a time. the `iter*` helpers auto-page them — `for await` yields items one by one, or `.collect()` drains the rest into an array carrying the `total` telegram reported:
+
+```ts
+// star transactions, gifts, profile photos/audios — paged transparently
+for await (const transaction of telegram.iterStarTransactions()) {
+  console.log(transaction.amount)
+}
+
+const photos = await telegram.iterUserProfilePhotos(userId).collect()
+console.log(photos.length, photos.total)
+```
+
+covers the six paged endpoints: `iterUserProfilePhotos`, `iterUserProfileAudios`, `iterStarTransactions`, `iterUserGifts`, `iterChatGifts`, `iterBusinessAccountGifts`. each takes the same options as its `get*` method (minus the offset, which the iterator manages); pass `{ limit }` to tune the page size
+
+<a name='business'></a>
+#### acting as a business account
+
+`telegram.business(connectionId)` returns a scoped copy of `telegram.api` that injects `business_connection_id` into every call — for when a [business connection](https://core.telegram.org/bots/business) lets your bot act on an account's behalf. a call-site `business_connection_id` still wins:
+
+```ts
+telegram.onBusinessMessage(async (message) => {
+  const business = telegram.business(message.raw.business_connection_id!)
+
+  await business.sendMessage({ chat_id: message.chat.id, text: 'on behalf of the account' })
+})
+```
+
+it's the same proxy as `telegram.api` — every method (and `suppress`) works identically, only `business_connection_id` is pre-filled
 
 <a name='sending-media'></a>
 ### sending media (`MediaSource`)
@@ -485,6 +520,36 @@ const shipping = [
   ShippingOption.of('fast', 'express', [...prices, LabeledPrice.of('rush', 1000)])
 ]
 ```
+
+<a name='invoice'></a>
+### `Invoice` — `sendInvoice` / `createInvoiceLink` (stars + fiat)
+
+`LabeledPrice` builds the line items; `Invoice` builds the whole invoice body — and encodes telegram's payments split as types. `Invoice.stars(...)` pins `currency` to `'XTR'`, sends an empty `provider_token`, allows `subscriptionPeriod`, and rejects the fiat-only knobs (tips, shipping, `is_flexible`). `Invoice.fiat(...)` requires a `providerToken` + ISO 4217 `currency`, allows tips/shipping/flexible, and rejects `subscriptionPeriod`. pass the wrong field and it's a compile error, not a runtime `400`
+
+```ts
+import { Invoice, LabeledPrice } from 'puregram'
+
+// telegram stars — currency is forced to XTR; `providerToken` won't even typecheck here
+const link = await telegram.api.createInvoiceLink(Invoice.stars({
+  title: 'pro plan', description: 'monthly', payload: 'sub_pro',
+  prices: [LabeledPrice.of('1 month', 250)],   // amount = stars
+  subscriptionPeriod: 2_592_000                 // 30 days, xtr-only
+}))
+
+// fiat — provider token + currency required; spread into sendInvoice with a chat_id
+await telegram.api.sendInvoice({
+  chat_id,
+  ...Invoice.fiat({
+    title: 'coffee', description: 'a good cup', payload: 'order_42',
+    providerToken: process.env.PROVIDER_TOKEN!,
+    currency: 'EUR',
+    prices: [LabeledPrice.of('cup', 500), LabeledPrice.of('shipping', 150)],
+    isFlexible: true
+  })
+})
+```
+
+the result carries only the invoice-definition fields (no `chat_id`, no delivery options) — spread it into `sendInvoice` or pass it straight to `createInvoiceLink`. add `business_connection_id` at the call site (or use [`telegram.business(...)`](#business))
 
 <a name='bot-commands'></a>
 ### `BotCommands` (+ `.scope`) — `setMyCommands`
@@ -759,7 +824,7 @@ the five request-stage hooks, in order:
 
 1. **`onBeforeRequest`** — request just caught, params not yet serialised. mutate `params`, abort early
 2. **`onRequestIntercept`** — just before fetch fires. `url`, `init` are populated; this is where you'd swap the http client or rewrite the url
-3. ...the actual api call happens here. no hook, sorry!
+3. **`onApiCall`** — an *around* hook (`(ctx, next) => { … await next() … }`) wrapping the actual fetch. time it, trace it, retry it, or short-circuit. registered separately via `useHook('onApiCall', …)`; with none registered the call runs directly, so there's no cost otherwise
 4. **`onResponseIntercept`** — response back, parsed as `json`. inspect or rewrite the response before puregram processes it
 5. **`onAfterRequest`** — pipeline done. cleanup time
 
@@ -882,7 +947,7 @@ await telegram.startPolling({
 |---|---|---|---|
 | `offset` | `number` | none | starting `update_id` offset for the next `getUpdates`. rarely needed — useful for resume-from-checkpoint flows |
 | `timeout` | `number` (sec) | telegram default | long-poll timeout |
-| `allowedUpdates` | `string[]` | `telegram.options.allowedUpdates` (constructor default) | restrict the kinds of updates telegram delivers. omit (or `[]`) for "everything except opt-in kinds" |
+| `allowedUpdates` | `string[] \| 'auto'` | `telegram.options.allowedUpdates` | restrict the kinds telegram delivers. `[]` = "everything except opt-in kinds"; `'auto'` derives the set from your handlers |
 | `dropPendingUpdates` | `boolean \| string[]` | `false` | drain the queued backlog before subscribing. `true` drops everything; pass an array to drop only the listed kinds (`['message', 'callback_query']`) |
 
 `allowedUpdates` can also be set at construction time — convenient default for every `startPolling` / webhook in the same bot:
@@ -895,6 +960,8 @@ const telegram = new Telegram({
 ```
 
 per-call `allowedUpdates` overrides the constructor default
+
+set `allowedUpdates: 'auto'` (constructor or per-call) to have puregram derive the minimal set from your registered handlers — `onMessage` + `onCallbackQuery` becomes `['message', 'callback_query']`, opt-in kinds included only when you actually handle them. handlers gated by opaque predicates (a raw `onUpdate(fn)`) can't be analysed, so `'auto'` safely falls back to telegram's default subscription
 
 ### `UpdatesFilter` — opt into every update kind
 
@@ -1087,7 +1154,7 @@ update.sendVideo(MediaSource.local('/srv/media/clip.mp4'))
 <a name='resilience'></a>
 ## resilience
 
-three opt-in knobs that turn the bot into a slightly less polite citizen of telegram's rate limits
+a handful of opt-in knobs for surviving real-world traffic — retries, error handling, concurrency, and update hygiene
 
 <a name='retry-on-flood-wait'></a>
 ### `retryOnFloodWait` — auto-retry on 429
@@ -1106,14 +1173,22 @@ const telegram = new Telegram({
   token: process.env.TOKEN!,
   retryOnFloodWait: { max: 3, maxWaitMs: 10_000 }
 })
+
+// also retry 5xx + network errors with exponential backoff (3s, 6s, 12s, … capped at 1h)
+const telegram = new Telegram({
+  token: process.env.TOKEN!,
+  retryOnFloodWait: { max: 3, on: ['flood', 'server', 'network'], backoff: { base: 3000 } }
+})
 ```
 
 | field | type | default | description |
 |---|---|---|---|
 | `max` | `number` | `1` | max retries per call before propagating the `ApiError` |
 | `maxWaitMs` | `number` | `Infinity` | if `retry_after × 1000` exceeds this, give up immediately |
+| `on` | `RetryReason[]` | `['flood']` | which failures to retry — `'flood'` (429 + `retry_after`), `'server'` (api 5xx), `'network'` (transport/fetch errors) |
+| `backoff` | `{ base?, max? }` | `{ base: 3000, max: 3_600_000 }` | exponential backoff for `server`/`network` retries — `base × 2 ** attempt`, capped at `max` (ms) |
 
-only `429` with a numeric `retry_after` triggers a retry — every other error short-circuits as before. `suppress: true` calls keep their semantics (raw error object, no retry)
+with the default `on: ['flood']`, only `429` with a numeric `retry_after` retries — every other error short-circuits as before. add `'server'` / `'network'` to opt into 5xx and transport-failure retries (exponential `backoff`). `suppress: true` calls keep their semantics (raw error object, no retry)
 
 <a name='tg-catch'></a>
 ### `tg.catch` + `swallowDispatchErrors`
@@ -1160,6 +1235,22 @@ await telegram.startPolling({
 ```
 
 `sequentializeBy` returning `undefined` or `''` opts an update out of per-key queuing entirely. inspired by [grammY's runner](https://grammy.dev/plugins/runner)
+
+<a name='auto-answer-dedupe'></a>
+### auto-answering + de-duplicating updates
+
+two constructor knobs for everyday operator hygiene, both off by default:
+
+- **`autoAnswerCallbackQuery`** — if a `callback_query` handler finishes without calling `update.answer(...)`, puregram answers it for you so the client's loading spinner never hangs. pass `true` for an empty answer, or an object (`{ text, show_alert, … }`) for a default answer
+- **`dedupeUpdates`** — drop updates whose `update_id` was seen recently (webhook retries, overlapping `getUpdates`). `true` keeps a window of the last 1000 ids; pass `{ max }` to size it
+
+```ts
+const telegram = new Telegram({
+  token: process.env.TOKEN!,
+  autoAnswerCallbackQuery: true,        // or { text: 'done' }
+  dedupeUpdates: true                   // or { max: 5000 }
+})
+```
 
 ---
 

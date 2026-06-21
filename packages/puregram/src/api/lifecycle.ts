@@ -8,7 +8,7 @@ import type { HookRegistry, RequestContext } from '../dispatch/hooks'
 import { ApiError } from '../errors'
 import type { HttpClient } from '../http/client'
 import { needsMultipart, buildSimpleMultipart, buildMediaGroupMultipart } from '../http/multipart'
-import type { ResolvedTelegramOptions } from '../options'
+import type { ResolvedTelegramOptions, RetryOnFloodWaitOptions } from '../options'
 import { replyAls } from '../transport/webhook/reply'
 
 import { mergeDefaultParams } from './default-params'
@@ -54,14 +54,15 @@ export async function runRequest (
         throw error
       }
 
-      const waitMs = floodWaitMs(error)
+      const waitMs = retryWaitMs(error, retry, attempt)
 
-      if (waitMs === undefined || waitMs > retry.maxWaitMs) {
+      if (waitMs === undefined) {
         throw error
       }
 
       attempt += 1
-      debug('429 retry %d for %s in %dms', attempt, method, waitMs)
+
+      debug('retry %d for %s in %dms', attempt, method, waitMs)
       await sleep(waitMs)
     }
   }
@@ -72,28 +73,49 @@ function resolveRetry (input: ResolvedTelegramOptions['retryOnFloodWait']) {
     return undefined
   }
 
-  if (input === true) {
-    return { max: 1, maxWaitMs: Infinity }
-  }
+  const config: RetryOnFloodWaitOptions = input === true ? {} : input
+  const reasons = config.on ?? ['flood']
 
   return {
-    max: input.max ?? 1,
-    maxWaitMs: input.maxWaitMs ?? Infinity
+    max: config.max ?? 1,
+    maxWaitMs: config.maxWaitMs ?? Infinity,
+    flood: reasons.includes('flood'),
+    server: reasons.includes('server'),
+    network: reasons.includes('network'),
+    backoffBase: config.backoff?.base ?? 3000,
+    backoffMax: config.backoff?.max ?? 3_600_000
   }
 }
 
-function floodWaitMs (error: unknown) {
-  if (!(error instanceof ApiError) || error.code !== 429) {
-    return undefined
+type ResolvedRetry = NonNullable<ReturnType<typeof resolveRetry>>
+
+// exponential backoff for server/network retries — base, 2×base, 4×base, … capped at backoffMax
+function backoffMs (retry: ResolvedRetry, attempt: number) {
+  return Math.min(retry.backoffBase * 2 ** attempt, retry.backoffMax)
+}
+
+function retryWaitMs (error: unknown, retry: ResolvedRetry, attempt: number) {
+  if (error instanceof ApiError && error.code === 429) {
+    if (!retry.flood) {
+      return undefined
+    }
+
+    const retryAfter = error.parameters?.retry_after
+
+    if (typeof retryAfter !== 'number') {
+      return undefined
+    }
+
+    const waitMs = retryAfter * 1000
+
+    return waitMs > retry.maxWaitMs ? undefined : waitMs
   }
 
-  const retryAfter = error.parameters?.retry_after
-
-  if (typeof retryAfter !== 'number') {
-    return undefined
+  if (error instanceof ApiError) {
+    return error.code >= 500 && retry.server ? backoffMs(retry, attempt) : undefined
   }
 
-  return retryAfter * 1000
+  return retry.network ? backoffMs(retry, attempt) : undefined
 }
 
 function sleep (ms: number) {

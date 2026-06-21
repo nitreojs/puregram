@@ -3,12 +3,24 @@ import type { TelegramUser } from '@puregram/api'
 import type { DefaultParams } from './api/default-params'
 import type { HttpClient } from './http/client'
 
-/** opt-in 429 auto-retry config — `true` => one retry, no wait cap. object form overrides both knobs */
+/** failure classes the retry logic may act on — `flood` = 429+retry_after, `server` = api 5xx, `network` = transport */
+export type RetryReason = 'flood' | 'server' | 'network'
+
+/** opt-in auto-retry config — `true` => one retry on flood waits, no wait cap. object form overrides the knobs */
 export interface RetryOnFloodWaitOptions {
   /** maximum number of retries on a single api call (default 1) */
   max?: number
   /** if `retry_after × 1000` exceeds this, propagate the error instead of sleeping (default Infinity) */
   maxWaitMs?: number
+  /** which failure classes to retry. defaults to `['flood']`, preserving the original 429-only behavior */
+  on?: RetryReason[]
+  /** exponential backoff for `server`/`network` retries — `base × 2 ** attempt`, capped at `max` */
+  backoff?: {
+    /** first-retry delay in ms (default 3000) */
+    base?: number
+    /** maximum backoff delay in ms (default 3_600_000, one hour) */
+    max?: number
+  }
 }
 
 export interface TelegramOptions {

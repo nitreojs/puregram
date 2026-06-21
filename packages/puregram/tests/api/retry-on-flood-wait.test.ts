@@ -129,3 +129,54 @@ describe('runRequest retryOnFloodWait', () => {
     expect(elapsed).toBeGreaterThanOrEqual(900)
   })
 })
+
+describe('runRequest broadened retry', () => {
+  const serverError = () => ({
+    status: 200,
+    json: () => Promise.resolve({ ok: false, error_code: 500, description: 'internal' })
+  })
+
+  it('retries 5xx when on includes "server"', async () => {
+    const request = vi.fn()
+      .mockResolvedValueOnce(serverError())
+      .mockResolvedValueOnce(ok({ message_id: 1 }))
+
+    const deps = baseDeps({ request }, { retryOnFloodWait: { max: 1, on: ['server'], backoff: { base: 10 } } })
+
+    const result = await runRequest(deps, 'sendMessage', { chat_id: 1, text: 'hi' })
+
+    expect(result).toEqual({ message_id: 1 })
+    expect(request).toHaveBeenCalledTimes(2)
+  })
+
+  it('does not retry 5xx with the default flood-only config', async () => {
+    const request = vi.fn().mockResolvedValueOnce(serverError())
+
+    const deps = baseDeps({ request }, { retryOnFloodWait: true })
+
+    await expect(runRequest(deps, 'sendMessage', { chat_id: 1 })).rejects.toMatchObject({ code: 500 })
+    expect(request).toHaveBeenCalledTimes(1)
+  })
+
+  it('retries transport errors when on includes "network"', async () => {
+    const request = vi.fn()
+      .mockRejectedValueOnce(new Error('socket hang up'))
+      .mockResolvedValueOnce(ok({ message_id: 7 }))
+
+    const deps = baseDeps({ request }, { retryOnFloodWait: { max: 1, on: ['network'], backoff: { base: 10 } } })
+
+    const result = await runRequest(deps, 'sendMessage', { chat_id: 1, text: 'hi' })
+
+    expect(result).toEqual({ message_id: 7 })
+    expect(request).toHaveBeenCalledTimes(2)
+  })
+
+  it('does not retry transport errors with the default flood-only config', async () => {
+    const request = vi.fn().mockRejectedValueOnce(new Error('socket hang up'))
+
+    const deps = baseDeps({ request }, { retryOnFloodWait: true })
+
+    await expect(runRequest(deps, 'sendMessage', { chat_id: 1 })).rejects.toThrow('socket hang up')
+    expect(request).toHaveBeenCalledTimes(1)
+  })
+})

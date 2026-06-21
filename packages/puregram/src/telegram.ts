@@ -23,7 +23,7 @@ import {
 } from './api/download'
 import { runRequest } from './api/lifecycle'
 import { cursorPaginator, offsetPaginator } from './api/paginate'
-import type { TelegramApi } from './api/proxy'
+import type { ApiCaller, TelegramApi } from './api/proxy'
 import { createApiProxy } from './api/proxy'
 import { installShortcuts, type ManualShortcuts } from './api/shortcuts'
 import { createDebug } from './debug'
@@ -95,14 +95,17 @@ export class Telegram<Ext = unknown> {
   protected started = false
   protected startPromise: Promise<void> | undefined
 
+  private readonly apiCaller: ApiCaller
+
   constructor (input: TelegramOptions) {
     this.options = resolveOptions(input)
     this.httpClient = this.options.httpClient ?? defaultHttpClient
-    this.api = createApiProxy((method, params) => runRequest(
+    this.apiCaller = (method, params) => runRequest(
       { options: this.options, hooks: this.hooks, httpClient: this.httpClient },
       method,
       params
-    ))
+    )
+    this.api = createApiProxy(this.apiCaller)
 
     if (this.options.bot) {
       this.bot = this.options.bot
@@ -556,6 +559,22 @@ export class Telegram<Ext = unknown> {
 
       return { items: result.gifts, total: result.total_count, next: result.next_offset }
     }, '', params.limit)
+  }
+
+  /**
+   * a scoped api proxy that injects `business_connection_id` into every call — act on behalf of a
+   * connected business account. a call-site `business_connection_id` overrides the bound one.
+   *
+   * @example
+   * ```ts
+   * const biz = tg.business(connectionId)
+   * await biz.sendMessage({ chat_id, text: 'on behalf of the account' })
+   * ```
+   */
+  business (businessConnectionId: string) {
+    return createApiProxy((method, params) =>
+      this.apiCaller(method, { business_connection_id: businessConnectionId, ...params })
+    )
   }
 
   async deleteWebhook (options: DeleteWebhookOptions = {}) {

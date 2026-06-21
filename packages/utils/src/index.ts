@@ -16,6 +16,7 @@ export {
   type WebAppMode
 } from './deep-link'
 export { parseCommand, type ParsedCommand } from './parse-command'
+export { parseDeepLink, type DeepLinkChat, type ParsedDeepLink } from './parse-deep-link'
 export {
   getPeerType,
   isChannelId,

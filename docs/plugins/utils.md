@@ -13,6 +13,7 @@ currently exports:
 - `WebApp` — validate telegram mini-app `initData`
 - `parseCommand` — parse `/command[@bot] [args...]` strings
 - `deepLink` — typed builder for `https://t.me/...` deep-links
+- `parseDeepLink` — parse an inbound `t.me` link into a typed descriptor
 
 ## when to use
 
@@ -235,6 +236,38 @@ deepLink.videoChat({ username: 'mychannel', live: true })
 - **phone** (for `attachInChat`) — digits only, no `+` prefix
 - **share url / text** — free-form; these are `encodeURIComponent`-escaped
 
+## `parseDeepLink(url)` — parse `t.me` links
+
+the inverse of `deepLink`: turn an inbound `t.me` link into a typed, discriminated descriptor. accepts links with or without a scheme on the `t.me`, `telegram.me`, and `telegram.dog` domains, and returns `undefined` for non-telegram, unparseable, or unmodeled links:
+
+```ts
+import { parseDeepLink } from '@puregram/utils'
+
+parseDeepLink('https://t.me/durov')
+// → { type: 'profile', username: 'durov' }
+
+parseDeepLink('t.me/durov/123')
+// → { type: 'message', chat: { username: 'durov' }, messageId: 123 }
+
+parseDeepLink('t.me/c/1380524958/187')
+// → { type: 'message', chat: { id: -1001380524958 }, messageId: 187 }
+
+parseDeepLink('https://t.me/my_bot?start=ref_42')
+// → { type: 'bot-start', bot: 'my_bot', payload: 'ref_42' }
+
+parseDeepLink('https://t.me/my_bot/tictactoe?startapp=room_7&mode=fullscreen')
+// → { type: 'mini-app', bot: 'my_bot', app: 'tictactoe', payload: 'room_7', mode: 'fullscreen' }
+
+parseDeepLink('https://t.me/addstickers/Animals')
+// → { type: 'sticker-set', name: 'Animals' }
+```
+
+the `type` field discriminates the union: `profile`, `message`, `bot-start`, `group-start`, `channel-start`, `mini-app`, `attach`, `game`, `video-chat`, `share`, `sticker-set`, `emoji-set`, `invite`. private `c/<id>/<msg>` links resolve the bare channel id to its bot api `-100…` form (so `chat.id` lines up with updates) via the same math as `toBotApiId`
+
+::: warning
+`t.me/+<hash>` is read as a chat invite — a `+<phone>` profile link would be misread as an invite. `admin` / `choose` values are returned verbatim from the link
+:::
+
 ## peer ids — bot api ↔ mtproto
 
 telegram clients (and `t.me/c/…` links, and mtproto libraries like mtcute) speak
@@ -280,6 +313,8 @@ import type {
   WebAppMode,             // 'compact' | 'fullscreen'
   AttachChooseTarget,     // 'users' | 'bots' | 'groups' | 'channels'
   AttachChatTarget,       // { username: string } | { phone: string }
+  ParsedDeepLink,         // discriminated by type
+  DeepLinkChat,           // { username } | { id }
   PeerType,               // 'user' | 'chat' | 'channel'
   ParsedPeerId,           // { type, id }
   StartOpts,

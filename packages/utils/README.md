@@ -266,6 +266,37 @@ deepLink.videoChat({ username: 'mychannel', hash: 'abc123', live: true })
 - **phone** (for `attachInChat`) — digits only, no `+` prefix
 - **share url / text** — free-form; these *are* `encodeURIComponent`-escaped
 
+<a name='parse-deep-link'></a>
+### `parseDeepLink(url)` — parse `t.me/...` links
+
+the inverse of [`deepLink`](#deep-link): turn an inbound `t.me` link into a typed, discriminated descriptor. accepts links with or without a scheme on the `t.me`, `telegram.me`, and `telegram.dog` domains; returns `undefined` for non-telegram, unparseable, or unmodeled links
+
+```ts
+import { parseDeepLink } from '@puregram/utils'
+
+parseDeepLink('https://t.me/durov')
+// → { type: 'profile', username: 'durov' }
+
+parseDeepLink('t.me/durov/123')
+// → { type: 'message', chat: { username: 'durov' }, messageId: 123 }
+
+parseDeepLink('t.me/c/1380524958/187')
+// → { type: 'message', chat: { id: -1001380524958 }, messageId: 187 }
+
+parseDeepLink('https://t.me/my_bot?start=ref_42')
+// → { type: 'bot-start', bot: 'my_bot', payload: 'ref_42' }
+
+parseDeepLink('https://t.me/my_bot/tictactoe?startapp=room_7&mode=fullscreen')
+// → { type: 'mini-app', bot: 'my_bot', app: 'tictactoe', payload: 'room_7', mode: 'fullscreen' }
+
+parseDeepLink('https://t.me/addstickers/Animals')
+// → { type: 'sticker-set', name: 'Animals' }
+```
+
+the `type` field discriminates the union: `profile`, `message`, `bot-start`, `group-start`, `channel-start`, `mini-app`, `attach`, `game`, `video-chat`, `share`, `sticker-set`, `emoji-set`, `invite`. private `c/<id>/<msg>` links resolve the bare channel id to its bot api `-100…` form (so `chat.id` lines up with updates) via the same math as [`toBotApiId`](#peer-id)
+
+> **note** `t.me/+<hash>` is read as a chat invite — a `+<phone>` profile link would be misread as an invite. `admin` / `choose` values are returned verbatim from the link
+
 <a name='peer-id'></a>
 ### `parsePeerId` / `toMtprotoId` / `toBotApiId` — bot api ↔ mtproto ids
 
@@ -305,7 +336,9 @@ import type {
   AttachChatTarget,
   AttachChooseTarget,
   CasinoValue,
+  DeepLinkChat,
   ParsedCommand,
+  ParsedDeepLink,
   ParsedPeerId,
   PeerType,
   SlotMachineValue,
@@ -320,6 +353,8 @@ import type {
 - **`SlotMachineValue`** — `readonly [CasinoValue, CasinoValue, CasinoValue]`, the return type of `getCasinoValues`
 - **`WebAppValidateParams`** — params object shape for `WebApp.validate`
 - **`ParsedCommand`** — return shape of `parseCommand`
+- **`ParsedDeepLink`** — discriminated return of `parseDeepLink` (`type` selects the variant)
+- **`DeepLinkChat`** — `{ username }` or `{ id }`, the chat addressing inside a parsed `message` link
 - **`ParsedPeerId`** — `{ type, id }`, the return shape of `parsePeerId` (`id` is the bare mtproto id)
 - **`PeerType`** — `'user' | 'chat' | 'channel'`, the coarse peer kind (`'channel'` = supergroup or broadcast channel)
 - **`AdminRight`** — closed enum of telegram admin right identifiers

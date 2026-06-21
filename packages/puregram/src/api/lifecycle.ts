@@ -25,10 +25,14 @@ export interface RunRequestDeps {
 }
 
 interface ApiResponseOk {
- ok: true; result: unknown
+  ok: true
+  result: unknown
 }
 interface ApiResponseErr {
- ok: false; error_code: number; description: string; parameters?: TelegramResponseParameters
+  ok: false
+  error_code: number
+  description: string
+  parameters?: TelegramResponseParameters
 }
 type ApiResponseUnion = ApiResponseOk | ApiResponseErr
 
@@ -127,11 +131,11 @@ async function runOnce (
     await deps.hooks.run('onBeforeRequest', ctx)
 
     if ('media' in params) {
-      const { body, headers } = await buildMediaGroupMultipart(params)
+      const { body, headers } = await buildMediaGroupMultipart(params, deps.options.useLocal)
 
       ctx.init = { method: 'POST', body, signal: controller.signal, headers, duplex: 'half' } as unknown as RequestInit
     } else if (needsMultipart(params)) {
-      const { body, headers } = await buildSimpleMultipart(params)
+      const { body, headers } = await buildSimpleMultipart(params, deps.options.useLocal)
 
       ctx.init = { method: 'POST', body, signal: controller.signal, headers, duplex: 'half' } as unknown as RequestInit
     }

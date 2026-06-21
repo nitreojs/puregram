@@ -60,4 +60,15 @@ describe('MediaSource', () => {
   it('bytes rejects a plain object', () => {
     expect(() => MediaSource.bytes({} as unknown as Uint8Array)).toThrow(TypeError)
   })
+
+  it('local returns tagged source', () => {
+    const r = MediaSource.local('/srv/media/clip.mp4')
+
+    expect(r.type).toBe(MediaSourceType.Local)
+    expect(r.value).toBe('/srv/media/clip.mp4')
+  })
+
+  it('local rejects non-string', () => {
+    expect(() => MediaSource.local(123 as unknown as string)).toThrow(TypeError)
+  })
 })

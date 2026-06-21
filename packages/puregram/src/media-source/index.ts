@@ -10,7 +10,8 @@ export enum MediaSourceType {
   Buffer = 'buffer',
   Stream = 'stream',
   File = 'file',
-  ArrayBuffer = 'array_buffer'
+  ArrayBuffer = 'array_buffer',
+  Local = 'local'
 }
 
 /** options shared by every `MediaSource.X(...)` factory */
@@ -29,37 +30,50 @@ interface Base extends MediaInputOptions {
 
 /** local-file upload envelope */
 export interface MediaSourcePath extends Base {
- type: MediaSourceType.Path; value: string
+  type: MediaSourceType.Path
+  value: string
 }
 /** url upload envelope (telegram fetches it, unless `forceUpload` is set) */
 export interface MediaSourceUrl extends Base, MediaInputUrlOptions {
- type: MediaSourceType.Url; value: string
+  type: MediaSourceType.Url
+  value: string
 }
 /** existing-on-server reference envelope */
 export interface MediaSourceFileId extends Base {
- type: MediaSourceType.FileId; value: string
+  type: MediaSourceType.FileId
+  value: string
 }
 /** in-memory bytes envelope */
 export interface MediaSourceBuffer extends Base {
- type: MediaSourceType.Buffer; value: Buffer
+  type: MediaSourceType.Buffer
+  value: Buffer
 }
 /** stream upload envelope */
 export interface MediaSourceStream extends Base {
- type: MediaSourceType.Stream; value: Readable
+  type: MediaSourceType.Stream
+  value: Readable
 }
 /** WHATWG `File` envelope */
 export interface MediaSourceFile extends Base {
- type: MediaSourceType.File; value: File
+  type: MediaSourceType.File
+  value: File
 }
 /** raw `ArrayBuffer` envelope */
 export interface MediaSourceArrayBuffer extends Base {
- type: MediaSourceType.ArrayBuffer; value: ArrayBufferLike
+  type: MediaSourceType.ArrayBuffer
+  value: ArrayBufferLike
+}
+/** local-server on-disk reference envelope — the server reads the path itself, no upload */
+export interface MediaSourceLocal extends Base {
+  type: MediaSourceType.Local
+  value: string
 }
 
 /** discriminated union of every `MediaSource.X(...)` return value */
 export type MediaInput =
   | MediaSourcePath | MediaSourceUrl | MediaSourceFileId
   | MediaSourceBuffer | MediaSourceStream | MediaSourceFile | MediaSourceArrayBuffer
+  | MediaSourceLocal
 
 function typeError (field: string, expected: string, value: unknown) {
   return new TypeError(`expected '${field}' to be ${expected}, found ${typeof value}`)
@@ -91,6 +105,26 @@ export class MediaSource {
     }
 
     return { type: MediaSourceType.Path, value: path, ...opts }
+  }
+
+  /**
+   * reference a file the *local bot api server* reads directly off disk, skipping
+   * the multipart upload entirely. requires `useLocal: true` and a filesystem the
+   * server can see (same host/container). prefer an absolute path; relative paths
+   * resolve against the bot process cwd. resolved to a `file://` uri at request time
+   *
+   * @example
+   * ```ts
+   * // tg built with { useLocal: true, apiBaseUrl: 'http://localhost:8081/bot' }
+   * update.sendVideo(MediaSource.local('/srv/media/clip.mp4'))
+   * ```
+   */
+  static local (path: string, opts: MediaInputOptions = {}) {
+    if (typeof path !== 'string') {
+      throw typeError('path', 'string', path)
+    }
+
+    return { type: MediaSourceType.Local, value: path, ...opts }
   }
 
   /**

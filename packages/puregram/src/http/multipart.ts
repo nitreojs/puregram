@@ -29,11 +29,22 @@ export function generateAttachId () {
   return Array.from({ length: 16 }, () => Math.floor(Math.random() * 16).toString(16)).join('')
 }
 
-export async function resolveMediaInput (input: MediaInput) {
+export async function resolveMediaInput (input: MediaInput, useLocal = false) {
   const filename = input.filename ?? 'file.dat'
 
   if (input.type === MediaSourceType.FileId) {
     return input.value
+  }
+
+  if (input.type === MediaSourceType.Local) {
+    if (!useLocal) {
+      throw new TypeError('MediaSource.local() requires the client to be in local mode (useLocal: true)')
+    }
+
+    // local bot api server reads the file off disk — pass a file:// uri, no upload
+    const { pathToFileURL } = await import('node:url')
+
+    return pathToFileURL(input.value).href
   }
 
   if (input.type === MediaSourceType.File) {
@@ -92,7 +103,7 @@ export interface MultipartResult {
   headers: Record<string, string>
 }
 
-export async function buildSimpleMultipart (params: Record<string, unknown>) {
+export async function buildSimpleMultipart (params: Record<string, unknown>, useLocal = false) {
   const fd = new FormData()
 
   for (const [key, value] of Object.entries(params)) {
@@ -105,7 +116,7 @@ export async function buildSimpleMultipart (params: Record<string, unknown>) {
     }
 
     if (isMediaInput(value)) {
-      const resolved = await resolveMediaInput(value)
+      const resolved = await resolveMediaInput(value, useLocal)
 
       fd.set(key, resolved as never)
       continue
@@ -124,7 +135,7 @@ export async function buildSimpleMultipart (params: Record<string, unknown>) {
   return { body: Readable.from(encoder), headers: encoder.headers as Record<string, string> }
 }
 
-export async function buildMediaGroupMultipart (params: Record<string, unknown>) {
+export async function buildMediaGroupMultipart (params: Record<string, unknown>, useLocal = false) {
   const fd = new FormData()
 
   const original = params.media as Record<string, unknown> | Record<string, unknown>[]
@@ -132,7 +143,7 @@ export async function buildMediaGroupMultipart (params: Record<string, unknown>)
   const rewritten: Record<string, unknown>[] = []
 
   for (const entry of entries) {
-    rewritten.push(await rewriteAttach(fd, entry))
+    rewritten.push(await rewriteAttach(fd, entry, useLocal))
   }
 
   fd.set('media', JSON.stringify(Array.isArray(original) ? rewritten : rewritten[0]))
@@ -154,7 +165,7 @@ export async function buildMediaGroupMultipart (params: Record<string, unknown>)
   return { body: Readable.from(encoder), headers: encoder.headers as Record<string, string> }
 }
 
-async function rewriteAttach (fd: FormData, input: Record<string, unknown>) {
+async function rewriteAttach (fd: FormData, input: Record<string, unknown>, useLocal = false) {
   const out: Record<string, unknown> = { ...input }
 
   for (const key of ['media', 'thumb'] as const) {
@@ -166,6 +177,11 @@ async function rewriteAttach (fd: FormData, input: Record<string, unknown>) {
 
     if (value.type === MediaSourceType.FileId || (value.type === MediaSourceType.Url && !('forceUpload' in value && value.forceUpload))) {
       out[key] = (value as { value: string }).value
+      continue
+    }
+
+    if (value.type === MediaSourceType.Local) {
+      out[key] = await resolveMediaInput(value, useLocal)
       continue
     }
 

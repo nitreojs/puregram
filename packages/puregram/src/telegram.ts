@@ -1,6 +1,9 @@
 import type {
   ActionControllerParams,
   Filter,
+  GetBusinessAccountGiftsParams,
+  GetChatGiftsParams,
+  GetUserGiftsParams,
   MessageUpdate,
   SendChatActionParams,
   TelegramDispatchers,
@@ -19,6 +22,7 @@ import {
   getFileURL as getFileURLHelper
 } from './api/download'
 import { runRequest } from './api/lifecycle'
+import { cursorPaginator, offsetPaginator } from './api/paginate'
 import type { TelegramApi } from './api/proxy'
 import { createApiProxy } from './api/proxy'
 import { installShortcuts, type ManualShortcuts } from './api/shortcuts'
@@ -496,6 +500,62 @@ export class Telegram<Ext = unknown> {
     }
 
     return [...kinds]
+  }
+
+  iterUserProfilePhotos (userId: number, params: { offset?: number, limit?: number } = {}) {
+    return offsetPaginator(async (offset, limit) => {
+      const result = await this.api.getUserProfilePhotos({ user_id: userId, offset, limit })
+
+      return { items: result.photos, total: result.total_count }
+    }, params.offset, params.limit)
+  }
+
+  iterUserProfileAudios (userId: number, params: { offset?: number, limit?: number } = {}) {
+    return offsetPaginator(async (offset, limit) => {
+      const result = await this.api.getUserProfileAudios({ user_id: userId, offset, limit })
+
+      return { items: result.audios, total: result.total_count }
+    }, params.offset, params.limit)
+  }
+
+  iterStarTransactions (params: { offset?: number, limit?: number } = {}) {
+    return offsetPaginator(async (offset, limit) => {
+      const result = await this.api.getStarTransactions({ offset, limit })
+
+      return { items: result.transactions, total: undefined }
+    }, params.offset, params.limit)
+  }
+
+  iterUserGifts (userId: number, params: Omit<GetUserGiftsParams, 'user_id' | 'offset'> = {}) {
+    return cursorPaginator(async (offset, limit) => {
+      const result = await this.api.getUserGifts({ ...params, user_id: userId, offset, limit })
+
+      return { items: result.gifts, total: result.total_count, next: result.next_offset }
+    }, '', params.limit)
+  }
+
+  iterChatGifts (chatId: number | string, params: Omit<GetChatGiftsParams, 'chat_id' | 'offset'> = {}) {
+    return cursorPaginator(async (offset, limit) => {
+      const result = await this.api.getChatGifts({ ...params, chat_id: chatId, offset, limit })
+
+      return { items: result.gifts, total: result.total_count, next: result.next_offset }
+    }, '', params.limit)
+  }
+
+  iterBusinessAccountGifts (
+    businessConnectionId: string,
+    params: Omit<GetBusinessAccountGiftsParams, 'business_connection_id' | 'offset'> = {}
+  ) {
+    return cursorPaginator(async (offset, limit) => {
+      const result = await this.api.getBusinessAccountGifts({
+        ...params,
+        business_connection_id: businessConnectionId,
+        offset,
+        limit
+      })
+
+      return { items: result.gifts, total: result.total_count, next: result.next_offset }
+    }, '', params.limit)
   }
 
   async deleteWebhook (options: DeleteWebhookOptions = {}) {

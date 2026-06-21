@@ -1,6 +1,5 @@
 import type {
   ActionControllerParams,
-  CallbackQueryUpdate,
   Filter,
   MessageUpdate,
   SendChatActionParams,
@@ -8,7 +7,7 @@ import type {
   TelegramShortcuts,
   TelegramUser
 } from '@puregram/api'
-import { and, defineFilter, isFilter } from '@puregram/api'
+import { and, CallbackQueryUpdate, defineFilter, isFilter } from '@puregram/api'
 
 import { ChatActionController } from './api/chat-action'
 import type { DownloadTarget } from './api/download'
@@ -86,6 +85,7 @@ export class Telegram<Ext = unknown> {
   protected readonly httpClient: HttpClient
   protected readonly inFlight = new Set<Promise<void>>()
   protected readonly cleanups: (() => Promise<void>)[] = []
+  protected readonly seenUpdates = new Set<number>()
   protected polling: PollingTransport | undefined
 
   protected started = false
@@ -585,11 +585,75 @@ export class Telegram<Ext = unknown> {
   }
 
   protected async handleIncoming (raw: Record<string, unknown>) {
+    if (this.options.dedupeUpdates !== false && this.isDuplicateUpdate(raw)) {
+      return
+    }
+
     await this.runRawUpdateHandlers(raw)
 
     const update = buildUpdate(raw, this) as AnyUpdate
 
+    if (this.options.autoAnswerCallbackQuery !== false && update instanceof CallbackQueryUpdate) {
+      await this.dispatchAutoAnswered(update)
+
+      return
+    }
+
     await this.dispatch(update)
+  }
+
+  protected isDuplicateUpdate (raw: Record<string, unknown>) {
+    const id = raw.update_id
+
+    if (typeof id !== 'number') {
+      return false
+    }
+
+    if (this.seenUpdates.has(id)) {
+      return true
+    }
+
+    // keep a bounded window of recent ids — evict oldest (insertion order) past the cap
+    const configured = typeof this.options.dedupeUpdates === 'object' ? this.options.dedupeUpdates.max : undefined
+    const max = configured ?? 1000
+
+    this.seenUpdates.add(id)
+
+    while (this.seenUpdates.size > max) {
+      // Set.values() iterator-result `value` is typed `any` by the lib; the oldest key is always a number
+      const oldest = this.seenUpdates.values().next().value as number | undefined
+
+      if (oldest === undefined) {
+        break
+      }
+
+      this.seenUpdates.delete(oldest)
+    }
+
+    return false
+  }
+
+  // wrap update.answer so a handler call marks it answered; if none did, answer once after dispatch
+  protected async dispatchAutoAnswered (update: CallbackQueryUpdate) {
+    const original = update.answer.bind(update)
+    let answered = false
+
+    update.answer = (params = {}) => {
+      answered = true
+
+      return original(params)
+    }
+
+    try {
+      await this.dispatch(update)
+    } finally {
+      if (!answered) {
+        const fallback = this.options.autoAnswerCallbackQuery
+        const params = typeof fallback === 'object' ? fallback : {}
+
+        await original(params).catch(() => {})
+      }
+    }
   }
 
   private downloadDeps () {

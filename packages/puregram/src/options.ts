@@ -1,4 +1,4 @@
-import type { TelegramUser } from '@puregram/api'
+import type { AnswerCallbackQueryParams, TelegramUser } from '@puregram/api'
 
 import type { DefaultParams } from './api/default-params'
 import type { HttpClient } from './http/client'
@@ -54,6 +54,16 @@ export interface TelegramOptions {
    * suppress that fallback — errors only reach handlers registered via `tg.catch`
    */
   swallowDispatchErrors?: boolean
+  /**
+   * auto-answer `callback_query` updates after dispatch when no handler called `update.answer(...)`.
+   * `true` answers with no params; an object answers with those params. defaults to `false`
+   */
+  autoAnswerCallbackQuery?: boolean | Omit<AnswerCallbackQueryParams, 'callback_query_id'>
+  /**
+   * drop updates whose `update_id` was seen recently (webhook retries, polling overlap). `true` keeps
+   * the last 1000 ids; pass `{ max }` to size the window. defaults to `false`
+   */
+  dedupeUpdates?: boolean | { max?: number }
 }
 
 export interface ResolvedTelegramOptions extends Required<Omit<TelegramOptions, 'httpClient' | 'bot' | 'retryOnFloodWait' | 'swallowDispatchErrors'>> {
@@ -96,7 +106,9 @@ export const DEFAULT_OPTIONS: Omit<ResolvedTelegramOptions, 'token' | 'httpClien
   useLocal: false,
   defaultParams: {},
   retryOnFloodWait: false,
-  swallowDispatchErrors: false
+  swallowDispatchErrors: false,
+  autoAnswerCallbackQuery: false,
+  dedupeUpdates: false
 }
 
 export function resolveOptions (input: TelegramOptions) {

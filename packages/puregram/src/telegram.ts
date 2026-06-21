@@ -345,6 +345,7 @@ export class Telegram<Ext = unknown> {
   }
 
   useHook (name: RequestHookName, fn: Middleware<RequestContext>, options?: HookOptions): this
+  useHook (name: 'onApiCall', fn: Middleware<RequestContext>, options?: HookOptions): this
   useHook (name: 'onUpdate', fn: Middleware<unknown>, options?: HookOptions): this
   useHook (name: 'onInit' | 'onShutdown', fn: Middleware<{ tg: unknown }>): this
   useHook (name: 'onError', fn: ErrorHandler): this

@@ -57,6 +57,8 @@ export class HookRegistry {
     onAfterRequest: newBucket()
   }
 
+  private readonly apiCall: Bucket<RequestContext> = newBucket()
+
   private readonly update: Bucket<unknown> = newBucket()
   private readonly init: Middleware<{ tg: unknown }>[] = []
   private readonly shutdown: Middleware<{ tg: unknown }>[] = []
@@ -64,6 +66,7 @@ export class HookRegistry {
   private readonly dispatchError: DispatchErrorHandler[] = []
 
   add (name: RequestHookName, fn: Middleware<RequestContext>, opts?: HookOptions): void
+  add (name: 'onApiCall', fn: Middleware<RequestContext>, opts?: HookOptions): void
   add (name: 'onUpdate', fn: Middleware<unknown>, opts?: HookOptions): void
   add (name: 'onInit' | 'onShutdown', fn: Middleware<{ tg: unknown }>): void
   add (name: 'onError', fn: ErrorHandler): void
@@ -74,6 +77,12 @@ export class HookRegistry {
 
     if (REQUEST_HOOKS.has(name as RequestHookName)) {
       this.request[name as RequestHookName][priority].push(fn)
+
+      return
+    }
+
+    if (name === 'onApiCall') {
+      this.apiCall[priority].push(fn)
 
       return
     }
@@ -146,6 +155,25 @@ export class HookRegistry {
     throw new Error(`unknown hook: ${name}`)
   }
   /* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument */
+
+  // around-hook: wraps the actual api call. middlewares run outermost-first and reach the network
+  // request when they call `next()`. with no middlewares registered the action runs directly
+  async runApiCall<R> (ctx: RequestContext, action: () => Promise<R>) {
+    const chain = [...this.apiCall.high, ...this.apiCall.normal, ...this.apiCall.low]
+
+    if (chain.length === 0) {
+      return action()
+    }
+
+    let result!: R
+    const terminal: Middleware<RequestContext> = async () => {
+      result = await action()
+    }
+
+    await runChain([...chain, terminal], ctx)
+
+    return result
+  }
 
   /** runs onUpdate chain with a fixed slot for `tg.on(...)` handlers between `normal` and `low` */
   async runUpdate (ctx: unknown, userHandlers: Middleware<unknown>) {

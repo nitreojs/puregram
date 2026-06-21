@@ -174,35 +174,37 @@ async function runOnce (
       debugRaw('-> %s %s', method, inspect(params, { depth: null }))
     }
 
-    const response = await deps.httpClient.request({ url: ctx.url, init: ctx.init ?? {} })
-    const json = await response.json() as ApiResponseUnion
+    return await deps.hooks.runApiCall(ctx, async () => {
+      const response = await deps.httpClient.request({ url, init: ctx.init ?? {} })
+      const json = await response.json() as ApiResponseUnion
 
-    ctx.response = { status: response.status }
-    ctx.json = json
+      ctx.response = { status: response.status }
+      ctx.json = json
 
-    await deps.hooks.run('onResponseIntercept', ctx)
+      await deps.hooks.run('onResponseIntercept', ctx)
 
-    if (json.ok) {
-      debug('<- %s ok=true', method)
-    } else {
-      debug('<- %s ok=false error_code=%s description=%s', method, json.error_code, json.description)
-    }
-
-    if (debugRaw.enabled) {
-      debugRaw('<- %s %s', method, inspect(json, { depth: null }))
-    }
-
-    if (!json.ok) {
-      if (suppress) {
-        return json
+      if (json.ok) {
+        debug('<- %s ok=true', method)
+      } else {
+        debug('<- %s ok=false error_code=%s description=%s', method, json.error_code, json.description)
       }
 
-      throw new ApiError(json)
-    }
+      if (debugRaw.enabled) {
+        debugRaw('<- %s %s', method, inspect(json, { depth: null }))
+      }
 
-    await deps.hooks.run('onAfterRequest', ctx)
+      if (!json.ok) {
+        if (suppress) {
+          return json
+        }
 
-    return json.result
+        throw new ApiError(json)
+      }
+
+      await deps.hooks.run('onAfterRequest', ctx)
+
+      return json.result
+    })
   } catch (error) {
     const wrapped = await deps.hooks.runError(error as Error, ctx)
 

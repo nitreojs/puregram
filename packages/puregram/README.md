@@ -80,6 +80,7 @@ it's that easy!
 - [custom updates](#custom-updates)
 - [polling](#polling)
 - [webhook](#webhook)
+- [local bot api server](#local-bot-api-server)
 - [resilience](#resilience)
   - [`retryOnFloodWait` — auto-retry on 429](#retry-on-flood-wait)
   - [`tg.catch` + `swallowDispatchErrors`](#tg-catch)
@@ -247,6 +248,7 @@ the full menu:
 | `MediaSource.base64(b64)` | a base64-encoded string |
 | `MediaSource.text(text)` | a utf-8 string sent as a file (pair with `filename`) |
 | `MediaSource.json(value, { space? })` | a value serialized through `JSON.stringify` |
+| `MediaSource.local(path)` | a path the [local bot api server](#local-bot-api-server) reads off disk — no upload (requires `useLocal`) |
 
 <a name='input-media'></a>
 ### `InputMedia` and friends
@@ -1054,6 +1056,31 @@ passed to `getWebhookCallback`, `webhookHandler`, and `startWebhook`:
 | `port` | `number` | none | local port for the built-in `http` listener. omit for "set the webhook + return the callback, but don't start a server" |
 | `host` | `string` | `'0.0.0.0'` | host to bind the listener to |
 | `path` | `string` | `'/'` | path the listener responds to. all other paths return 404 |
+
+---
+
+<a name='local-bot-api-server'></a>
+## local bot api server
+
+the [official local bot api server](https://github.com/tdlib/telegram-bot-api) speaks the same bot api as `api.telegram.org`, so puregram treats it as a drop-in. point `apiBaseUrl` at it and set `useLocal`:
+
+```ts
+const telegram = new Telegram({
+  token: process.env.TOKEN!,
+  apiBaseUrl: 'http://localhost:8081/bot',
+  useLocal: true
+})
+```
+
+you get **2 GB** uploads/downloads (vs 50 MB / 20 MB), absolute on-disk `file_path`s, http webhooks on any port, and no global rate limit. before moving a live bot over, call `logOut` against the cloud server once so updates route to your instance
+
+`useLocal: true` makes `tg.download(...)` read files straight off disk (the server returns a local path, not a url). for uploads, `MediaSource.local(path)` hands the server a `file://` path to read itself, skipping the multipart upload entirely:
+
+```ts
+update.sendVideo(MediaSource.local('/srv/media/clip.mp4'))
+```
+
+`useLocal` and `MediaSource.local()` are orthogonal — `useLocal` is about the api endpoint, `local()` is about a file the server can read off a shared disk. they stay separate because the bot and the server don't always share a filesystem (separate containers, different hosts); there a plain `MediaSource.path(...)` still uploads the bytes, and `local()` throws without `useLocal`
 
 ---
 

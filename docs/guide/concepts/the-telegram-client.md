@@ -135,6 +135,47 @@ the `request` method is required. `download` is optional — when omitted, `tg.d
 never hardcode a bot token. read it from `process.env` (a `.env` file + `--env-file .env` in node 22 is enough) or from a secrets manager. anyone with the token controls the bot — treat it like a password
 :::
 
+## local bot api server
+
+the [official local bot api server](https://github.com/tdlib/telegram-bot-api) speaks the exact same bot api as `api.telegram.org`, so puregram talks to it as a drop-in — point `apiBaseUrl` at it and flip `useLocal`:
+
+```ts
+const tg = new Telegram({
+  token: process.env.TOKEN!,
+  apiBaseUrl: 'http://localhost:8081/bot',
+  useLocal: true
+})
+```
+
+over the cloud api you get **2 GB** uploads/downloads (vs 50 MB / 20 MB), absolute on-disk `file_path`s, http webhooks on any port, far higher webhook concurrency, and no global rate limit. it's a deployment win for media-heavy or high-throughput bots — not a different feature set.
+
+::: warning migrate once
+before switching a live bot, call `logOut` against the cloud server once so updates route to your instance, then change `apiBaseUrl`. details in the [server readme](https://github.com/tdlib/telegram-bot-api).
+:::
+
+### downloads
+
+in local mode the server hands back an absolute on-disk path as `file_path` instead of a download url. `useLocal: true` teaches `tg.download()` (and `downloadStream` / `downloadToFile` / `getFileURL`) to read straight off disk — no http round-trip:
+
+```ts
+const buffer = await tg.download(message.document)
+```
+
+### uploads — `MediaSource.local(path)`
+
+the server can also read an *upload* off disk if you hand it a path, skipping the multipart upload entirely. that's what `MediaSource.local(...)` is for:
+
+```ts
+update.sendVideo(MediaSource.local('/srv/media/clip.mp4'))
+```
+
+`useLocal` and `MediaSource.local()` are **orthogonal**, by design:
+
+- `useLocal` says *the api endpoint speaks the local protocol* — it changes url building and download semantics.
+- `MediaSource.local()` says *this one file lives on a disk the server can read*.
+
+they're kept separate because `useLocal: true` does **not** imply the bot and the server share a filesystem — they're often in different containers (no shared volume) or on different hosts. there the server can't see your paths, so a plain `MediaSource.path(...)` still uploads the bytes, exactly as it does against the cloud. puregram never silently turns `path` into a reference; you opt in per file with `local()`, which throws if used without `useLocal` (the cloud api rejects on-disk paths). prefer absolute paths — relative ones resolve against the bot process cwd.
+
 ## see also
 
 - [your first bot](/guide/getting-started/your-first-bot) — minimal working example

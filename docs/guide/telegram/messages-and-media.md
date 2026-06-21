@@ -34,8 +34,11 @@ tg.onMessage(async (message) => {
 | `MediaSource.base64(str)` | base64 string — decoded to `Buffer` before upload |
 | `MediaSource.text(str)` | utf-8 string uploaded as a text file |
 | `MediaSource.json(value)` | any value serialized as JSON and uploaded as a file |
+| `MediaSource.local(path)` | path the **local bot api server** reads off disk — no upload |
 
 every factory accepts an optional second argument `{ filename?: string }`. for `MediaSource.url` there is also `{ forceUpload?: boolean }` — set it when telegram's server-side fetch does not work for your url (it only works for gif/pdf/zip on `sendDocument`)
+
+`MediaSource.local(path)` only applies when you run a [local bot api server](/guide/concepts/the-telegram-client#local-bot-api-server) with `useLocal: true` — it hands the server a `file://` path to read itself instead of uploading the bytes, and throws otherwise
 
 ```ts
 // local file

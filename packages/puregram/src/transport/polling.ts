@@ -10,7 +10,7 @@ export interface StartPollingOptions {
   offset?: number
   timeout?: number
   dropPendingUpdates?: boolean | string[]
-  allowedUpdates?: string[]
+  allowedUpdates?: string[] | 'auto'
   /**
    * cap the number of update dispatches that run in parallel. when the cap is
    * reached, the next update waits for a slot. defaults to `Infinity`
@@ -168,7 +168,7 @@ export class PollingTransport {
 
     const params: Record<string, unknown> = {
       timeout: options.timeout ?? 15,
-      allowed_updates: options.allowedUpdates ?? this.deps.tg.options.allowedUpdates
+      allowed_updates: this.deps.tg.resolveAllowedUpdates(options.allowedUpdates ?? this.deps.tg.options.allowedUpdates)
     }
 
     if (maxInFlight !== Infinity) {

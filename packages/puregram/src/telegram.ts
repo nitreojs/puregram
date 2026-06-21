@@ -483,6 +483,21 @@ export class Telegram<Ext = unknown> {
     return setWebhookHelper(this as Telegram, options)
   }
 
+  resolveAllowedUpdates (value: string[] | 'auto') {
+    if (value !== 'auto') {
+      return value
+    }
+
+    const { kinds, opaque } = this.dispatcher.collectAllowedKinds()
+
+    // can't confidently narrow (opaque predicate or no handlers) → telegram default subscription
+    if (opaque || kinds.size === 0) {
+      return []
+    }
+
+    return [...kinds]
+  }
+
   async deleteWebhook (options: DeleteWebhookOptions = {}) {
     return deleteWebhookHelper(this as Telegram, options)
   }

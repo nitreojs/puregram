@@ -1,4 +1,5 @@
 import type { AnyUpdate, Priority, UpdateHandler } from '@puregram/api'
+import { isFilter } from '@puregram/api'
 
 export type { AnyUpdate, OnOptions, Priority, UpdateHandler } from '@puregram/api'
 
@@ -137,5 +138,32 @@ export class Dispatcher {
 
   has (kind: string) {
     return this.entries.some(e => e.type === 'kind' && e.kind === kind)
+  }
+
+  // for allowedUpdates: 'auto' — the explicit kinds the bot handles, plus whether any opaque
+  // (non-filter) predicate exists, which forces a fall back to telegram's default subscription
+  collectAllowedKinds () {
+    const kinds = new Set<string>()
+    let opaque = false
+
+    for (const entry of this.entries) {
+      if (entry.type === 'kind') {
+        kinds.add(entry.kind)
+
+        continue
+      }
+
+      if (isFilter(entry.predicate) && entry.predicate.kinds) {
+        for (const kind of entry.predicate.kinds) {
+          kinds.add(kind)
+        }
+
+        continue
+      }
+
+      opaque = true
+    }
+
+    return { kinds, opaque }
   }
 }

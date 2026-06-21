@@ -11,8 +11,8 @@ export interface SetWebhookOptions {
   ipAddress?: string
   /** simultaneous connections cap, 1-100. default 40 */
   maxConnections?: number
-  /** explicit list of update types to subscribe to. empty array = default minus opt-in kinds */
-  allowedUpdates?: string[]
+  /** update types to subscribe to, or `'auto'` to derive from handlers. empty array = telegram default */
+  allowedUpdates?: string[] | 'auto'
   /** drop the queued backlog before subscribing */
   dropPendingUpdates?: boolean
   /** echoed in `x-telegram-bot-api-secret-token` on every webhook delivery */
@@ -25,12 +25,16 @@ export interface DeleteWebhookOptions {
 }
 
 export async function setWebhook (tg: Telegram, options: SetWebhookOptions): Promise<true> {
+  const allowedUpdates = options.allowedUpdates === undefined
+    ? undefined
+    : tg.resolveAllowedUpdates(options.allowedUpdates)
+
   return tg.api.setWebhook({
     url: options.url,
     ...(options.certificate !== undefined && { certificate: options.certificate }),
     ...(options.ipAddress !== undefined && { ip_address: options.ipAddress }),
     ...(options.maxConnections !== undefined && { max_connections: options.maxConnections }),
-    ...(options.allowedUpdates !== undefined && { allowed_updates: options.allowedUpdates }),
+    ...(allowedUpdates !== undefined && { allowed_updates: allowedUpdates }),
     ...(options.dropPendingUpdates !== undefined && { drop_pending_updates: options.dropPendingUpdates }),
     ...(options.secretToken !== undefined && { secret_token: options.secretToken })
   })

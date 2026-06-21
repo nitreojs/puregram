@@ -28,7 +28,8 @@ export interface TelegramOptions {
   httpClient?: HttpClient
   /** pre-populate `tg.bot` and skip the start-time getMe call */
   bot?: TelegramUser
-  allowedUpdates?: string[]
+  /** update kinds to subscribe to, or `'auto'` to derive the minimal set from registered handlers */
+  allowedUpdates?: string[] | 'auto'
   apiBaseUrl?: string
   apiTimeout?: number
   apiWait?: number

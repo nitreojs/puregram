@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
 /// Bot API 10.1
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-06-18T09:43:22.985Z
+/// generated at: 2026-06-30T17:26:58.233Z
 /// see scripts/emit.ts in @puregram/api
 
 import type { TelegramInlineQueryResultArticle, TelegramInlineQueryResultAudio, TelegramInlineQueryResultCachedAudio, TelegramInlineQueryResultCachedDocument, TelegramInlineQueryResultCachedGif, TelegramInlineQueryResultCachedMpeg4Gif, TelegramInlineQueryResultCachedPhoto, TelegramInlineQueryResultCachedSticker, TelegramInlineQueryResultCachedVideo, TelegramInlineQueryResultCachedVoice, TelegramInlineQueryResultContact, TelegramInlineQueryResultDocument, TelegramInlineQueryResultGame, TelegramInlineQueryResultGif, TelegramInlineQueryResultLocation, TelegramInlineQueryResultMpeg4Gif, TelegramInlineQueryResultPhoto, TelegramInlineQueryResultVenue, TelegramInlineQueryResultVideo, TelegramInlineQueryResultVoice, TelegramInputMediaAnimation, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaLink, TelegramInputMediaLivePhoto, TelegramInputMediaLocation, TelegramInputMediaPhoto, TelegramInputMediaSticker, TelegramInputMediaVenue, TelegramInputMediaVideo, TelegramInputPaidMediaLivePhoto, TelegramInputPaidMediaPhoto, TelegramInputPaidMediaVideo, TelegramInputProfilePhotoAnimated, TelegramInputProfilePhotoStatic, TelegramInputStoryContentPhoto, TelegramInputStoryContentVideo } from "./types";

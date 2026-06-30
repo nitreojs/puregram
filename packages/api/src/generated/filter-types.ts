@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
 /// Bot API 10.1
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-06-18T09:43:22.985Z
+/// generated at: 2026-06-30T17:26:58.233Z
 /// see scripts/emit.ts in @puregram/api
 
 import type { Filter } from "../filter-runtime";

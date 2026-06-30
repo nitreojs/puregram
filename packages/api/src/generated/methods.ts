@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
 /// Bot API 10.1
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-06-18T09:43:22.985Z
+/// generated at: 2026-06-30T17:26:58.233Z
 /// see scripts/emit.ts in @puregram/api
 
 import type { TelegramAcceptedGiftTypes, TelegramBotAccessSettings, TelegramBotCommand, TelegramBotCommandScope, TelegramBotDescription, TelegramBotName, TelegramBotShortDescription, TelegramBusinessConnection, TelegramChatAdministratorRights, TelegramChatFullInfo, TelegramChatInviteLink, TelegramChatMember, TelegramChatMemberAdministrator, TelegramChatMemberOwner, TelegramChatPermissions, TelegramFile, TelegramForceReply, TelegramForumTopic, TelegramGameHighScore, TelegramGifts, TelegramInlineKeyboardMarkup, TelegramInlineQueryResult, TelegramInlineQueryResultsButton, TelegramInputChecklist, TelegramInputFile, TelegramInputMedia, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaLivePhoto, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPaidMedia, TelegramInputPollMedia, TelegramInputPollOption, TelegramInputProfilePhoto, TelegramInputRichMessage, TelegramInputSticker, TelegramInputStoryContent, TelegramKeyboardButton, TelegramLabeledPrice, TelegramLinkPreviewOptions, TelegramMaskPosition, TelegramMenuButton, TelegramMessage, TelegramMessageEntity, TelegramMessageId, TelegramOwnedGifts, TelegramPassportElementError, TelegramPoll, TelegramPreparedInlineMessage, TelegramPreparedKeyboardButton, TelegramReactionType, TelegramReplyKeyboardMarkup, TelegramReplyKeyboardRemove, TelegramReplyParameters, TelegramSentGuestMessage, TelegramSentWebAppMessage, TelegramShippingOption, TelegramStarAmount, TelegramStarTransactions, TelegramSticker, TelegramStickerSet, TelegramStory, TelegramStoryArea, TelegramSuggestedPostParameters, TelegramUpdate, TelegramUser, TelegramUserChatBoosts, TelegramUserProfileAudios, TelegramUserProfilePhotos, TelegramWebhookInfo } from "./types";
@@ -2691,7 +2691,7 @@ export interface SendAnimationParams {
      */
     height?: number;
     /**
-     * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
+     * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass "attach://<file_attach_name>" if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
      */
     thumbnail?: TelegramInputFile | string;
     /**
@@ -2801,7 +2801,7 @@ export interface SendAudioParams {
      */
     title?: string;
     /**
-     * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
+     * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass "attach://<file_attach_name>" if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
      */
     thumbnail?: TelegramInputFile | string;
     /**
@@ -3094,7 +3094,7 @@ export interface SendDocumentParams {
      */
     document: TelegramInputFile | string;
     /**
-     * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
+     * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass "attach://<file_attach_name>" if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
      */
     thumbnail?: TelegramInputFile | string;
     /**
@@ -4294,11 +4294,11 @@ export interface SendVideoParams {
      */
     height?: number;
     /**
-     * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
+     * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass "attach://<file_attach_name>" if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
      */
     thumbnail?: TelegramInputFile | string;
     /**
-     * Cover for the video in the message. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. More information on Sending Files »
+     * Cover for the video in the message. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass "attach://<file_attach_name>" to upload a new one using multipart/form-data under <file_attach_name> name. More information on Sending Files »
      */
     cover?: TelegramInputFile | string;
     /**
@@ -4399,7 +4399,7 @@ export interface SendVideoNoteParams {
      */
     length?: number;
     /**
-     * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
+     * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass "attach://<file_attach_name>" if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
      */
     thumbnail?: TelegramInputFile | string;
     /**

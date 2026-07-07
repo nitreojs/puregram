@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
 /// Bot API 10.1
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-06-30T17:26:58.233Z
+/// generated at: 2026-07-07T18:15:43.753Z
 /// see scripts/emit.ts in @puregram/api
 
 import type { TelegramInputFile, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaLivePhoto, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPollOption, TelegramMessage, TelegramMessageId, TelegramReactionType } from "./types";

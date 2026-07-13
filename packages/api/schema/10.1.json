@@ -2277,7 +2277,7 @@
         },
         {
           "name": "media",
-          "description": "A JSON-serialized object for a new media content of the message",
+          "description": "A JSON-serialized object for the new media content of the message",
           "required": true,
           "type": {
             "kind": "reference",
@@ -29692,6 +29692,6 @@
   "source": {
     "corefork": "https://corefork.telegram.org/bots/api",
     "core": "https://core.telegram.org/bots/api",
-    "fetchedAt": "2026-07-07T18:15:43.753Z"
+    "fetchedAt": "2026-07-13T08:27:16.629Z"
   }
 }

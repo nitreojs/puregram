@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
 /// Bot API 10.1
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-07-07T18:15:43.753Z
+/// generated at: 2026-07-13T08:27:16.629Z
 /// see scripts/emit.ts in @puregram/api
 
 import type { TelegramAcceptedGiftTypes, TelegramBotAccessSettings, TelegramBotCommand, TelegramBotCommandScope, TelegramBotDescription, TelegramBotName, TelegramBotShortDescription, TelegramBusinessConnection, TelegramChatAdministratorRights, TelegramChatFullInfo, TelegramChatInviteLink, TelegramChatMember, TelegramChatMemberAdministrator, TelegramChatMemberOwner, TelegramChatPermissions, TelegramFile, TelegramForceReply, TelegramForumTopic, TelegramGameHighScore, TelegramGifts, TelegramInlineKeyboardMarkup, TelegramInlineQueryResult, TelegramInlineQueryResultsButton, TelegramInputChecklist, TelegramInputFile, TelegramInputMedia, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaLivePhoto, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPaidMedia, TelegramInputPollMedia, TelegramInputPollOption, TelegramInputProfilePhoto, TelegramInputRichMessage, TelegramInputSticker, TelegramInputStoryContent, TelegramKeyboardButton, TelegramLabeledPrice, TelegramLinkPreviewOptions, TelegramMaskPosition, TelegramMenuButton, TelegramMessage, TelegramMessageEntity, TelegramMessageId, TelegramOwnedGifts, TelegramPassportElementError, TelegramPoll, TelegramPreparedInlineMessage, TelegramPreparedKeyboardButton, TelegramReactionType, TelegramReplyKeyboardMarkup, TelegramReplyKeyboardRemove, TelegramReplyParameters, TelegramSentGuestMessage, TelegramSentWebAppMessage, TelegramShippingOption, TelegramStarAmount, TelegramStarTransactions, TelegramSticker, TelegramStickerSet, TelegramStory, TelegramStoryArea, TelegramSuggestedPostParameters, TelegramUpdate, TelegramUser, TelegramUserChatBoosts, TelegramUserProfileAudios, TelegramUserProfilePhotos, TelegramWebhookInfo } from "./types";
@@ -1237,7 +1237,7 @@ export interface EditMessageMediaParams {
      */
     inline_message_id?: string;
     /**
-     * A JSON-serialized object for a new media content of the message
+     * A JSON-serialized object for the new media content of the message
      */
     media: TelegramInputMedia;
     /**

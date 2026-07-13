@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
 /// Bot API 10.1
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-07-07T18:15:43.753Z
+/// generated at: 2026-07-13T08:27:16.629Z
 /// see scripts/emit.ts in @puregram/api
 
 export const WEBHOOK_REPLY_SAFE_METHODS: ReadonlySet<string> = new Set<string>([

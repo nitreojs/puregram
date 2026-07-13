@@ -5,8 +5,7 @@ import { flow } from '../../src'
 import type { PersistedFlow } from '../../src/persistent/types'
 import { makeTg } from '../helpers/make-tg'
 import { makeUpdate } from '../helpers/make-update'
-
-const sleep = (ms: number) => new Promise<void>(resolve => setTimeout(resolve, ms))
+import { waitUntil } from '../helpers/wait-until'
 
 describe('@puregram/flow — e2e', () => {
   it('waitFor resolves on the next matching update from polling', async () => {
@@ -165,12 +164,7 @@ describe('@puregram/flow — e2e', () => {
 
     tg.startPolling().catch(() => {})
 
-    const start = Date.now()
-
-    // eslint-disable-next-line no-unmodified-loop-condition -- mutated by async handler
-    while (assembled === null && Date.now() - start < 2000) {
-      await sleep(20)
-    }
+    await waitUntil(() => assembled !== null)
 
     tg.stopPolling()
 
@@ -204,12 +198,7 @@ describe('@puregram/flow — e2e', () => {
 
     tg.startPolling().catch(() => {})
 
-    const start = Date.now()
-
-    // eslint-disable-next-line no-unmodified-loop-condition -- mutated by async handler
-    while (resolved === null && Date.now() - start < 1000) {
-      await sleep(20)
-    }
+    await waitUntil(() => resolved !== null)
 
     tg.stopPolling()
 
@@ -268,13 +257,7 @@ describe('@puregram/flow — e2e', () => {
 
     tg.startPolling().catch(() => {})
 
-    // give polling a moment to deliver both batches and resolve the prompt
-    const start = Date.now()
-
-    // eslint-disable-next-line no-unmodified-loop-condition -- mutated by async handler closure
-    while (resolvedReply === null && Date.now() - start < 2000) {
-      await new Promise(resolve => setTimeout(resolve, 20))
-    }
+    await waitUntil(() => resolvedReply !== null)
 
     tg.stopPolling()
 
@@ -370,12 +353,7 @@ describe('@puregram/flow — e2e', () => {
 
     tg.startPolling().catch(() => {})
 
-    const start = Date.now()
-
-    // eslint-disable-next-line no-unmodified-loop-condition -- mutated by async handler closure
-    while (resolvedReply === null && Date.now() - start < 2000) {
-      await new Promise(resolve => setTimeout(resolve, 20))
-    }
+    await waitUntil(() => resolvedReply !== null)
 
     tg.stopPolling()
 
@@ -466,12 +444,7 @@ describe('@puregram/flow — e2e', () => {
 
     tg.startPolling().catch(() => {})
 
-    const start = Date.now()
-
-    // eslint-disable-next-line no-unmodified-loop-condition -- mutated by async handler closure
-    while (resolvedCq === null && Date.now() - start < 2000) {
-      await new Promise(resolve => setTimeout(resolve, 20))
-    }
+    await waitUntil(() => resolvedCq !== null)
 
     tg.stopPolling()
 

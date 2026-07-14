@@ -1,11 +1,11 @@
 /// AUTO-GENERATED FILE — do not edit by hand
 /// Bot API 10.2
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-07-14T16:35:43.235Z
+/// generated at: 2026-07-14T20:58:39.619Z
 /// see scripts/emit.ts in @puregram/api
 
 import type { Filter } from "../filter-runtime";
-import type { BoostAddedUpdate, BusinessConnectionUpdate, BusinessMessageUpdate, CallbackQueryUpdate, ChannelPostUpdate, ChatBoostUpdate, ChatJoinRequestUpdate, ChatMemberUpdate, ChatSharedUpdate, ChosenInlineResultUpdate, DeleteChatPhotoUpdate, DeletedBusinessMessagesUpdate, EditedBusinessMessageUpdate, EditedChannelPostUpdate, EditedMessageUpdate, ForumTopicClosedUpdate, ForumTopicCreatedUpdate, ForumTopicEditedUpdate, ForumTopicReopenedUpdate, GeneralForumTopicHiddenUpdate, GeneralForumTopicUnhiddenUpdate, GiveawayCompletedUpdate, GiveawayCreatedUpdate, GiveawayWinnersUpdate, GroupChatCreatedUpdate, GuestMessageUpdate, InlineQueryUpdate, InvoiceUpdate, LeftChatMemberUpdate, ManagedBotUpdate, MessageAutoDeleteTimerChangedUpdate, MessageReactionCountUpdate, MessageReactionUpdate, MessageUpdate, MigrateFromChatIdUpdate, MigrateToChatIdUpdate, MyChatMemberUpdate, NewChatMembersUpdate, NewChatPhotoUpdate, NewChatTitleUpdate, PassportDataUpdate, PinnedMessageUpdate, PollAnswerUpdate, PollUpdate, PreCheckoutQueryUpdate, ProximityAlertTriggeredUpdate, PurchasedPaidMediaUpdate, RemovedChatBoostUpdate, ShippingQueryUpdate, SubscriptionUpdate, SuccessfulPaymentUpdate, UsersSharedUpdate, VideoChatEndedUpdate, VideoChatParticipantsInvitedUpdate, VideoChatScheduledUpdate, VideoChatStartedUpdate, WebAppDataUpdate, WriteAccessAllowedUpdate } from "./updates";
+import type { BoostAddedUpdate, BusinessConnectionUpdate, BusinessMessageUpdate, CallbackQueryUpdate, ChannelPostUpdate, ChatBoostUpdate, ChatJoinRequestUpdate, ChatMemberUpdate, ChatSharedUpdate, ChosenInlineResultUpdate, CommunityChatAddedUpdate, CommunityChatRemovedUpdate, DeleteChatPhotoUpdate, DeletedBusinessMessagesUpdate, EditedBusinessMessageUpdate, EditedChannelPostUpdate, EditedMessageUpdate, ForumTopicClosedUpdate, ForumTopicCreatedUpdate, ForumTopicEditedUpdate, ForumTopicReopenedUpdate, GeneralForumTopicHiddenUpdate, GeneralForumTopicUnhiddenUpdate, GiveawayCompletedUpdate, GiveawayCreatedUpdate, GiveawayWinnersUpdate, GroupChatCreatedUpdate, GuestMessageUpdate, InlineQueryUpdate, InvoiceUpdate, LeftChatMemberUpdate, ManagedBotUpdate, MessageAutoDeleteTimerChangedUpdate, MessageReactionCountUpdate, MessageReactionUpdate, MessageUpdate, MigrateFromChatIdUpdate, MigrateToChatIdUpdate, MyChatMemberUpdate, NewChatMembersUpdate, NewChatPhotoUpdate, NewChatTitleUpdate, PassportDataUpdate, PinnedMessageUpdate, PollAnswerUpdate, PollUpdate, PreCheckoutQueryUpdate, ProximityAlertTriggeredUpdate, PurchasedPaidMediaUpdate, RemovedChatBoostUpdate, ShippingQueryUpdate, SubscriptionUpdate, SuccessfulPaymentUpdate, UsersSharedUpdate, VideoChatEndedUpdate, VideoChatParticipantsInvitedUpdate, VideoChatScheduledUpdate, VideoChatStartedUpdate, WebAppDataUpdate, WriteAccessAllowedUpdate } from "./updates";
 /**
  * pre-bound `Filter` for `MessageUpdate`. compose via `.and()` / `.or()` to layer Mod refinements
  */
@@ -295,6 +295,16 @@ export type ProximityAlertTriggeredFilter<Mod = unknown> = Filter<ProximityAlert
  * pre-bound `Filter` for `WriteAccessAllowedUpdate`. compose via `.and()` / `.or()` to layer Mod refinements
  */
 export type WriteAccessAllowedFilter<Mod = unknown> = Filter<WriteAccessAllowedUpdate, Mod>;
+
+/**
+ * pre-bound `Filter` for `CommunityChatAddedUpdate`. compose via `.and()` / `.or()` to layer Mod refinements
+ */
+export type CommunityChatAddedFilter<Mod = unknown> = Filter<CommunityChatAddedUpdate, Mod>;
+
+/**
+ * pre-bound `Filter` for `CommunityChatRemovedUpdate`. compose via `.and()` / `.or()` to layer Mod refinements
+ */
+export type CommunityChatRemovedFilter<Mod = unknown> = Filter<CommunityChatRemovedUpdate, Mod>;
 
 /**
  * cross-kind filter. used by `tg.onUpdate(filter, h)` for predicates that span update kinds

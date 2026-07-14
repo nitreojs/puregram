@@ -2,7 +2,7 @@ import type { Readable } from 'node:stream'
 
 import type { ApiMethods } from './generated/api-methods'
 import type { SendChatActionParams } from './generated/methods'
-import type { TelegramPhotoSize } from './generated/types'
+import type { TelegramPhotoSize, TelegramUser } from './generated/types'
 
 /** timing options for an action controller */
 export interface ActionControllerOptions {
@@ -65,6 +65,9 @@ export interface TelegramLike {
   } & {
     call: (method: string, params?: Record<string, unknown>) => Promise<unknown>
   }
+
+  /** the bot's own identity — resolved via `getMe` (or the `bot` option) before dispatch starts */
+  readonly bot: TelegramUser
 
   download: (target: DownloadableLike) => Promise<Buffer>
   downloadStream: (target: DownloadableLike) => Promise<Readable>

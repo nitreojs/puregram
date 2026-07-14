@@ -1,6 +1,6 @@
 import type { Schema, SchemaField, SchemaMethod } from '../schema-types'
 
-import { buildUpdateKinds, shortcutNameFor, replyVerbForSendName, SHORTCUT_ALIASES, BUSINESS_ANCHOR, THREAD_ANCHOR, type ShortcutAnchor, type UpdateKindSpec } from './updates-config'
+import { buildUpdateKinds, shortcutNameFor, replyVerbForSendName, SHORTCUT_ALIASES, BUSINESS_ANCHOR, EPHEMERAL_METHOD_TWINS, THREAD_ANCHOR, type ShortcutAnchor, type UpdateKindSpec } from './updates-config'
 
 export interface ReplyBinding {
   verb: string
@@ -15,6 +15,12 @@ export interface BoundShortcut {
   reply?: ReplyBinding
   // forces the emitted name, bypassing the canonical rename — used for alias twins
   verbOverride?: string
+  // send-family shortcut on an ephemeral-capable message payload — injects receiver + reply anchor
+  ephemeralSend?: boolean
+  // the ephemeral variant an edit/delete shortcut routes to when the message is ephemeral
+  ephemeralTwin?: string
+  // callback-query send — fills callback_query_id when the caller opts in via receiver_user_id
+  callbackEphemeral?: boolean
 }
 
 export interface ShortcutAnalysis {
@@ -61,7 +67,7 @@ export function analyzeShortcuts (schema: Schema, kinds: UpdateKindSpec[] = buil
         continue
       }
 
-      const bound = augmentBusiness(raw, kind, schema)
+      const bound = augmentEphemeral(augmentBusiness(raw, kind, schema), kind, schema)
 
       result.byKind[kind.kindName]!.push(bound)
 
@@ -98,6 +104,41 @@ function augmentBusiness (bound: BoundShortcut, kind: UpdateKindSpec, schema: Sc
     filledArgs: [...bound.filledArgs, anchor],
     userArgs: bound.userArgs.filter(a => a.name !== 'business_connection_id')
   }
+}
+
+function augmentEphemeral (bound: BoundShortcut, kind: UpdateKindSpec, schema: Schema) {
+  if (payloadHasField(kind, schema, 'ephemeral_message_id')) {
+    const twin = EPHEMERAL_METHOD_TWINS[bound.method]
+
+    if (twin !== undefined && schema.methods.some(m => m.name === twin)) {
+      return { ...bound, ephemeralTwin: twin }
+    }
+
+    // reply_parameters presence separates the send family from the direct editEphemeral* methods
+    if (bound.userArgs.some(a => a.name === 'receiver_user_id') && bound.userArgs.some(a => a.name === 'reply_parameters')) {
+      return { ...bound, ephemeralSend: true }
+    }
+  }
+
+  // send-family methods on callback queries: the auto-bound callback_query_id anchor would
+  // make every send ephemeral — demote it to a conditional fill gated on receiver_user_id.
+  // answer* shortcuts keep their unconditional anchor
+  if (kind.payloadType === 'TelegramCallbackQuery' && bound.method.startsWith('send')) {
+    const anchored = bound.filledArgs.some(a => a.schemaArg === 'callback_query_id')
+
+    if (anchored) {
+      const arg = schema.methods.find(m => m.name === bound.method)?.arguments.find(a => a.name === 'callback_query_id')
+
+      return {
+        ...bound,
+        filledArgs: bound.filledArgs.filter(a => a.schemaArg !== 'callback_query_id'),
+        userArgs: arg === undefined ? bound.userArgs : [...bound.userArgs, arg],
+        callbackEphemeral: true
+      }
+    }
+  }
+
+  return bound
 }
 
 function bindMethod (kind: UpdateKindSpec, method: SchemaMethod) {

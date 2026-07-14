@@ -28,7 +28,7 @@ describe('emitUpdates', () => {
     expect(out).toContain('this.tg.api.sendMessage')
     expect(out).toContain('chat_id: this.raw.chat.id')
 
-    expect(out).toContain('import type { TelegramLike } from "../telegram-like"')
+    expect(out).toContain('import type { ActionControllerLike, ActionControllerParams, TelegramLike } from "../telegram-like"')
     expect(out).toContain('import { INSPECT, makeInspect } from "./inspect"')
   })
 

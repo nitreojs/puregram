@@ -276,7 +276,7 @@ structural `{ text: string, entities?: readonly TelegramMessageEntity[] }` shape
 
 ### `TelegramLike`
 
-structural interface every `Telegram` instance satisfies, exposed without a circular dep on `puregram` core. plugins that don't need the full `Telegram<Ext>` type can take `TelegramLike` and stay loose
+structural interface every `Telegram` instance satisfies, exposed without a circular dep on `puregram` core. plugins that don't need the full `Telegram<Ext>` type can take `TelegramLike` and stay loose. beyond `api` and the download / chat-action helpers it carries `bot: TelegramUser` — the bot's own identity, resolved via `getMe` (or the `bot` option) before dispatch starts, so `update.tg.bot` is always populated inside handlers
 
 ### `FORMATTABLE_FIELDS` and `WEBHOOK_REPLY_SAFE_METHODS`
 

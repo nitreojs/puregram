@@ -1,16 +1,19 @@
 /// AUTO-GENERATED FILE — do not edit by hand
 /// Bot API 10.2
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-07-14T16:35:43.235Z
+/// generated at: 2026-07-14T20:58:39.619Z
 /// see scripts/emit.ts in @puregram/api
 
+import type { Readable } from "node:stream";
 import type { TelegramBotSubscriptionUpdated, TelegramBusinessBotRights, TelegramBusinessConnection, TelegramBusinessMessagesDeleted, TelegramCallbackQuery, TelegramChatBackground, TelegramChatBoostAdded, TelegramChatBoostRemoved, TelegramChatBoostSource, TelegramChatBoostUpdated, TelegramChatJoinRequest, TelegramChatMemberUpdated, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChatPermissions, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramChosenInlineResult, TelegramCommunityChatAdded, TelegramCommunityChatRemoved, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramForceReply, TelegramForumTopicClosed, TelegramForumTopicReopened, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveawayCreated, TelegramInlineKeyboardMarkup, TelegramInlineQuery, TelegramInlineQueryResult, TelegramInlineQueryResultsButton, TelegramInputChecklist, TelegramInputFile, TelegramInputMedia, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaLivePhoto, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPaidMedia, TelegramInputPollMedia, TelegramInputPollOption, TelegramInputRichMessage, TelegramLabeledPrice, TelegramLinkPreviewOptions, TelegramManagedBotCreated, TelegramManagedBotUpdated, TelegramMaybeInaccessibleMessage, TelegramMenuButton, TelegramMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageEntity, TelegramMessageOrigin, TelegramMessageReactionCountUpdated, TelegramMessageReactionUpdated, TelegramPaidMediaInfo, TelegramPaidMediaPurchased, TelegramPaidMessagePriceChanged, TelegramPoll, TelegramPollAnswer, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramPreCheckoutQuery, TelegramReactionType, TelegramRefundedPayment, TelegramReplyKeyboardMarkup, TelegramReplyKeyboardRemove, TelegramReplyParameters, TelegramRichMessage, TelegramShippingOption, TelegramShippingQuery, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostParameters, TelegramSuggestedPostRefunded, TelegramUniqueGiftInfo, TelegramVideoChatStarted } from "./types";
-import type { TelegramLike } from "../telegram-like";
+import type { DeleteMessageParams, EditMessageCaptionParams, EditMessageMediaParams, EditMessageReplyMarkupParams, EditMessageTextParams, SetMessageReactionParams } from "./methods";
+import type { ActionControllerLike, ActionControllerParams, TelegramLike } from "../telegram-like";
 import type { Has } from "../util-types";
 import type { Formattable } from "../formattable";
 import type { RichLike } from "../rich-like";
 import { Animation, Audio, Chat, ChatBoost, ChatInviteLink, ChatMember, ChatShared, Contact, Dice, Document, ExternalReplyInfo, ForumTopicCreated, ForumTopicEdited, Game, Giveaway, GiveawayCompleted, GiveawayWinners, InlineKeyboardMarkup, Invoice, LinkPreviewOptions, LivePhoto, Location, Message, MessageEntity, OrderInfo, PassportData, PhotoSize, Poll, PollMedia, PollOption, ProximityAlertTriggered, ReactionCount, ShippingAddress, Sticker, Story, SuccessfulPayment, TextQuote, User, UsersShared, Venue, Video, VideoChatEnded, VideoChatParticipantsInvited, VideoChatScheduled, VideoNote, Voice, WebAppData, WriteAccessAllowed } from "./structures";
 import { Photo } from "../structures-handcrafted";
+import { callbackEphemeralParams, ephemeralSendParams, ephemeralTarget } from "../ephemeral";
 import { INSPECT, makeInspect } from "./inspect";
 /**
  * thread-scoped shortcuts for `TelegramMessage` — every call auto-fills `message_thread_id`. returned by `update.thread`
@@ -3142,10 +3145,39 @@ class MessageShared {
         return this.raw.reply_to_message?.message_id;
     }
     /**
+     * deep-link payload after `/start` (`t.me/<bot>?start=<payload>`) — grounded in the `bot_command` entity telegram parsed, so text that merely looks like a command never matches, and a `/start@other_bot` addressed to a different bot yields `undefined` (mentions are checked against `tg.bot.username`). `undefined` when this is not a `/start` command or no payload was sent. see also `filters.start` (regex-based and mention-agnostic by design)
+     */
+    get startPayload(): string | undefined {
+        const text = this.raw.text;
+        const entity = this.raw.entities?.find(e => e.type === "bot_command" && e.offset === 0);
+        if (text == null || entity == null || !Number.isInteger(entity.length) || entity.length <= 0) {
+            return undefined;
+        }
+        const parts = text.slice(1, entity.length).split("@");
+        if ((parts[0] ?? "").toLowerCase() !== "start") {
+            return undefined;
+        }
+        const mention = parts[1];
+        if (mention !== undefined) {
+            const ours = this.tg.bot?.username;
+            if (ours === undefined || mention.toLowerCase() !== ours.toLowerCase()) {
+                return undefined;
+            }
+        }
+        const payload = text.slice(entity.length).trim();
+        return payload.length > 0 ? payload : undefined;
+    }
+    /**
      * true if this message has `reply_to_message`
      */
     hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
+    }
+    /**
+     * true if this message is a `/start` command carrying a deep-link payload
+     */
+    hasStartPayload(): this is Has<this, "startPayload"> {
+        return this.startPayload !== undefined;
     }
     /**
      * true if any `entities` item has the given `type`
@@ -3170,6 +3202,12 @@ class MessageShared {
      */
     isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
+    }
+    /**
+     * true if this message is ephemeral (visible only to one user and the bot). sends/replies from an ephemeral context auto-fill the ephemeral params — pass `ephemeral: false` to send a regular message instead
+     */
+    isEphemeral(): this is Has<this, "ephemeralMessageId"> {
+        return this.raw.ephemeral_message_id != null;
     }
     /**
      * true if this message is part of a media group (album). use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album
@@ -3211,7 +3249,7 @@ class MessageShared {
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
-    downloadStream(): Promise<import("node:stream").Readable | null> {
+    downloadStream(): Promise<Readable | null> {
         const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
@@ -3232,25 +3270,25 @@ class MessageShared {
     /**
      * create a controller that re-sends `sendChatAction(action)` every `interval` ms (default 5000) until `stop()` is called — telegram clears the action after ~5 seconds, so a long task needs it refreshed
      */
-    createActionController(action: import("../telegram-like").ActionControllerLike["action"], options?: import("../telegram-like").ActionControllerParams): import("../telegram-like").ActionControllerLike {
+    createActionController(action: ActionControllerLike["action"], options?: ActionControllerParams): ActionControllerLike {
         return this.tg.createActionController(this.raw.chat.id, action, { ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }), ...options });
     }
     /**
      * run `fn` while continuously sending `sendChatAction(action)`. the action auto-stops when `fn` settles — even if it throws — and `fn`'s result is returned
      */
-    withChatAction<T>(action: import("../telegram-like").ActionControllerLike["action"], fn: () => Promise<T> | T, options?: import("../telegram-like").ActionControllerParams): Promise<T> {
+    withChatAction<T>(action: ActionControllerLike["action"], fn: () => Promise<T> | T, options?: ActionControllerParams): Promise<T> {
         return this.tg.withChatAction(this.raw.chat.id, action, fn, { ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }), ...options });
     }
     /**
      * react to this message — an emoji string for the common case, or a reaction array for custom / multiple
      */
-    react(reaction: string | TelegramReactionType[], params?: Omit<import("./methods").SetMessageReactionParams, "chat_id" | "message_id" | "reaction">): Promise<true> {
+    react(reaction: string | TelegramReactionType[], params?: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction">): Promise<true> {
         return this.tg.api.setMessageReaction({ chat_id: this.raw.chat.id, message_id: this.raw.message_id, reaction: typeof reaction === "string" ? [{ type: "emoji", emoji: reaction }] : reaction, ...params });
     }
     /**
      * edit this message to rich content (build it with @puregram/rich)
      */
-    editRich(richMessage: TelegramInputRichMessage | RichLike, params?: Omit<import("./methods").EditMessageTextParams, "chat_id" | "message_id" | "rich_message" | "text">): Promise<TelegramMessage> {
+    editRich(richMessage: TelegramInputRichMessage | RichLike, params?: Omit<EditMessageTextParams, "chat_id" | "message_id" | "rich_message" | "text">): Promise<TelegramMessage> {
         return this.tg.api.editMessageText({ chat_id: this.raw.chat.id, message_id: this.raw.message_id, rich_message: richMessage, ...params });
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -3485,9 +3523,16 @@ class MessageShared {
         });
     }
     /**
-     * shortcut for `tg.api.deleteMessage`
+     * shortcut for `tg.api.deleteMessage` — routes to `tg.api.deleteEphemeralMessage` when this message is ephemeral
      */
     delete(params: {} = {}) {
+        const ephemeral = ephemeralTarget(this.raw);
+        if (ephemeral != null) {
+            return this.tg.api.deleteEphemeralMessage({
+                ...ephemeral,
+                ...params
+            });
+        }
         return this.tg.api.deleteMessage({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -3637,7 +3682,7 @@ class MessageShared {
         });
     }
     /**
-     * shortcut for `tg.api.editMessageCaption`
+     * shortcut for `tg.api.editMessageCaption` — routes to `tg.api.editEphemeralMessageCaption` when this message is ephemeral
      */
     editCaption(params: {
         inline_message_id?: string;
@@ -3649,6 +3694,13 @@ class MessageShared {
             toJSON: () => TelegramInlineKeyboardMarkup;
         };
     } = {}) {
+        const ephemeral = ephemeralTarget(this.raw);
+        if (ephemeral != null) {
+            return this.tg.api.editEphemeralMessageCaption({
+                ...ephemeral,
+                ...params
+            });
+        }
         return this.tg.api.editMessageCaption({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -3695,7 +3747,7 @@ class MessageShared {
         });
     }
     /**
-     * shortcut for `tg.api.editMessageMedia`
+     * shortcut for `tg.api.editMessageMedia` — routes to `tg.api.editEphemeralMessageMedia` when this message is ephemeral
      */
     editMedia(media: TelegramInputMedia, params: {
         inline_message_id?: string;
@@ -3703,6 +3755,14 @@ class MessageShared {
             toJSON: () => TelegramInlineKeyboardMarkup;
         };
     } = {}) {
+        const ephemeral = ephemeralTarget(this.raw);
+        if (ephemeral != null) {
+            return this.tg.api.editEphemeralMessageMedia({
+                ...ephemeral,
+                media: media,
+                ...params
+            });
+        }
         return this.tg.api.editMessageMedia({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -3712,7 +3772,7 @@ class MessageShared {
         });
     }
     /**
-     * shortcut for `tg.api.editMessageReplyMarkup`
+     * shortcut for `tg.api.editMessageReplyMarkup` — routes to `tg.api.editEphemeralMessageReplyMarkup` when this message is ephemeral
      */
     editReplyMarkup(params: {
         inline_message_id?: string;
@@ -3720,6 +3780,13 @@ class MessageShared {
             toJSON: () => TelegramInlineKeyboardMarkup;
         };
     } = {}) {
+        const ephemeral = ephemeralTarget(this.raw);
+        if (ephemeral != null) {
+            return this.tg.api.editEphemeralMessageReplyMarkup({
+                ...ephemeral,
+                ...params
+            });
+        }
         return this.tg.api.editMessageReplyMarkup({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -3728,7 +3795,7 @@ class MessageShared {
         });
     }
     /**
-     * shortcut for `tg.api.editMessageText`
+     * shortcut for `tg.api.editMessageText` — routes to `tg.api.editEphemeralMessageText` when this message is ephemeral
      */
     edit(text: string | Formattable, params: {
         inline_message_id?: string;
@@ -3740,6 +3807,14 @@ class MessageShared {
             toJSON: () => TelegramInlineKeyboardMarkup;
         };
     } = {}) {
+        const ephemeral = ephemeralTarget(this.raw);
+        if (ephemeral != null) {
+            return this.tg.api.editEphemeralMessageText({
+                ...ephemeral,
+                text: text,
+                ...params
+            });
+        }
         return this.tg.api.editMessageText({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
@@ -4010,7 +4085,7 @@ class MessageShared {
         });
     }
     /**
-     * shortcut for `tg.api.sendAnimation`
+     * shortcut for `tg.api.sendAnimation` — replying to an ephemeral message auto-fills `receiver_user_id` + `reply_parameters.ephemeral_message_id` (ephemeral responses only reach the receiver)
      */
     sendAnimation(animation: TelegramInputFile | string, params: {
         message_thread_id?: number;
@@ -4035,16 +4110,18 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        ephemeral?: boolean;
     } = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
             ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             animation: animation,
-            ...params
+            ...params,
+            ...ephemeralSendParams(this.raw, params)
         });
     }
     /**
-     * reply shortcut for `tg.api.sendAnimation` — sets `reply_parameters` to this message
+     * reply shortcut for `tg.api.sendAnimation` — sets `reply_parameters` to this message — replying to an ephemeral message auto-fills `receiver_user_id` + `reply_parameters.ephemeral_message_id` (ephemeral responses only reach the receiver)
      */
     replyWithAnimation(animation: TelegramInputFile | string, params: {
         message_thread_id?: number;
@@ -4069,17 +4146,19 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        ephemeral?: boolean;
     } = {}) {
         return this.tg.api.sendAnimation({
             chat_id: this.raw.chat.id,
             ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             animation: animation,
             ...params,
-            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters },
+            ...ephemeralSendParams(this.raw, params)
         });
     }
     /**
-     * shortcut for `tg.api.sendAudio`
+     * shortcut for `tg.api.sendAudio` — replying to an ephemeral message auto-fills `receiver_user_id` + `reply_parameters.ephemeral_message_id` (ephemeral responses only reach the receiver)
      */
     sendAudio(audio: TelegramInputFile | string, params: {
         message_thread_id?: number;
@@ -4102,16 +4181,18 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        ephemeral?: boolean;
     } = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
             ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             audio: audio,
-            ...params
+            ...params,
+            ...ephemeralSendParams(this.raw, params)
         });
     }
     /**
-     * reply shortcut for `tg.api.sendAudio` — sets `reply_parameters` to this message
+     * reply shortcut for `tg.api.sendAudio` — sets `reply_parameters` to this message — replying to an ephemeral message auto-fills `receiver_user_id` + `reply_parameters.ephemeral_message_id` (ephemeral responses only reach the receiver)
      */
     replyWithAudio(audio: TelegramInputFile | string, params: {
         message_thread_id?: number;
@@ -4134,13 +4215,15 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        ephemeral?: boolean;
     } = {}) {
         return this.tg.api.sendAudio({
             chat_id: this.raw.chat.id,
             ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             audio: audio,
             ...params,
-            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters },
+            ...ephemeralSendParams(this.raw, params)
         });
     }
     /**
@@ -4196,7 +4279,7 @@ class MessageShared {
         });
     }
     /**
-     * shortcut for `tg.api.sendContact`
+     * shortcut for `tg.api.sendContact` — replying to an ephemeral message auto-fills `receiver_user_id` + `reply_parameters.ephemeral_message_id` (ephemeral responses only reach the receiver)
      */
     sendContact(phoneNumber: string, firstName: string, params: {
         message_thread_id?: number;
@@ -4214,17 +4297,19 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        ephemeral?: boolean;
     } = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
             ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             phone_number: phoneNumber,
             first_name: firstName,
-            ...params
+            ...params,
+            ...ephemeralSendParams(this.raw, params)
         });
     }
     /**
-     * reply shortcut for `tg.api.sendContact` — sets `reply_parameters` to this message
+     * reply shortcut for `tg.api.sendContact` — sets `reply_parameters` to this message — replying to an ephemeral message auto-fills `receiver_user_id` + `reply_parameters.ephemeral_message_id` (ephemeral responses only reach the receiver)
      */
     replyWithContact(phoneNumber: string, firstName: string, params: {
         message_thread_id?: number;
@@ -4242,6 +4327,7 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        ephemeral?: boolean;
     } = {}) {
         return this.tg.api.sendContact({
             chat_id: this.raw.chat.id,
@@ -4249,7 +4335,8 @@ class MessageShared {
             phone_number: phoneNumber,
             first_name: firstName,
             ...params,
-            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters },
+            ...ephemeralSendParams(this.raw, params)
         });
     }
     /**
@@ -4300,7 +4387,7 @@ class MessageShared {
         });
     }
     /**
-     * shortcut for `tg.api.sendDocument`
+     * shortcut for `tg.api.sendDocument` — replying to an ephemeral message auto-fills `receiver_user_id` + `reply_parameters.ephemeral_message_id` (ephemeral responses only reach the receiver)
      */
     sendDocument(document: TelegramInputFile | string, params: {
         message_thread_id?: number;
@@ -4321,16 +4408,18 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        ephemeral?: boolean;
     } = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
             ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             document: document,
-            ...params
+            ...params,
+            ...ephemeralSendParams(this.raw, params)
         });
     }
     /**
-     * reply shortcut for `tg.api.sendDocument` — sets `reply_parameters` to this message
+     * reply shortcut for `tg.api.sendDocument` — sets `reply_parameters` to this message — replying to an ephemeral message auto-fills `receiver_user_id` + `reply_parameters.ephemeral_message_id` (ephemeral responses only reach the receiver)
      */
     replyWithDocument(document: TelegramInputFile | string, params: {
         message_thread_id?: number;
@@ -4351,13 +4440,15 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        ephemeral?: boolean;
     } = {}) {
         return this.tg.api.sendDocument({
             chat_id: this.raw.chat.id,
             ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             document: document,
             ...params,
-            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters },
+            ...ephemeralSendParams(this.raw, params)
         });
     }
     /**
@@ -4505,7 +4596,7 @@ class MessageShared {
         });
     }
     /**
-     * shortcut for `tg.api.sendLivePhoto`
+     * shortcut for `tg.api.sendLivePhoto` — replying to an ephemeral message auto-fills `receiver_user_id` + `reply_parameters.ephemeral_message_id` (ephemeral responses only reach the receiver)
      */
     sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: {
         message_thread_id?: number;
@@ -4526,17 +4617,19 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        ephemeral?: boolean;
     } = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
             ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             live_photo: livePhoto,
             photo: photo,
-            ...params
+            ...params,
+            ...ephemeralSendParams(this.raw, params)
         });
     }
     /**
-     * reply shortcut for `tg.api.sendLivePhoto` — sets `reply_parameters` to this message
+     * reply shortcut for `tg.api.sendLivePhoto` — sets `reply_parameters` to this message — replying to an ephemeral message auto-fills `receiver_user_id` + `reply_parameters.ephemeral_message_id` (ephemeral responses only reach the receiver)
      */
     replyWithLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: {
         message_thread_id?: number;
@@ -4557,6 +4650,7 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        ephemeral?: boolean;
     } = {}) {
         return this.tg.api.sendLivePhoto({
             chat_id: this.raw.chat.id,
@@ -4564,11 +4658,12 @@ class MessageShared {
             live_photo: livePhoto,
             photo: photo,
             ...params,
-            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters },
+            ...ephemeralSendParams(this.raw, params)
         });
     }
     /**
-     * shortcut for `tg.api.sendLocation`
+     * shortcut for `tg.api.sendLocation` — replying to an ephemeral message auto-fills `receiver_user_id` + `reply_parameters.ephemeral_message_id` (ephemeral responses only reach the receiver)
      */
     sendLocation(latitude: number, longitude: number, params: {
         message_thread_id?: number;
@@ -4588,17 +4683,19 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        ephemeral?: boolean;
     } = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
             ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             latitude: latitude,
             longitude: longitude,
-            ...params
+            ...params,
+            ...ephemeralSendParams(this.raw, params)
         });
     }
     /**
-     * reply shortcut for `tg.api.sendLocation` — sets `reply_parameters` to this message
+     * reply shortcut for `tg.api.sendLocation` — sets `reply_parameters` to this message — replying to an ephemeral message auto-fills `receiver_user_id` + `reply_parameters.ephemeral_message_id` (ephemeral responses only reach the receiver)
      */
     replyWithLocation(latitude: number, longitude: number, params: {
         message_thread_id?: number;
@@ -4618,6 +4715,7 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        ephemeral?: boolean;
     } = {}) {
         return this.tg.api.sendLocation({
             chat_id: this.raw.chat.id,
@@ -4625,7 +4723,8 @@ class MessageShared {
             latitude: latitude,
             longitude: longitude,
             ...params,
-            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters },
+            ...ephemeralSendParams(this.raw, params)
         });
     }
     /**
@@ -4668,7 +4767,7 @@ class MessageShared {
         });
     }
     /**
-     * shortcut for `tg.api.sendMessage`
+     * shortcut for `tg.api.sendMessage` — replying to an ephemeral message auto-fills `receiver_user_id` + `reply_parameters.ephemeral_message_id` (ephemeral responses only reach the receiver)
      */
     send(text: string | Formattable, params: {
         message_thread_id?: number;
@@ -4687,16 +4786,18 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        ephemeral?: boolean;
     } = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             text: text,
-            ...params
+            ...params,
+            ...ephemeralSendParams(this.raw, params)
         });
     }
     /**
-     * reply shortcut for `tg.api.sendMessage` — sets `reply_parameters` to this message
+     * reply shortcut for `tg.api.sendMessage` — sets `reply_parameters` to this message — replying to an ephemeral message auto-fills `receiver_user_id` + `reply_parameters.ephemeral_message_id` (ephemeral responses only reach the receiver)
      */
     reply(text: string | Formattable, params: {
         message_thread_id?: number;
@@ -4715,13 +4816,15 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        ephemeral?: boolean;
     } = {}) {
         return this.tg.api.sendMessage({
             chat_id: this.raw.chat.id,
             ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             text: text,
             ...params,
-            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters },
+            ...ephemeralSendParams(this.raw, params)
         });
     }
     /**
@@ -4797,7 +4900,7 @@ class MessageShared {
         });
     }
     /**
-     * shortcut for `tg.api.sendPhoto`
+     * shortcut for `tg.api.sendPhoto` — replying to an ephemeral message auto-fills `receiver_user_id` + `reply_parameters.ephemeral_message_id` (ephemeral responses only reach the receiver)
      */
     sendPhoto(photo: TelegramInputFile | string, params: {
         message_thread_id?: number;
@@ -4818,16 +4921,18 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        ephemeral?: boolean;
     } = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
             ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             photo: photo,
-            ...params
+            ...params,
+            ...ephemeralSendParams(this.raw, params)
         });
     }
     /**
-     * reply shortcut for `tg.api.sendPhoto` — sets `reply_parameters` to this message
+     * reply shortcut for `tg.api.sendPhoto` — sets `reply_parameters` to this message — replying to an ephemeral message auto-fills `receiver_user_id` + `reply_parameters.ephemeral_message_id` (ephemeral responses only reach the receiver)
      */
     replyWithPhoto(photo: TelegramInputFile | string, params: {
         message_thread_id?: number;
@@ -4848,13 +4953,15 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        ephemeral?: boolean;
     } = {}) {
         return this.tg.api.sendPhoto({
             chat_id: this.raw.chat.id,
             ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             photo: photo,
             ...params,
-            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters },
+            ...ephemeralSendParams(this.raw, params)
         });
     }
     /**
@@ -5009,7 +5116,7 @@ class MessageShared {
         });
     }
     /**
-     * shortcut for `tg.api.sendSticker`
+     * shortcut for `tg.api.sendSticker` — replying to an ephemeral message auto-fills `receiver_user_id` + `reply_parameters.ephemeral_message_id` (ephemeral responses only reach the receiver)
      */
     sendSticker(sticker: TelegramInputFile | string, params: {
         message_thread_id?: number;
@@ -5026,16 +5133,18 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        ephemeral?: boolean;
     } = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
             ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             sticker: sticker,
-            ...params
+            ...params,
+            ...ephemeralSendParams(this.raw, params)
         });
     }
     /**
-     * reply shortcut for `tg.api.sendSticker` — sets `reply_parameters` to this message
+     * reply shortcut for `tg.api.sendSticker` — sets `reply_parameters` to this message — replying to an ephemeral message auto-fills `receiver_user_id` + `reply_parameters.ephemeral_message_id` (ephemeral responses only reach the receiver)
      */
     replyWithSticker(sticker: TelegramInputFile | string, params: {
         message_thread_id?: number;
@@ -5052,17 +5161,19 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        ephemeral?: boolean;
     } = {}) {
         return this.tg.api.sendSticker({
             chat_id: this.raw.chat.id,
             ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             sticker: sticker,
             ...params,
-            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters },
+            ...ephemeralSendParams(this.raw, params)
         });
     }
     /**
-     * shortcut for `tg.api.sendVenue`
+     * shortcut for `tg.api.sendVenue` — replying to an ephemeral message auto-fills `receiver_user_id` + `reply_parameters.ephemeral_message_id` (ephemeral responses only reach the receiver)
      */
     sendVenue(latitude: number, longitude: number, title: string, address: string, params: {
         message_thread_id?: number;
@@ -5082,6 +5193,7 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        ephemeral?: boolean;
     } = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
@@ -5090,11 +5202,12 @@ class MessageShared {
             longitude: longitude,
             title: title,
             address: address,
-            ...params
+            ...params,
+            ...ephemeralSendParams(this.raw, params)
         });
     }
     /**
-     * reply shortcut for `tg.api.sendVenue` — sets `reply_parameters` to this message
+     * reply shortcut for `tg.api.sendVenue` — sets `reply_parameters` to this message — replying to an ephemeral message auto-fills `receiver_user_id` + `reply_parameters.ephemeral_message_id` (ephemeral responses only reach the receiver)
      */
     replyWithVenue(latitude: number, longitude: number, title: string, address: string, params: {
         message_thread_id?: number;
@@ -5114,6 +5227,7 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        ephemeral?: boolean;
     } = {}) {
         return this.tg.api.sendVenue({
             chat_id: this.raw.chat.id,
@@ -5123,11 +5237,12 @@ class MessageShared {
             title: title,
             address: address,
             ...params,
-            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters },
+            ...ephemeralSendParams(this.raw, params)
         });
     }
     /**
-     * shortcut for `tg.api.sendVideo`
+     * shortcut for `tg.api.sendVideo` — replying to an ephemeral message auto-fills `receiver_user_id` + `reply_parameters.ephemeral_message_id` (ephemeral responses only reach the receiver)
      */
     sendVideo(video: TelegramInputFile | string, params: {
         message_thread_id?: number;
@@ -5155,16 +5270,18 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        ephemeral?: boolean;
     } = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
             ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             video: video,
-            ...params
+            ...params,
+            ...ephemeralSendParams(this.raw, params)
         });
     }
     /**
-     * reply shortcut for `tg.api.sendVideo` — sets `reply_parameters` to this message
+     * reply shortcut for `tg.api.sendVideo` — sets `reply_parameters` to this message — replying to an ephemeral message auto-fills `receiver_user_id` + `reply_parameters.ephemeral_message_id` (ephemeral responses only reach the receiver)
      */
     replyWithVideo(video: TelegramInputFile | string, params: {
         message_thread_id?: number;
@@ -5192,17 +5309,19 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        ephemeral?: boolean;
     } = {}) {
         return this.tg.api.sendVideo({
             chat_id: this.raw.chat.id,
             ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             video: video,
             ...params,
-            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters },
+            ...ephemeralSendParams(this.raw, params)
         });
     }
     /**
-     * shortcut for `tg.api.sendVideoNote`
+     * shortcut for `tg.api.sendVideoNote` — replying to an ephemeral message auto-fills `receiver_user_id` + `reply_parameters.ephemeral_message_id` (ephemeral responses only reach the receiver)
      */
     sendVideoNote(videoNote: TelegramInputFile | string, params: {
         message_thread_id?: number;
@@ -5221,16 +5340,18 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        ephemeral?: boolean;
     } = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
             ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             video_note: videoNote,
-            ...params
+            ...params,
+            ...ephemeralSendParams(this.raw, params)
         });
     }
     /**
-     * reply shortcut for `tg.api.sendVideoNote` — sets `reply_parameters` to this message
+     * reply shortcut for `tg.api.sendVideoNote` — sets `reply_parameters` to this message — replying to an ephemeral message auto-fills `receiver_user_id` + `reply_parameters.ephemeral_message_id` (ephemeral responses only reach the receiver)
      */
     replyWithVideoNote(videoNote: TelegramInputFile | string, params: {
         message_thread_id?: number;
@@ -5249,17 +5370,19 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        ephemeral?: boolean;
     } = {}) {
         return this.tg.api.sendVideoNote({
             chat_id: this.raw.chat.id,
             ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             video_note: videoNote,
             ...params,
-            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters },
+            ...ephemeralSendParams(this.raw, params)
         });
     }
     /**
-     * shortcut for `tg.api.sendVoice`
+     * shortcut for `tg.api.sendVoice` — replying to an ephemeral message auto-fills `receiver_user_id` + `reply_parameters.ephemeral_message_id` (ephemeral responses only reach the receiver)
      */
     sendVoice(voice: TelegramInputFile | string, params: {
         message_thread_id?: number;
@@ -5279,16 +5402,18 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        ephemeral?: boolean;
     } = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
             ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             voice: voice,
-            ...params
+            ...params,
+            ...ephemeralSendParams(this.raw, params)
         });
     }
     /**
-     * reply shortcut for `tg.api.sendVoice` — sets `reply_parameters` to this message
+     * reply shortcut for `tg.api.sendVoice` — sets `reply_parameters` to this message — replying to an ephemeral message auto-fills `receiver_user_id` + `reply_parameters.ephemeral_message_id` (ephemeral responses only reach the receiver)
      */
     replyWithVoice(voice: TelegramInputFile | string, params: {
         message_thread_id?: number;
@@ -5308,13 +5433,15 @@ class MessageShared {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        ephemeral?: boolean;
     } = {}) {
         return this.tg.api.sendVoice({
             chat_id: this.raw.chat.id,
             ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }),
             voice: voice,
             ...params,
-            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters }
+            reply_parameters: { message_id: this.raw.message_id, ...params.reply_parameters },
+            ...ephemeralSendParams(this.raw, params)
         });
     }
     /**
@@ -5725,6 +5852,12 @@ export class BusinessConnectionUpdate {
      */
     get api(): TelegramLike["api"] {
         return this.tg.api;
+    }
+    /**
+     * shortcut for `user.id` — uniform sender id across update kinds
+     */
+    get senderId(): number {
+        return this.raw.user.id;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -7458,10 +7591,39 @@ export class GuestMessageUpdate {
         return this.raw.reply_to_message?.message_id;
     }
     /**
+     * deep-link payload after `/start` (`t.me/<bot>?start=<payload>`) — grounded in the `bot_command` entity telegram parsed, so text that merely looks like a command never matches, and a `/start@other_bot` addressed to a different bot yields `undefined` (mentions are checked against `tg.bot.username`). `undefined` when this is not a `/start` command or no payload was sent. see also `filters.start` (regex-based and mention-agnostic by design)
+     */
+    get startPayload(): string | undefined {
+        const text = this.raw.text;
+        const entity = this.raw.entities?.find(e => e.type === "bot_command" && e.offset === 0);
+        if (text == null || entity == null || !Number.isInteger(entity.length) || entity.length <= 0) {
+            return undefined;
+        }
+        const parts = text.slice(1, entity.length).split("@");
+        if ((parts[0] ?? "").toLowerCase() !== "start") {
+            return undefined;
+        }
+        const mention = parts[1];
+        if (mention !== undefined) {
+            const ours = this.tg.bot?.username;
+            if (ours === undefined || mention.toLowerCase() !== ours.toLowerCase()) {
+                return undefined;
+            }
+        }
+        const payload = text.slice(entity.length).trim();
+        return payload.length > 0 ? payload : undefined;
+    }
+    /**
      * true if this message has `reply_to_message`
      */
     hasReplyToMessage(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
+    }
+    /**
+     * true if this message is a `/start` command carrying a deep-link payload
+     */
+    hasStartPayload(): this is Has<this, "startPayload"> {
+        return this.startPayload !== undefined;
     }
     /**
      * true if any `entities` item has the given `type`
@@ -7486,6 +7648,12 @@ export class GuestMessageUpdate {
      */
     isReply(): this is Has<this, "replyToMessage" | "replyToMessageId"> {
         return this.raw.reply_to_message != null;
+    }
+    /**
+     * true if this message is ephemeral (visible only to one user and the bot). sends/replies from an ephemeral context auto-fill the ephemeral params — pass `ephemeral: false` to send a regular message instead
+     */
+    isEphemeral(): this is Has<this, "ephemeralMessageId"> {
+        return this.raw.ephemeral_message_id != null;
     }
     /**
      * true if this message is part of a media group (album). use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album
@@ -7527,7 +7695,7 @@ export class GuestMessageUpdate {
     /**
      * download the message attachment as a node `Readable`. returns `null` if no media
      */
-    downloadStream(): Promise<import("node:stream").Readable | null> {
+    downloadStream(): Promise<Readable | null> {
         const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;
         return t == null ? Promise.resolve(null) : this.tg.downloadStream(t);
     }
@@ -7548,25 +7716,25 @@ export class GuestMessageUpdate {
     /**
      * create a controller that re-sends `sendChatAction(action)` every `interval` ms (default 5000) until `stop()` is called — telegram clears the action after ~5 seconds, so a long task needs it refreshed
      */
-    createActionController(action: import("../telegram-like").ActionControllerLike["action"], options?: import("../telegram-like").ActionControllerParams): import("../telegram-like").ActionControllerLike {
+    createActionController(action: ActionControllerLike["action"], options?: ActionControllerParams): ActionControllerLike {
         return this.tg.createActionController(this.raw.chat.id, action, { ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }), ...options });
     }
     /**
      * run `fn` while continuously sending `sendChatAction(action)`. the action auto-stops when `fn` settles — even if it throws — and `fn`'s result is returned
      */
-    withChatAction<T>(action: import("../telegram-like").ActionControllerLike["action"], fn: () => Promise<T> | T, options?: import("../telegram-like").ActionControllerParams): Promise<T> {
+    withChatAction<T>(action: ActionControllerLike["action"], fn: () => Promise<T> | T, options?: ActionControllerParams): Promise<T> {
         return this.tg.withChatAction(this.raw.chat.id, action, fn, { ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }), ...options });
     }
     /**
      * react to this message — an emoji string for the common case, or a reaction array for custom / multiple
      */
-    react(reaction: string | TelegramReactionType[], params?: Omit<import("./methods").SetMessageReactionParams, "chat_id" | "message_id" | "reaction">): Promise<true> {
+    react(reaction: string | TelegramReactionType[], params?: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction">): Promise<true> {
         return this.tg.api.setMessageReaction({ chat_id: this.raw.chat.id, message_id: this.raw.message_id, reaction: typeof reaction === "string" ? [{ type: "emoji", emoji: reaction }] : reaction, ...params });
     }
     /**
      * edit this message to rich content (build it with @puregram/rich)
      */
-    editRich(richMessage: TelegramInputRichMessage | RichLike, params?: Omit<import("./methods").EditMessageTextParams, "chat_id" | "message_id" | "rich_message" | "text">): Promise<TelegramMessage> {
+    editRich(richMessage: TelegramInputRichMessage | RichLike, params?: Omit<EditMessageTextParams, "chat_id" | "message_id" | "rich_message" | "text">): Promise<TelegramMessage> {
         return this.tg.api.editMessageText({ chat_id: this.raw.chat.id, message_id: this.raw.message_id, rich_message: richMessage, ...params });
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -7694,6 +7862,12 @@ export class MessageReactionUpdate {
             custom_emoji_id?: string;
         }).custom_emoji_id));
     }
+    /**
+     * best-effort sender id: `user.id` → `actor_chat.id`
+     */
+    get senderId(): number | undefined {
+        return this.raw.user?.id ?? this.raw.actor_chat?.id;
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -7814,6 +7988,12 @@ export class InlineQueryUpdate {
     get api(): TelegramLike["api"] {
         return this.tg.api;
     }
+    /**
+     * shortcut for `from.id` — uniform sender id across update kinds
+     */
+    get senderId(): number {
+        return this.raw.from.id;
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -7896,6 +8076,12 @@ export class ChosenInlineResultUpdate {
      */
     get api(): TelegramLike["api"] {
         return this.tg.api;
+    }
+    /**
+     * shortcut for `from.id` — uniform sender id across update kinds
+     */
+    get senderId(): number {
+        return this.raw.from.id;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -8005,9 +8191,80 @@ export class CallbackQueryUpdate {
         return this.raw.message?.message_id;
     }
     /**
-     * shortcut for `from.id`
+     * shortcut for `from.id` — alias of `senderId`
      */
     get userId(): number {
+        return this.raw.from.id;
+    }
+    /**
+     * shortcut for `tg.api.editMessageText` on the message this callback query came from — auto-fills `chat_id` + `message_id`, or `inline_message_id` for inline-mode messages (those resolve `true` instead of the edited message)
+     */
+    edit(text: string | Formattable, params?: Omit<EditMessageTextParams, "chat_id" | "message_id" | "inline_message_id" | "text">): Promise<TelegramMessage | true> {
+        const m = this.raw.message;
+        const ref = this.raw.inline_message_id != null ? { inline_message_id: this.raw.inline_message_id } : m != null ? { chat_id: m.chat.id, message_id: m.message_id } : undefined;
+        if (ref == null) {
+            throw new TypeError("callback query carries neither message nor inline_message_id");
+        }
+        return this.tg.api.editMessageText({ ...ref, text, ...params });
+    }
+    /**
+     * shortcut for `tg.api.editMessageCaption` on the message this callback query came from — inline-mode edits resolve `true`
+     */
+    editCaption(params?: Omit<EditMessageCaptionParams, "chat_id" | "message_id" | "inline_message_id">): Promise<TelegramMessage | true> {
+        const m = this.raw.message;
+        const ref = this.raw.inline_message_id != null ? { inline_message_id: this.raw.inline_message_id } : m != null ? { chat_id: m.chat.id, message_id: m.message_id } : undefined;
+        if (ref == null) {
+            throw new TypeError("callback query carries neither message nor inline_message_id");
+        }
+        return this.tg.api.editMessageCaption({ ...ref, ...params });
+    }
+    /**
+     * shortcut for `tg.api.editMessageMedia` on the message this callback query came from — inline-mode edits resolve `true`
+     */
+    editMedia(media: EditMessageMediaParams["media"], params?: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "inline_message_id" | "media">): Promise<TelegramMessage | true> {
+        const m = this.raw.message;
+        const ref = this.raw.inline_message_id != null ? { inline_message_id: this.raw.inline_message_id } : m != null ? { chat_id: m.chat.id, message_id: m.message_id } : undefined;
+        if (ref == null) {
+            throw new TypeError("callback query carries neither message nor inline_message_id");
+        }
+        return this.tg.api.editMessageMedia({ ...ref, media, ...params });
+    }
+    /**
+     * shortcut for `tg.api.editMessageReplyMarkup` on the message this callback query came from — the pager pattern: swap the keyboard in place. inline-mode edits resolve `true`
+     */
+    editReplyMarkup(params?: Omit<EditMessageReplyMarkupParams, "chat_id" | "message_id" | "inline_message_id">): Promise<TelegramMessage | true> {
+        const m = this.raw.message;
+        const ref = this.raw.inline_message_id != null ? { inline_message_id: this.raw.inline_message_id } : m != null ? { chat_id: m.chat.id, message_id: m.message_id } : undefined;
+        if (ref == null) {
+            throw new TypeError("callback query carries neither message nor inline_message_id");
+        }
+        return this.tg.api.editMessageReplyMarkup({ ...ref, ...params });
+    }
+    /**
+     * edit the message this callback query came from to rich content (build it with @puregram/rich) — inline-mode edits resolve `true`
+     */
+    editRich(richMessage: TelegramInputRichMessage | RichLike, params?: Omit<EditMessageTextParams, "chat_id" | "message_id" | "inline_message_id" | "rich_message" | "text">): Promise<TelegramMessage | true> {
+        const m = this.raw.message;
+        const ref = this.raw.inline_message_id != null ? { inline_message_id: this.raw.inline_message_id } : m != null ? { chat_id: m.chat.id, message_id: m.message_id } : undefined;
+        if (ref == null) {
+            throw new TypeError("callback query carries neither message nor inline_message_id");
+        }
+        return this.tg.api.editMessageText({ ...ref, rich_message: richMessage, ...params });
+    }
+    /**
+     * shortcut for `tg.api.deleteMessage` on the message this callback query came from. throws for inline-mode messages — there is nothing to delete
+     */
+    delete(params?: Omit<DeleteMessageParams, "chat_id" | "message_id">): Promise<true> {
+        const m = this.raw.message;
+        if (m == null) {
+            throw new TypeError("cannot delete an inline-mode message \u2014 deleteMessage needs chat_id + message_id");
+        }
+        return this.tg.api.deleteMessage({ chat_id: m.chat.id, message_id: m.message_id, ...params });
+    }
+    /**
+     * shortcut for `from.id` — uniform sender id across update kinds
+     */
+    get senderId(): number {
         return this.raw.from.id;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
@@ -8028,7 +8285,7 @@ export class CallbackQueryUpdate {
         });
     }
     /**
-     * shortcut for `tg.api.sendAnimation`
+     * shortcut for `tg.api.sendAnimation` — pass `receiver_user_id` to send an ephemeral response; `callback_query_id` then auto-fills from this query
      */
     sendAnimation(chat: number | string, animation: TelegramInputFile | string, params: {
         business_connection_id?: string;
@@ -8053,16 +8310,17 @@ export class CallbackQueryUpdate {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        callback_query_id?: string;
     } = {}) {
         return this.tg.api.sendAnimation({
-            callback_query_id: this.raw.id,
             chat_id: chat,
             animation: animation,
-            ...params
+            ...params,
+            ...callbackEphemeralParams(this.raw.id, params)
         });
     }
     /**
-     * shortcut for `tg.api.sendAudio`
+     * shortcut for `tg.api.sendAudio` — pass `receiver_user_id` to send an ephemeral response; `callback_query_id` then auto-fills from this query
      */
     sendAudio(chat: number | string, audio: TelegramInputFile | string, params: {
         business_connection_id?: string;
@@ -8085,16 +8343,17 @@ export class CallbackQueryUpdate {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        callback_query_id?: string;
     } = {}) {
         return this.tg.api.sendAudio({
-            callback_query_id: this.raw.id,
             chat_id: chat,
             audio: audio,
-            ...params
+            ...params,
+            ...callbackEphemeralParams(this.raw.id, params)
         });
     }
     /**
-     * shortcut for `tg.api.sendContact`
+     * shortcut for `tg.api.sendContact` — pass `receiver_user_id` to send an ephemeral response; `callback_query_id` then auto-fills from this query
      */
     sendContact(chat: number | string, phoneNumber: string, firstName: string, params: {
         business_connection_id?: string;
@@ -8112,17 +8371,18 @@ export class CallbackQueryUpdate {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        callback_query_id?: string;
     } = {}) {
         return this.tg.api.sendContact({
-            callback_query_id: this.raw.id,
             chat_id: chat,
             phone_number: phoneNumber,
             first_name: firstName,
-            ...params
+            ...params,
+            ...callbackEphemeralParams(this.raw.id, params)
         });
     }
     /**
-     * shortcut for `tg.api.sendDocument`
+     * shortcut for `tg.api.sendDocument` — pass `receiver_user_id` to send an ephemeral response; `callback_query_id` then auto-fills from this query
      */
     sendDocument(chat: number | string, document: TelegramInputFile | string, params: {
         business_connection_id?: string;
@@ -8143,16 +8403,17 @@ export class CallbackQueryUpdate {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        callback_query_id?: string;
     } = {}) {
         return this.tg.api.sendDocument({
-            callback_query_id: this.raw.id,
             chat_id: chat,
             document: document,
-            ...params
+            ...params,
+            ...callbackEphemeralParams(this.raw.id, params)
         });
     }
     /**
-     * shortcut for `tg.api.sendLivePhoto`
+     * shortcut for `tg.api.sendLivePhoto` — pass `receiver_user_id` to send an ephemeral response; `callback_query_id` then auto-fills from this query
      */
     sendLivePhoto(chat: number | string, livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: {
         business_connection_id?: string;
@@ -8173,17 +8434,18 @@ export class CallbackQueryUpdate {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        callback_query_id?: string;
     } = {}) {
         return this.tg.api.sendLivePhoto({
-            callback_query_id: this.raw.id,
             chat_id: chat,
             live_photo: livePhoto,
             photo: photo,
-            ...params
+            ...params,
+            ...callbackEphemeralParams(this.raw.id, params)
         });
     }
     /**
-     * shortcut for `tg.api.sendLocation`
+     * shortcut for `tg.api.sendLocation` — pass `receiver_user_id` to send an ephemeral response; `callback_query_id` then auto-fills from this query
      */
     sendLocation(chat: number | string, latitude: number, longitude: number, params: {
         business_connection_id?: string;
@@ -8203,17 +8465,18 @@ export class CallbackQueryUpdate {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        callback_query_id?: string;
     } = {}) {
         return this.tg.api.sendLocation({
-            callback_query_id: this.raw.id,
             chat_id: chat,
             latitude: latitude,
             longitude: longitude,
-            ...params
+            ...params,
+            ...callbackEphemeralParams(this.raw.id, params)
         });
     }
     /**
-     * shortcut for `tg.api.sendMessage`
+     * shortcut for `tg.api.sendMessage` — pass `receiver_user_id` to send an ephemeral response; `callback_query_id` then auto-fills from this query
      */
     send(chat: number | string, text: string | Formattable, params: {
         business_connection_id?: string;
@@ -8232,16 +8495,17 @@ export class CallbackQueryUpdate {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        callback_query_id?: string;
     } = {}) {
         return this.tg.api.sendMessage({
-            callback_query_id: this.raw.id,
             chat_id: chat,
             text: text,
-            ...params
+            ...params,
+            ...callbackEphemeralParams(this.raw.id, params)
         });
     }
     /**
-     * shortcut for `tg.api.sendPhoto`
+     * shortcut for `tg.api.sendPhoto` — pass `receiver_user_id` to send an ephemeral response; `callback_query_id` then auto-fills from this query
      */
     sendPhoto(chat: number | string, photo: TelegramInputFile | string, params: {
         business_connection_id?: string;
@@ -8262,16 +8526,17 @@ export class CallbackQueryUpdate {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        callback_query_id?: string;
     } = {}) {
         return this.tg.api.sendPhoto({
-            callback_query_id: this.raw.id,
             chat_id: chat,
             photo: photo,
-            ...params
+            ...params,
+            ...callbackEphemeralParams(this.raw.id, params)
         });
     }
     /**
-     * shortcut for `tg.api.sendSticker`
+     * shortcut for `tg.api.sendSticker` — pass `receiver_user_id` to send an ephemeral response; `callback_query_id` then auto-fills from this query
      */
     sendSticker(chat: number | string, sticker: TelegramInputFile | string, params: {
         business_connection_id?: string;
@@ -8288,16 +8553,17 @@ export class CallbackQueryUpdate {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        callback_query_id?: string;
     } = {}) {
         return this.tg.api.sendSticker({
-            callback_query_id: this.raw.id,
             chat_id: chat,
             sticker: sticker,
-            ...params
+            ...params,
+            ...callbackEphemeralParams(this.raw.id, params)
         });
     }
     /**
-     * shortcut for `tg.api.sendVenue`
+     * shortcut for `tg.api.sendVenue` — pass `receiver_user_id` to send an ephemeral response; `callback_query_id` then auto-fills from this query
      */
     sendVenue(chat: number | string, latitude: number, longitude: number, title: string, address: string, params: {
         business_connection_id?: string;
@@ -8317,19 +8583,20 @@ export class CallbackQueryUpdate {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        callback_query_id?: string;
     } = {}) {
         return this.tg.api.sendVenue({
-            callback_query_id: this.raw.id,
             chat_id: chat,
             latitude: latitude,
             longitude: longitude,
             title: title,
             address: address,
-            ...params
+            ...params,
+            ...callbackEphemeralParams(this.raw.id, params)
         });
     }
     /**
-     * shortcut for `tg.api.sendVideo`
+     * shortcut for `tg.api.sendVideo` — pass `receiver_user_id` to send an ephemeral response; `callback_query_id` then auto-fills from this query
      */
     sendVideo(chat: number | string, video: TelegramInputFile | string, params: {
         business_connection_id?: string;
@@ -8357,16 +8624,17 @@ export class CallbackQueryUpdate {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        callback_query_id?: string;
     } = {}) {
         return this.tg.api.sendVideo({
-            callback_query_id: this.raw.id,
             chat_id: chat,
             video: video,
-            ...params
+            ...params,
+            ...callbackEphemeralParams(this.raw.id, params)
         });
     }
     /**
-     * shortcut for `tg.api.sendVideoNote`
+     * shortcut for `tg.api.sendVideoNote` — pass `receiver_user_id` to send an ephemeral response; `callback_query_id` then auto-fills from this query
      */
     sendVideoNote(chat: number | string, videoNote: TelegramInputFile | string, params: {
         business_connection_id?: string;
@@ -8385,16 +8653,17 @@ export class CallbackQueryUpdate {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        callback_query_id?: string;
     } = {}) {
         return this.tg.api.sendVideoNote({
-            callback_query_id: this.raw.id,
             chat_id: chat,
             video_note: videoNote,
-            ...params
+            ...params,
+            ...callbackEphemeralParams(this.raw.id, params)
         });
     }
     /**
-     * shortcut for `tg.api.sendVoice`
+     * shortcut for `tg.api.sendVoice` — pass `receiver_user_id` to send an ephemeral response; `callback_query_id` then auto-fills from this query
      */
     sendVoice(chat: number | string, voice: TelegramInputFile | string, params: {
         business_connection_id?: string;
@@ -8414,12 +8683,13 @@ export class CallbackQueryUpdate {
         reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
             toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
         };
+        callback_query_id?: string;
     } = {}) {
         return this.tg.api.sendVoice({
-            callback_query_id: this.raw.id,
             chat_id: chat,
             voice: voice,
-            ...params
+            ...params,
+            ...callbackEphemeralParams(this.raw.id, params)
         });
     }
     [INSPECT](depth: any, options: any, inspect: any) {
@@ -8464,6 +8734,12 @@ export class ShippingQueryUpdate {
      */
     get api(): TelegramLike["api"] {
         return this.tg.api;
+    }
+    /**
+     * shortcut for `from.id` — uniform sender id across update kinds
+     */
+    get senderId(): number {
+        return this.raw.from.id;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -8558,6 +8834,12 @@ export class PreCheckoutQueryUpdate {
     get api(): TelegramLike["api"] {
         return this.tg.api;
     }
+    /**
+     * shortcut for `from.id` — uniform sender id across update kinds
+     */
+    get senderId(): number {
+        return this.raw.from.id;
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -8602,6 +8884,12 @@ export class PurchasedPaidMediaUpdate {
      */
     get api(): TelegramLike["api"] {
         return this.tg.api;
+    }
+    /**
+     * shortcut for `from.id` — uniform sender id across update kinds
+     */
+    get senderId(): number {
+        return this.raw.from.id;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -8911,6 +9199,12 @@ export class PollAnswerUpdate {
     get api(): TelegramLike["api"] {
         return this.tg.api;
     }
+    /**
+     * best-effort sender id: `user.id` → `voter_chat.id`
+     */
+    get senderId(): number | undefined {
+        return this.raw.user?.id ?? this.raw.voter_chat?.id;
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -9187,6 +9481,12 @@ class ChatMemberUpdatedShared {
         }).status === "kicked" && (this.raw.new_chat_member as {
             status: string;
         }).status !== "kicked";
+    }
+    /**
+     * shortcut for `from.id` — uniform sender id across update kinds
+     */
+    get senderId(): number {
+        return this.raw.from.id;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -11016,6 +11316,12 @@ export class ChatJoinRequestUpdate {
      */
     decline(): Promise<true> {
         return this.tg.api.declineChatJoinRequest({ chat_id: this.raw.chat.id, user_id: this.raw.from.id });
+    }
+    /**
+     * shortcut for `from.id` — uniform sender id across update kinds
+     */
+    get senderId(): number {
+        return this.raw.from.id;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -12864,6 +13170,12 @@ export class ManagedBotUpdate {
     get api(): TelegramLike["api"] {
         return this.tg.api;
     }
+    /**
+     * shortcut for `user.id` — uniform sender id across update kinds
+     */
+    get senderId(): number {
+        return this.raw.user.id;
+    }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
     }
@@ -12902,6 +13214,12 @@ export class SubscriptionUpdate {
      */
     get api(): TelegramLike["api"] {
         return this.tg.api;
+    }
+    /**
+     * shortcut for `user.id` — uniform sender id across update kinds
+     */
+    get senderId(): number {
+        return this.raw.user.id;
     }
     is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
         return this.kind === kind as unknown;
@@ -13167,6 +13485,22 @@ export class WriteAccessAllowedUpdate extends MessageShared {
     private __brand!: never;
 }
 
+/**
+ * update for the `community_chat_added` event
+ */
+export class CommunityChatAddedUpdate extends MessageShared {
+    readonly kind = "community_chat_added" as const;
+    private __brand!: never;
+}
+
+/**
+ * update for the `community_chat_removed` event
+ */
+export class CommunityChatRemovedUpdate extends MessageShared {
+    readonly kind = "community_chat_removed" as const;
+    private __brand!: never;
+}
+
 export type UpdateKind = keyof UpdateKindMap;
 
 export interface UpdateKindMap {
@@ -13228,9 +13562,11 @@ export interface UpdateKindMap {
     "passport_data": PassportDataUpdate;
     "proximity_alert_triggered": ProximityAlertTriggeredUpdate;
     "write_access_allowed": WriteAccessAllowedUpdate;
+    "community_chat_added": CommunityChatAddedUpdate;
+    "community_chat_removed": CommunityChatRemovedUpdate;
 }
 
-export type Update = MessageUpdate | EditedMessageUpdate | ChannelPostUpdate | EditedChannelPostUpdate | BusinessConnectionUpdate | BusinessMessageUpdate | EditedBusinessMessageUpdate | DeletedBusinessMessagesUpdate | GuestMessageUpdate | MessageReactionUpdate | MessageReactionCountUpdate | InlineQueryUpdate | ChosenInlineResultUpdate | CallbackQueryUpdate | ShippingQueryUpdate | PreCheckoutQueryUpdate | PurchasedPaidMediaUpdate | PollUpdate | PollAnswerUpdate | MyChatMemberUpdate | ChatMemberUpdate | ChatJoinRequestUpdate | ChatBoostUpdate | RemovedChatBoostUpdate | ManagedBotUpdate | SubscriptionUpdate | NewChatMembersUpdate | LeftChatMemberUpdate | NewChatTitleUpdate | NewChatPhotoUpdate | DeleteChatPhotoUpdate | GroupChatCreatedUpdate | PinnedMessageUpdate | InvoiceUpdate | SuccessfulPaymentUpdate | UsersSharedUpdate | ChatSharedUpdate | WebAppDataUpdate | VideoChatScheduledUpdate | VideoChatStartedUpdate | VideoChatEndedUpdate | VideoChatParticipantsInvitedUpdate | ForumTopicCreatedUpdate | ForumTopicEditedUpdate | ForumTopicClosedUpdate | ForumTopicReopenedUpdate | GeneralForumTopicHiddenUpdate | GeneralForumTopicUnhiddenUpdate | GiveawayCreatedUpdate | GiveawayCompletedUpdate | GiveawayWinnersUpdate | BoostAddedUpdate | MessageAutoDeleteTimerChangedUpdate | MigrateToChatIdUpdate | MigrateFromChatIdUpdate | PassportDataUpdate | ProximityAlertTriggeredUpdate | WriteAccessAllowedUpdate;
+export type Update = MessageUpdate | EditedMessageUpdate | ChannelPostUpdate | EditedChannelPostUpdate | BusinessConnectionUpdate | BusinessMessageUpdate | EditedBusinessMessageUpdate | DeletedBusinessMessagesUpdate | GuestMessageUpdate | MessageReactionUpdate | MessageReactionCountUpdate | InlineQueryUpdate | ChosenInlineResultUpdate | CallbackQueryUpdate | ShippingQueryUpdate | PreCheckoutQueryUpdate | PurchasedPaidMediaUpdate | PollUpdate | PollAnswerUpdate | MyChatMemberUpdate | ChatMemberUpdate | ChatJoinRequestUpdate | ChatBoostUpdate | RemovedChatBoostUpdate | ManagedBotUpdate | SubscriptionUpdate | NewChatMembersUpdate | LeftChatMemberUpdate | NewChatTitleUpdate | NewChatPhotoUpdate | DeleteChatPhotoUpdate | GroupChatCreatedUpdate | PinnedMessageUpdate | InvoiceUpdate | SuccessfulPaymentUpdate | UsersSharedUpdate | ChatSharedUpdate | WebAppDataUpdate | VideoChatScheduledUpdate | VideoChatStartedUpdate | VideoChatEndedUpdate | VideoChatParticipantsInvitedUpdate | ForumTopicCreatedUpdate | ForumTopicEditedUpdate | ForumTopicClosedUpdate | ForumTopicReopenedUpdate | GeneralForumTopicHiddenUpdate | GeneralForumTopicUnhiddenUpdate | GiveawayCreatedUpdate | GiveawayCompletedUpdate | GiveawayWinnersUpdate | BoostAddedUpdate | MessageAutoDeleteTimerChangedUpdate | MigrateToChatIdUpdate | MigrateFromChatIdUpdate | PassportDataUpdate | ProximityAlertTriggeredUpdate | WriteAccessAllowedUpdate | CommunityChatAddedUpdate | CommunityChatRemovedUpdate;
 
 export const UPDATE_KINDS: readonly UpdateKind[] = [
     "message",
@@ -13290,5 +13626,7 @@ export const UPDATE_KINDS: readonly UpdateKind[] = [
     "migrate_from_chat_id",
     "passport_data",
     "proximity_alert_triggered",
-    "write_access_allowed"
+    "write_access_allowed",
+    "community_chat_added",
+    "community_chat_removed"
 ];

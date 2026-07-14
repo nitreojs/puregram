@@ -9,6 +9,7 @@ export interface ShortcutAnchor {
 
 export type UpdateExtra =
   | { kind: 'getter', name: string, expression: string, returnType: string, jsdoc?: string }
+  | { kind: 'getter', name: string, body: string, returnType: string, jsdoc?: string }
   | { kind: 'method', name: string, params?: string, body: string, returnType: string, jsdoc?: string, typeParams?: string }
 
 export interface UpdateKindSpec {
@@ -83,20 +84,33 @@ export const BUSINESS_ANCHOR: ShortcutAnchor = {
   optional: true
 }
 
+// edit/delete shortcuts on message-payload kinds route to these twins when the wrapped
+// message carries `ephemeral_message_id` — the regular variants reject ephemeral targets
+export const EPHEMERAL_METHOD_TWINS: Record<string, string> = {
+  editMessageText: 'editEphemeralMessageText',
+  editMessageCaption: 'editEphemeralMessageCaption',
+  editMessageMedia: 'editEphemeralMessageMedia',
+  editMessageReplyMarkup: 'editEphemeralMessageReplyMarkup',
+  deleteMessage: 'deleteEphemeralMessage'
+}
+
 const PICK_DOWNLOAD = 'const t = this.raw.document ?? this.raw.video ?? this.raw.audio ?? this.raw.voice ?? this.raw.video_note ?? this.raw.animation ?? this.raw.live_photo ?? this.raw.photo ?? this.raw.sticker;'
 
 const MESSAGE_EXTRAS: UpdateExtra[] = [
   { kind: 'getter', name: 'chatId', expression: 'this.raw.chat.id', returnType: 'number', jsdoc: 'shortcut for `chat.id`' },
   { kind: 'getter', name: 'senderId', expression: 'this.raw.from?.id ?? this.raw.sender_chat?.id ?? this.raw.chat.id', returnType: 'number', jsdoc: 'best-effort sender id: `from.id` → `sender_chat.id` → `chat.id`' },
   { kind: 'getter', name: 'replyToMessageId', expression: 'this.raw.reply_to_message?.message_id', returnType: 'number | undefined', jsdoc: 'shortcut for `reply_to_message?.message_id`' },
+  { kind: 'getter', name: 'startPayload', body: 'const text = this.raw.text; const entity = this.raw.entities?.find(e => e.type === "bot_command" && e.offset === 0); if (text == null || entity == null || !Number.isInteger(entity.length) || entity.length <= 0) { return undefined; } const parts = text.slice(1, entity.length).split("@"); if ((parts[0] ?? "").toLowerCase() !== "start") { return undefined; } const mention = parts[1]; if (mention !== undefined) { const ours = this.tg.bot?.username; if (ours === undefined || mention.toLowerCase() !== ours.toLowerCase()) { return undefined; } } const payload = text.slice(entity.length).trim(); return payload.length > 0 ? payload : undefined', returnType: 'string | undefined', jsdoc: 'deep-link payload after `/start` (`t.me/<bot>?start=<payload>`) — grounded in the `bot_command` entity telegram parsed, so text that merely looks like a command never matches, and a `/start@other_bot` addressed to a different bot yields `undefined` (mentions are checked against `tg.bot.username`). `undefined` when this is not a `/start` command or no payload was sent. see also `filters.start` (regex-based and mention-agnostic by design)' },
 
   { kind: 'method', name: 'hasReplyToMessage', body: 'return this.raw.reply_to_message != null', returnType: "this is Has<this, 'replyToMessage' | 'replyToMessageId'>", jsdoc: 'true if this message has `reply_to_message`' },
+  { kind: 'method', name: 'hasStartPayload', body: 'return this.startPayload !== undefined', returnType: "this is Has<this, 'startPayload'>", jsdoc: 'true if this message is a `/start` command carrying a deep-link payload' },
 
   { kind: 'method', name: 'hasEntitiesOf', params: 'type: string', body: 'return this.raw.entities?.some(e => e.type === type) ?? false', returnType: 'boolean', jsdoc: 'true if any `entities` item has the given `type`' },
   { kind: 'method', name: 'hasCaptionEntitiesOf', params: 'type: string', body: 'return this.raw.caption_entities?.some(e => e.type === type) ?? false', returnType: 'boolean', jsdoc: 'true if any `caption_entities` item has the given `type`' },
 
   { kind: 'method', name: 'isForwarded', body: 'return this.raw.forward_origin != null', returnType: "this is Has<this, 'forwardOrigin'>", jsdoc: 'alias for `hasForwardOrigin()`' },
   { kind: 'method', name: 'isReply', body: 'return this.raw.reply_to_message != null', returnType: "this is Has<this, 'replyToMessage' | 'replyToMessageId'>", jsdoc: 'true if this message is a reply' },
+  { kind: 'method', name: 'isEphemeral', body: 'return this.raw.ephemeral_message_id != null', returnType: "this is Has<this, 'ephemeralMessageId'>", jsdoc: 'true if this message is ephemeral (visible only to one user and the bot). sends/replies from an ephemeral context auto-fill the ephemeral params — pass `ephemeral: false` to send a regular message instead' },
   { kind: 'method', name: 'isMediaGroup', body: 'return this.raw.media_group_id != null', returnType: 'boolean', jsdoc: 'true if this message is part of a media group (album). use `await update.collectMediaGroup()` from `@puregram/flow` to fetch the full album' },
   { kind: 'method', name: 'isPrivate', body: "return this.raw.chat.type === 'private'", returnType: 'boolean', jsdoc: 'true if `chat.type === "private"`' },
   { kind: 'method', name: 'isGroup', body: "return this.raw.chat.type === 'group'", returnType: 'boolean', jsdoc: 'true if `chat.type === "group"` (strict — supergroups excluded)' },
@@ -104,27 +118,43 @@ const MESSAGE_EXTRAS: UpdateExtra[] = [
   { kind: 'method', name: 'isChannel', body: "return this.raw.chat.type === 'channel'", returnType: 'boolean', jsdoc: 'true if `chat.type === "channel"`' },
 
   { kind: 'method', name: 'download', body: PICK_DOWNLOAD + 'return t == null ? Promise.resolve(null) : this.tg.download(t)', returnType: 'Promise<Buffer | null>', jsdoc: 'download the message attachment as a `Buffer`. returns `null` if the message has no media. auto-picks with priority `document > video > audio > voice > video_note > animation > live_photo > photo[largest] > sticker`' },
-  { kind: 'method', name: 'downloadStream', body: PICK_DOWNLOAD + 'return t == null ? Promise.resolve(null) : this.tg.downloadStream(t)', returnType: 'Promise<import("node:stream").Readable | null>', jsdoc: 'download the message attachment as a node `Readable`. returns `null` if no media' },
+  { kind: 'method', name: 'downloadStream', body: PICK_DOWNLOAD + 'return t == null ? Promise.resolve(null) : this.tg.downloadStream(t)', returnType: 'Promise<Readable | null>', jsdoc: 'download the message attachment as a node `Readable`. returns `null` if no media' },
   { kind: 'method', name: 'downloadIterable', body: PICK_DOWNLOAD + 'return t == null ? Promise.resolve(null) : this.tg.downloadIterable(t)', returnType: 'Promise<AsyncIterable<Uint8Array> | null>', jsdoc: 'download the message attachment as an async-iterable byte stream. returns `null` if no media' },
   { kind: 'method', name: 'downloadToFile', params: 'path: string', body: PICK_DOWNLOAD + 'return t == null ? Promise.resolve(null) : this.tg.downloadToFile(path, t).then(() => undefined as void | null)', returnType: 'Promise<void | null>', jsdoc: 'download the message attachment to disk. returns `null` if no media; otherwise resolves once the file is fully written' },
 
-  { kind: 'method', name: 'createActionController', params: 'action: import("../telegram-like").ActionControllerLike["action"], options?: import("../telegram-like").ActionControllerParams', body: 'return this.tg.createActionController(this.raw.chat.id, action, { ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }), ...options })', returnType: 'import("../telegram-like").ActionControllerLike', jsdoc: 'create a controller that re-sends `sendChatAction(action)` every `interval` ms (default 5000) until `stop()` is called — telegram clears the action after ~5 seconds, so a long task needs it refreshed' },
-  { kind: 'method', name: 'withChatAction', typeParams: '<T>', params: 'action: import("../telegram-like").ActionControllerLike["action"], fn: () => Promise<T> | T, options?: import("../telegram-like").ActionControllerParams', body: 'return this.tg.withChatAction(this.raw.chat.id, action, fn, { ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }), ...options })', returnType: 'Promise<T>', jsdoc: 'run `fn` while continuously sending `sendChatAction(action)`. the action auto-stops when `fn` settles — even if it throws — and `fn`\'s result is returned' },
+  { kind: 'method', name: 'createActionController', params: 'action: ActionControllerLike["action"], options?: ActionControllerParams', body: 'return this.tg.createActionController(this.raw.chat.id, action, { ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }), ...options })', returnType: 'ActionControllerLike', jsdoc: 'create a controller that re-sends `sendChatAction(action)` every `interval` ms (default 5000) until `stop()` is called — telegram clears the action after ~5 seconds, so a long task needs it refreshed' },
+  { kind: 'method', name: 'withChatAction', typeParams: '<T>', params: 'action: ActionControllerLike["action"], fn: () => Promise<T> | T, options?: ActionControllerParams', body: 'return this.tg.withChatAction(this.raw.chat.id, action, fn, { ...(this.raw.business_connection_id != null && { business_connection_id: this.raw.business_connection_id }), ...options })', returnType: 'Promise<T>', jsdoc: 'run `fn` while continuously sending `sendChatAction(action)`. the action auto-stops when `fn` settles — even if it throws — and `fn`\'s result is returned' },
 
-  { kind: 'method', name: 'react', params: 'reaction: string | TelegramReactionType[], params?: Omit<import("./methods").SetMessageReactionParams, "chat_id" | "message_id" | "reaction">', body: 'return this.tg.api.setMessageReaction({ chat_id: this.raw.chat.id, message_id: this.raw.message_id, reaction: typeof reaction === "string" ? [{ type: "emoji", emoji: reaction }] : reaction, ...params })', returnType: 'Promise<true>', jsdoc: 'react to this message — an emoji string for the common case, or a reaction array for custom / multiple' },
+  { kind: 'method', name: 'react', params: 'reaction: string | TelegramReactionType[], params?: Omit<SetMessageReactionParams, "chat_id" | "message_id" | "reaction">', body: 'return this.tg.api.setMessageReaction({ chat_id: this.raw.chat.id, message_id: this.raw.message_id, reaction: typeof reaction === "string" ? [{ type: "emoji", emoji: reaction }] : reaction, ...params })', returnType: 'Promise<true>', jsdoc: 'react to this message — an emoji string for the common case, or a reaction array for custom / multiple' },
 
-  { kind: 'method', name: 'editRich', params: 'richMessage: TelegramInputRichMessage | RichLike, params?: Omit<import("./methods").EditMessageTextParams, "chat_id" | "message_id" | "rich_message" | "text">', body: 'return this.tg.api.editMessageText({ chat_id: this.raw.chat.id, message_id: this.raw.message_id, rich_message: richMessage, ...params })', returnType: 'Promise<TelegramMessage>', jsdoc: 'edit this message to rich content (build it with @puregram/rich)' }
+  { kind: 'method', name: 'editRich', params: 'richMessage: TelegramInputRichMessage | RichLike, params?: Omit<EditMessageTextParams, "chat_id" | "message_id" | "rich_message" | "text">', body: 'return this.tg.api.editMessageText({ chat_id: this.raw.chat.id, message_id: this.raw.message_id, rich_message: richMessage, ...params })', returnType: 'Promise<TelegramMessage>', jsdoc: 'edit this message to rich content (build it with @puregram/rich)' }
 ]
 
 const MESSAGE_REACTION_EXTRAS: UpdateExtra[] = [
   { kind: 'getter', name: 'added', expression: 'this.raw.new_reaction.filter(r => !this.raw.old_reaction.some(o => o.type === r.type && (o as { emoji?: string }).emoji === (r as { emoji?: string }).emoji && (o as { custom_emoji_id?: string }).custom_emoji_id === (r as { custom_emoji_id?: string }).custom_emoji_id))', returnType: 'TelegramReactionType[]', jsdoc: 'reactions present in `newReaction` but not in `oldReaction`' },
-  { kind: 'getter', name: 'removed', expression: 'this.raw.old_reaction.filter(o => !this.raw.new_reaction.some(r => r.type === o.type && (r as { emoji?: string }).emoji === (o as { emoji?: string }).emoji && (r as { custom_emoji_id?: string }).custom_emoji_id === (o as { custom_emoji_id?: string }).custom_emoji_id))', returnType: 'TelegramReactionType[]', jsdoc: 'reactions present in `oldReaction` but not in `newReaction`' }
+  { kind: 'getter', name: 'removed', expression: 'this.raw.old_reaction.filter(o => !this.raw.new_reaction.some(r => r.type === o.type && (r as { emoji?: string }).emoji === (o as { emoji?: string }).emoji && (r as { custom_emoji_id?: string }).custom_emoji_id === (o as { custom_emoji_id?: string }).custom_emoji_id))', returnType: 'TelegramReactionType[]', jsdoc: 'reactions present in `oldReaction` but not in `newReaction`' },
+  { kind: 'getter', name: 'senderId', expression: 'this.raw.user?.id ?? this.raw.actor_chat?.id', returnType: 'number | undefined', jsdoc: 'best-effort sender id: `user.id` → `actor_chat.id`' }
 ]
+
+// message-or-inline anchor shared by the edit-family shortcuts below — a callback query
+// always originates from a button press, so exactly one of the two refs is present
+const CBQ_MESSAGE_REF = 'const m = this.raw.message; const ref = this.raw.inline_message_id != null ? { inline_message_id: this.raw.inline_message_id } : m != null ? { chat_id: m.chat.id, message_id: m.message_id } : undefined; if (ref == null) { throw new TypeError("callback query carries neither message nor inline_message_id"); } '
 
 const CALLBACK_QUERY_EXTRAS: UpdateExtra[] = [
   { kind: 'getter', name: 'chatId', expression: 'this.raw.message?.chat.id', returnType: 'number | undefined', jsdoc: 'shortcut for `message?.chat.id`' },
   { kind: 'getter', name: 'messageId', expression: 'this.raw.message?.message_id', returnType: 'number | undefined', jsdoc: 'shortcut for `message?.message_id`' },
-  { kind: 'getter', name: 'userId', expression: 'this.raw.from.id', returnType: 'number', jsdoc: 'shortcut for `from.id`' }
+  { kind: 'getter', name: 'userId', expression: 'this.raw.from.id', returnType: 'number', jsdoc: 'shortcut for `from.id` — alias of `senderId`' },
+
+  { kind: 'method', name: 'edit', params: 'text: string | Formattable, params?: Omit<EditMessageTextParams, "chat_id" | "message_id" | "inline_message_id" | "text">', body: CBQ_MESSAGE_REF + 'return this.tg.api.editMessageText({ ...ref, text, ...params })', returnType: 'Promise<TelegramMessage | true>', jsdoc: 'shortcut for `tg.api.editMessageText` on the message this callback query came from — auto-fills `chat_id` + `message_id`, or `inline_message_id` for inline-mode messages (those resolve `true` instead of the edited message)' },
+  { kind: 'method', name: 'editCaption', params: 'params?: Omit<EditMessageCaptionParams, "chat_id" | "message_id" | "inline_message_id">', body: CBQ_MESSAGE_REF + 'return this.tg.api.editMessageCaption({ ...ref, ...params })', returnType: 'Promise<TelegramMessage | true>', jsdoc: 'shortcut for `tg.api.editMessageCaption` on the message this callback query came from — inline-mode edits resolve `true`' },
+  { kind: 'method', name: 'editMedia', params: 'media: EditMessageMediaParams["media"], params?: Omit<EditMessageMediaParams, "chat_id" | "message_id" | "inline_message_id" | "media">', body: CBQ_MESSAGE_REF + 'return this.tg.api.editMessageMedia({ ...ref, media, ...params })', returnType: 'Promise<TelegramMessage | true>', jsdoc: 'shortcut for `tg.api.editMessageMedia` on the message this callback query came from — inline-mode edits resolve `true`' },
+  { kind: 'method', name: 'editReplyMarkup', params: 'params?: Omit<EditMessageReplyMarkupParams, "chat_id" | "message_id" | "inline_message_id">', body: CBQ_MESSAGE_REF + 'return this.tg.api.editMessageReplyMarkup({ ...ref, ...params })', returnType: 'Promise<TelegramMessage | true>', jsdoc: 'shortcut for `tg.api.editMessageReplyMarkup` on the message this callback query came from — the pager pattern: swap the keyboard in place. inline-mode edits resolve `true`' },
+  { kind: 'method', name: 'editRich', params: 'richMessage: TelegramInputRichMessage | RichLike, params?: Omit<EditMessageTextParams, "chat_id" | "message_id" | "inline_message_id" | "rich_message" | "text">', body: CBQ_MESSAGE_REF + 'return this.tg.api.editMessageText({ ...ref, rich_message: richMessage, ...params })', returnType: 'Promise<TelegramMessage | true>', jsdoc: 'edit the message this callback query came from to rich content (build it with @puregram/rich) — inline-mode edits resolve `true`' },
+  { kind: 'method', name: 'delete', params: 'params?: Omit<DeleteMessageParams, "chat_id" | "message_id">', body: 'const m = this.raw.message; if (m == null) { throw new TypeError("cannot delete an inline-mode message — deleteMessage needs chat_id + message_id"); } return this.tg.api.deleteMessage({ chat_id: m.chat.id, message_id: m.message_id, ...params })', returnType: 'Promise<true>', jsdoc: 'shortcut for `tg.api.deleteMessage` on the message this callback query came from. throws for inline-mode messages — there is nothing to delete' }
+]
+
+const POLL_ANSWER_EXTRAS: UpdateExtra[] = [
+  { kind: 'getter', name: 'senderId', expression: 'this.raw.user?.id ?? this.raw.voter_chat?.id', returnType: 'number | undefined', jsdoc: 'best-effort sender id: `user.id` → `voter_chat.id`' }
 ]
 
 const CHAT_MEMBER_EXTRAS: UpdateExtra[] = [
@@ -201,7 +231,9 @@ const DERIVED_KINDS: readonly UpdateKindSpec[] = [
   { kindName: 'migrate_from_chat_id', className: 'MigrateFromChatIdUpdate', payloadType: 'TelegramMessage', source: { kind: 'derived', messageField: 'migrate_from_chat_id' }, anchors: MESSAGE_ANCHORS },
   { kindName: 'passport_data', className: 'PassportDataUpdate', payloadType: 'TelegramMessage', source: { kind: 'derived', messageField: 'passport_data' }, anchors: MESSAGE_ANCHORS },
   { kindName: 'proximity_alert_triggered', className: 'ProximityAlertTriggeredUpdate', payloadType: 'TelegramMessage', source: { kind: 'derived', messageField: 'proximity_alert_triggered' }, anchors: MESSAGE_ANCHORS },
-  { kindName: 'write_access_allowed', className: 'WriteAccessAllowedUpdate', payloadType: 'TelegramMessage', source: { kind: 'derived', messageField: 'write_access_allowed' }, anchors: MESSAGE_ANCHORS }
+  { kindName: 'write_access_allowed', className: 'WriteAccessAllowedUpdate', payloadType: 'TelegramMessage', source: { kind: 'derived', messageField: 'write_access_allowed' }, anchors: MESSAGE_ANCHORS },
+  { kindName: 'community_chat_added', className: 'CommunityChatAddedUpdate', payloadType: 'TelegramMessage', source: { kind: 'derived', messageField: 'community_chat_added' }, anchors: MESSAGE_ANCHORS },
+  { kindName: 'community_chat_removed', className: 'CommunityChatRemovedUpdate', payloadType: 'TelegramMessage', source: { kind: 'derived', messageField: 'community_chat_removed' }, anchors: MESSAGE_ANCHORS }
 ]
 
 const UNIVERSAL_EXTRAS: UpdateExtra[] = [
@@ -218,6 +250,7 @@ const KIND_EXTRAS: Record<string, UpdateExtra[]> = {
   chat_member: CHAT_MEMBER_EXTRAS,
   my_chat_member: CHAT_MEMBER_EXTRAS,
   message_reaction: MESSAGE_REACTION_EXTRAS,
+  poll_answer: POLL_ANSWER_EXTRAS,
   chat_join_request: CHAT_JOIN_REQUEST_EXTRAS
 }
 
@@ -271,6 +304,21 @@ export function buildUpdateKinds (schema: Schema) {
     }
 
     k.extras = [...UNIVERSAL_EXTRAS, ...kindSpecific]
+
+    // uniform sender id — every kind whose payload carries a required `from: User` (or
+    // `user: User`, e.g. business_connection) gets `senderId`; message-shaped and
+    // fallback-chain kinds define their own above
+    if (!k.extras.some(e => e.name === 'senderId')) {
+      const obj = objectsByName.get(k.payloadType.replace(/^Telegram/, ''))
+
+      if (obj?.kind === 'object') {
+        const actor = obj.fields.find(f => (f.name === 'from' || f.name === 'user') && f.required && f.type.kind === 'reference' && f.type.name === 'User')
+
+        if (actor) {
+          k.extras.push({ kind: 'getter', name: 'senderId', expression: `this.raw.${actor.name}.id`, returnType: 'number', jsdoc: `shortcut for \`${actor.name}.id\` — uniform sender id across update kinds` })
+        }
+      }
+    }
   }
 
   return all

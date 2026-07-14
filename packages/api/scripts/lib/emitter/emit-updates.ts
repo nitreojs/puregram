@@ -216,11 +216,41 @@ export function emitUpdates (schema: Schema) {
   const usesRichLike = Object.entries(analysis.byKind).some(([, list]) =>
     list.some(sc => sc.userArgs.some(a => isRichMessageRef(a.type))))
 
+  // ephemeral helpers back the send-injection / twin-routing / callback opt-in shortcut flags
+  const usesEphemeral = Object.values(analysis.byKind).some(list =>
+    list.some(sc => sc.ephemeralSend === true || sc.ephemeralTwin !== undefined || sc.callbackEphemeral === true))
+
   const usedArrayWrappers = collectUsedArrayWrappers(kinds, objectsByName)
 
+  // extras reference schema-derived `<Method>Params` types (plus a few fixed helpers) by
+  // bare name — hoist type-only imports for whatever the final extras set mentions
+  const extrasText = kinds
+    .flatMap(k => k.extras ?? [])
+    .map(e => [
+      e.returnType,
+      'params' in e ? e.params ?? '' : '',
+      'typeParams' in e ? e.typeParams ?? '' : '',
+      'expression' in e ? e.expression : e.body
+    ].join(' '))
+    .join('\n')
+
+  const methodParamNames = new Set(schema.methods.map(m => m.name.charAt(0).toUpperCase() + m.name.slice(1) + 'Params'))
+  const usedMethodParams = new Set<string>()
+
+  for (const match of extrasText.matchAll(/\b[A-Z][A-Za-z0-9]*Params\b/g)) {
+    if (methodParamNames.has(match[0])) {
+      usedMethodParams.add(match[0])
+    }
+  }
+
+  const telegramLikeNames = ['ActionControllerLike', 'ActionControllerParams', 'TelegramLike']
+    .filter(n => n === 'TelegramLike' || new RegExp(`\\b${n}\\b`).test(extrasText))
+
   const imports = [
+    ...(/\bReadable\b/.test(extrasText) ? [importTypeNamed(['Readable'], 'node:stream')] : []),
     importTypeNamed([...referencedTypes].sort(), './types'),
-    importTypeNamed(['TelegramLike'], '../telegram-like'),
+    ...(usedMethodParams.size > 0 ? [importTypeNamed([...usedMethodParams].sort(), './methods')] : []),
+    importTypeNamed(telegramLikeNames, '../telegram-like'),
     ...(usesHas ? [importTypeNamed(['Has'], '../util-types')] : []),
     ...(usesFormattable ? [importTypeNamed(['Formattable'], '../formattable')] : []),
     ...(usesRichLike ? [importTypeNamed(['RichLike'], '../rich-like')] : []),
@@ -228,6 +258,7 @@ export function emitUpdates (schema: Schema) {
     ...(usedArrayWrappers.length > 0
       ? [importNamed(usedArrayWrappers, '../structures-handcrafted')]
       : []),
+    ...(usesEphemeral ? [importNamed(['callbackEphemeralParams', 'ephemeralSendParams', 'ephemeralTarget'], '../ephemeral')] : []),
     importNamed(['INSPECT', 'makeInspect'], './inspect')
   ]
 
@@ -836,7 +867,8 @@ function emitUpdateClass (
   }
 
   // hand-curated helpers from updates-config (`chatId`, `senderId`, `isReply()`).
-  // emitted last so codegen-driven names win on collision
+  // emitted last; a clash with a generated member aborts codegen so the conflict
+  // surfaces at emit time instead of silently shadowing either side
   for (const extra of kind.extras ?? []) {
     if (reservedNames.has(extra.name)) {
       throw new Error(`extras collision: ${kind.className}.${extra.name} clashes with a generated member`)
@@ -974,10 +1006,9 @@ function emitExtra (extra: UpdateExtra) {
   const doc = extra.jsdoc
 
   if (extra.kind === 'getter') {
-    const body = ts.factory.createBlock(
-      [ts.factory.createReturnStatement(parseExpression(extra.expression))],
-      true
-    )
+    const body = 'expression' in extra
+      ? ts.factory.createBlock([ts.factory.createReturnStatement(parseExpression(extra.expression))], true)
+      : ts.factory.createBlock(parseStatements(extra.body), true)
     const node = ts.factory.createGetAccessorDeclaration(
       undefined,
       ts.factory.createIdentifier(extra.name),
@@ -1336,7 +1367,78 @@ function emitShortcutMethod (sc: BoundShortcut, widenedArgs: Map<string, Set<str
       )]
     : []
 
+  // ephemeral injections ride after the spread so a non-ephemeral context contributes nothing
+  // and the helpers control the merge (explicit call-site values win inside them)
+  const ephemeralProps: ts.ObjectLiteralElementLike[] = []
+
+  if (sc.ephemeralSend === true) {
+    ephemeralProps.push(ts.factory.createSpreadAssignment(
+      ts.factory.createCallExpression(ts.factory.createIdentifier('ephemeralSendParams'), undefined, [
+        ts.factory.createPropertyAccessExpression(ts.factory.createThis(), 'raw'),
+        ts.factory.createIdentifier('params')
+      ])
+    ))
+  }
+
+  if (sc.callbackEphemeral === true) {
+    ephemeralProps.push(ts.factory.createSpreadAssignment(
+      ts.factory.createCallExpression(ts.factory.createIdentifier('callbackEphemeralParams'), undefined, [
+        ts.factory.createPropertyAccessExpression(
+          ts.factory.createPropertyAccessExpression(ts.factory.createThis(), 'raw'),
+          'id'
+        ),
+        ts.factory.createIdentifier('params')
+      ])
+    ))
+  }
+
+  // an ephemeral message routes edit/delete to the ephemeral twin — the regular variant
+  // targets message_id, which does not address ephemeral messages
+  const twinStatements: ts.Statement[] = sc.ephemeralTwin === undefined
+    ? []
+    : [
+        ts.factory.createVariableStatement(undefined, ts.factory.createVariableDeclarationList([
+          ts.factory.createVariableDeclaration(
+            'ephemeral',
+            undefined,
+            undefined,
+            ts.factory.createCallExpression(ts.factory.createIdentifier('ephemeralTarget'), undefined, [
+              ts.factory.createPropertyAccessExpression(ts.factory.createThis(), 'raw')
+            ])
+          )
+        ], ts.NodeFlags.Const)),
+        ts.factory.createIfStatement(
+          ts.factory.createBinaryExpression(
+            ts.factory.createIdentifier('ephemeral'),
+            ts.SyntaxKind.ExclamationEqualsToken,
+            ts.factory.createNull()
+          ),
+          ts.factory.createBlock([
+            ts.factory.createReturnStatement(
+              ts.factory.createCallExpression(
+                ts.factory.createPropertyAccessExpression(
+                  ts.factory.createPropertyAccessExpression(
+                    ts.factory.createPropertyAccessExpression(ts.factory.createThis(), 'tg'),
+                    'api'
+                  ),
+                  sc.ephemeralTwin
+                ),
+                undefined,
+                [
+                  ts.factory.createObjectLiteralExpression([
+                    ts.factory.createSpreadAssignment(ts.factory.createIdentifier('ephemeral')),
+                    ...positionalProps,
+                    ts.factory.createSpreadAssignment(ts.factory.createIdentifier('params'))
+                  ], true)
+                ]
+              )
+            )
+          ], true)
+        )
+      ]
+
   const body = ts.factory.createBlock([
+    ...twinStatements,
     ts.factory.createReturnStatement(
       ts.factory.createCallExpression(
         ts.factory.createPropertyAccessExpression(
@@ -1352,7 +1454,8 @@ function emitShortcutMethod (sc: BoundShortcut, widenedArgs: Map<string, Set<str
             ...filledProps,
             ...positionalProps,
             ts.factory.createSpreadAssignment(ts.factory.createIdentifier('params')),
-            ...replyProps
+            ...replyProps,
+            ...ephemeralProps
           ], true)
         ]
       )
@@ -1368,8 +1471,8 @@ function emitShortcutMethod (sc: BoundShortcut, widenedArgs: Map<string, Set<str
   // the trace (`Exclude` was 13.5k of 145k total instantiated types on a bare Telegram
   // import). emitting the shape inline lets tsc reuse a flat object type with zero
   // generic resolution cost
-  const paramsTypeNode = ts.factory.createTypeLiteralNode(
-    restArgs.map((arg) => {
+  const paramsTypeNode = ts.factory.createTypeLiteralNode([
+    ...restArgs.map((arg) => {
       let type = typeRefToTs(arg.type)
 
       if (widenedArgs.get(sc.method)?.has(arg.name)) {
@@ -1403,8 +1506,18 @@ function emitShortcutMethod (sc: BoundShortcut, widenedArgs: Map<string, Set<str
         arg.required ? undefined : ts.factory.createToken(ts.SyntaxKind.QuestionToken),
         type
       )
-    })
-  )
+    }),
+    // opt-out switch for the ephemeral auto-injection — consumed by ephemeralSendParams,
+    // never sent to telegram
+    ...(sc.ephemeralSend === true
+      ? [ts.factory.createPropertySignature(
+          undefined,
+          ts.factory.createIdentifier('ephemeral'),
+          ts.factory.createToken(ts.SyntaxKind.QuestionToken),
+          ts.factory.createKeywordTypeNode(ts.SyntaxKind.BooleanKeyword)
+        )]
+      : [])
+  ])
 
   // default `params` to `{}` only when all remaining user args are optional —
   // otherwise `update.send(text)` should error at the call site, not at runtime
@@ -1430,9 +1543,17 @@ function emitShortcutMethod (sc: BoundShortcut, widenedArgs: Map<string, Set<str
     body
   )
 
+  const ephemeralNote = sc.ephemeralTwin !== undefined
+    ? ` — routes to \`tg.api.${sc.ephemeralTwin}\` when this message is ephemeral`
+    : sc.ephemeralSend === true
+      ? ' — replying to an ephemeral message auto-fills `receiver_user_id` + `reply_parameters.ephemeral_message_id` (ephemeral responses only reach the receiver)'
+      : sc.callbackEphemeral === true
+        ? ' — pass `receiver_user_id` to send an ephemeral response; `callback_query_id` then auto-fills from this query'
+        : ''
+
   const doc = sc.reply
-    ? `reply shortcut for \`tg.api.${sc.method}\` — sets \`reply_parameters\` to this message`
-    : `shortcut for \`tg.api.${sc.method}\``
+    ? `reply shortcut for \`tg.api.${sc.method}\` — sets \`reply_parameters\` to this message${ephemeralNote}`
+    : `shortcut for \`tg.api.${sc.method}\`${ephemeralNote}`
 
   return jsDoc(doc, method)
 }

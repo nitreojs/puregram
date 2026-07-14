@@ -9,6 +9,11 @@ const UNION_EXTRA_MEMBERS: Record<string, SchemaTypeRef[]> = {
   RichText: [{ kind: 'string' }, { kind: 'array', of: { kind: 'reference', name: 'RichText' } }]
 }
 
+// fields whose docs row lacks the "Optional." prefix but is conditional in practice
+const OPTIONAL_FIELD_OVERRIDES: Record<string, string[]> = {
+  Message: ['ephemeral_message_id']
+}
+
 const PRIMITIVE_MAP: Record<string, SchemaTypeRef> = {
   Integer: { kind: 'integer' },
   Int: { kind: 'integer' },
@@ -207,6 +212,21 @@ function collectDescriptionLinks ($: cheerio.CheerioAPI, $h4: cheerio.Cheerio<An
   return links
 }
 
+// a docs table can list the same field twice — keep the first occurrence's position, the latest row's content
+function dedupeFields (fields: SchemaField[], owner: string) {
+  const byName = new Map<string, SchemaField>()
+
+  for (const field of fields) {
+    if (byName.has(field.name)) {
+      console.warn(`[parse] duplicate field "${field.name}" in ${owner} — keeping the latest row`)
+    }
+
+    byName.set(field.name, field)
+  }
+
+  return [...byName.values()]
+}
+
 function extractMethod (
   $: cheerio.CheerioAPI,
   name: string,
@@ -248,7 +268,7 @@ function extractMethod (
     description,
     documentationLink: `https://core.telegram.org/bots/api#${name.toLowerCase()}`,
     multipartOnly: /multipart/i.test(description),
-    arguments: args,
+    arguments: dedupeFields(args, name),
     returnType
   }
 }
@@ -299,7 +319,7 @@ function extractObject (
     return {
       name: fieldName,
       description: desc,
-      required: !/^optional\.?\s/i.test(desc),
+      required: !/^optional\.?\s/i.test(desc) && !OPTIONAL_FIELD_OVERRIDES[name]?.includes(fieldName),
       type
     }
   })
@@ -309,7 +329,7 @@ function extractObject (
     name,
     description,
     documentationLink: `https://core.telegram.org/bots/api#${name.toLowerCase()}`,
-    fields
+    fields: dedupeFields(fields, name)
   }
 }
 

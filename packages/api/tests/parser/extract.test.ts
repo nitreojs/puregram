@@ -62,6 +62,7 @@ describe('extractFromHtml', () => {
     const chatMember = objects.find(o => o.name === 'ChatMember')
 
     expect(chatMember!.kind).toBe('union')
+
     if (chatMember!.kind === 'union') {
       expect(chatMember.members).toEqual([
         { kind: 'reference', name: 'ChatMemberOwner' },
@@ -73,5 +74,55 @@ describe('extractFromHtml', () => {
     // no subtype list -> genuinely empty object, not a union (the prose <a> to @BotFather is ignored)
     expect(objects.find(o => o.name === 'VideoChatStarted')!.kind).toBe('object')
     expect(objects.find(o => o.name === 'CallbackGame')!.kind).toBe('object')
+  })
+
+  it('dedupes duplicated table rows, keeping the first position and the latest row content', () => {
+    const html = `
+      <h4>ReplyParameters</h4>
+      <p>Describes reply parameters for the message that is being sent.</p>
+      <table class="table">
+      <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td>message_id</td><td>Integer</td><td><em>Optional</em>. Identifier of the message that will be replied to.</td></tr>
+      <tr><td>allow_sending_without_reply</td><td>Boolean</td><td><em>Optional</em>. Stale wording.</td></tr>
+      <tr><td>ephemeral_message_id</td><td>Integer</td><td><em>Optional</em>. Identifier of the incoming ephemeral message.</td></tr>
+      <tr><td>allow_sending_without_reply</td><td>Boolean</td><td><em>Optional</em>. Updated wording mentioning ephemeral messages.</td></tr>
+      </tbody>
+      </table>
+    `
+
+    const { objects } = extractFromHtml(html)
+    const replyParameters = objects.find(o => o.name === 'ReplyParameters')
+
+    expect(replyParameters!.kind).toBe('object')
+
+    if (replyParameters!.kind === 'object') {
+      expect(replyParameters.fields.map(f => f.name)).toEqual(['message_id', 'allow_sending_without_reply', 'ephemeral_message_id'])
+      expect(replyParameters.fields[1]!.description).toContain('Updated wording')
+    }
+  })
+
+  it('forces known docs-bug fields optional via override', () => {
+    const html = `
+      <h4>Message</h4>
+      <p>This object represents a message.</p>
+      <table class="table">
+      <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td>message_id</td><td>Integer</td><td>Unique message identifier inside this chat.</td></tr>
+      <tr><td>ephemeral_message_id</td><td>Integer</td><td>For ephemeral messages, identifier of the ephemeral message inside this chat.</td></tr>
+      </tbody>
+      </table>
+    `
+
+    const { objects } = extractFromHtml(html)
+    const message = objects.find(o => o.name === 'Message')
+
+    expect(message!.kind).toBe('object')
+
+    if (message!.kind === 'object') {
+      expect(message.fields.find(f => f.name === 'message_id')!.required).toBe(true)
+      expect(message.fields.find(f => f.name === 'ephemeral_message_id')!.required).toBe(false)
+    }
   })
 })

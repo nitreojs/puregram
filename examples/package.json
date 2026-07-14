@@ -15,6 +15,7 @@
     "@puregram/markup": "*",
     "@puregram/media-cacher": "*",
     "@puregram/rate-limit": "*",
+    "@puregram/rich": "*",
     "@puregram/scenes": "*",
     "@puregram/session": "*",
     "@puregram/storage": "*",

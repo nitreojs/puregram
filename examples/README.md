@@ -59,12 +59,25 @@ standalone folders under `webhooks/` and `recipes/` are their own workspaces —
 - [catch dispatch errors + swallowDispatchErrors](src/core/resilience/catch-errors.ts)
 - [polling concurrency + sequentializeBy](src/core/resilience/polling-concurrency.ts)
 
+## ephemeral messages (10.2)
+
+- [basics — ephemeral command, auto-injection, isEphemeral(), opt-out](src/core/ephemeral/basics.ts)
+- [callback — receiver_user_id opt-in on a button press](src/core/ephemeral/callback.ts)
+- [proactive — tg.ephemeral(id) admin whisper](src/core/ephemeral/proactive.ts)
+
 ## @puregram/markup
 
 - [markup basics](src/markup/basics.ts)
 - [Formatted.fromMessage — quote with original entities](src/markup/from-message.ts)
 - [toHtml / toMarkdown — serialize a Formatted](src/markup/to-html-markdown.ts)
 - [md.lenient / html.lenient — permissive parsing for llm output](src/markup/lenient-parse.ts)
+
+## @puregram/rich
+
+- [basics — rich.md template → sendRich](src/rich/basics.ts)
+- [builders — compose native blocks from data](src/rich/builders.ts)
+- [parse vs raw — rich.md / .lenient / rich.raw.md](src/rich/parse-vs-raw.ts)
+- [media — MediaSource uploads inside blocks](src/rich/media.ts)
 
 ## @puregram/flow
 

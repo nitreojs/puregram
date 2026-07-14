@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
-/// Bot API 10.1
+/// Bot API 10.2
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-07-13T08:27:16.629Z
+/// generated at: 2026-07-14T16:35:43.235Z
 /// see scripts/emit.ts in @puregram/api
 
 export const WEBHOOK_REPLY_SAFE_METHODS: ReadonlySet<string> = new Set<string>([
@@ -26,6 +26,7 @@ export const WEBHOOK_REPLY_SAFE_METHODS: ReadonlySet<string> = new Set<string>([
     "deleteBusinessMessages",
     "deleteChatPhoto",
     "deleteChatStickerSet",
+    "deleteEphemeralMessage",
     "deleteForumTopic",
     "deleteMessage",
     "deleteMessageReaction",
@@ -35,6 +36,10 @@ export const WEBHOOK_REPLY_SAFE_METHODS: ReadonlySet<string> = new Set<string>([
     "deleteStickerSet",
     "deleteStory",
     "deleteWebhook",
+    "editEphemeralMessageCaption",
+    "editEphemeralMessageMedia",
+    "editEphemeralMessageReplyMarkup",
+    "editEphemeralMessageText",
     "editForumTopic",
     "editGeneralForumTopic",
     "editUserStarSubscription",

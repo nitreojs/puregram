@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
-/// Bot API 10.1
+/// Bot API 10.2
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-07-13T08:27:16.629Z
+/// generated at: 2026-07-14T16:35:43.235Z
 /// see scripts/emit.ts in @puregram/api
 
 import * as api from "./methods";
@@ -109,7 +109,7 @@ export interface ApiMethods {
      */
     copyMessage: api.copyMessage;
     /**
-     * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessages, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an array of MessageId of the sent messages is returned.
+     * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessages, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an Array of MessageId of the sent messages is returned.
      *
      * [bot api docs](https://core.telegram.org/bots/api#copymessages)
      */
@@ -181,6 +181,12 @@ export interface ApiMethods {
      */
     deleteChatStickerSet: api.deleteChatStickerSet;
     /**
+     * Use this method to delete an ephemeral message. Note that it is not guaranteed that the user will receive the message deletion event, especially if they are offline. Returns True on success.
+     *
+     * [bot api docs](https://core.telegram.org/bots/api#deleteephemeralmessage)
+     */
+    deleteEphemeralMessage: api.deleteEphemeralMessage;
+    /**
      * Use this method to delete a forum topic along with all its messages in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the can_delete_messages administrator rights. Returns True on success.
      *
      * [bot api docs](https://core.telegram.org/bots/api#deleteforumtopic)
@@ -246,6 +252,30 @@ export interface ApiMethods {
      * [bot api docs](https://core.telegram.org/bots/api#editchatsubscriptioninvitelink)
      */
     editChatSubscriptionInviteLink: api.editChatSubscriptionInviteLink;
+    /**
+     * Use this method to edit the caption of an ephemeral message. Note that it is not guaranteed that the user will receive the message edit event, especially if they are offline. On success, True is returned.
+     *
+     * [bot api docs](https://core.telegram.org/bots/api#editephemeralmessagecaption)
+     */
+    editEphemeralMessageCaption: api.editEphemeralMessageCaption;
+    /**
+     * Use this method to edit the media of an ephemeral message. Note that it is not guaranteed that the user will receive the message edit event, especially if they are offline. On success, True is returned.
+     *
+     * [bot api docs](https://core.telegram.org/bots/api#editephemeralmessagemedia)
+     */
+    editEphemeralMessageMedia: api.editEphemeralMessageMedia;
+    /**
+     * Use this method to edit only the reply markup of an ephemeral message. Note that it is not guaranteed that the user will receive the message edit event, especially if they are offline. On success, True is returned.
+     *
+     * [bot api docs](https://core.telegram.org/bots/api#editephemeralmessagereplymarkup)
+     */
+    editEphemeralMessageReplyMarkup: api.editEphemeralMessageReplyMarkup;
+    /**
+     * Use this method to edit an ephemeral text message. Note that it is not guaranteed that the user will receive the message edit event, especially if they are offline. On success, True is returned.
+     *
+     * [bot api docs](https://core.telegram.org/bots/api#editephemeralmessagetext)
+     */
+    editEphemeralMessageText: api.editEphemeralMessageText;
     /**
      * Use this method to edit name and icon of a topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success.
      *
@@ -319,7 +349,7 @@ export interface ApiMethods {
      */
     forwardMessage: api.forwardMessage;
     /**
-     * Use this method to forward multiple messages of any kind. If some of the specified messages can't be found or forwarded, they are skipped. Service messages and messages with protected content can't be forwarded. Album grouping is kept for forwarded messages. On success, an array of MessageId of the sent messages is returned.
+     * Use this method to forward multiple messages of any kind. If some of the specified messages can't be found or forwarded, they are skipped. Service messages and messages with protected content can't be forwarded. Album grouping is kept for forwarded messages. On success, an Array of MessageId of the sent messages is returned.
      *
      * [bot api docs](https://core.telegram.org/bots/api#forwardmessages)
      */
@@ -373,7 +403,7 @@ export interface ApiMethods {
      */
     getChatMember: api.getChatMember;
     /**
-     * Use this method to get the number of members in a chat. Returns Int on success.
+     * Use this method to get the number of members in a chat. Returns Integer on success.
      *
      * [bot api docs](https://core.telegram.org/bots/api#getchatmembercount)
      */
@@ -493,7 +523,7 @@ export interface ApiMethods {
      */
     getUserGifts: api.getUserGifts;
     /**
-     * Use this method to get the last messages from the personal chat (i.e., the chat currently added to their profile) of a given user. On success, an array of Message objects is returned.
+     * Use this method to get the last messages from the personal chat (i.e., the chat currently added to their profile) of a given user. On success, an Array of Message objects is returned.
      *
      * [bot api docs](https://core.telegram.org/bots/api#getuserpersonalchatmessages)
      */
@@ -729,7 +759,7 @@ export interface ApiMethods {
      */
     sendLocation: api.sendLocation;
     /**
-     * Use this method to send a group of photos, live photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of Message objects that were sent is returned.
+     * Use this method to send a group of photos, live photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an Array of Message objects that were sent is returned.
      *
      * [bot api docs](https://core.telegram.org/bots/api#sendmediagroup)
      */

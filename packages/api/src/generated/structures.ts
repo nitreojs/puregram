@@ -1,10 +1,10 @@
 /// AUTO-GENERATED FILE — do not edit by hand
-/// Bot API 10.1
+/// Bot API 10.2
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-07-13T08:27:16.629Z
+/// generated at: 2026-07-14T16:35:43.235Z
 /// see scripts/emit.ts in @puregram/api
 
-import type { TelegramAnimation, TelegramAudio, TelegramCallbackGame, TelegramChat, TelegramChatBackground, TelegramChatBoost, TelegramChatBoostAdded, TelegramChatBoostRemoved, TelegramChatBoostSource, TelegramChatBoostUpdated, TelegramChatInviteLink, TelegramChatJoinRequest, TelegramChatLocation, TelegramChatMember, TelegramChatMemberUpdated, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChatPermissions, TelegramChatPhoto, TelegramChatShared, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramChosenInlineResult, TelegramContact, TelegramCopyTextButton, TelegramDice, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramDocument, TelegramEncryptedCredentials, TelegramEncryptedPassportElement, TelegramExternalReplyInfo, TelegramFile, TelegramForumTopicClosed, TelegramForumTopicCreated, TelegramForumTopicEdited, TelegramForumTopicReopened, TelegramGame, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveaway, TelegramGiveawayCompleted, TelegramGiveawayCreated, TelegramGiveawayWinners, TelegramInlineKeyboardButton, TelegramInlineKeyboardMarkup, TelegramInlineQuery, TelegramInvoice, TelegramLink, TelegramLinkPreviewOptions, TelegramLivePhoto, TelegramLocation, TelegramLoginUrl, TelegramManagedBotCreated, TelegramMaskPosition, TelegramMaybeInaccessibleMessage, TelegramMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageEntity, TelegramMessageId, TelegramMessageOrigin, TelegramMessageReactionCountUpdated, TelegramMessageReactionUpdated, TelegramOrderInfo, TelegramPaidMediaInfo, TelegramPaidMessagePriceChanged, TelegramPassportData, TelegramPhotoSize, TelegramPoll, TelegramPollAnswer, TelegramPollMedia, TelegramPollOption, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramPreCheckoutQuery, TelegramProximityAlertTriggered, TelegramReactionCount, TelegramReactionType, TelegramRefundedPayment, TelegramRichMessage, TelegramSharedUser, TelegramShippingAddress, TelegramShippingQuery, TelegramSticker, TelegramStickerSet, TelegramStory, TelegramSuccessfulPayment, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostRefunded, TelegramSwitchInlineQueryChosenChat, TelegramTextQuote, TelegramUniqueGiftInfo, TelegramUser, TelegramUserProfilePhotos, TelegramUsersShared, TelegramVenue, TelegramVideo, TelegramVideoChatEnded, TelegramVideoChatParticipantsInvited, TelegramVideoChatScheduled, TelegramVideoChatStarted, TelegramVideoNote, TelegramVideoQuality, TelegramVoice, TelegramWebAppData, TelegramWebAppInfo, TelegramWriteAccessAllowed } from "./types";
+import type { TelegramAnimation, TelegramAudio, TelegramCallbackGame, TelegramChat, TelegramChatBackground, TelegramChatBoost, TelegramChatBoostAdded, TelegramChatBoostRemoved, TelegramChatBoostSource, TelegramChatBoostUpdated, TelegramChatInviteLink, TelegramChatJoinRequest, TelegramChatLocation, TelegramChatMember, TelegramChatMemberUpdated, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChatPermissions, TelegramChatPhoto, TelegramChatShared, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramChosenInlineResult, TelegramCommunityChatAdded, TelegramCommunityChatRemoved, TelegramContact, TelegramCopyTextButton, TelegramDice, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramDocument, TelegramEncryptedCredentials, TelegramEncryptedPassportElement, TelegramExternalReplyInfo, TelegramFile, TelegramForumTopicClosed, TelegramForumTopicCreated, TelegramForumTopicEdited, TelegramForumTopicReopened, TelegramGame, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveaway, TelegramGiveawayCompleted, TelegramGiveawayCreated, TelegramGiveawayWinners, TelegramInlineKeyboardButton, TelegramInlineKeyboardMarkup, TelegramInlineQuery, TelegramInvoice, TelegramLink, TelegramLinkPreviewOptions, TelegramLivePhoto, TelegramLocation, TelegramLoginUrl, TelegramManagedBotCreated, TelegramMaskPosition, TelegramMaybeInaccessibleMessage, TelegramMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageEntity, TelegramMessageId, TelegramMessageOrigin, TelegramMessageReactionCountUpdated, TelegramMessageReactionUpdated, TelegramOrderInfo, TelegramPaidMediaInfo, TelegramPaidMessagePriceChanged, TelegramPassportData, TelegramPhotoSize, TelegramPoll, TelegramPollAnswer, TelegramPollMedia, TelegramPollOption, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramPreCheckoutQuery, TelegramProximityAlertTriggered, TelegramReactionCount, TelegramReactionType, TelegramRefundedPayment, TelegramRichMessage, TelegramSharedUser, TelegramShippingAddress, TelegramShippingQuery, TelegramSticker, TelegramStickerSet, TelegramStory, TelegramSuccessfulPayment, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostRefunded, TelegramSwitchInlineQueryChosenChat, TelegramTextQuote, TelegramUniqueGiftInfo, TelegramUser, TelegramUserProfilePhotos, TelegramUsersShared, TelegramVenue, TelegramVideo, TelegramVideoChatEnded, TelegramVideoChatParticipantsInvited, TelegramVideoChatScheduled, TelegramVideoChatStarted, TelegramVideoNote, TelegramVideoQuality, TelegramVoice, TelegramWebAppData, TelegramWebAppInfo, TelegramWriteAccessAllowed } from "./types";
 import type { Has } from "../util-types";
 import { INSPECT, makeInspect } from "./inspect";
 import { Photo, VideoQualities } from "../structures-handcrafted";
@@ -620,7 +620,7 @@ export class ChatJoinRequest {
         return this._inviteLink;
     }
     /**
-     * Optional. Identifier of the join request query; for bots assigned to process join request only. If present, then the bot must call sendChatJoinRequestWebApp or directly call answerChatJoinRequestQuery within 10 seconds.
+     * Optional. Identifier of the join request query; for bots assigned to process join requests only. If present, then the bot must call sendChatJoinRequestWebApp or directly call answerChatJoinRequestQuery within 10 seconds.
      */
     get queryId(): string | undefined {
         return this.raw.query_id;
@@ -903,7 +903,7 @@ export class ChatPermissions {
         return this.raw.can_pin_messages;
     }
     /**
-     * Optional. True, if the user is allowed to create forum topics. If omitted defaults to the value of can_pin_messages.
+     * Optional. True, if the user is allowed to create forum topics. If omitted, defaults to the value of can_pin_messages.
      */
     get canManageTopics(): boolean | undefined {
         return this.raw.can_manage_topics;
@@ -3039,6 +3039,7 @@ export class Message {
     private _from?: User | undefined;
     private _senderChat?: Chat | undefined;
     private _senderBusinessBot?: User | undefined;
+    private _receiverUser?: User | undefined;
     private _chat?: Chat;
     private _replyToMessage?: Message | undefined;
     private _externalReply?: ExternalReplyInfo | undefined;
@@ -3091,7 +3092,7 @@ export class Message {
         return new Message(raw);
     }
     /**
-     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent.
+     * Unique message identifier inside this chat; 0 for ephemeral messages. In specific instances (e.g., a message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent.
      */
     get id(): number {
         return this.raw.message_id;
@@ -3148,6 +3149,21 @@ export class Message {
         return this.raw.sender_tag;
     }
     /**
+     * Optional. For ephemeral messages, the user who received the message
+     */
+    get receiverUser(): User | undefined {
+        if (this._receiverUser === undefined) {
+            this._receiverUser = this.raw.receiver_user ? new User(this.raw.receiver_user) : undefined;
+        }
+        return this._receiverUser;
+    }
+    /**
+     * Optional. For ephemeral messages, identifier of the ephemeral message inside this chat. The identifier may be reused for another ephemeral message after the message is deleted or expires.
+     */
+    get ephemeralMessageId(): number | undefined {
+        return this.raw.ephemeral_message_id;
+    }
+    /**
      * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
      */
     get date(): number {
@@ -3190,7 +3206,7 @@ export class Message {
         return this.raw.is_automatic_forward;
     }
     /**
-     * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply. If the message is a reply to an ephemeral message, then this field may be omitted.
      */
     get replyToMessage(): Message | undefined {
         if (this._replyToMessage === undefined) {
@@ -3733,6 +3749,18 @@ export class Message {
         return this.raw.checklist_tasks_added;
     }
     /**
+     * Optional. Service message: chat added to a Community
+     */
+    get communityChatAdded(): TelegramCommunityChatAdded | undefined {
+        return this.raw.community_chat_added;
+    }
+    /**
+     * Optional. Service message: chat removed from a Community
+     */
+    get communityChatRemoved(): TelegramCommunityChatRemoved | undefined {
+        return this.raw.community_chat_removed;
+    }
+    /**
      * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
      */
     get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
@@ -3973,6 +4001,22 @@ export class Message {
         senderTag: string;
     } {
         return this.raw.sender_tag != null;
+    }
+    /**
+     * true if `receiver_user` is set
+     */
+    hasReceiverUser(): this is this & {
+        receiverUser: User;
+    } {
+        return this.raw.receiver_user != null;
+    }
+    /**
+     * true if `ephemeral_message_id` is set
+     */
+    hasEphemeralMessageId(): this is this & {
+        ephemeralMessageId: number;
+    } {
+        return this.raw.ephemeral_message_id != null;
     }
     /**
      * true if `guest_query_id` is set
@@ -4557,6 +4601,22 @@ export class Message {
         checklistTasksAdded: TelegramChecklistTasksAdded;
     } {
         return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * true if `community_chat_added` is set
+     */
+    hasCommunityChatAdded(): this is this & {
+        communityChatAdded: TelegramCommunityChatAdded;
+    } {
+        return this.raw.community_chat_added != null;
+    }
+    /**
+     * true if `community_chat_removed` is set
+     */
+    hasCommunityChatRemoved(): this is this & {
+        communityChatRemoved: TelegramCommunityChatRemoved;
+    } {
+        return this.raw.community_chat_removed != null;
     }
     /**
      * true if `direct_message_price_changed` is set

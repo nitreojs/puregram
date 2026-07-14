@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
-/// Bot API 10.1
+/// Bot API 10.2
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-07-13T08:27:16.629Z
+/// generated at: 2026-07-14T16:35:43.235Z
 /// see scripts/emit.ts in @puregram/api
 
 import type { TelegramInputFile, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaLivePhoto, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPollOption, TelegramMessage, TelegramMessageId, TelegramReactionType } from "./types";
@@ -75,7 +75,7 @@ export interface TelegramShortcuts {
      */
     sendPoll(chat: number | string, question: string | Formattable, options: TelegramInputPollOption[], params?: Omit<SendPollParams, "chat_id" | "question" | "options">): Promise<TelegramMessage>;
     /**
-     * Shortcut for `tg.api.sendMediaGroup`. Use this method to send a group of photos, live photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of Message objects that were sent is returned.
+     * Shortcut for `tg.api.sendMediaGroup`. Use this method to send a group of photos, live photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an Array of Message objects that were sent is returned.
      */
     sendMediaGroup(chat: number | string, media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[], params?: Omit<SendMediaGroupParams, "chat_id" | "media">): Promise<TelegramMessage[]>;
     /**
@@ -83,7 +83,7 @@ export interface TelegramShortcuts {
      */
     forward(from: number | string, to: number | string, messageId: number, params?: Omit<ForwardMessageParams, "from_chat_id" | "chat_id" | "message_id">): Promise<TelegramMessage>;
     /**
-     * Shortcut for `tg.api.forwardMessages`. Use this method to forward multiple messages of any kind. If some of the specified messages can't be found or forwarded, they are skipped. Service messages and messages with protected content can't be forwarded. Album grouping is kept for forwarded messages. On success, an array of MessageId of the sent messages is returned.
+     * Shortcut for `tg.api.forwardMessages`. Use this method to forward multiple messages of any kind. If some of the specified messages can't be found or forwarded, they are skipped. Service messages and messages with protected content can't be forwarded. Album grouping is kept for forwarded messages. On success, an Array of MessageId of the sent messages is returned.
      */
     forwardMany(from: number | string, to: number | string, messageIds: number[], params?: Omit<ForwardMessagesParams, "from_chat_id" | "chat_id" | "message_ids">): Promise<TelegramMessageId[]>;
     /**
@@ -91,7 +91,7 @@ export interface TelegramShortcuts {
      */
     copy(from: number | string, to: number | string, messageId: number, params?: Omit<CopyMessageParams, "from_chat_id" | "chat_id" | "message_id">): Promise<TelegramMessageId>;
     /**
-     * Shortcut for `tg.api.copyMessages`. Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessages, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an array of MessageId of the sent messages is returned.
+     * Shortcut for `tg.api.copyMessages`. Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessages, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an Array of MessageId of the sent messages is returned.
      */
     copyMany(from: number | string, to: number | string, messageIds: number[], params?: Omit<CopyMessagesParams, "from_chat_id" | "chat_id" | "message_ids">): Promise<TelegramMessageId[]>;
     /**

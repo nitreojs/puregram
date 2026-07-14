@@ -1,10 +1,10 @@
 /// AUTO-GENERATED FILE — do not edit by hand
-/// Bot API 10.1
+/// Bot API 10.2
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-07-13T08:27:16.629Z
+/// generated at: 2026-07-14T16:35:43.235Z
 /// see scripts/emit.ts in @puregram/api
 
-import type { TelegramBusinessBotRights, TelegramBusinessConnection, TelegramBusinessMessagesDeleted, TelegramCallbackQuery, TelegramChatBackground, TelegramChatBoostAdded, TelegramChatBoostRemoved, TelegramChatBoostSource, TelegramChatBoostUpdated, TelegramChatJoinRequest, TelegramChatMemberUpdated, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChatPermissions, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramChosenInlineResult, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramForceReply, TelegramForumTopicClosed, TelegramForumTopicReopened, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveawayCreated, TelegramInlineKeyboardMarkup, TelegramInlineQuery, TelegramInlineQueryResult, TelegramInlineQueryResultsButton, TelegramInputChecklist, TelegramInputFile, TelegramInputMedia, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaLivePhoto, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPaidMedia, TelegramInputPollMedia, TelegramInputPollOption, TelegramInputRichMessage, TelegramLabeledPrice, TelegramLinkPreviewOptions, TelegramManagedBotCreated, TelegramManagedBotUpdated, TelegramMaybeInaccessibleMessage, TelegramMenuButton, TelegramMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageEntity, TelegramMessageOrigin, TelegramMessageReactionCountUpdated, TelegramMessageReactionUpdated, TelegramPaidMediaInfo, TelegramPaidMediaPurchased, TelegramPaidMessagePriceChanged, TelegramPoll, TelegramPollAnswer, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramPreCheckoutQuery, TelegramReactionType, TelegramRefundedPayment, TelegramReplyKeyboardMarkup, TelegramReplyKeyboardRemove, TelegramReplyParameters, TelegramRichMessage, TelegramShippingOption, TelegramShippingQuery, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostParameters, TelegramSuggestedPostRefunded, TelegramUniqueGiftInfo, TelegramVideoChatStarted } from "./types";
+import type { TelegramBotSubscriptionUpdated, TelegramBusinessBotRights, TelegramBusinessConnection, TelegramBusinessMessagesDeleted, TelegramCallbackQuery, TelegramChatBackground, TelegramChatBoostAdded, TelegramChatBoostRemoved, TelegramChatBoostSource, TelegramChatBoostUpdated, TelegramChatJoinRequest, TelegramChatMemberUpdated, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChatPermissions, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramChosenInlineResult, TelegramCommunityChatAdded, TelegramCommunityChatRemoved, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramForceReply, TelegramForumTopicClosed, TelegramForumTopicReopened, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveawayCreated, TelegramInlineKeyboardMarkup, TelegramInlineQuery, TelegramInlineQueryResult, TelegramInlineQueryResultsButton, TelegramInputChecklist, TelegramInputFile, TelegramInputMedia, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaLivePhoto, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPaidMedia, TelegramInputPollMedia, TelegramInputPollOption, TelegramInputRichMessage, TelegramLabeledPrice, TelegramLinkPreviewOptions, TelegramManagedBotCreated, TelegramManagedBotUpdated, TelegramMaybeInaccessibleMessage, TelegramMenuButton, TelegramMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageEntity, TelegramMessageOrigin, TelegramMessageReactionCountUpdated, TelegramMessageReactionUpdated, TelegramPaidMediaInfo, TelegramPaidMediaPurchased, TelegramPaidMessagePriceChanged, TelegramPoll, TelegramPollAnswer, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramPreCheckoutQuery, TelegramReactionType, TelegramRefundedPayment, TelegramReplyKeyboardMarkup, TelegramReplyKeyboardRemove, TelegramReplyParameters, TelegramRichMessage, TelegramShippingOption, TelegramShippingQuery, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostParameters, TelegramSuggestedPostRefunded, TelegramUniqueGiftInfo, TelegramVideoChatStarted } from "./types";
 import type { TelegramLike } from "../telegram-like";
 import type { Has } from "../util-types";
 import type { Formattable } from "../formattable";
@@ -145,6 +145,8 @@ export class MessageThreadShortcuts {
      */
     sendAnimation(animation: TelegramInputFile | string, params: {
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         duration?: number;
         width?: number;
         height?: number;
@@ -177,6 +179,8 @@ export class MessageThreadShortcuts {
      */
     replyWithAnimation(animation: TelegramInputFile | string, params: {
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         duration?: number;
         width?: number;
         height?: number;
@@ -210,6 +214,8 @@ export class MessageThreadShortcuts {
      */
     sendAudio(audio: TelegramInputFile | string, params: {
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
@@ -240,6 +246,8 @@ export class MessageThreadShortcuts {
      */
     replyWithAudio(audio: TelegramInputFile | string, params: {
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
@@ -283,6 +291,8 @@ export class MessageThreadShortcuts {
      */
     sendContact(phoneNumber: string, firstName: string, params: {
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         last_name?: string;
         vcard?: string;
         disable_notification?: boolean;
@@ -309,6 +319,8 @@ export class MessageThreadShortcuts {
      */
     replyWithContact(phoneNumber: string, firstName: string, params: {
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         last_name?: string;
         vcard?: string;
         disable_notification?: boolean;
@@ -383,6 +395,8 @@ export class MessageThreadShortcuts {
      */
     sendDocument(document: TelegramInputFile | string, params: {
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         thumbnail?: TelegramInputFile | string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
@@ -411,6 +425,8 @@ export class MessageThreadShortcuts {
      */
     replyWithDocument(document: TelegramInputFile | string, params: {
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         thumbnail?: TelegramInputFile | string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
@@ -568,6 +584,8 @@ export class MessageThreadShortcuts {
      */
     sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: {
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
@@ -597,6 +615,8 @@ export class MessageThreadShortcuts {
      */
     replyWithLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: {
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
@@ -627,6 +647,8 @@ export class MessageThreadShortcuts {
      */
     sendLocation(latitude: number, longitude: number, params: {
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         horizontal_accuracy?: number;
         live_period?: number;
         heading?: number;
@@ -655,6 +677,8 @@ export class MessageThreadShortcuts {
      */
     replyWithLocation(latitude: number, longitude: number, params: {
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         horizontal_accuracy?: number;
         live_period?: number;
         heading?: number;
@@ -723,6 +747,8 @@ export class MessageThreadShortcuts {
      */
     send(text: string | Formattable, params: {
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
         link_preview_options?: TelegramLinkPreviewOptions;
@@ -749,6 +775,8 @@ export class MessageThreadShortcuts {
      */
     reply(text: string | Formattable, params: {
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
         link_preview_options?: TelegramLinkPreviewOptions;
@@ -848,6 +876,8 @@ export class MessageThreadShortcuts {
      */
     sendPhoto(photo: TelegramInputFile | string, params: {
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
@@ -876,6 +906,8 @@ export class MessageThreadShortcuts {
      */
     replyWithPhoto(photo: TelegramInputFile | string, params: {
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
@@ -1056,6 +1088,8 @@ export class MessageThreadShortcuts {
      */
     sendSticker(sticker: TelegramInputFile | string, params: {
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         emoji?: string;
         disable_notification?: boolean;
         protect_content?: boolean;
@@ -1080,6 +1114,8 @@ export class MessageThreadShortcuts {
      */
     replyWithSticker(sticker: TelegramInputFile | string, params: {
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         emoji?: string;
         disable_notification?: boolean;
         protect_content?: boolean;
@@ -1105,6 +1141,8 @@ export class MessageThreadShortcuts {
      */
     sendVenue(latitude: number, longitude: number, title: string, address: string, params: {
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         foursquare_id?: string;
         foursquare_type?: string;
         google_place_id?: string;
@@ -1135,6 +1173,8 @@ export class MessageThreadShortcuts {
      */
     replyWithVenue(latitude: number, longitude: number, title: string, address: string, params: {
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         foursquare_id?: string;
         foursquare_type?: string;
         google_place_id?: string;
@@ -1166,6 +1206,8 @@ export class MessageThreadShortcuts {
      */
     sendVideo(video: TelegramInputFile | string, params: {
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         duration?: number;
         width?: number;
         height?: number;
@@ -1201,6 +1243,8 @@ export class MessageThreadShortcuts {
      */
     replyWithVideo(video: TelegramInputFile | string, params: {
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         duration?: number;
         width?: number;
         height?: number;
@@ -1237,6 +1281,8 @@ export class MessageThreadShortcuts {
      */
     sendVideoNote(videoNote: TelegramInputFile | string, params: {
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         duration?: number;
         length?: number;
         thumbnail?: TelegramInputFile | string;
@@ -1263,6 +1309,8 @@ export class MessageThreadShortcuts {
      */
     replyWithVideoNote(videoNote: TelegramInputFile | string, params: {
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         duration?: number;
         length?: number;
         thumbnail?: TelegramInputFile | string;
@@ -1290,6 +1338,8 @@ export class MessageThreadShortcuts {
      */
     sendVoice(voice: TelegramInputFile | string, params: {
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
@@ -1317,6 +1367,8 @@ export class MessageThreadShortcuts {
      */
     replyWithVoice(voice: TelegramInputFile | string, params: {
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
@@ -1435,6 +1487,7 @@ class MessageShared {
     private _from?: User;
     private _senderChat?: Chat;
     private _senderBusinessBot?: User;
+    private _receiverUser?: User;
     private _chat?: Chat;
     private _replyToMessage?: Message;
     private _externalReply?: ExternalReplyInfo;
@@ -1484,7 +1537,7 @@ class MessageShared {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
-     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent.
+     * Unique message identifier inside this chat; 0 for ephemeral messages. In specific instances (e.g., a message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent.
      */
     get id(): number {
         return this.raw.message_id;
@@ -1532,6 +1585,18 @@ class MessageShared {
         return this.raw.sender_tag;
     }
     /**
+     * Optional. For ephemeral messages, the user who received the message
+     */
+    get receiverUser(): User | undefined {
+        return this.raw.receiver_user ? (this._receiverUser ??= new User(this.raw.receiver_user)) : undefined;
+    }
+    /**
+     * Optional. For ephemeral messages, identifier of the ephemeral message inside this chat. The identifier may be reused for another ephemeral message after the message is deleted or expires.
+     */
+    get ephemeralMessageId(): number | undefined {
+        return this.raw.ephemeral_message_id;
+    }
+    /**
      * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
      */
     get date(): number {
@@ -1574,7 +1639,7 @@ class MessageShared {
         return this.raw.is_automatic_forward;
     }
     /**
-     * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply. If the message is a reply to an ephemeral message, then this field may be omitted.
      */
     get replyToMessage(): Message | undefined {
         return this.raw.reply_to_message ? (this._replyToMessage ??= new Message(this.raw.reply_to_message)) : undefined;
@@ -2012,6 +2077,18 @@ class MessageShared {
         return this.raw.checklist_tasks_added;
     }
     /**
+     * Optional. Service message: chat added to a Community
+     */
+    get communityChatAdded(): TelegramCommunityChatAdded | undefined {
+        return this.raw.community_chat_added;
+    }
+    /**
+     * Optional. Service message: chat removed from a Community
+     */
+    get communityChatRemoved(): TelegramCommunityChatRemoved | undefined {
+        return this.raw.community_chat_removed;
+    }
+    /**
      * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
      */
     get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
@@ -2223,6 +2300,22 @@ class MessageShared {
         senderTag: string;
     } {
         return this.raw.sender_tag != null;
+    }
+    /**
+     * true if `receiver_user` is set
+     */
+    hasReceiverUser(): this is this & {
+        receiverUser: User;
+    } {
+        return this.raw.receiver_user != null;
+    }
+    /**
+     * true if `ephemeral_message_id` is set
+     */
+    hasEphemeralMessageId(): this is this & {
+        ephemeralMessageId: number;
+    } {
+        return this.raw.ephemeral_message_id != null;
     }
     /**
      * true if `guest_query_id` is set
@@ -2799,6 +2892,22 @@ class MessageShared {
         checklistTasksAdded: TelegramChecklistTasksAdded;
     } {
         return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * true if `community_chat_added` is set
+     */
+    hasCommunityChatAdded(): this is this & {
+        communityChatAdded: TelegramCommunityChatAdded;
+    } {
+        return this.raw.community_chat_added != null;
+    }
+    /**
+     * true if `community_chat_removed` is set
+     */
+    hasCommunityChatRemoved(): this is this & {
+        communityChatRemoved: TelegramCommunityChatRemoved;
+    } {
+        return this.raw.community_chat_removed != null;
     }
     /**
      * true if `direct_message_price_changed` is set
@@ -3353,6 +3462,18 @@ class MessageShared {
         });
     }
     /**
+     * shortcut for `tg.api.deleteEphemeralMessage`
+     */
+    deleteEphemeralMessage(params: {
+        receiver_user_id: number;
+        ephemeral_message_id: number;
+    }) {
+        return this.tg.api.deleteEphemeralMessage({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteForumTopic`
      */
     deleteForumTopic(params: {
@@ -3419,6 +3540,74 @@ class MessageShared {
         name?: string;
     }) {
         return this.tg.api.editChatSubscriptionInviteLink({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.editEphemeralMessageCaption`
+     */
+    editEphemeralMessageCaption(params: {
+        receiver_user_id: number;
+        ephemeral_message_id: number;
+        caption?: string | Formattable;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
+        caption_entities?: TelegramMessageEntity[];
+        reply_markup?: TelegramInlineKeyboardMarkup | {
+            toJSON: () => TelegramInlineKeyboardMarkup;
+        };
+    }) {
+        return this.tg.api.editEphemeralMessageCaption({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.editEphemeralMessageMedia`
+     */
+    editEphemeralMessageMedia(params: {
+        receiver_user_id: number;
+        ephemeral_message_id: number;
+        media: TelegramInputMedia;
+        reply_markup?: TelegramInlineKeyboardMarkup | {
+            toJSON: () => TelegramInlineKeyboardMarkup;
+        };
+    }) {
+        return this.tg.api.editEphemeralMessageMedia({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.editEphemeralMessageReplyMarkup`
+     */
+    editEphemeralMessageReplyMarkup(params: {
+        receiver_user_id: number;
+        ephemeral_message_id: number;
+        reply_markup?: TelegramInlineKeyboardMarkup | {
+            toJSON: () => TelegramInlineKeyboardMarkup;
+        };
+    }) {
+        return this.tg.api.editEphemeralMessageReplyMarkup({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.editEphemeralMessageText`
+     */
+    editEphemeralMessageText(params: {
+        receiver_user_id: number;
+        ephemeral_message_id: number;
+        text: string | Formattable;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
+        entities?: TelegramMessageEntity[];
+        link_preview_options?: TelegramLinkPreviewOptions;
+        reply_markup?: TelegramInlineKeyboardMarkup | {
+            toJSON: () => TelegramInlineKeyboardMarkup;
+        };
+    }) {
+        return this.tg.api.editEphemeralMessageText({
             chat_id: this.raw.chat.id,
             ...params
         });
@@ -3826,6 +4015,8 @@ class MessageShared {
     sendAnimation(animation: TelegramInputFile | string, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         duration?: number;
         width?: number;
         height?: number;
@@ -3858,6 +4049,8 @@ class MessageShared {
     replyWithAnimation(animation: TelegramInputFile | string, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         duration?: number;
         width?: number;
         height?: number;
@@ -3891,6 +4084,8 @@ class MessageShared {
     sendAudio(audio: TelegramInputFile | string, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
@@ -3921,6 +4116,8 @@ class MessageShared {
     replyWithAudio(audio: TelegramInputFile | string, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
@@ -4004,6 +4201,8 @@ class MessageShared {
     sendContact(phoneNumber: string, firstName: string, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         last_name?: string;
         vcard?: string;
         disable_notification?: boolean;
@@ -4030,6 +4229,8 @@ class MessageShared {
     replyWithContact(phoneNumber: string, firstName: string, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         last_name?: string;
         vcard?: string;
         disable_notification?: boolean;
@@ -4104,6 +4305,8 @@ class MessageShared {
     sendDocument(document: TelegramInputFile | string, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         thumbnail?: TelegramInputFile | string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
@@ -4132,6 +4335,8 @@ class MessageShared {
     replyWithDocument(document: TelegramInputFile | string, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         thumbnail?: TelegramInputFile | string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
@@ -4305,6 +4510,8 @@ class MessageShared {
     sendLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
@@ -4334,6 +4541,8 @@ class MessageShared {
     replyWithLivePhoto(livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
@@ -4364,6 +4573,8 @@ class MessageShared {
     sendLocation(latitude: number, longitude: number, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         horizontal_accuracy?: number;
         live_period?: number;
         heading?: number;
@@ -4392,6 +4603,8 @@ class MessageShared {
     replyWithLocation(latitude: number, longitude: number, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         horizontal_accuracy?: number;
         live_period?: number;
         heading?: number;
@@ -4460,6 +4673,8 @@ class MessageShared {
     send(text: string | Formattable, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
         link_preview_options?: TelegramLinkPreviewOptions;
@@ -4486,6 +4701,8 @@ class MessageShared {
     reply(text: string | Formattable, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
         link_preview_options?: TelegramLinkPreviewOptions;
@@ -4585,6 +4802,8 @@ class MessageShared {
     sendPhoto(photo: TelegramInputFile | string, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
@@ -4613,6 +4832,8 @@ class MessageShared {
     replyWithPhoto(photo: TelegramInputFile | string, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
@@ -4793,6 +5014,8 @@ class MessageShared {
     sendSticker(sticker: TelegramInputFile | string, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         emoji?: string;
         disable_notification?: boolean;
         protect_content?: boolean;
@@ -4817,6 +5040,8 @@ class MessageShared {
     replyWithSticker(sticker: TelegramInputFile | string, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         emoji?: string;
         disable_notification?: boolean;
         protect_content?: boolean;
@@ -4842,6 +5067,8 @@ class MessageShared {
     sendVenue(latitude: number, longitude: number, title: string, address: string, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         foursquare_id?: string;
         foursquare_type?: string;
         google_place_id?: string;
@@ -4872,6 +5099,8 @@ class MessageShared {
     replyWithVenue(latitude: number, longitude: number, title: string, address: string, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         foursquare_id?: string;
         foursquare_type?: string;
         google_place_id?: string;
@@ -4903,6 +5132,8 @@ class MessageShared {
     sendVideo(video: TelegramInputFile | string, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         duration?: number;
         width?: number;
         height?: number;
@@ -4938,6 +5169,8 @@ class MessageShared {
     replyWithVideo(video: TelegramInputFile | string, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         duration?: number;
         width?: number;
         height?: number;
@@ -4974,6 +5207,8 @@ class MessageShared {
     sendVideoNote(videoNote: TelegramInputFile | string, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         duration?: number;
         length?: number;
         thumbnail?: TelegramInputFile | string;
@@ -5000,6 +5235,8 @@ class MessageShared {
     replyWithVideoNote(videoNote: TelegramInputFile | string, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         duration?: number;
         length?: number;
         thumbnail?: TelegramInputFile | string;
@@ -5027,6 +5264,8 @@ class MessageShared {
     sendVoice(voice: TelegramInputFile | string, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
@@ -5054,6 +5293,8 @@ class MessageShared {
     replyWithVoice(voice: TelegramInputFile | string, params: {
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
@@ -5556,6 +5797,7 @@ export class GuestMessageUpdate {
     private _from?: User;
     private _senderChat?: Chat;
     private _senderBusinessBot?: User;
+    private _receiverUser?: User;
     private _chat?: Chat;
     private _replyToMessage?: Message;
     private _externalReply?: ExternalReplyInfo;
@@ -5605,7 +5847,7 @@ export class GuestMessageUpdate {
     private _replyMarkup?: InlineKeyboardMarkup;
     constructor(public raw: TelegramMessage, public readonly tg: TelegramLike) { }
     /**
-     * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent.
+     * Unique message identifier inside this chat; 0 for ephemeral messages. In specific instances (e.g., a message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent.
      */
     get id(): number {
         return this.raw.message_id;
@@ -5653,6 +5895,18 @@ export class GuestMessageUpdate {
         return this.raw.sender_tag;
     }
     /**
+     * Optional. For ephemeral messages, the user who received the message
+     */
+    get receiverUser(): User | undefined {
+        return this.raw.receiver_user ? (this._receiverUser ??= new User(this.raw.receiver_user)) : undefined;
+    }
+    /**
+     * Optional. For ephemeral messages, identifier of the ephemeral message inside this chat. The identifier may be reused for another ephemeral message after the message is deleted or expires.
+     */
+    get ephemeralMessageId(): number | undefined {
+        return this.raw.ephemeral_message_id;
+    }
+    /**
      * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
      */
     get date(): number {
@@ -5695,7 +5949,7 @@ export class GuestMessageUpdate {
         return this.raw.is_automatic_forward;
     }
     /**
-     * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+     * Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply. If the message is a reply to an ephemeral message, then this field may be omitted.
      */
     get replyToMessage(): Message | undefined {
         return this.raw.reply_to_message ? (this._replyToMessage ??= new Message(this.raw.reply_to_message)) : undefined;
@@ -6139,6 +6393,18 @@ export class GuestMessageUpdate {
         return this.raw.checklist_tasks_added;
     }
     /**
+     * Optional. Service message: chat added to a Community
+     */
+    get communityChatAdded(): TelegramCommunityChatAdded | undefined {
+        return this.raw.community_chat_added;
+    }
+    /**
+     * Optional. Service message: chat removed from a Community
+     */
+    get communityChatRemoved(): TelegramCommunityChatRemoved | undefined {
+        return this.raw.community_chat_removed;
+    }
+    /**
      * Optional. Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
      */
     get directMessagePriceChanged(): TelegramDirectMessagePriceChanged | undefined {
@@ -6350,6 +6616,22 @@ export class GuestMessageUpdate {
         senderTag: string;
     } {
         return this.raw.sender_tag != null;
+    }
+    /**
+     * true if `receiver_user` is set
+     */
+    hasReceiverUser(): this is this & {
+        receiverUser: User;
+    } {
+        return this.raw.receiver_user != null;
+    }
+    /**
+     * true if `ephemeral_message_id` is set
+     */
+    hasEphemeralMessageId(): this is this & {
+        ephemeralMessageId: number;
+    } {
+        return this.raw.ephemeral_message_id != null;
     }
     /**
      * true if `guest_query_id` is set
@@ -6926,6 +7208,22 @@ export class GuestMessageUpdate {
         checklistTasksAdded: TelegramChecklistTasksAdded;
     } {
         return this.raw.checklist_tasks_added != null;
+    }
+    /**
+     * true if `community_chat_added` is set
+     */
+    hasCommunityChatAdded(): this is this & {
+        communityChatAdded: TelegramCommunityChatAdded;
+    } {
+        return this.raw.community_chat_added != null;
+    }
+    /**
+     * true if `community_chat_removed` is set
+     */
+    hasCommunityChatRemoved(): this is this & {
+        communityChatRemoved: TelegramCommunityChatRemoved;
+    } {
+        return this.raw.community_chat_removed != null;
     }
     /**
      * true if `direct_message_price_changed` is set
@@ -7726,6 +8024,401 @@ export class CallbackQueryUpdate {
     } = {}) {
         return this.tg.api.answerCallbackQuery({
             callback_query_id: this.raw.id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.sendAnimation`
+     */
+    sendAnimation(chat: number | string, animation: TelegramInputFile | string, params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        duration?: number;
+        width?: number;
+        height?: number;
+        thumbnail?: TelegramInputFile | string;
+        caption?: string | Formattable;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
+        caption_entities?: TelegramMessageEntity[];
+        show_caption_above_media?: boolean;
+        has_spoiler?: boolean;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        suggested_post_parameters?: TelegramSuggestedPostParameters;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+            toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+        };
+    } = {}) {
+        return this.tg.api.sendAnimation({
+            callback_query_id: this.raw.id,
+            chat_id: chat,
+            animation: animation,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.sendAudio`
+     */
+    sendAudio(chat: number | string, audio: TelegramInputFile | string, params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        caption?: string | Formattable;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
+        caption_entities?: TelegramMessageEntity[];
+        duration?: number;
+        performer?: string;
+        title?: string;
+        thumbnail?: TelegramInputFile | string;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        suggested_post_parameters?: TelegramSuggestedPostParameters;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+            toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+        };
+    } = {}) {
+        return this.tg.api.sendAudio({
+            callback_query_id: this.raw.id,
+            chat_id: chat,
+            audio: audio,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.sendContact`
+     */
+    sendContact(chat: number | string, phoneNumber: string, firstName: string, params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        last_name?: string;
+        vcard?: string;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        suggested_post_parameters?: TelegramSuggestedPostParameters;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+            toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+        };
+    } = {}) {
+        return this.tg.api.sendContact({
+            callback_query_id: this.raw.id,
+            chat_id: chat,
+            phone_number: phoneNumber,
+            first_name: firstName,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.sendDocument`
+     */
+    sendDocument(chat: number | string, document: TelegramInputFile | string, params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        thumbnail?: TelegramInputFile | string;
+        caption?: string | Formattable;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
+        caption_entities?: TelegramMessageEntity[];
+        disable_content_type_detection?: boolean;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        suggested_post_parameters?: TelegramSuggestedPostParameters;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+            toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+        };
+    } = {}) {
+        return this.tg.api.sendDocument({
+            callback_query_id: this.raw.id,
+            chat_id: chat,
+            document: document,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.sendLivePhoto`
+     */
+    sendLivePhoto(chat: number | string, livePhoto: TelegramInputFile | string, photo: TelegramInputFile | string, params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        caption?: string | Formattable;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
+        caption_entities?: TelegramMessageEntity[];
+        show_caption_above_media?: boolean;
+        has_spoiler?: boolean;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        suggested_post_parameters?: TelegramSuggestedPostParameters;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+            toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+        };
+    } = {}) {
+        return this.tg.api.sendLivePhoto({
+            callback_query_id: this.raw.id,
+            chat_id: chat,
+            live_photo: livePhoto,
+            photo: photo,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.sendLocation`
+     */
+    sendLocation(chat: number | string, latitude: number, longitude: number, params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        horizontal_accuracy?: number;
+        live_period?: number;
+        heading?: number;
+        proximity_alert_radius?: number;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        suggested_post_parameters?: TelegramSuggestedPostParameters;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+            toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+        };
+    } = {}) {
+        return this.tg.api.sendLocation({
+            callback_query_id: this.raw.id,
+            chat_id: chat,
+            latitude: latitude,
+            longitude: longitude,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.sendMessage`
+     */
+    send(chat: number | string, text: string | Formattable, params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
+        entities?: TelegramMessageEntity[];
+        link_preview_options?: TelegramLinkPreviewOptions;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        suggested_post_parameters?: TelegramSuggestedPostParameters;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+            toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+        };
+    } = {}) {
+        return this.tg.api.sendMessage({
+            callback_query_id: this.raw.id,
+            chat_id: chat,
+            text: text,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.sendPhoto`
+     */
+    sendPhoto(chat: number | string, photo: TelegramInputFile | string, params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        caption?: string | Formattable;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
+        caption_entities?: TelegramMessageEntity[];
+        show_caption_above_media?: boolean;
+        has_spoiler?: boolean;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        suggested_post_parameters?: TelegramSuggestedPostParameters;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+            toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+        };
+    } = {}) {
+        return this.tg.api.sendPhoto({
+            callback_query_id: this.raw.id,
+            chat_id: chat,
+            photo: photo,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.sendSticker`
+     */
+    sendSticker(chat: number | string, sticker: TelegramInputFile | string, params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        emoji?: string;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        suggested_post_parameters?: TelegramSuggestedPostParameters;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+            toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+        };
+    } = {}) {
+        return this.tg.api.sendSticker({
+            callback_query_id: this.raw.id,
+            chat_id: chat,
+            sticker: sticker,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.sendVenue`
+     */
+    sendVenue(chat: number | string, latitude: number, longitude: number, title: string, address: string, params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        foursquare_id?: string;
+        foursquare_type?: string;
+        google_place_id?: string;
+        google_place_type?: string;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        suggested_post_parameters?: TelegramSuggestedPostParameters;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+            toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+        };
+    } = {}) {
+        return this.tg.api.sendVenue({
+            callback_query_id: this.raw.id,
+            chat_id: chat,
+            latitude: latitude,
+            longitude: longitude,
+            title: title,
+            address: address,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.sendVideo`
+     */
+    sendVideo(chat: number | string, video: TelegramInputFile | string, params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        duration?: number;
+        width?: number;
+        height?: number;
+        thumbnail?: TelegramInputFile | string;
+        cover?: TelegramInputFile | string;
+        start_timestamp?: number;
+        caption?: string | Formattable;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
+        caption_entities?: TelegramMessageEntity[];
+        show_caption_above_media?: boolean;
+        has_spoiler?: boolean;
+        supports_streaming?: boolean;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        suggested_post_parameters?: TelegramSuggestedPostParameters;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+            toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+        };
+    } = {}) {
+        return this.tg.api.sendVideo({
+            callback_query_id: this.raw.id,
+            chat_id: chat,
+            video: video,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.sendVideoNote`
+     */
+    sendVideoNote(chat: number | string, videoNote: TelegramInputFile | string, params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        duration?: number;
+        length?: number;
+        thumbnail?: TelegramInputFile | string;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        suggested_post_parameters?: TelegramSuggestedPostParameters;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+            toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+        };
+    } = {}) {
+        return this.tg.api.sendVideoNote({
+            callback_query_id: this.raw.id,
+            chat_id: chat,
+            video_note: videoNote,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.sendVoice`
+     */
+    sendVoice(chat: number | string, voice: TelegramInputFile | string, params: {
+        business_connection_id?: string;
+        message_thread_id?: number;
+        direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        caption?: string | Formattable;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
+        caption_entities?: TelegramMessageEntity[];
+        duration?: number;
+        disable_notification?: boolean;
+        protect_content?: boolean;
+        allow_paid_broadcast?: boolean;
+        message_effect_id?: string;
+        suggested_post_parameters?: TelegramSuggestedPostParameters;
+        reply_parameters?: TelegramReplyParameters;
+        reply_markup?: (TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply) | {
+            toJSON: () => TelegramInlineKeyboardMarkup | TelegramReplyKeyboardMarkup | TelegramReplyKeyboardRemove | TelegramForceReply;
+        };
+    } = {}) {
+        return this.tg.api.sendVoice({
+            callback_query_id: this.raw.id,
+            chat_id: chat,
+            voice: voice,
             ...params
         });
     }
@@ -8704,6 +9397,18 @@ class ChatMemberUpdatedShared {
         });
     }
     /**
+     * shortcut for `tg.api.deleteEphemeralMessage`
+     */
+    deleteEphemeralMessage(params: {
+        receiver_user_id: number;
+        ephemeral_message_id: number;
+    }) {
+        return this.tg.api.deleteEphemeralMessage({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteForumTopic`
      */
     deleteForumTopic(params: {
@@ -8770,6 +9475,74 @@ class ChatMemberUpdatedShared {
         name?: string;
     }) {
         return this.tg.api.editChatSubscriptionInviteLink({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.editEphemeralMessageCaption`
+     */
+    editEphemeralMessageCaption(params: {
+        receiver_user_id: number;
+        ephemeral_message_id: number;
+        caption?: string | Formattable;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
+        caption_entities?: TelegramMessageEntity[];
+        reply_markup?: TelegramInlineKeyboardMarkup | {
+            toJSON: () => TelegramInlineKeyboardMarkup;
+        };
+    }) {
+        return this.tg.api.editEphemeralMessageCaption({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.editEphemeralMessageMedia`
+     */
+    editEphemeralMessageMedia(params: {
+        receiver_user_id: number;
+        ephemeral_message_id: number;
+        media: TelegramInputMedia;
+        reply_markup?: TelegramInlineKeyboardMarkup | {
+            toJSON: () => TelegramInlineKeyboardMarkup;
+        };
+    }) {
+        return this.tg.api.editEphemeralMessageMedia({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.editEphemeralMessageReplyMarkup`
+     */
+    editEphemeralMessageReplyMarkup(params: {
+        receiver_user_id: number;
+        ephemeral_message_id: number;
+        reply_markup?: TelegramInlineKeyboardMarkup | {
+            toJSON: () => TelegramInlineKeyboardMarkup;
+        };
+    }) {
+        return this.tg.api.editEphemeralMessageReplyMarkup({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.editEphemeralMessageText`
+     */
+    editEphemeralMessageText(params: {
+        receiver_user_id: number;
+        ephemeral_message_id: number;
+        text: string | Formattable;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
+        entities?: TelegramMessageEntity[];
+        link_preview_options?: TelegramLinkPreviewOptions;
+        reply_markup?: TelegramInlineKeyboardMarkup | {
+            toJSON: () => TelegramInlineKeyboardMarkup;
+        };
+    }) {
+        return this.tg.api.editEphemeralMessageText({
             chat_id: this.raw.chat.id,
             ...params
         });
@@ -9179,6 +9952,8 @@ class ChatMemberUpdatedShared {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         duration?: number;
         width?: number;
         height?: number;
@@ -9211,6 +9986,8 @@ class ChatMemberUpdatedShared {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
@@ -9273,6 +10050,8 @@ class ChatMemberUpdatedShared {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         last_name?: string;
         vcard?: string;
         disable_notification?: boolean;
@@ -9322,6 +10101,8 @@ class ChatMemberUpdatedShared {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         thumbnail?: TelegramInputFile | string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
@@ -9429,6 +10210,8 @@ class ChatMemberUpdatedShared {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
@@ -9458,6 +10241,8 @@ class ChatMemberUpdatedShared {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         horizontal_accuracy?: number;
         live_period?: number;
         heading?: number;
@@ -9505,6 +10290,8 @@ class ChatMemberUpdatedShared {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
         link_preview_options?: TelegramLinkPreviewOptions;
@@ -9574,6 +10361,8 @@ class ChatMemberUpdatedShared {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
@@ -9683,6 +10472,8 @@ class ChatMemberUpdatedShared {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         emoji?: string;
         disable_notification?: boolean;
         protect_content?: boolean;
@@ -9707,6 +10498,8 @@ class ChatMemberUpdatedShared {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         foursquare_id?: string;
         foursquare_type?: string;
         google_place_id?: string;
@@ -9737,6 +10530,8 @@ class ChatMemberUpdatedShared {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         duration?: number;
         width?: number;
         height?: number;
@@ -9772,6 +10567,8 @@ class ChatMemberUpdatedShared {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         duration?: number;
         length?: number;
         thumbnail?: TelegramInputFile | string;
@@ -9798,6 +10595,8 @@ class ChatMemberUpdatedShared {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
@@ -10171,7 +10970,7 @@ export class ChatJoinRequestUpdate {
         return this.raw.invite_link ? (this._inviteLink ??= new ChatInviteLink(this.raw.invite_link)) : undefined;
     }
     /**
-     * Optional. Identifier of the join request query; for bots assigned to process join request only. If present, then the bot must call sendChatJoinRequestWebApp or directly call answerChatJoinRequestQuery within 10 seconds.
+     * Optional. Identifier of the join request query; for bots assigned to process join requests only. If present, then the bot must call sendChatJoinRequestWebApp or directly call answerChatJoinRequestQuery within 10 seconds.
      */
     get queryId(): string | undefined {
         return this.raw.query_id;
@@ -10438,6 +11237,18 @@ export class ChatJoinRequestUpdate {
         });
     }
     /**
+     * shortcut for `tg.api.deleteEphemeralMessage`
+     */
+    deleteEphemeralMessage(params: {
+        receiver_user_id: number;
+        ephemeral_message_id: number;
+    }) {
+        return this.tg.api.deleteEphemeralMessage({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
      * shortcut for `tg.api.deleteForumTopic`
      */
     deleteForumTopic(params: {
@@ -10504,6 +11315,74 @@ export class ChatJoinRequestUpdate {
         name?: string;
     }) {
         return this.tg.api.editChatSubscriptionInviteLink({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.editEphemeralMessageCaption`
+     */
+    editEphemeralMessageCaption(params: {
+        receiver_user_id: number;
+        ephemeral_message_id: number;
+        caption?: string | Formattable;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
+        caption_entities?: TelegramMessageEntity[];
+        reply_markup?: TelegramInlineKeyboardMarkup | {
+            toJSON: () => TelegramInlineKeyboardMarkup;
+        };
+    }) {
+        return this.tg.api.editEphemeralMessageCaption({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.editEphemeralMessageMedia`
+     */
+    editEphemeralMessageMedia(params: {
+        receiver_user_id: number;
+        ephemeral_message_id: number;
+        media: TelegramInputMedia;
+        reply_markup?: TelegramInlineKeyboardMarkup | {
+            toJSON: () => TelegramInlineKeyboardMarkup;
+        };
+    }) {
+        return this.tg.api.editEphemeralMessageMedia({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.editEphemeralMessageReplyMarkup`
+     */
+    editEphemeralMessageReplyMarkup(params: {
+        receiver_user_id: number;
+        ephemeral_message_id: number;
+        reply_markup?: TelegramInlineKeyboardMarkup | {
+            toJSON: () => TelegramInlineKeyboardMarkup;
+        };
+    }) {
+        return this.tg.api.editEphemeralMessageReplyMarkup({
+            chat_id: this.raw.chat.id,
+            ...params
+        });
+    }
+    /**
+     * shortcut for `tg.api.editEphemeralMessageText`
+     */
+    editEphemeralMessageText(params: {
+        receiver_user_id: number;
+        ephemeral_message_id: number;
+        text: string | Formattable;
+        parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
+        entities?: TelegramMessageEntity[];
+        link_preview_options?: TelegramLinkPreviewOptions;
+        reply_markup?: TelegramInlineKeyboardMarkup | {
+            toJSON: () => TelegramInlineKeyboardMarkup;
+        };
+    }) {
+        return this.tg.api.editEphemeralMessageText({
             chat_id: this.raw.chat.id,
             ...params
         });
@@ -10913,6 +11792,8 @@ export class ChatJoinRequestUpdate {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         duration?: number;
         width?: number;
         height?: number;
@@ -10945,6 +11826,8 @@ export class ChatJoinRequestUpdate {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
@@ -11018,6 +11901,8 @@ export class ChatJoinRequestUpdate {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         last_name?: string;
         vcard?: string;
         disable_notification?: boolean;
@@ -11067,6 +11952,8 @@ export class ChatJoinRequestUpdate {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         thumbnail?: TelegramInputFile | string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
@@ -11174,6 +12061,8 @@ export class ChatJoinRequestUpdate {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
@@ -11203,6 +12092,8 @@ export class ChatJoinRequestUpdate {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         horizontal_accuracy?: number;
         live_period?: number;
         heading?: number;
@@ -11250,6 +12141,8 @@ export class ChatJoinRequestUpdate {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
         link_preview_options?: TelegramLinkPreviewOptions;
@@ -11319,6 +12212,8 @@ export class ChatJoinRequestUpdate {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
@@ -11428,6 +12323,8 @@ export class ChatJoinRequestUpdate {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         emoji?: string;
         disable_notification?: boolean;
         protect_content?: boolean;
@@ -11452,6 +12349,8 @@ export class ChatJoinRequestUpdate {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         foursquare_id?: string;
         foursquare_type?: string;
         google_place_id?: string;
@@ -11482,6 +12381,8 @@ export class ChatJoinRequestUpdate {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         duration?: number;
         width?: number;
         height?: number;
@@ -11517,6 +12418,8 @@ export class ChatJoinRequestUpdate {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         duration?: number;
         length?: number;
         thumbnail?: TelegramInputFile | string;
@@ -11543,6 +12446,8 @@ export class ChatJoinRequestUpdate {
         business_connection_id?: string;
         message_thread_id?: number;
         direct_messages_topic_id?: number;
+        receiver_user_id?: number;
+        callback_query_id?: string;
         caption?: string | Formattable;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         caption_entities?: TelegramMessageEntity[];
@@ -11968,6 +12873,45 @@ export class ManagedBotUpdate {
 }
 
 /**
+ * update for the `subscription` event
+ */
+export class SubscriptionUpdate {
+    readonly kind = "subscription" as const;
+    private _user?: User;
+    constructor(public raw: TelegramBotSubscriptionUpdated, public readonly tg: TelegramLike) { }
+    /**
+     * User who subscribed for payments toward the bot
+     */
+    get user(): User {
+        return this._user ??= new User(this.raw.user);
+    }
+    /**
+     * Bot-specified invoice payload
+     */
+    get invoicePayload(): string {
+        return this.raw.invoice_payload;
+    }
+    /**
+     * The new state of the subscription. Currently, it can be one of “canceled” if the user canceled the subscription, “active” if the user re-enabled a previously canceled subscription, or “failed” if payment for the subscription failed.
+     */
+    get state(): "canceled" | "active" | "failed" {
+        return this.raw.state;
+    }
+    /**
+     * shortcut for `tg.api` — call any bot api method directly from the wrapped update
+     */
+    get api(): TelegramLike["api"] {
+        return this.tg.api;
+    }
+    is<K extends UpdateKind>(kind: K): this is UpdateKindMap[K] {
+        return this.kind === kind as unknown;
+    }
+    [INSPECT](depth: any, options: any, inspect: any) {
+        return makeInspect("SubscriptionUpdate", this, depth, options, inspect);
+    }
+}
+
+/**
  * update for the `new_chat_members` event
  */
 export class NewChatMembersUpdate extends MessageShared {
@@ -12251,6 +13195,7 @@ export interface UpdateKindMap {
     "chat_boost": ChatBoostUpdate;
     "removed_chat_boost": RemovedChatBoostUpdate;
     "managed_bot": ManagedBotUpdate;
+    "subscription": SubscriptionUpdate;
     "new_chat_members": NewChatMembersUpdate;
     "left_chat_member": LeftChatMemberUpdate;
     "new_chat_title": NewChatTitleUpdate;
@@ -12285,7 +13230,7 @@ export interface UpdateKindMap {
     "write_access_allowed": WriteAccessAllowedUpdate;
 }
 
-export type Update = MessageUpdate | EditedMessageUpdate | ChannelPostUpdate | EditedChannelPostUpdate | BusinessConnectionUpdate | BusinessMessageUpdate | EditedBusinessMessageUpdate | DeletedBusinessMessagesUpdate | GuestMessageUpdate | MessageReactionUpdate | MessageReactionCountUpdate | InlineQueryUpdate | ChosenInlineResultUpdate | CallbackQueryUpdate | ShippingQueryUpdate | PreCheckoutQueryUpdate | PurchasedPaidMediaUpdate | PollUpdate | PollAnswerUpdate | MyChatMemberUpdate | ChatMemberUpdate | ChatJoinRequestUpdate | ChatBoostUpdate | RemovedChatBoostUpdate | ManagedBotUpdate | NewChatMembersUpdate | LeftChatMemberUpdate | NewChatTitleUpdate | NewChatPhotoUpdate | DeleteChatPhotoUpdate | GroupChatCreatedUpdate | PinnedMessageUpdate | InvoiceUpdate | SuccessfulPaymentUpdate | UsersSharedUpdate | ChatSharedUpdate | WebAppDataUpdate | VideoChatScheduledUpdate | VideoChatStartedUpdate | VideoChatEndedUpdate | VideoChatParticipantsInvitedUpdate | ForumTopicCreatedUpdate | ForumTopicEditedUpdate | ForumTopicClosedUpdate | ForumTopicReopenedUpdate | GeneralForumTopicHiddenUpdate | GeneralForumTopicUnhiddenUpdate | GiveawayCreatedUpdate | GiveawayCompletedUpdate | GiveawayWinnersUpdate | BoostAddedUpdate | MessageAutoDeleteTimerChangedUpdate | MigrateToChatIdUpdate | MigrateFromChatIdUpdate | PassportDataUpdate | ProximityAlertTriggeredUpdate | WriteAccessAllowedUpdate;
+export type Update = MessageUpdate | EditedMessageUpdate | ChannelPostUpdate | EditedChannelPostUpdate | BusinessConnectionUpdate | BusinessMessageUpdate | EditedBusinessMessageUpdate | DeletedBusinessMessagesUpdate | GuestMessageUpdate | MessageReactionUpdate | MessageReactionCountUpdate | InlineQueryUpdate | ChosenInlineResultUpdate | CallbackQueryUpdate | ShippingQueryUpdate | PreCheckoutQueryUpdate | PurchasedPaidMediaUpdate | PollUpdate | PollAnswerUpdate | MyChatMemberUpdate | ChatMemberUpdate | ChatJoinRequestUpdate | ChatBoostUpdate | RemovedChatBoostUpdate | ManagedBotUpdate | SubscriptionUpdate | NewChatMembersUpdate | LeftChatMemberUpdate | NewChatTitleUpdate | NewChatPhotoUpdate | DeleteChatPhotoUpdate | GroupChatCreatedUpdate | PinnedMessageUpdate | InvoiceUpdate | SuccessfulPaymentUpdate | UsersSharedUpdate | ChatSharedUpdate | WebAppDataUpdate | VideoChatScheduledUpdate | VideoChatStartedUpdate | VideoChatEndedUpdate | VideoChatParticipantsInvitedUpdate | ForumTopicCreatedUpdate | ForumTopicEditedUpdate | ForumTopicClosedUpdate | ForumTopicReopenedUpdate | GeneralForumTopicHiddenUpdate | GeneralForumTopicUnhiddenUpdate | GiveawayCreatedUpdate | GiveawayCompletedUpdate | GiveawayWinnersUpdate | BoostAddedUpdate | MessageAutoDeleteTimerChangedUpdate | MigrateToChatIdUpdate | MigrateFromChatIdUpdate | PassportDataUpdate | ProximityAlertTriggeredUpdate | WriteAccessAllowedUpdate;
 
 export const UPDATE_KINDS: readonly UpdateKind[] = [
     "message",
@@ -12313,6 +13258,7 @@ export const UPDATE_KINDS: readonly UpdateKind[] = [
     "chat_boost",
     "removed_chat_boost",
     "managed_bot",
+    "subscription",
     "new_chat_members",
     "left_chat_member",
     "new_chat_title",

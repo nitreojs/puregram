@@ -125,4 +125,28 @@ describe('extractFromHtml', () => {
       expect(message.fields.find(f => f.name === 'ephemeral_message_id')!.required).toBe(false)
     }
   })
+
+  it('enumerates single-char quoted values and never captures the word "one" from "one of"', () => {
+    const html = `
+      <h4>InputRichBlockListItem</h4>
+      <p>An item of a list to be sent.</p>
+      <table class="table">
+      <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+      <tbody>
+      <tr><td>type</td><td>String</td><td>Optional. For ordered lists, the type of the item label; must be one of \u201ca\u201d for lowercase letters, \u201cA\u201d for uppercase letters, \u201ci\u201d for lowercase Roman numerals, \u201cI\u201d for uppercase Roman numerals, or \u201c1\u201d for decimal numbers</td></tr>
+      <tr><td>status</td><td>String</td><td>The status, must be one of the supported values</td></tr>
+      </tbody>
+      </table>
+    `
+
+    const { objects } = extractFromHtml(html)
+    const item = objects.find(o => o.name === 'InputRichBlockListItem')
+
+    expect(item!.kind).toBe('object')
+
+    if (item!.kind === 'object') {
+      expect(item.fields.find(f => f.name === 'type')!.type).toEqual({ kind: 'string', enumeration: ['a', 'A', 'i', 'I', '1'] })
+      expect(item.fields.find(f => f.name === 'status')!.type).toEqual({ kind: 'string' })
+    }
+  })
 })

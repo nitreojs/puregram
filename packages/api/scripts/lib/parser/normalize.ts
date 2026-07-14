@@ -384,8 +384,9 @@ function parseReturnTypeFromDescription (description: string, links: string[]) {
 // phrases ("Can be decrypted…") don't pull in adjacent quoted tokens
 const ENUMERATION_TRIGGER = /\b(?:must be|can be|currently|always|one of|either)\b/i
 
-// quoted lowercase token (smart quotes + ASCII double/single). covers identifiers, MIME types, file formats
-const QUOTED_TOKEN = /[“"']([a-z][a-z0-9_/.-]*?[a-z0-9])[”"']/g
+// quoted token (smart quotes + ASCII double/single). multi-char tokens are lowercase-led
+// identifiers / MIME types / file formats; single-char tokens cover label styles like “a” / “A” / “1”
+const QUOTED_TOKEN = /[“"']([a-z][a-z0-9_/.-]*?[a-z0-9]|[a-zA-Z0-9])[”"']/g
 
 // bot-api sentence boundary — `.` + whitespace + capital. caps the trigger span
 const SENTENCE_BREAK = /\.\s+[A-Z]/
@@ -397,7 +398,7 @@ const CONTEXT_REFERENCE = /\b(?:for|in|when|where|with|during|to|from|as|by|on|o
 // reliable single-value discriminators when bot-api drops the quotes ("must be X"/"always X").
 // fallback when the quoted-multi-value extractor finds nothing
 const UNQUOTED_DISCRIMINATOR_FIELDS = new Set(['type', 'status', 'source'])
-const UNQUOTED_SINGLE_VALUE = /(?:must be|always)\s+["“']?([a-z][a-z0-9_]*)["”']?/i
+const UNQUOTED_SINGLE_VALUE = /(?:must be|always)\s+["“']?([a-z][a-z0-9_]*)\b["”']?(?!\s+of\b)/i
 
 function extractEnumeration (desc: string, fieldName: string) {
   const triggerMatch = ENUMERATION_TRIGGER.exec(desc)

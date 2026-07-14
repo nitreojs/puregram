@@ -7,7 +7,7 @@ import { createDebug } from '../debug'
 import type { HookRegistry, RequestContext } from '../dispatch/hooks'
 import { ApiError } from '../errors'
 import type { HttpClient } from '../http/client'
-import { needsMultipart, buildSimpleMultipart, buildMediaGroupMultipart } from '../http/multipart'
+import { needsMultipart, buildSimpleMultipart, buildMediaGroupMultipart, rewriteRichMessage } from '../http/multipart'
 import type { ResolvedTelegramOptions, RetryOnFloodWaitOptions } from '../options'
 import { replyAls } from '../transport/webhook/reply'
 
@@ -127,10 +127,19 @@ async function runOnce (
   method: string,
   rawParams: Record<string, unknown> | undefined
 ) {
-  const params = { ...(rawParams ?? {}) }
+  let params = { ...(rawParams ?? {}) }
   const suppress = params.suppress === true
 
   delete params.suppress
+
+  let richFiles: Map<string, unknown> | undefined
+
+  if ('rich_message' in params) {
+    const rewrite = await rewriteRichMessage(params, deps.options.useLocal)
+
+    params = rewrite.params
+    richFiles = rewrite.files.size > 0 ? rewrite.files : undefined
+  }
 
   // webhook-reply optimization — methods returning `true` ride the 200 body, invisible to callers
   // skip when `suppress` (needs real error shape) or multipart (can't serialize as json)
@@ -138,7 +147,7 @@ async function runOnce (
 
   if (slot !== undefined && !slot.consumed && !suppress &&
       WEBHOOK_REPLY_SAFE_METHODS.has(method) &&
-      !('media' in params) && !needsMultipart(params)) {
+      richFiles === undefined && !('media' in params) && !needsMultipart(params)) {
     if (slot.tryClaim(method, params)) {
       return true
     }
@@ -153,11 +162,11 @@ async function runOnce (
     await deps.hooks.run('onBeforeRequest', ctx)
 
     if ('media' in params) {
-      const { body, headers } = await buildMediaGroupMultipart(params, deps.options.useLocal)
+      const { body, headers } = await buildMediaGroupMultipart(params, deps.options.useLocal, richFiles)
 
       ctx.init = { method: 'POST', body, signal: controller.signal, headers, duplex: 'half' } as unknown as RequestInit
-    } else if (needsMultipart(params)) {
-      const { body, headers } = await buildSimpleMultipart(params, deps.options.useLocal)
+    } else if (richFiles !== undefined || needsMultipart(params)) {
+      const { body, headers } = await buildSimpleMultipart(params, deps.options.useLocal, richFiles)
 
       ctx.init = { method: 'POST', body, signal: controller.signal, headers, duplex: 'half' } as unknown as RequestInit
     }

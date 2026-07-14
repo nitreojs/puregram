@@ -1,5 +1,6 @@
 import { Readable } from 'node:stream'
 
+import type { RichLike } from '@puregram/api'
 import { FormDataEncoder } from 'form-data-encoder'
 import { File, FormData } from 'formdata-node'
 
@@ -103,8 +104,18 @@ export interface MultipartResult {
   headers: Record<string, string>
 }
 
-export async function buildSimpleMultipart (params: Record<string, unknown>, useLocal = false) {
+export async function buildSimpleMultipart (
+  params: Record<string, unknown>,
+  useLocal = false,
+  files?: ReadonlyMap<string, unknown>
+) {
   const fd = new FormData()
+
+  if (files !== undefined) {
+    for (const [id, resolved] of files) {
+      fd.set(id, resolved as never)
+    }
+  }
 
   for (const [key, value] of Object.entries(params)) {
     if (value === undefined || value === null) {
@@ -135,8 +146,18 @@ export async function buildSimpleMultipart (params: Record<string, unknown>, use
   return { body: Readable.from(encoder), headers: encoder.headers as Record<string, string> }
 }
 
-export async function buildMediaGroupMultipart (params: Record<string, unknown>, useLocal = false) {
+export async function buildMediaGroupMultipart (
+  params: Record<string, unknown>,
+  useLocal = false,
+  files?: ReadonlyMap<string, unknown>
+) {
   const fd = new FormData()
+
+  if (files !== undefined) {
+    for (const [id, resolved] of files) {
+      fd.set(id, resolved as never)
+    }
+  }
 
   const original = params.media as Record<string, unknown> | Record<string, unknown>[]
   const entries = Array.isArray(original) ? original : [original]
@@ -175,22 +196,126 @@ async function rewriteAttach (fd: FormData, input: Record<string, unknown>, useL
       continue
     }
 
-    if (value.type === MediaSourceType.FileId || (value.type === MediaSourceType.Url && !('forceUpload' in value && value.forceUpload))) {
-      out[key] = (value as { value: string }).value
-      continue
-    }
-
-    if (value.type === MediaSourceType.Local) {
-      out[key] = await resolveMediaInput(value, useLocal)
-      continue
-    }
-
-    const id = generateAttachId()
-    const resolved = await resolveMediaInput(value)
-
-    fd.set(id, resolved as never)
-    out[key] = `attach://${id}`
+    out[key] = await rewriteMediaValue(value, useLocal, (id, resolved) => fd.set(id, resolved as never))
   }
 
   return out
+}
+
+async function rewriteMediaValue (
+  value: MediaInput,
+  useLocal: boolean,
+  register: (id: string, resolved: unknown) => void
+) {
+  if (value.type === MediaSourceType.FileId) {
+    return value.value
+  }
+
+  if (value.type === MediaSourceType.Url && !value.forceUpload) {
+    return value.value
+  }
+
+  if (value.type === MediaSourceType.Local) {
+    return resolveMediaInput(value, useLocal)
+  }
+
+  const id = generateAttachId()
+  const resolved = await resolveMediaInput(value)
+
+  register(id, resolved)
+
+  return `attach://${id}`
+}
+
+// bot api 10.2 rich messages embed InputMedia objects at arbitrary depth
+// (blocks, nested blocks, media[]), so envelopes are resolved by a deep walk
+// instead of the fixed-key rewrite media groups use
+export async function rewriteRichMessage (params: Record<string, unknown>, useLocal = false) {
+  const files = new Map<string, unknown>()
+  const value = params.rich_message
+
+  if (value === undefined || value === null) {
+    return { params, files }
+  }
+
+  const unwrapped = isRichLike(value) ? value.toInputRichMessage() : value
+
+  const rewritten = await rewriteRichNode(unwrapped, files, useLocal, new WeakSet())
+
+  if (rewritten === value) {
+    return { params, files }
+  }
+
+  return { params: { ...params, rich_message: rewritten }, files }
+}
+
+function isRichLike (value: unknown): value is RichLike {
+  return typeof value === 'object' && value !== null &&
+    'toInputRichMessage' in value && typeof value.toInputRichMessage === 'function'
+}
+
+// `isMediaInput` alone is unsafe inside rich content: rich text nodes like
+// { type: 'url', url } reuse MediaSourceType strings — envelopes always carry `value`
+function isEnvelope (node: object): node is MediaInput {
+  return 'value' in node && isMediaInput(node)
+}
+
+async function rewriteRichNode (
+  node: unknown,
+  files: Map<string, unknown>,
+  useLocal: boolean,
+  path: WeakSet<object>
+): Promise<unknown> {
+  if (typeof node !== 'object' || node === null || Buffer.isBuffer(node)) {
+    return node
+  }
+
+  if (isEnvelope(node)) {
+    return rewriteMediaValue(node, useLocal, (id, resolved) => files.set(id, resolved))
+  }
+
+  // the walk is async, so a cycle would spin the microtask queue into an uncatchable oom
+  // instead of a stack overflow — track the current path and fail like JSON.stringify would
+  if (path.has(node)) {
+    throw new TypeError('rich_message contains a circular reference')
+  }
+
+  path.add(node)
+
+  try {
+    if (Array.isArray(node)) {
+      // Array.isArray narrows to any[]; pin the element type back to unknown
+      const items = node as unknown[]
+      let out: unknown[] | undefined
+
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i]
+        const next = await rewriteRichNode(item, files, useLocal, path)
+
+        if (next !== item) {
+          out ??= items.slice()
+          out[i] = next
+        }
+      }
+
+      return out ?? items
+    }
+
+    const record = node as Record<string, unknown>
+    let out: Record<string, unknown> | undefined
+
+    for (const key of Object.keys(record)) {
+      const value = record[key]
+      const next = await rewriteRichNode(value, files, useLocal, path)
+
+      if (next !== value) {
+        out ??= { ...record }
+        out[key] = next
+      }
+    }
+
+    return out ?? record
+  } finally {
+    path.delete(node)
+  }
 }

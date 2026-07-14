@@ -577,6 +577,28 @@ export class Telegram<Ext = unknown> {
     )
   }
 
+  /**
+   * a scoped api proxy that injects `receiver_user_id` (and optionally `callback_query_id`)
+   * into every call — send group messages visible only to one user. call-site params
+   * override the bound ones. not chainable with `tg.business(…)` (both return flat api
+   * proxies) — pass `business_connection_id` as a call-site param instead.
+   *
+   * @example
+   * ```ts
+   * const eph = tg.ephemeral(userId)
+   * await eph.sendMessage({ chat_id, text: 'only you can see this' })
+   * ```
+   */
+  ephemeral (receiverUserId: number, callbackQueryId?: string) {
+    return createApiProxy((method, params) =>
+      this.apiCaller(method, {
+        receiver_user_id: receiverUserId,
+        ...(callbackQueryId !== undefined ? { callback_query_id: callbackQueryId } : {}),
+        ...params
+      })
+    )
+  }
+
   async deleteWebhook (options: DeleteWebhookOptions = {}) {
     return deleteWebhookHelper(this as Telegram, options)
   }

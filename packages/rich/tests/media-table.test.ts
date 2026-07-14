@@ -1,93 +1,161 @@
 import { describe, expect, it } from 'vitest'
 
 import {
-  footer, pullQuote, taskList, media, photo, video, audio, map, collage, slideshow, table, footnote
+  animation, audio, collage, map, media, photo, slideshow, table, video, voiceNote
 } from '../src/builders/block'
-import { footnoteRef } from '../src/builders/inline'
+import { bold } from '../src/builders/inline'
+import { DEFAULT_MAP_HEIGHT, DEFAULT_MAP_WIDTH, DEFAULT_MAP_ZOOM, TABLE_CELL_VALIGN } from '../src/constants'
 
-const md = (n: { render: (d: 'markdown' | 'html') => string }) => n.render('markdown')
-const html = (n: { render: (d: 'markdown' | 'html') => string }) => n.render('html')
-
-describe('footer / pullQuote', () => {
-  it('renders as html tags in both dialects', () => {
-    expect(md(footer('f'))).toBe('<footer>f</footer>')
-    expect(html(pullQuote('q'))).toBe('<aside>q</aside>')
-    expect(html(pullQuote('q', 'me'))).toBe('<aside>q<cite>me</cite></aside>')
-  })
-})
-
-describe('taskList', () => {
-  it('renders markdown checkboxes and an html fallback list', () => {
-    expect(md(taskList([{ text: 'a' }, { text: 'b', done: true }]))).toBe('- [ ] a\n- [x] b')
-    expect(html(taskList([{ text: 'a' }, { text: 'b', done: true }]))).toBe('<ul><li>☐ a</li><li>☑ b</li></ul>')
-  })
-})
-
-describe('media', () => {
-  it('renders markdown image syntax with an optional caption title', () => {
-    expect(md(media('https://x/p.jpg'))).toBe('![](https://x/p.jpg)')
-    expect(md(media('https://x/p.jpg', { caption: 'cap' }))).toBe('![](https://x/p.jpg "cap")')
-  })
-
-  it('escapes the markdown url and caption quotes', () => {
-    expect(md(media('https://x/p.jpg?a=1)x', { caption: 'a"b' }))).toBe('![](https://x/p.jpg?a=1\\)x "a&#34;b")')
+describe('media blocks', () => {
+  it('emits a per-kind media block', () => {
+    expect(photo('https://x/p.jpg').emit()).toEqual({
+      type: 'photo',
+      photo: { type: 'photo', media: 'https://x/p.jpg' }
+    })
+    expect(video('https://x/v.mp4').emit()).toEqual({
+      type: 'video',
+      video: { type: 'video', media: 'https://x/v.mp4' }
+    })
+    expect(audio('https://x/a.mp3').emit()).toEqual({
+      type: 'audio',
+      audio: { type: 'audio', media: 'https://x/a.mp3' }
+    })
+    expect(animation('https://x/g.gif').emit()).toEqual({
+      type: 'animation',
+      animation: { type: 'animation', media: 'https://x/g.gif' }
+    })
+    expect(voiceNote('https://x/n.ogg').emit()).toEqual({
+      type: 'voice_note',
+      voice_note: { type: 'voice_note', media: 'https://x/n.ogg' }
+    })
   })
 
-  it('infers the html tag from the url and supports spoiler + figure caption', () => {
-    expect(html(photo('https://x/p.jpg'))).toBe('<img src="https://x/p.jpg"/>')
-    expect(html(video('https://x/v.mp4'))).toBe('<video src="https://x/v.mp4"></video>')
-    expect(html(audio('https://x/a.mp3'))).toBe('<audio src="https://x/a.mp3"></audio>')
-    expect(html(media('https://x/v.mp4'))).toBe('<video src="https://x/v.mp4"></video>')
-    expect(html(photo('https://x/p.jpg', { spoiler: true, caption: 'cap' })))
-      .toBe('<figure><img src="https://x/p.jpg" tg-spoiler/><figcaption>cap</figcaption></figure>')
+  it('media() infers the kind from the url extension', () => {
+    expect(media('https://x/v.mp4').emit()).toMatchObject({ type: 'video' })
+    expect(media('https://x/a.mp3').emit()).toMatchObject({ type: 'audio' })
+    expect(media('https://x/p.jpg').emit()).toMatchObject({ type: 'photo' })
+    expect(media('https://x/file').emit()).toMatchObject({ type: 'photo' })
+  })
+
+  it('media() defaults an envelope source to photo', () => {
+    expect(media({ type: 'path', value: '/x.bin' }).emit()).toMatchObject({ type: 'photo' })
+  })
+
+  it('spoiler lands only on photo / video / animation', () => {
+    expect(photo('https://x/p.jpg', { spoiler: true }).emit()).toEqual({
+      type: 'photo',
+      photo: { type: 'photo', media: 'https://x/p.jpg', has_spoiler: true }
+    })
+    expect(video('https://x/v.mp4', { spoiler: true }).emit()).toMatchObject({
+      video: { has_spoiler: true }
+    })
+    expect(animation('https://x/g.gif', { spoiler: true }).emit()).toMatchObject({
+      animation: { has_spoiler: true }
+    })
+    expect(audio('https://x/a.mp3', { spoiler: true }).emit()).toEqual({
+      type: 'audio',
+      audio: { type: 'audio', media: 'https://x/a.mp3' }
+    })
+    expect(media('https://x/n.ogg', { type: 'voice_note', spoiler: true }).emit()).toEqual({
+      type: 'voice_note',
+      voice_note: { type: 'voice_note', media: 'https://x/n.ogg' }
+    })
+  })
+
+  it('caption and credit form a block caption', () => {
+    expect(photo('https://x/p.jpg', { caption: 'cap', credit: bold('me') }).emit()).toEqual({
+      type: 'photo',
+      photo: { type: 'photo', media: 'https://x/p.jpg' },
+      caption: { text: 'cap', credit: { type: 'bold', text: 'me' } }
+    })
+  })
+
+  it('passes a MediaSource envelope through untouched', () => {
+    const src = { type: 'path', value: '/x.jpg' }
+    const emitted = photo(src).emit() as { photo: { media: unknown } }
+
+    expect(emitted.photo.media).toBe(src)
   })
 })
 
 describe('map', () => {
-  it('renders a tg-map tag with optional zoom + caption', () => {
-    expect(html(map(41.9, 12.5))).toBe('<tg-map lat="41.9" long="12.5"/>')
-    expect(html(map(41.9, 12.5, { zoom: 14 }))).toBe('<tg-map lat="41.9" long="12.5" zoom="14"/>')
-    expect(html(map(41.9, 12.5, { caption: 'c' })))
-      .toBe('<figure><tg-map lat="41.9" long="12.5"/><figcaption>c</figcaption></figure>')
+  it('fills the default zoom and size', () => {
+    expect(map(41.9, 12.5).emit()).toEqual({
+      type: 'map',
+      location: { latitude: 41.9, longitude: 12.5 },
+      zoom: DEFAULT_MAP_ZOOM,
+      width: DEFAULT_MAP_WIDTH,
+      height: DEFAULT_MAP_HEIGHT
+    })
+  })
+
+  it('honours explicit overrides and a caption', () => {
+    expect(map(41.9, 12.5, { zoom: 3, width: 100, height: 50, caption: 'c' }).emit()).toEqual({
+      type: 'map',
+      location: { latitude: 41.9, longitude: 12.5 },
+      zoom: 3,
+      width: 100,
+      height: 50,
+      caption: { text: 'c' }
+    })
   })
 })
 
 describe('collage / slideshow', () => {
-  it('html inlines the media items', () => {
-    expect(html(collage([photo('https://x/p.jpg'), video('https://x/v.mp4')])))
-      .toBe('<tg-collage><img src="https://x/p.jpg"/><video src="https://x/v.mp4"></video></tg-collage>')
-    expect(html(slideshow([photo('https://x/p.jpg')], { caption: 's' })))
-      .toBe('<tg-slideshow><img src="https://x/p.jpg"/><figcaption>s</figcaption></tg-slideshow>')
+  it('wraps the children blocks', () => {
+    expect(collage([photo('https://x/p.jpg'), video('https://x/v.mp4')]).emit()).toEqual({
+      type: 'collage',
+      blocks: [
+        { type: 'photo', photo: { type: 'photo', media: 'https://x/p.jpg' } },
+        { type: 'video', video: { type: 'video', media: 'https://x/v.mp4' } }
+      ]
+    })
   })
 
-  it('markdown blank-line-separates the media items', () => {
-    expect(md(collage([photo('https://x/p.jpg'), video('https://x/v.mp4')])))
-      .toBe('<tg-collage>\n\n![](https://x/p.jpg)\n![](https://x/v.mp4)\n\n</tg-collage>')
+  it('slideshow carries a caption', () => {
+    expect(slideshow([photo('https://x/p.jpg')], { caption: 's' }).emit()).toEqual({
+      type: 'slideshow',
+      blocks: [{ type: 'photo', photo: { type: 'photo', media: 'https://x/p.jpg' } }],
+      caption: { text: 's' }
+    })
   })
 })
 
 describe('table', () => {
-  it('renders a gfm table with alignment (first row is the header)', () => {
-    expect(md(table([['H1', 'H2'], ['a', 'b']], { align: ['left', 'center'] })))
-      .toBe('| H1 | H2 |\n| :-- | :-: |\n| a | b |')
+  it('marks the first row as header with align fallback and the valign constant', () => {
+    expect(table([['H'], ['a']]).emit()).toEqual({
+      type: 'table',
+      cells: [
+        [{ text: 'H', is_header: true, align: 'left', valign: TABLE_CELL_VALIGN }],
+        [{ text: 'a', align: 'left', valign: TABLE_CELL_VALIGN }]
+      ]
+    })
   })
 
-  it('escapes pipes inside cells', () => {
-    expect(md(table([['a|b'], ['c']]))).toBe('| a\\|b |\n| :-- |\n| c |')
+  it('header: false leaves every row plain', () => {
+    expect(table([['a']], { header: false }).emit()).toEqual({
+      type: 'table',
+      cells: [[{ text: 'a', align: 'left', valign: TABLE_CELL_VALIGN }]]
+    })
   })
 
-  it('renders html with th/td, align, caption, bordered/striped', () => {
-    expect(html(table([['H1', 'H2'], ['a', 'b']], { align: [undefined as never, 'right'], bordered: true, striped: true, caption: 'cap' })))
-      .toBe('<table bordered striped><caption>cap</caption><tr><th>H1</th><th align="right">H2</th></tr><tr><td>a</td><td align="right">b</td></tr></table>')
+  it('applies per-column align and omits text on empty cells', () => {
+    expect(table([['a', '']], { header: false, align: ['center', 'right'] }).emit()).toEqual({
+      type: 'table',
+      cells: [[
+        { text: 'a', align: 'center', valign: TABLE_CELL_VALIGN },
+        { align: 'right', valign: TABLE_CELL_VALIGN }
+      ]]
+    })
   })
-})
 
-describe('footnote', () => {
-  it('renders marker + definition per dialect', () => {
-    expect(md(footnoteRef('1'))).toBe('[^1]')
-    expect(html(footnoteRef('1', 'see'))).toBe('<a href="#1">see</a>')
-    expect(html(footnoteRef('1'))).toBe('<a href="#1">1</a>')
-    expect(md(footnote('1', 'the definition'))).toBe('[^1]: the definition')
-    expect(html(footnote('1', 'the definition'))).toBe('<tg-reference name="1">the definition</tg-reference>')
+  it('carries bordered / striped flags and the caption text', () => {
+    expect(table([['a']], { header: false, bordered: true, striped: true, caption: 'cap' }).emit()).toEqual({
+      type: 'table',
+      cells: [[{ text: 'a', align: 'left', valign: TABLE_CELL_VALIGN }]],
+      is_bordered: true,
+      is_striped: true,
+      caption: 'cap'
+    })
   })
 })

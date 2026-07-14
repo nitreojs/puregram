@@ -1,6 +1,6 @@
 // markdown specials. `&` `<` `>` become html entities (rich-markdown renders `\<` with the
 // backslash showing, but accepts entities); the rest backslash-escape cleanly
-const MD_SPECIALS = /[&<>\\`*_~=|[\]()#!+-]/g
+const MD_SPECIALS = /[&<>\\`*_~=|[\]()#!$+-]/g
 const MD_ENTITY: Record<string, string> = { '&': '&#38;', '<': '&#60;', '>': '&#62;' }
 
 /** escape interpolated text so it renders literally in rich-markdown */
@@ -21,7 +21,8 @@ export function escapeHtml (text: string) {
 }
 
 // a url inside markdown `[text](url)` is terminated by `)` or whitespace — escape the parens and
-// backslash, percent-encode whitespace, so an attacker-controlled url can't break out of the link
+// backslash, percent-encode whitespace and `|` (a raw pipe would split a table cell), so an
+// attacker-controlled url can't break out of the link or the row
 export function escapeMarkdownUrl (url: string) {
-  return url.replace(/[\\()]/g, '\\$&').replace(/\s/g, encodeURIComponent)
+  return url.replace(/[\\()]/g, '\\$&').replace(/\|/g, '%7C').replace(/\s/g, encodeURIComponent)
 }

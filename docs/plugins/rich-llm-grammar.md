@@ -144,14 +144,14 @@ models default to web html. these are the corrections worth showing them — a f
 
 ## wiring it into a send
 
-prepend the block to your model call, then hand the model's raw markdown to a rich message. the call form of `rich.md(...)` passes a string through unchanged — exactly right for output that's already in the grammar:
+prepend the block to your model call, then hand the model's raw markdown to a rich message. `rich.raw.md(...)` passes a string through unparsed as a raw dialect payload — exactly right for output that's already in the grammar (the plain `rich.md(...)` call form parses client-side and throws `RichParseError` on any deviation; `rich.md.lenient(...)` parses too but degrades unsupported constructs to literal text):
 
 ```ts
 import { rich } from '@puregram/rich'
 
 const markdown = await runModel(richSystemPrompt, userPrompt)
 
-await message.sendRich(rich.md(markdown))
+await message.sendRich(rich.raw.md(markdown))
 ```
 
 without `@puregram/rich`, send the string straight through the api:
@@ -167,6 +167,6 @@ for token-by-token streaming into a live-updating rich message, see [stream](/pl
 
 ## see also
 
-- [rich](/plugins/rich) — the safe builder/template emitter for hand-authored rich content
+- [rich](/plugins/rich) — builders and safe templates that emit native blocks, plus the `rich.raw.*` passthrough used here
 - [stream](/plugins/stream) — stream model output into a telegram message
 - [markup](/plugins/markup/) — entity formatting for plain (non-rich) messages

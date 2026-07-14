@@ -173,7 +173,7 @@ InputMessageContent.venue(55.75, 37.61, 'red square', 'moscow, russia')
 // contact
 InputMessageContent.contact('+7 999 123 4567', 'ivan', { lastName: 'petrov' })
 
-// rich message — pass a Rich from @puregram/rich (picks the dialect it was built with)
+// rich message — pass a Rich from @puregram/rich (parsed into native blocks)
 InputMessageContent.rich(rich.md`# hello\n\nwhat is **up**`)
 
 // rich message — build from a raw dialect string
@@ -182,7 +182,7 @@ InputMessageContent.rich.md('# hello\n\nwhat is **up**')
 
 ### rich inline-query results
 
-`InputMessageContent.rich(richObject)` makes it straightforward to send structured rich content when a user picks an inline result. pass any `Rich` (from `@puregram/rich`) and the dialect is carried through automatically:
+`InputMessageContent.rich(richObject)` makes it straightforward to send structured rich content when a user picks an inline result. pass any `Rich` (from `@puregram/rich`) and the envelope is unwrapped automatically:
 
 ```ts
 import { rich } from '@puregram/rich'

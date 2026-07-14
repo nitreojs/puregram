@@ -1,22 +1,36 @@
-import { type RichNode, isRichNode, makeNode } from '../node'
-import { type RichContent, renderContent } from '../render'
+import type { TelegramRichText } from '@puregram/api'
 
-/** line break — `<br>` in html, hard newline in markdown */
+import { type RichContent, emitBlocks, emitText } from '../emit'
+import { isRichNode, makeNode } from '../node'
+
+/** hard line break inside inline content */
 export function br () {
-  return makeNode('inline', d => (d === 'markdown' ? '\n' : '<br>'))
+  return makeNode('inline', () => '\n')
 }
 
-function isBlock (item: RichContent) {
-  return isRichNode(item) && item.level === 'block'
-}
+/** join an array of content with a separator; any block item makes the result a block list */
+export function join (items: RichContent[], separator: RichContent = '') {
+  const block = items.some(item => isRichNode(item) && item.level === 'block')
 
-/** join an array of content with a separator; block items newline-join, inline items concat */
-export function join (items: RichContent[], separator: string | RichNode = '') {
-  const block = items.some(isBlock)
+  if (block) {
+    return makeNode('block', () => emitBlocks(items))
+  }
 
-  return makeNode(block ? 'block' : 'inline', (d) => {
-    const sep = block ? '\n' : renderContent(separator, d)
+  return makeNode('inline', () => {
+    const out: TelegramRichText[] = []
 
-    return items.map(item => renderContent(item, d)).join(sep)
+    for (let i = 0; i < items.length; i++) {
+      if (i > 0) {
+        const sep = emitText(separator)
+
+        if (sep !== '') {
+          out.push(sep)
+        }
+      }
+
+      out.push(emitText(items[i]))
+    }
+
+    return out
   })
 }

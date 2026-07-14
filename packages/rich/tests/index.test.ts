@@ -1,32 +1,39 @@
-// packages/rich/tests/index.test.ts
 import { describe, expect, it } from 'vitest'
 
-import { rich, Rich, RichError } from '../src/index'
+import { emitBlocks, emitText } from '../src/emit'
+import { RichError, RichParseError } from '../src/error'
+import { rich } from '../src/namespace'
+import { isRichNode, makeNode } from '../src/node'
+import { Rich } from '../src/rich'
 
-describe('rich namespace', () => {
-  it('exposes the three template tags', () => {
-    expect(rich.md`# hi`.dialect).toBe('markdown')
-    expect(rich.markdown`# hi`.dialect).toBe('markdown')
-    expect(rich.html`<h1>hi</h1>`.dialect).toBe('html')
+describe('public surface', () => {
+  it('rich is callable and carries the builders', () => {
+    expect(typeof rich).toBe('function')
+    expect(rich('x')).toBeInstanceOf(Rich)
+    expect(isRichNode(rich.bold('x'))).toBe(true)
+    expect(isRichNode(rich.heading(1, 'x'))).toBe(true)
+    expect(isRichNode(rich.table([['a']]))).toBe(true)
+    expect(isRichNode(rich.join(['a', 'b']))).toBe(true)
   })
 
-  it('exposes builders that compose inside templates', () => {
-    const r = rich.md`
-      # ${'report'}
-
-      what's up ${rich.bold('guys')} ${rich.math('E=mc^2')}
-
-      ${rich.list(['one', 'two'])}
-    `
-
-    expect(r.content).toBe("# report\n\nwhat's up **guys** $E=mc^2$\n\n- one\n- two")
-    expect(r.toInputRichMessage()).toEqual({
-      markdown: "# report\n\nwhat's up **guys** $E=mc^2$\n\n- one\n- two"
-    })
+  it('exposes the raw passthrough tags', () => {
+    expect(rich.raw.md('x').dialect).toBe('markdown')
+    expect(rich.raw.markdown).toBe(rich.raw.md)
+    expect(rich.raw.html('x').dialect).toBe('html')
   })
 
-  it('re-exports Rich and RichError', () => {
-    expect(rich.md`x`).toBeInstanceOf(Rich)
-    expect(() => rich.md`${rich.html`y`}`).toThrow(RichError)
+  it('exposes the core primitives', () => {
+    expect(typeof makeNode).toBe('function')
+    expect(typeof emitText).toBe('function')
+    expect(typeof emitBlocks).toBe('function')
+  })
+
+  it('RichParseError extends RichError and carries the position', () => {
+    const err = new RichParseError('bad token', 3, '# src')
+
+    expect(err).toBeInstanceOf(RichError)
+    expect(err.message).toBe('bad token (at 3)')
+    expect(err.position).toBe(3)
+    expect(err.source).toBe('# src')
   })
 })

@@ -1,11 +1,14 @@
-import { escapeMarkdownUrl } from '../escape'
+import type { TelegramInputRichBlock } from '@puregram/api'
+
+import { DEFAULT_MAP_HEIGHT, DEFAULT_MAP_WIDTH, DEFAULT_MAP_ZOOM, TABLE_CELL_VALIGN } from '../constants'
+import { type RichContent, emitBlocks, emitText } from '../emit'
+import { RichError } from '../error'
+import { type RichMediaKind, type RichMediaSource, inferMediaKind } from '../media'
 import { type RichNode, makeNode } from '../node'
-import { type RichContent, escape, renderContent } from '../render'
 
 /** section heading, level 1-6 */
 export function heading (level: 1 | 2 | 3 | 4 | 5 | 6, content: RichContent) {
-  return makeNode('block', d =>
-    d === 'markdown' ? `${'#'.repeat(level)} ${renderContent(content, d)}` : `<h${level}>${renderContent(content, d)}</h${level}>`)
+  return makeNode('block', () => ({ type: 'heading', text: emitText(content), size: level }))
 }
 
 /** `heading(1, content)` */
@@ -23,195 +26,201 @@ export const h6 = (content: RichContent) => heading(6, content)
 
 /** paragraph block */
 export function paragraph (content: RichContent) {
-  return makeNode('block', (d) => {
-    const inner = renderContent(content, d)
-
-    return d === 'markdown' ? inner : `<p>${inner}</p>`
-  })
+  return makeNode('block', () => ({ type: 'paragraph', text: emitText(content) }))
 }
 
 /** preformatted code block, optionally tagged with a language */
 export function codeBlock (codeText: string, language = '') {
-  return makeNode('block', (d) => {
-    if (d === 'markdown') {
-      return `\`\`\`${language}\n${codeText}\n\`\`\``
-    }
-
-    const cls = language ? ` class="language-${escape(language, 'html')}"` : ''
-
-    return `<pre><code${cls}>${escape(codeText, 'html')}</code></pre>`
-  })
+  return makeNode('block', () => ({ type: 'pre', text: codeText, ...(language ? { language } : {}) }))
 }
 
-// content may be a single piece or an array of lines; normalise to lines for markdown `>` prefixing
-function lines (content: RichContent, dialect: 'markdown' | 'html') {
-  const items = Array.isArray(content) ? content : [content]
-
-  return items.map(item => renderContent(item, dialect))
-}
-
-/** block quotation */
-export function blockquote (content: RichContent) {
-  return makeNode('block', d =>
-    d === 'markdown' ? lines(content, d).map(line => `>${line}`).join('\n') : `<blockquote>${lines(content, d).join('<br>')}</blockquote>`)
+/** block quotation, optionally crediting a source */
+export function blockquote (content: RichContent, credit?: RichContent) {
+  return makeNode('block', () => ({
+    type: 'blockquote',
+    blocks: emitBlocks(content),
+    ...(credit === undefined ? {} : { credit: emitText(credit) })
+  }))
 }
 
 /** horizontal divider */
 export function divider () {
-  return makeNode('block', d => (d === 'markdown' ? '---' : '<hr/>'))
+  return makeNode('block', () => ({ type: 'divider' }))
 }
 
 /** unordered list */
 export function list (items: RichContent[]) {
-  return makeNode('block', d =>
-    d === 'markdown'
-      ? items.map(item => `- ${renderContent(item, d)}`).join('\n')
-      : `<ul>${items.map(item => `<li>${renderContent(item, d)}</li>`).join('')}</ul>`)
+  return makeNode('block', () => ({ type: 'list', items: items.map(item => ({ blocks: emitBlocks(item) })) }))
 }
+
+/** the label style of an ordered list — letters, roman numerals, or decimal numbers */
+export type OrderedListType = 'a' | 'A' | 'i' | 'I' | '1'
 
 /** ordered list */
-export function orderedList (items: RichContent[], options: { start?: number } = {}) {
+export function orderedList (items: RichContent[], options: { start?: number, type?: OrderedListType } = {}) {
   const start = options.start ?? 1
+  const type = options.type ?? '1'
 
-  return makeNode('block', d =>
-    d === 'markdown'
-      ? items.map((item, i) => `${start + i}. ${renderContent(item, d)}`).join('\n')
-      : `<ol${options.start ? ` start="${options.start}"` : ''}>${items.map(item => `<li>${renderContent(item, d)}</li>`).join('')}</ol>`)
+  return makeNode('block', () => ({
+    type: 'list',
+    items: items.map((item, i) => ({ blocks: emitBlocks(item), value: start + i, type }))
+  }))
 }
 
-/** collapsible block (html-only tag; valid inside markdown too) */
+/** collapsible block */
 export function details (summary: RichContent, body: RichContent, options: { open?: boolean } = {}) {
-  const open = options.open ? ' open' : ''
-
-  // a markdown body must be blank-line-separated or telegram renders it as literal html content
-  return makeNode('block', (d) => {
-    const head = `<details${open}><summary>${renderContent(summary, d)}</summary>`
-
-    return d === 'markdown'
-      ? `${head}\n\n${renderContent(body, d)}\n\n</details>`
-      : `${head}${renderContent(body, d)}</details>`
-  })
+  return makeNode('block', () => ({
+    type: 'details',
+    summary: emitText(summary),
+    blocks: emitBlocks(body),
+    ...(options.open ? { is_open: true as const } : {})
+  }))
 }
 
-/** block-level LaTeX formula (content is raw latex, not escaped) */
+/** block-level LaTeX formula (raw latex) */
 export function mathBlock (latex: string) {
-  return makeNode('block', d => (d === 'markdown' ? `$$${latex}$$` : `<tg-math-block>${latex}</tg-math-block>`))
+  return makeNode('block', () => ({ type: 'mathematical_expression', expression: latex }))
 }
 
-/** footer block (html-only tag, valid in markdown too) */
+/** footer block */
 export function footer (content: RichContent) {
-  return makeNode('block', d => `<footer>${renderContent(content, d)}</footer>`)
+  return makeNode('block', () => ({ type: 'footer', text: emitText(content) }))
 }
 
-/** pull quote (html-only tag), optionally crediting a source */
+/** pull quote, optionally crediting a source */
 export function pullQuote (content: RichContent, cite?: RichContent) {
-  return makeNode('block', (d) => {
-    const credit = cite === undefined ? '' : `<cite>${renderContent(cite, d)}</cite>`
-
-    return `<aside>${renderContent(content, d)}${credit}</aside>`
-  })
+  return makeNode('block', () => ({
+    type: 'pullquote',
+    text: emitText(content),
+    ...(cite === undefined ? {} : { credit: emitText(cite) })
+  }))
 }
 
-/** markdown checkbox list */
+/** checkbox list */
 export function taskList (items: { text: RichContent, done?: boolean }[]) {
-  return makeNode('block', d =>
-    d === 'markdown'
-      ? items.map(i => `- [${i.done ? 'x' : ' '}] ${renderContent(i.text, d)}`).join('\n')
-      : `<ul>${items.map(i => `<li>${i.done ? '☑' : '☐'} ${renderContent(i.text, d)}</li>`).join('')}</ul>`)
+  return makeNode('block', () => ({
+    type: 'list',
+    items: items.map(i => ({
+      blocks: emitBlocks(i.text),
+      has_checkbox: true,
+      ...(i.done ? { is_checked: true as const } : {})
+    }))
+  }))
 }
 
-export type MediaType = 'photo' | 'video' | 'audio'
+/** thinking placeholder (draft-only block — `sendRichMessageDraft`) */
+export function thinking (content: RichContent) {
+  return makeNode('block', () => ({ type: 'thinking', text: emitText(content) }))
+}
+
+export type MediaType = RichMediaKind
 
 export interface MediaOptions {
   type?: MediaType
   caption?: RichContent
+  credit?: RichContent
   spoiler?: boolean
 }
 
-// telegram infers media type from mime/url, but the html tag must be chosen up front
-function inferMediaType (url: string) {
-  const ext = (/\.([a-z0-9]+)(?:[?#]|$)/i.exec(url)?.[1] ?? '').toLowerCase()
-
-  if (['mp4', 'mov', 'webm', 'gif'].includes(ext)) {
-    return 'video'
-  }
-
-  if (['mp3', 'ogg', 'oga', 'm4a', 'wav'].includes(ext)) {
-    return 'audio'
-  }
-
-  return 'photo'
-}
-
-/** media block by http(s) url (photo / video / audio) */
-export function media (url: string, options: MediaOptions = {}) {
-  return makeNode('block', (d) => {
-    if (d === 'markdown') {
-      const title = options.caption === undefined ? '' : ` "${renderContent(options.caption, d).replace(/"/g, '&#34;')}"`
-
-      return `![](${escapeMarkdownUrl(url)}${title})`
+function blockCaption (options: Pick<MediaOptions, 'caption' | 'credit'>) {
+  if (options.caption === undefined) {
+    if (options.credit !== undefined) {
+      throw new RichError('a credit requires a caption')
     }
 
-    const type = options.type ?? inferMediaType(url)
-    const spoiler = options.spoiler ? ' tg-spoiler' : ''
-    const element = type === 'photo'
-      ? `<img src="${escape(url, 'html')}"${spoiler}/>`
-      : `<${type} src="${escape(url, 'html')}"${spoiler}></${type}>`
+    return {}
+  }
 
-    return options.caption === undefined
-      ? element
-      : `<figure>${element}<figcaption>${renderContent(options.caption, d)}</figcaption></figure>`
+  return {
+    caption: {
+      text: emitText(options.caption),
+      ...(options.credit === undefined ? {} : { credit: emitText(options.credit) })
+    }
+  }
+}
+
+function mediaNode (kind: RichMediaKind | undefined, src: RichMediaSource, options: MediaOptions) {
+  return makeNode('block', () => {
+    const type = kind ?? (typeof src === 'string' ? inferMediaKind(src) : 'photo')
+    const spoiler = options.spoiler && (type === 'photo' || type === 'video' || type === 'animation')
+
+    // InputMedia `media` is typed as a string, but MediaSource envelopes intentionally travel
+    // through it — the client rewrites them (upload / file_id / url) before the request leaves
+    const mediaValue = src as string
+
+    // the per-kind media key ({ photo }, { video }, …) can't be expressed against the closed union
+    const block = {
+      type,
+      [type]: { type, media: mediaValue, ...(spoiler ? { has_spoiler: true } : {}) },
+      ...blockCaption(options)
+    } as unknown as TelegramInputRichBlock
+
+    return block
   })
+}
+
+/** media block by url or MediaSource (photo / video / audio / animation / voice note) */
+export function media (src: RichMediaSource, options: MediaOptions = {}) {
+  return mediaNode(options.type, src, options)
 }
 
 /** photo media block */
-export function photo (url: string, options: Omit<MediaOptions, 'type'> = {}) {
-  return media(url, { ...options, type: 'photo' })
+export function photo (src: RichMediaSource, options: Omit<MediaOptions, 'type'> = {}) {
+  return mediaNode('photo', src, options)
 }
 
 /** video media block */
-export function video (url: string, options: Omit<MediaOptions, 'type'> = {}) {
-  return media(url, { ...options, type: 'video' })
+export function video (src: RichMediaSource, options: Omit<MediaOptions, 'type'> = {}) {
+  return mediaNode('video', src, options)
 }
 
 /** audio media block */
-export function audio (url: string, options: Omit<MediaOptions, 'type'> = {}) {
-  return media(url, { ...options, type: 'audio' })
+export function audio (src: RichMediaSource, options: Omit<MediaOptions, 'type'> = {}) {
+  return mediaNode('audio', src, options)
 }
 
-/** location map (html-only tag) */
-export function map (latitude: number, longitude: number, options: { zoom?: number, caption?: RichContent } = {}) {
-  return makeNode('block', (d) => {
-    const zoom = options.zoom === undefined ? '' : ` zoom="${options.zoom}"`
-    const element = `<tg-map lat="${latitude}" long="${longitude}"${zoom}/>`
-
-    return options.caption === undefined
-      ? element
-      : `<figure>${element}<figcaption>${renderContent(options.caption, d)}</figcaption></figure>`
-  })
+/** animation media block */
+export function animation (src: RichMediaSource, options: Omit<MediaOptions, 'type'> = {}) {
+  return mediaNode('animation', src, options)
 }
 
-function mediaGroup (tag: string, items: readonly RichNode[], caption: RichContent | undefined) {
-  return makeNode('block', (d) => {
-    const cap = caption === undefined ? '' : `<figcaption>${renderContent(caption, d)}</figcaption>`
-
-    if (d === 'markdown') {
-      // media inside a collage/slideshow must be blank-line-separated for telegram to parse it
-      return `<${tag}>\n\n${items.map(i => renderContent(i, d)).join('\n')}\n\n${cap}</${tag}>`
-    }
-
-    return `<${tag}>${items.map(i => renderContent(i, d)).join('')}${cap}</${tag}>`
-  })
+/** voice note media block */
+export function voiceNote (src: RichMediaSource, options: Omit<MediaOptions, 'type' | 'spoiler'> = {}) {
+  return mediaNode('voice_note', src, options)
 }
 
-/** photo/video collage (html-only tag) */
-export function collage (items: readonly RichNode[], options: { caption?: RichContent } = {}) {
-  return mediaGroup('tg-collage', items, options.caption)
+export interface MapOptions {
+  zoom?: number
+  width?: number
+  height?: number
+  caption?: RichContent
+  credit?: RichContent
 }
 
-/** photo/video slideshow (html-only tag) */
-export function slideshow (items: readonly RichNode[], options: { caption?: RichContent } = {}) {
-  return mediaGroup('tg-slideshow', items, options.caption)
+/** location map */
+export function map (latitude: number, longitude: number, options: MapOptions = {}) {
+  return makeNode('block', () => ({
+    type: 'map',
+    location: { latitude, longitude },
+    zoom: options.zoom ?? DEFAULT_MAP_ZOOM,
+    width: options.width ?? DEFAULT_MAP_WIDTH,
+    height: options.height ?? DEFAULT_MAP_HEIGHT,
+    ...blockCaption(options)
+  }))
+}
+
+function mediaGroup (type: 'collage' | 'slideshow', items: readonly RichNode[], options: { caption?: RichContent, credit?: RichContent }) {
+  return makeNode('block', () => ({ type, blocks: emitBlocks(items as RichContent[]), ...blockCaption(options) }))
+}
+
+/** photo/video collage */
+export function collage (items: readonly RichNode[], options: { caption?: RichContent, credit?: RichContent } = {}) {
+  return mediaGroup('collage', items, options)
+}
+
+/** photo/video slideshow */
+export function slideshow (items: readonly RichNode[], options: { caption?: RichContent, credit?: RichContent } = {}) {
+  return mediaGroup('slideshow', items, options)
 }
 
 export type Align = 'left' | 'center' | 'right'
@@ -224,42 +233,31 @@ export interface TableOptions {
   caption?: RichContent
 }
 
-const ALIGN_MD: Record<Align, string> = { left: ':--', center: ':-:', right: '--:' }
-
-/** table of inline cells. markdown emits a gfm table (the first row is the header) */
+/** table of inline cells (the first row is the header unless `header: false`) */
 export function table (rows: RichContent[][], options: TableOptions = {}) {
   const header = options.header ?? true
 
-  return makeNode('block', (d) => {
-    if (d === 'markdown') {
-      // renderContent already escapes `|` (it's a markdown special), so cells are pipe-safe
-      const row = (cells: RichContent[]) => `| ${cells.map(c => renderContent(c, d)).join(' | ')} |`
-      const head = rows[0] ?? []
-      const separator = `| ${head.map((_, i) => ALIGN_MD[options.align?.[i] ?? 'left']).join(' | ')} |`
+  return makeNode('block', () => ({
+    type: 'table',
+    cells: rows.map((r, ri) => r.map((c, ci) => {
+      const text = emitText(c)
 
-      return [row(head), separator, ...rows.slice(1).map(row)].join('\n')
-    }
-
-    const attrs = `${options.bordered ? ' bordered' : ''}${options.striped ? ' striped' : ''}`
-    const cap = options.caption === undefined ? '' : `<caption>${renderContent(options.caption, d)}</caption>`
-    const cells = (cs: RichContent[], head: boolean) => cs.map((c, i) => {
-      const tag = head ? 'th' : 'td'
-      const align = options.align?.[i] ? ` align="${options.align[i] as Align}"` : ''
-
-      return `<${tag}${align}>${renderContent(c, d)}</${tag}>`
-    }).join('')
-    const body = rows.map((r, ri) => `<tr>${cells(r, header && ri === 0)}</tr>`).join('')
-
-    return `<table${attrs}>${cap}${body}</table>`
-  })
+      return {
+        ...(text === '' ? {} : { text }),
+        ...(header && ri === 0 ? { is_header: true as const } : {}),
+        align: options.align?.[ci] ?? 'left',
+        valign: TABLE_CELL_VALIGN
+      }
+    })),
+    ...(options.bordered ? { is_bordered: true as const } : {}),
+    ...(options.striped ? { is_striped: true as const } : {}),
+    ...(options.caption === undefined ? {} : { caption: emitText(options.caption) })
+  }))
 }
 
 /** footnote definition — the text behind a `footnoteRef(id)` marker (usually placed at the end) */
 export function footnote (id: string, definition: RichContent) {
-  return makeNode('block', d =>
-    d === 'markdown'
-      ? `[^${id}]: ${renderContent(definition, d)}`
-      : `<tg-reference name="${escape(id, 'html')}">${renderContent(definition, d)}</tg-reference>`)
+  return makeNode('block', () => ({ type: 'paragraph', text: { type: 'reference', text: emitText(definition), name: id } }))
 }
 
 /** alias for `blockquote` */

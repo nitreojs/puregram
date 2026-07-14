@@ -1,67 +1,140 @@
-// packages/rich/tests/block.test.ts
 import { describe, expect, it } from 'vitest'
 
 import {
-  heading, paragraph, codeBlock, blockquote, divider,
-  list, orderedList, details, mathBlock, h1, h3, h6, quote, pre, hr, fn
+  blockquote, codeBlock, details, divider, fn, footer, footnote, h1, h2, h3, h4, h5, h6,
+  heading, hr, list, mathBlock, orderedList, paragraph, pre, pullQuote, quote, taskList, thinking
 } from '../src/builders/block'
+import { bold } from '../src/builders/inline'
 
-const md = (n: { render: (d: 'markdown' | 'html') => string }) => n.render('markdown')
-const html = (n: { render: (d: 'markdown' | 'html') => string }) => n.render('html')
-
-describe('block builders', () => {
-  it('renders headings at the requested level', () => {
-    expect(md(heading(1, 'A'))).toBe('# A')
-    expect(md(heading(3, 'A'))).toBe('### A')
-    expect(html(heading(2, 'A'))).toBe('<h2>A</h2>')
+describe('heading', () => {
+  it('tags the size', () => {
+    expect(heading(2, 'x').emit()).toEqual({ type: 'heading', text: 'x', size: 2 })
   })
 
-  it('renders paragraph, divider, code block', () => {
-    expect(md(paragraph('text'))).toBe('text')
-    expect(md(divider())).toBe('---')
-    expect(html(divider())).toBe('<hr/>')
-    expect(md(codeBlock("print('x')", 'python'))).toBe("```python\nprint('x')\n```")
-    expect(html(codeBlock("print('x')", 'python'))).toBe('<pre><code class="language-python">print(\'x\')</code></pre>')
-  })
+  it('h1..h6 pin their level', () => {
+    const shortcuts = [h1, h2, h3, h4, h5, h6]
 
-  it('renders blockquote with multiple lines', () => {
-    expect(md(blockquote(['a', 'b']))).toBe('>a\n>b')
-  })
-
-  it('renders lists', () => {
-    expect(md(list(['a', 'b']))).toBe('- a\n- b')
-    expect(html(list(['a']))).toBe('<ul><li>a</li></ul>')
-    expect(md(orderedList(['a', 'b']))).toBe('1. a\n2. b')
-  })
-
-  it('renders details + math block', () => {
-    expect(html(details('Title', 'Content'))).toBe('<details><summary>Title</summary>Content</details>')
-    expect(html(details('Title', 'Content', { open: true }))).toBe('<details open><summary>Title</summary>Content</details>')
-    // markdown body needs blank-line separation or telegram won't parse it as markdown
-    expect(md(details('Title', 'Content'))).toBe('<details><summary>Title</summary>\n\nContent\n\n</details>')
-    expect(md(mathBlock('E=mc^2'))).toBe('$$E=mc^2$$')
-    expect(html(mathBlock('E=mc^2'))).toBe('<tg-math-block>E=mc^2</tg-math-block>')
-  })
-
-  it('marks blocks with block level', () => {
-    expect(heading(1, 'A').level).toBe('block')
-    expect(list(['a']).level).toBe('block')
+    shortcuts.forEach((h, i) => {
+      expect(h('x').emit()).toEqual({ type: 'heading', text: 'x', size: i + 1 })
+    })
   })
 })
 
-describe('h1..h6 aliases', () => {
-  it('mirror heading(level, content)', () => {
-    expect(md(h1('a'))).toBe('# a')
-    expect(md(h3('a'))).toBe('### a')
-    expect(html(h6('a'))).toBe('<h6>a</h6>')
+describe('paragraph / codeBlock', () => {
+  it('paragraph wraps inline content', () => {
+    expect(paragraph('x').emit()).toEqual({ type: 'paragraph', text: 'x' })
+    expect(paragraph(bold('x')).emit()).toEqual({ type: 'paragraph', text: { type: 'bold', text: 'x' } })
+  })
+
+  it('codeBlock includes the language only when given', () => {
+    expect(codeBlock('const a = 1').emit()).toEqual({ type: 'pre', text: 'const a = 1' })
+    expect(codeBlock('const a = 1', 'ts').emit()).toEqual({ type: 'pre', text: 'const a = 1', language: 'ts' })
+  })
+})
+
+describe('blockquote / pullQuote', () => {
+  it('blockquote nests blocks and includes the credit only when given', () => {
+    expect(blockquote('q').emit()).toEqual({ type: 'blockquote', blocks: [{ type: 'paragraph', text: 'q' }] })
+    expect(blockquote('q', 'me').emit()).toEqual({
+      type: 'blockquote',
+      blocks: [{ type: 'paragraph', text: 'q' }],
+      credit: 'me'
+    })
+  })
+
+  it('pullQuote keeps inline text and an optional credit', () => {
+    expect(pullQuote('q').emit()).toEqual({ type: 'pullquote', text: 'q' })
+    expect(pullQuote('q', 'me').emit()).toEqual({ type: 'pullquote', text: 'q', credit: 'me' })
+  })
+})
+
+describe('lists', () => {
+  it('list wraps each item in blocks', () => {
+    expect(list(['a', 'b']).emit()).toEqual({
+      type: 'list',
+      items: [
+        { blocks: [{ type: 'paragraph', text: 'a' }] },
+        { blocks: [{ type: 'paragraph', text: 'b' }] }
+      ]
+    })
+  })
+
+  it('orderedList seeds the values from start and tags type 1', () => {
+    expect(orderedList(['a', 'b']).emit()).toEqual({
+      type: 'list',
+      items: [
+        { blocks: [{ type: 'paragraph', text: 'a' }], value: 1, type: '1' },
+        { blocks: [{ type: 'paragraph', text: 'b' }], value: 2, type: '1' }
+      ]
+    })
+    expect(orderedList(['a', 'b'], { start: 3 }).emit()).toEqual({
+      type: 'list',
+      items: [
+        { blocks: [{ type: 'paragraph', text: 'a' }], value: 3, type: '1' },
+        { blocks: [{ type: 'paragraph', text: 'b' }], value: 4, type: '1' }
+      ]
+    })
+  })
+
+  it('taskList checks the done items', () => {
+    expect(taskList([{ text: 'a' }, { text: 'b', done: true }]).emit()).toEqual({
+      type: 'list',
+      items: [
+        { blocks: [{ type: 'paragraph', text: 'a' }], has_checkbox: true },
+        { blocks: [{ type: 'paragraph', text: 'b' }], has_checkbox: true, is_checked: true }
+      ]
+    })
+  })
+})
+
+describe('details', () => {
+  it('includes is_open only when opted in', () => {
+    expect(details('s', 'b').emit()).toEqual({
+      type: 'details',
+      summary: 's',
+      blocks: [{ type: 'paragraph', text: 'b' }]
+    })
+    expect(details('s', 'b', { open: true }).emit()).toEqual({
+      type: 'details',
+      summary: 's',
+      blocks: [{ type: 'paragraph', text: 'b' }],
+      is_open: true
+    })
+  })
+})
+
+describe('mathBlock / footer / thinking / divider', () => {
+  it('mathBlock emits a block-level expression', () => {
+    const node = mathBlock('E=mc^2')
+
+    expect(node.level).toBe('block')
+    expect(node.emit()).toEqual({ type: 'mathematical_expression', expression: 'E=mc^2' })
+  })
+
+  it('footer and thinking wrap inline text', () => {
+    expect(footer('f').emit()).toEqual({ type: 'footer', text: 'f' })
+    expect(thinking('hmm').emit()).toEqual({ type: 'thinking', text: 'hmm' })
+  })
+
+  it('divider emits a bare block', () => {
+    expect(divider().emit()).toEqual({ type: 'divider' })
+  })
+})
+
+describe('footnote', () => {
+  it('emits a paragraph wrapping a named reference', () => {
+    expect(footnote('1', 'the definition').emit()).toEqual({
+      type: 'paragraph',
+      text: { type: 'reference', text: 'the definition', name: '1' }
+    })
   })
 })
 
 describe('aliases', () => {
-  it('quote / pre / hr / fn mirror their originals', () => {
-    expect(md(quote('q'))).toBe('>q')
-    expect(md(pre('x', 'ts'))).toBe('```ts\nx\n```')
-    expect(html(hr())).toBe('<hr/>')
-    expect(md(fn('1', 'def'))).toBe('[^1]: def')
+  it('re-point at the originals', () => {
+    expect(quote).toBe(blockquote)
+    expect(pre).toBe(codeBlock)
+    expect(hr).toBe(divider)
+    expect(fn).toBe(footnote)
   })
 })

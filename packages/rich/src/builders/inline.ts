@@ -1,83 +1,89 @@
-import { escapeMarkdownUrl } from '../escape'
-import { type Dialect, makeNode } from '../node'
-import { type RichContent, escape, renderContent } from '../render'
+import type { TelegramUser } from '@puregram/api'
 
-// a wrapper builder: same shape in both dialects, differing only in the surrounding tokens
-function wrap (mdToken: (inner: string) => string, htmlToken: (inner: string) => string) {
-  return (content: RichContent) =>
-    makeNode('inline', dialect => (dialect === 'markdown' ? mdToken : htmlToken)(renderContent(content, dialect)))
+import { type RichContent, emitText } from '../emit'
+import { makeNode } from '../node'
+
+type WrapType =
+  | 'bold' | 'italic' | 'underline' | 'strikethrough' | 'spoiler'
+  | 'code' | 'marked' | 'subscript' | 'superscript'
+
+function wrap (type: WrapType) {
+  return (content: RichContent) => makeNode('inline', () => ({ type, text: emitText(content) }))
 }
 
 /** bold text */
-export const bold = wrap(x => `**${x}**`, x => `<b>${x}</b>`)
+export const bold = wrap('bold')
 /** italic text */
-export const italic = wrap(x => `*${x}*`, x => `<i>${x}</i>`)
-/** underlined text (no markdown token — html in both) */
-export const underline = wrap(x => `<u>${x}</u>`, x => `<u>${x}</u>`)
+export const italic = wrap('italic')
+/** underlined text */
+export const underline = wrap('underline')
 /** strikethrough text */
-export const strikethrough = wrap(x => `~~${x}~~`, x => `<s>${x}</s>`)
+export const strikethrough = wrap('strikethrough')
 /** spoiler text */
-export const spoiler = wrap(x => `||${x}||`, x => `<tg-spoiler>${x}</tg-spoiler>`)
+export const spoiler = wrap('spoiler')
 /** inline fixed-width code */
-export const code = wrap(x => `\`${x}\``, x => `<code>${x}</code>`)
+export const code = wrap('code')
 /** marked / highlighted text */
-export const marked = wrap(x => `==${x}==`, x => `<mark>${x}</mark>`)
-/** subscript text (no markdown token — html in both) */
-export const subscript = wrap(x => `<sub>${x}</sub>`, x => `<sub>${x}</sub>`)
-/** superscript text (no markdown token — html in both) */
-export const superscript = wrap(x => `<sup>${x}</sup>`, x => `<sup>${x}</sup>`)
-
-// a url escaper: markdown escapes the link-destination terminators, html escapes attribute quotes
-function url (raw: string, dialect: Dialect) {
-  return dialect === 'markdown' ? escapeMarkdownUrl(raw) : escape(raw, 'html')
-}
+export const marked = wrap('marked')
+/** subscript text */
+export const subscript = wrap('subscript')
+/** superscript text */
+export const superscript = wrap('superscript')
 
 /** inline link */
 export function link (text: RichContent, href: string) {
-  return makeNode('inline', d =>
-    d === 'markdown' ? `[${renderContent(text, d)}](${url(href, d)})` : `<a href="${url(href, d)}">${renderContent(text, d)}</a>`)
+  return makeNode('inline', () => ({ type: 'url', text: emitText(text), url: href }))
 }
 
-/** inline mention of a user by id */
-export function mentionUser (text: RichContent, userId: number) {
-  return link(text, `tg://user?id=${userId}`)
+/** the optional identity fields a `text_mention` user can carry */
+export interface MentionUserOptions {
+  firstName?: string
+  lastName?: string
+  username?: string
+  isBot?: boolean
 }
 
-/** inline LaTeX formula (content is raw latex, not escaped) */
+/** inline mention of a user by id (works even without a username) */
+export function mentionUser (text: RichContent, userId: number, options: MentionUserOptions = {}) {
+  const user: TelegramUser = {
+    id: userId,
+    is_bot: options.isBot ?? false,
+    first_name: options.firstName ?? '',
+    ...(options.lastName !== undefined ? { last_name: options.lastName } : {}),
+    ...(options.username !== undefined ? { username: options.username } : {})
+  }
+
+  return makeNode('inline', () => ({ type: 'text_mention', text: emitText(text), user }))
+}
+
+/** inline LaTeX formula (raw latex) */
 export function math (latex: string) {
-  return makeNode('inline', d => (d === 'markdown' ? `$${latex}$` : `<tg-math>${latex}</tg-math>`))
+  return makeNode('inline', () => ({ type: 'mathematical_expression', expression: latex }))
 }
 
 /** custom emoji by document id, with alternative text */
 export function customEmoji (id: string, alt: string) {
-  return makeNode('inline', d =>
-    d === 'markdown' ? `![${escape(alt, d)}](${escapeMarkdownUrl(`tg://emoji?id=${id}`)})` : `<tg-emoji emoji-id="${escape(id, 'html')}">${escape(alt, 'html')}</tg-emoji>`)
+  return makeNode('inline', () => ({ type: 'custom_emoji', custom_emoji_id: id, alternative_text: alt }))
 }
 
 /** auto-formatted date-time (see telegram's date-time entity formatting for `format`) */
 export function time (label: RichContent, unix: number, format = '') {
-  const query = `tg://time?unix=${unix}${format ? `&format=${format}` : ''}`
-
-  return makeNode('inline', d =>
-    d === 'markdown' ? `![${renderContent(label, d)}](${escapeMarkdownUrl(query)})` : `<tg-time unix="${unix}"${format ? ` format="${escape(format, 'html')}"` : ''}>${renderContent(label, d)}</tg-time>`)
+  return makeNode('inline', () => ({ type: 'date_time', text: emitText(label), unix_time: unix, date_time_format: format }))
 }
 
-/** in-document reference link to an anchor / `tg-reference` name */
+/** in-document link to an `anchor(name)` target */
 export function reference (text: RichContent, name: string) {
-  return link(text, `#${name}`)
+  return makeNode('inline', () => ({ type: 'anchor_link', text: emitText(text), anchor_name: name }))
 }
 
 /** an in-document anchor target, linkable via `reference(..., name)` */
 export function anchor (name: string) {
-  return makeNode('inline', _d => `<a name="${escape(name, 'html')}"></a>`)
+  return makeNode('inline', () => ({ type: 'anchor', name }))
 }
 
 /** footnote reference marker — pairs with a `footnote(id, …)` definition */
 export function footnoteRef (id: string, label?: RichContent) {
-  return makeNode('inline', d =>
-    d === 'markdown'
-      ? `[^${id}]`
-      : `<a href="#${escape(id, 'html')}">${label === undefined ? escape(id, 'html') : renderContent(label, d)}</a>`)
+  return makeNode('inline', () => ({ type: 'reference_link', text: label === undefined ? id : emitText(label), reference_name: id }))
 }
 
 /** alias for `strikethrough` */

@@ -52,7 +52,7 @@ export function scenes (options: SceneOptions = {}) {
     dependsOn: ['session'],
     install: (tg: Telegram) => {
       tg.useHook('onUpdate', async (update, next) => {
-        const key = getStorageKey(update as AnyUpdate)
+        const key = getStorageKey(update)
 
         if (key === undefined) {
           await next()
@@ -61,7 +61,7 @@ export function scenes (options: SceneOptions = {}) {
         }
 
         // session middleware ran first via `dependsOn` — `update.session` is already attached
-        const payload = update as ScenePayload
+        const payload = update as unknown as ScenePayload
         const ctx = new SceneContext({ payload, manager })
 
         Object.defineProperty(update, 'scene', {
@@ -71,7 +71,7 @@ export function scenes (options: SceneOptions = {}) {
         })
 
         // active scene owns the update unless `passthrough` exempts it (e.g. global /whoami commands)
-        if (ctx.current !== undefined && !passthrough(update as AnyUpdate)) {
+        if (ctx.current !== undefined && !passthrough(update)) {
           await ctx.reenter()
 
           return

@@ -1,10 +1,10 @@
 /// AUTO-GENERATED FILE — do not edit by hand
-/// Bot API 10.1
+/// Bot API 10.2
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-07-13T08:27:16.629Z
+/// generated at: 2026-07-14T16:35:43.235Z
 /// see scripts/emit.ts in @puregram/api
 
-import type { TelegramInlineQueryResultArticle, TelegramInlineQueryResultAudio, TelegramInlineQueryResultCachedAudio, TelegramInlineQueryResultCachedDocument, TelegramInlineQueryResultCachedGif, TelegramInlineQueryResultCachedMpeg4Gif, TelegramInlineQueryResultCachedPhoto, TelegramInlineQueryResultCachedSticker, TelegramInlineQueryResultCachedVideo, TelegramInlineQueryResultCachedVoice, TelegramInlineQueryResultContact, TelegramInlineQueryResultDocument, TelegramInlineQueryResultGame, TelegramInlineQueryResultGif, TelegramInlineQueryResultLocation, TelegramInlineQueryResultMpeg4Gif, TelegramInlineQueryResultPhoto, TelegramInlineQueryResultVenue, TelegramInlineQueryResultVideo, TelegramInlineQueryResultVoice, TelegramInputMediaAnimation, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaLink, TelegramInputMediaLivePhoto, TelegramInputMediaLocation, TelegramInputMediaPhoto, TelegramInputMediaSticker, TelegramInputMediaVenue, TelegramInputMediaVideo, TelegramInputPaidMediaLivePhoto, TelegramInputPaidMediaPhoto, TelegramInputPaidMediaVideo, TelegramInputProfilePhotoAnimated, TelegramInputProfilePhotoStatic, TelegramInputStoryContentPhoto, TelegramInputStoryContentVideo } from "./types";
+import type { TelegramInlineQueryResultArticle, TelegramInlineQueryResultAudio, TelegramInlineQueryResultCachedAudio, TelegramInlineQueryResultCachedDocument, TelegramInlineQueryResultCachedGif, TelegramInlineQueryResultCachedMpeg4Gif, TelegramInlineQueryResultCachedPhoto, TelegramInlineQueryResultCachedSticker, TelegramInlineQueryResultCachedVideo, TelegramInlineQueryResultCachedVoice, TelegramInlineQueryResultContact, TelegramInlineQueryResultDocument, TelegramInlineQueryResultGame, TelegramInlineQueryResultGif, TelegramInlineQueryResultLocation, TelegramInlineQueryResultMpeg4Gif, TelegramInlineQueryResultPhoto, TelegramInlineQueryResultVenue, TelegramInlineQueryResultVideo, TelegramInlineQueryResultVoice, TelegramInputMediaAnimation, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaLink, TelegramInputMediaLivePhoto, TelegramInputMediaLocation, TelegramInputMediaPhoto, TelegramInputMediaSticker, TelegramInputMediaVenue, TelegramInputMediaVideo, TelegramInputMediaVoiceNote, TelegramInputPaidMediaLivePhoto, TelegramInputPaidMediaPhoto, TelegramInputPaidMediaVideo, TelegramInputProfilePhotoAnimated, TelegramInputProfilePhotoStatic, TelegramInputStoryContentPhoto, TelegramInputStoryContentVideo } from "./types";
 export class InputMedia {
     /**
      * Represents an animation file (GIF or H.264/MPEG-4 AVC video without sound) to be sent.
@@ -93,6 +93,15 @@ export class InputMedia {
     static video(params: Omit<TelegramInputMediaVideo, "type">): TelegramInputMediaVideo {
         return {
             type: "video",
+            ...params
+        };
+    }
+    /**
+     * Represents a voice message file to be sent.
+     */
+    static voiceNote(params: Omit<TelegramInputMediaVoiceNote, "type">): TelegramInputMediaVoiceNote {
+        return {
+            type: "voice_note",
             ...params
         };
     }

@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
-/// Bot API 10.1
+/// Bot API 10.2
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-07-13T08:27:16.629Z
+/// generated at: 2026-07-14T16:35:43.235Z
 /// see scripts/emit.ts in @puregram/api
 
 export const FORMATTABLE_FIELDS = {
@@ -15,6 +15,31 @@ export const FORMATTABLE_FIELDS = {
             path: ["result", "input_message_content", "message_text"],
             textKey: "message_text",
             entitiesKey: "entities"
+        },
+        {
+            path: ["result", "input_message_content", "rich_message", "blocks", "*", "animation", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["result", "input_message_content", "rich_message", "blocks", "*", "audio", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["result", "input_message_content", "rich_message", "blocks", "*", "photo", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["result", "input_message_content", "rich_message", "blocks", "*", "video", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["result", "input_message_content", "rich_message", "blocks", "*", "voice_note", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
         }
     ],
     "answerInlineQuery": [
@@ -27,6 +52,31 @@ export const FORMATTABLE_FIELDS = {
             path: ["results", "*", "input_message_content", "message_text"],
             textKey: "message_text",
             entitiesKey: "entities"
+        },
+        {
+            path: ["results", "*", "input_message_content", "rich_message", "blocks", "*", "animation", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["results", "*", "input_message_content", "rich_message", "blocks", "*", "audio", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["results", "*", "input_message_content", "rich_message", "blocks", "*", "photo", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["results", "*", "input_message_content", "rich_message", "blocks", "*", "video", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["results", "*", "input_message_content", "rich_message", "blocks", "*", "voice_note", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
         }
     ],
     "answerWebAppQuery": [
@@ -39,6 +89,31 @@ export const FORMATTABLE_FIELDS = {
             path: ["result", "input_message_content", "message_text"],
             textKey: "message_text",
             entitiesKey: "entities"
+        },
+        {
+            path: ["result", "input_message_content", "rich_message", "blocks", "*", "animation", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["result", "input_message_content", "rich_message", "blocks", "*", "audio", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["result", "input_message_content", "rich_message", "blocks", "*", "photo", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["result", "input_message_content", "rich_message", "blocks", "*", "video", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["result", "input_message_content", "rich_message", "blocks", "*", "voice_note", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
         }
     ],
     "copyMessage": [
@@ -51,6 +126,27 @@ export const FORMATTABLE_FIELDS = {
             path: ["reply_parameters", "quote"],
             textKey: "quote",
             entitiesKey: "quote_entities"
+        }
+    ],
+    "editEphemeralMessageCaption": [
+        {
+            path: ["caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        }
+    ],
+    "editEphemeralMessageMedia": [
+        {
+            path: ["media", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        }
+    ],
+    "editEphemeralMessageText": [
+        {
+            path: ["text"],
+            textKey: "text",
+            entitiesKey: "entities"
         }
     ],
     "editMessageCaption": [
@@ -84,6 +180,31 @@ export const FORMATTABLE_FIELDS = {
             path: ["text"],
             textKey: "text",
             entitiesKey: "entities"
+        },
+        {
+            path: ["rich_message", "blocks", "*", "animation", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["rich_message", "blocks", "*", "audio", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["rich_message", "blocks", "*", "photo", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["rich_message", "blocks", "*", "video", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["rich_message", "blocks", "*", "voice_note", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
         }
     ],
     "editStory": [
@@ -117,6 +238,31 @@ export const FORMATTABLE_FIELDS = {
             path: ["result", "input_message_content", "message_text"],
             textKey: "message_text",
             entitiesKey: "entities"
+        },
+        {
+            path: ["result", "input_message_content", "rich_message", "blocks", "*", "animation", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["result", "input_message_content", "rich_message", "blocks", "*", "audio", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["result", "input_message_content", "rich_message", "blocks", "*", "photo", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["result", "input_message_content", "rich_message", "blocks", "*", "video", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["result", "input_message_content", "rich_message", "blocks", "*", "voice_note", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
         }
     ],
     "sendAnimation": [
@@ -320,9 +466,61 @@ export const FORMATTABLE_FIELDS = {
     ],
     "sendRichMessage": [
         {
+            path: ["rich_message", "blocks", "*", "animation", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["rich_message", "blocks", "*", "audio", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["rich_message", "blocks", "*", "photo", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["rich_message", "blocks", "*", "video", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["rich_message", "blocks", "*", "voice_note", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
             path: ["reply_parameters", "quote"],
             textKey: "quote",
             entitiesKey: "quote_entities"
+        }
+    ],
+    "sendRichMessageDraft": [
+        {
+            path: ["rich_message", "blocks", "*", "animation", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["rich_message", "blocks", "*", "audio", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["rich_message", "blocks", "*", "photo", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["rich_message", "blocks", "*", "video", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["rich_message", "blocks", "*", "voice_note", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
         }
     ],
     "sendSticker": [

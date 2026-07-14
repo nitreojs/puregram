@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
-/// Bot API 10.1
+/// Bot API 10.2
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-07-13T08:27:16.629Z
+/// generated at: 2026-07-14T16:35:43.235Z
 /// see scripts/emit.ts in @puregram/api
 
 import type { TelegramAcceptedGiftTypes, TelegramBotAccessSettings, TelegramBotCommand, TelegramBotCommandScope, TelegramBotDescription, TelegramBotName, TelegramBotShortDescription, TelegramBusinessConnection, TelegramChatAdministratorRights, TelegramChatFullInfo, TelegramChatInviteLink, TelegramChatMember, TelegramChatMemberAdministrator, TelegramChatMemberOwner, TelegramChatPermissions, TelegramFile, TelegramForceReply, TelegramForumTopic, TelegramGameHighScore, TelegramGifts, TelegramInlineKeyboardMarkup, TelegramInlineQueryResult, TelegramInlineQueryResultsButton, TelegramInputChecklist, TelegramInputFile, TelegramInputMedia, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaLivePhoto, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPaidMedia, TelegramInputPollMedia, TelegramInputPollOption, TelegramInputProfilePhoto, TelegramInputRichMessage, TelegramInputSticker, TelegramInputStoryContent, TelegramKeyboardButton, TelegramLabeledPrice, TelegramLinkPreviewOptions, TelegramMaskPosition, TelegramMenuButton, TelegramMessage, TelegramMessageEntity, TelegramMessageId, TelegramOwnedGifts, TelegramPassportElementError, TelegramPoll, TelegramPreparedInlineMessage, TelegramPreparedKeyboardButton, TelegramReactionType, TelegramReplyKeyboardMarkup, TelegramReplyKeyboardRemove, TelegramReplyParameters, TelegramSentGuestMessage, TelegramSentWebAppMessage, TelegramShippingOption, TelegramStarAmount, TelegramStarTransactions, TelegramSticker, TelegramStickerSet, TelegramStory, TelegramStoryArea, TelegramSuggestedPostParameters, TelegramUpdate, TelegramUser, TelegramUserChatBoosts, TelegramUserProfileAudios, TelegramUserProfilePhotos, TelegramWebhookInfo } from "./types";
@@ -43,7 +43,7 @@ export interface AnswerCallbackQueryParams {
      */
     text?: string;
     /**
-     * If True, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to false.
+     * If True, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to False.
      */
     show_alert?: boolean;
     /**
@@ -108,7 +108,7 @@ export interface AnswerInlineQueryParams {
      */
     inline_query_id: string;
     /**
-     * A JSON-serialized array of results for the inline query
+     * A JSON-serialized Array of results for the inline query
      */
     results: TelegramInlineQueryResult[];
     /**
@@ -170,7 +170,7 @@ export interface AnswerShippingQueryParams {
      */
     ok: boolean;
     /**
-     * Required if ok is True. A JSON-serialized array of available shipping options.
+     * Required if ok is True. A JSON-serialized Array of available shipping options.
      */
     shipping_options?: TelegramShippingOption[];
     /**
@@ -390,7 +390,7 @@ export interface CopyMessageParams {
      */
     caption_entities?: TelegramMessageEntity[];
     /**
-     * Pass True, if the caption must be shown above the message media. Ignored if a new caption isn't specified.
+     * Pass True if the caption must be shown above the message media. Ignored if a new caption isn't specified.
      */
     show_caption_above_media?: boolean;
     /**
@@ -431,7 +431,7 @@ export interface CopyMessageParams {
 export type copyMessage = (params: CopyMessageParams) => Promise<TelegramMessageId>;
 
 /**
- * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessages, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an array of MessageId of the sent messages is returned.
+ * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessages, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an Array of MessageId of the sent messages is returned.
  */
 export interface CopyMessagesParams {
     /**
@@ -469,7 +469,7 @@ export interface CopyMessagesParams {
 }
 
 /**
- * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessages, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an array of MessageId of the sent messages is returned.
+ * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessages, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an Array of MessageId of the sent messages is returned.
  */
 export type copyMessages = (params: CopyMessagesParams) => Promise<TelegramMessageId[]>;
 
@@ -599,7 +599,7 @@ export interface CreateInvoiceLinkParams {
      */
     max_tip_amount?: number;
     /**
-     * A JSON-serialized array of suggested amounts of tips in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.
+     * A JSON-serialized Array of suggested amounts of tips in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.
      */
     suggested_tip_amounts?: number[];
     /**
@@ -805,6 +805,29 @@ export interface DeleteChatStickerSetParams {
  * Use this method to delete a group sticker set from a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Use the field can_set_sticker_set optionally returned in getChat requests to check if the bot can use this method. Returns True on success.
  */
 export type deleteChatStickerSet = (params: DeleteChatStickerSetParams) => Promise<true>;
+
+/**
+ * Use this method to delete an ephemeral message. Note that it is not guaranteed that the user will receive the message deletion event, especially if they are offline. Returns True on success.
+ */
+export interface DeleteEphemeralMessageParams {
+    /**
+     * Unique identifier for the target chat or username of the target supergroup in the format @username
+     */
+    chat_id: number | string;
+    /**
+     * Identifier of the user who received the message
+     */
+    receiver_user_id: number;
+    /**
+     * Identifier of the ephemeral message to delete
+     */
+    ephemeral_message_id: number;
+}
+
+/**
+ * Use this method to delete an ephemeral message. Note that it is not guaranteed that the user will receive the message deletion event, especially if they are offline. Returns True on success.
+ */
+export type deleteEphemeralMessage = (params: DeleteEphemeralMessageParams) => Promise<true>;
 
 /**
  * Use this method to delete a forum topic along with all its messages in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the can_delete_messages administrator rights. Returns True on success.
@@ -1032,6 +1055,154 @@ export interface EditChatSubscriptionInviteLinkParams {
 export type editChatSubscriptionInviteLink = (params: EditChatSubscriptionInviteLinkParams) => Promise<TelegramChatInviteLink>;
 
 /**
+ * Use this method to edit the caption of an ephemeral message. Note that it is not guaranteed that the user will receive the message edit event, especially if they are offline. On success, True is returned.
+ */
+export interface EditEphemeralMessageCaptionParams {
+    /**
+     * Unique identifier for the target chat or username of the target supergroup in the format @username
+     */
+    chat_id: number | string;
+    /**
+     * Identifier of the user who received the message
+     */
+    receiver_user_id: number;
+    /**
+     * Identifier of the ephemeral message to edit
+     */
+    ephemeral_message_id: number;
+    /**
+     * New caption of the message, 0-1024 characters after entities parsing
+     */
+    caption?: string | Formattable;
+    /**
+     * Mode for parsing entities in the message caption. See formatting options for more details.
+     */
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
+    /**
+     * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
+     */
+    caption_entities?: TelegramMessageEntity[];
+    /**
+     * A JSON-serialized object for an inline keyboard
+     */
+    reply_markup?: TelegramInlineKeyboardMarkup | {
+        toJSON: () => TelegramInlineKeyboardMarkup;
+    };
+}
+
+/**
+ * Use this method to edit the caption of an ephemeral message. Note that it is not guaranteed that the user will receive the message edit event, especially if they are offline. On success, True is returned.
+ */
+export type editEphemeralMessageCaption = (params: EditEphemeralMessageCaptionParams) => Promise<true>;
+
+/**
+ * Use this method to edit the media of an ephemeral message. Note that it is not guaranteed that the user will receive the message edit event, especially if they are offline. On success, True is returned.
+ */
+export interface EditEphemeralMessageMediaParams {
+    /**
+     * Unique identifier for the target chat or username of the target supergroup in the format @username
+     */
+    chat_id: number | string;
+    /**
+     * Identifier of the user who received the message
+     */
+    receiver_user_id: number;
+    /**
+     * Identifier of the ephemeral message to edit
+     */
+    ephemeral_message_id: number;
+    /**
+     * A JSON-serialized object for the new media content of the message. A new file can't be uploaded; use a previously uploaded file via its file_id or specify a URL.
+     */
+    media: TelegramInputMedia;
+    /**
+     * A JSON-serialized object for an inline keyboard
+     */
+    reply_markup?: TelegramInlineKeyboardMarkup | {
+        toJSON: () => TelegramInlineKeyboardMarkup;
+    };
+}
+
+/**
+ * Use this method to edit the media of an ephemeral message. Note that it is not guaranteed that the user will receive the message edit event, especially if they are offline. On success, True is returned.
+ */
+export type editEphemeralMessageMedia = (params: EditEphemeralMessageMediaParams) => Promise<true>;
+
+/**
+ * Use this method to edit only the reply markup of an ephemeral message. Note that it is not guaranteed that the user will receive the message edit event, especially if they are offline. On success, True is returned.
+ */
+export interface EditEphemeralMessageReplyMarkupParams {
+    /**
+     * Unique identifier for the target chat or username of the target supergroup in the format @username
+     */
+    chat_id: number | string;
+    /**
+     * Identifier of the user who received the message
+     */
+    receiver_user_id: number;
+    /**
+     * Identifier of the ephemeral message to edit
+     */
+    ephemeral_message_id: number;
+    /**
+     * A JSON-serialized object for an inline keyboard
+     */
+    reply_markup?: TelegramInlineKeyboardMarkup | {
+        toJSON: () => TelegramInlineKeyboardMarkup;
+    };
+}
+
+/**
+ * Use this method to edit only the reply markup of an ephemeral message. Note that it is not guaranteed that the user will receive the message edit event, especially if they are offline. On success, True is returned.
+ */
+export type editEphemeralMessageReplyMarkup = (params: EditEphemeralMessageReplyMarkupParams) => Promise<true>;
+
+/**
+ * Use this method to edit an ephemeral text message. Note that it is not guaranteed that the user will receive the message edit event, especially if they are offline. On success, True is returned.
+ */
+export interface EditEphemeralMessageTextParams {
+    /**
+     * Unique identifier for the target chat or username of the target supergroup in the format @username
+     */
+    chat_id: number | string;
+    /**
+     * Identifier of the user who received the message
+     */
+    receiver_user_id: number;
+    /**
+     * Identifier of the ephemeral message to edit
+     */
+    ephemeral_message_id: number;
+    /**
+     * New text of the message, 1-4096 characters after entity parsing
+     */
+    text: string | Formattable;
+    /**
+     * Mode for parsing entities in the message text. See formatting options for more details.
+     */
+    parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
+    /**
+     * A JSON-serialized list of special entities that appear in message text, which can be specified instead of parse_mode
+     */
+    entities?: TelegramMessageEntity[];
+    /**
+     * Link preview generation options for the message
+     */
+    link_preview_options?: TelegramLinkPreviewOptions;
+    /**
+     * A JSON-serialized object for an inline keyboard
+     */
+    reply_markup?: TelegramInlineKeyboardMarkup | {
+        toJSON: () => TelegramInlineKeyboardMarkup;
+    };
+}
+
+/**
+ * Use this method to edit an ephemeral text message. Note that it is not guaranteed that the user will receive the message edit event, especially if they are offline. On success, True is returned.
+ */
+export type editEphemeralMessageText = (params: EditEphemeralMessageTextParams) => Promise<true>;
+
+/**
  * Use this method to edit name and icon of a topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success.
  */
 export interface EditForumTopicParams {
@@ -1110,7 +1281,7 @@ export interface EditMessageCaptionParams {
      */
     caption_entities?: TelegramMessageEntity[];
     /**
-     * Pass True, if the caption must be shown above the message media. Supported only for animation, photo and video messages.
+     * Pass True if the caption must be shown above the message media. Supported only for animation, photo and video messages.
      */
     show_caption_above_media?: boolean;
     /**
@@ -1323,7 +1494,7 @@ export interface EditMessageTextParams {
      */
     link_preview_options?: TelegramLinkPreviewOptions;
     /**
-     * New rich content of the message; required if text isn't specified
+     * New rich content of the message; required if text isn't specified. Direct upload of new files isn't supported when an inline message is edited.
      */
     rich_message?: TelegramInputRichMessage | RichLike;
     /**
@@ -1468,7 +1639,7 @@ export interface ForwardMessageParams {
 export type forwardMessage = (params: ForwardMessageParams) => Promise<TelegramMessage>;
 
 /**
- * Use this method to forward multiple messages of any kind. If some of the specified messages can't be found or forwarded, they are skipped. Service messages and messages with protected content can't be forwarded. Album grouping is kept for forwarded messages. On success, an array of MessageId of the sent messages is returned.
+ * Use this method to forward multiple messages of any kind. If some of the specified messages can't be found or forwarded, they are skipped. Service messages and messages with protected content can't be forwarded. Album grouping is kept for forwarded messages. On success, an Array of MessageId of the sent messages is returned.
  */
 export interface ForwardMessagesParams {
     /**
@@ -1502,7 +1673,7 @@ export interface ForwardMessagesParams {
 }
 
 /**
- * Use this method to forward multiple messages of any kind. If some of the specified messages can't be found or forwarded, they are skipped. Service messages and messages with protected content can't be forwarded. Album grouping is kept for forwarded messages. On success, an array of MessageId of the sent messages is returned.
+ * Use this method to forward multiple messages of any kind. If some of the specified messages can't be found or forwarded, they are skipped. Service messages and messages with protected content can't be forwarded. Album grouping is kept for forwarded messages. On success, an Array of MessageId of the sent messages is returned.
  */
 export type forwardMessages = (params: ForwardMessagesParams) => Promise<TelegramMessageId[]>;
 
@@ -1705,7 +1876,7 @@ export interface GetChatMemberParams {
 export type getChatMember = (params: GetChatMemberParams) => Promise<TelegramChatMember>;
 
 /**
- * Use this method to get the number of members in a chat. Returns Int on success.
+ * Use this method to get the number of members in a chat. Returns Integer on success.
  */
 export interface GetChatMemberCountParams {
     /**
@@ -1715,7 +1886,7 @@ export interface GetChatMemberCountParams {
 }
 
 /**
- * Use this method to get the number of members in a chat. Returns Int on success.
+ * Use this method to get the number of members in a chat. Returns Integer on success.
  */
 export type getChatMemberCount = (params: GetChatMemberCountParams) => Promise<number>;
 
@@ -2043,7 +2214,7 @@ export interface GetUserGiftsParams {
 export type getUserGifts = (params: GetUserGiftsParams) => Promise<TelegramOwnedGifts>;
 
 /**
- * Use this method to get the last messages from the personal chat (i.e., the chat currently added to their profile) of a given user. On success, an array of Message objects is returned.
+ * Use this method to get the last messages from the personal chat (i.e., the chat currently added to their profile) of a given user. On success, an Array of Message objects is returned.
  */
 export interface GetUserPersonalChatMessagesParams {
     /**
@@ -2057,7 +2228,7 @@ export interface GetUserPersonalChatMessagesParams {
 }
 
 /**
- * Use this method to get the last messages from the personal chat (i.e., the chat currently added to their profile) of a given user. On success, an array of Message objects is returned.
+ * Use this method to get the last messages from the personal chat (i.e., the chat currently added to their profile) of a given user. On success, an Array of Message objects is returned.
  */
 export type getUserPersonalChatMessages = (params: GetUserPersonalChatMessagesParams) => Promise<TelegramMessage[]>;
 
@@ -2675,6 +2846,14 @@ export interface SendAnimationParams {
      */
     direct_messages_topic_id?: number;
     /**
+     * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+     */
+    receiver_user_id?: number;
+    /**
+     * For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any
+     */
+    callback_query_id?: string;
+    /**
      * Animation to send. Pass a file_id as String to send an animation that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using multipart/form-data. More information on Sending Files »
      */
     animation: TelegramInputFile | string;
@@ -2707,7 +2886,7 @@ export interface SendAnimationParams {
      */
     caption_entities?: TelegramMessageEntity[];
     /**
-     * Pass True, if the caption must be shown above the message media
+     * Pass True if the caption must be shown above the message media
      */
     show_caption_above_media?: boolean;
     /**
@@ -2772,6 +2951,14 @@ export interface SendAudioParams {
      * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      */
     direct_messages_topic_id?: number;
+    /**
+     * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+     */
+    receiver_user_id?: number;
+    /**
+     * For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any
+     */
+    callback_query_id?: string;
     /**
      * Audio file to send. Pass a file_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
      */
@@ -2880,7 +3067,7 @@ export interface SendChatJoinRequestWebAppParams {
      */
     chat_join_request_query_id: string;
     /**
-     * The URL of the Mini App to be opened
+     * An HTTPS URL of a Web App to be opened with additional data as specified in Initializing Web Apps
      */
     web_app_url: string;
 }
@@ -2955,6 +3142,14 @@ export interface SendContactParams {
      * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      */
     direct_messages_topic_id?: number;
+    /**
+     * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+     */
+    receiver_user_id?: number;
+    /**
+     * For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any
+     */
+    callback_query_id?: string;
     /**
      * Contact's phone number
      */
@@ -3089,6 +3284,14 @@ export interface SendDocumentParams {
      * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      */
     direct_messages_topic_id?: number;
+    /**
+     * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+     */
+    receiver_user_id?: number;
+    /**
+     * For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any
+     */
+    callback_query_id?: string;
     /**
      * File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
      */
@@ -3287,7 +3490,7 @@ export interface SendInvoiceParams {
      */
     max_tip_amount?: number;
     /**
-     * A JSON-serialized array of suggested amounts of tips in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.
+     * A JSON-serialized Array of suggested amounts of tips in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.
      */
     suggested_tip_amounts?: number[];
     /**
@@ -3400,6 +3603,14 @@ export interface SendLivePhotoParams {
      */
     direct_messages_topic_id?: number;
     /**
+     * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+     */
+    receiver_user_id?: number;
+    /**
+     * For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any
+     */
+    callback_query_id?: string;
+    /**
      * Live photo video to send. The video must be no longer than 10 seconds and must not exceed 10 MB in size. Pass a file_id as String to send a video that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending live photos by a URL is currently unsupported.
      */
     live_photo: TelegramInputFile | string;
@@ -3420,7 +3631,7 @@ export interface SendLivePhotoParams {
      */
     caption_entities?: TelegramMessageEntity[];
     /**
-     * Pass True, if the caption must be shown above the message media
+     * Pass True if the caption must be shown above the message media
      */
     show_caption_above_media?: boolean;
     /**
@@ -3485,6 +3696,14 @@ export interface SendLocationParams {
      */
     direct_messages_topic_id?: number;
     /**
+     * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+     */
+    receiver_user_id?: number;
+    /**
+     * For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any
+     */
+    callback_query_id?: string;
+    /**
      * Latitude of the location
      */
     latitude: number;
@@ -3497,7 +3716,7 @@ export interface SendLocationParams {
      */
     horizontal_accuracy?: number;
     /**
-     * Period in seconds during which the location will be updated (see Live Locations, should be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely
+     * Period in seconds during which the location will be updated (see Live Locations), must be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely. Must be 0 for ephemeral messages.
      */
     live_period?: number;
     /**
@@ -3546,7 +3765,7 @@ export interface SendLocationParams {
 export type sendLocation = (params: SendLocationParams) => Promise<TelegramMessage>;
 
 /**
- * Use this method to send a group of photos, live photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of Message objects that were sent is returned.
+ * Use this method to send a group of photos, live photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an Array of Message objects that were sent is returned.
  */
 export interface SendMediaGroupParams {
     /**
@@ -3566,7 +3785,7 @@ export interface SendMediaGroupParams {
      */
     direct_messages_topic_id?: number;
     /**
-     * A JSON-serialized array describing messages to be sent, must include 2-10 items
+     * A JSON-serialized Array describing messages to be sent, must include 2-10 items
      */
     media: (TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaLivePhoto | TelegramInputMediaPhoto | TelegramInputMediaVideo)[];
     /**
@@ -3592,7 +3811,7 @@ export interface SendMediaGroupParams {
 }
 
 /**
- * Use this method to send a group of photos, live photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of Message objects that were sent is returned.
+ * Use this method to send a group of photos, live photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an Array of Message objects that were sent is returned.
  */
 export type sendMediaGroup = (params: SendMediaGroupParams) => Promise<TelegramMessage[]>;
 
@@ -3616,6 +3835,14 @@ export interface SendMessageParams {
      * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      */
     direct_messages_topic_id?: number;
+    /**
+     * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+     */
+    receiver_user_id?: number;
+    /**
+     * For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any
+     */
+    callback_query_id?: string;
     /**
      * Text of the message to be sent, 1-4096 characters after entities parsing
      */
@@ -3729,7 +3956,7 @@ export interface SendPaidMediaParams {
      */
     star_count: number;
     /**
-     * A JSON-serialized array describing the media to be sent; up to 10 items
+     * A JSON-serialized Array describing the media to be sent; up to 10 items
      */
     media: TelegramInputPaidMedia[];
     /**
@@ -3749,7 +3976,7 @@ export interface SendPaidMediaParams {
      */
     caption_entities?: TelegramMessageEntity[];
     /**
-     * Pass True, if the caption must be shown above the message media
+     * Pass True if the caption must be shown above the message media
      */
     show_caption_above_media?: boolean;
     /**
@@ -3806,6 +4033,14 @@ export interface SendPhotoParams {
      */
     direct_messages_topic_id?: number;
     /**
+     * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+     */
+    receiver_user_id?: number;
+    /**
+     * For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any
+     */
+    callback_query_id?: string;
+    /**
      * Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height ratio must be at most 20. More information on Sending Files »
      */
     photo: TelegramInputFile | string;
@@ -3822,7 +4057,7 @@ export interface SendPhotoParams {
      */
     caption_entities?: TelegramMessageEntity[];
     /**
-     * Pass True, if the caption must be shown above the message media
+     * Pass True if the caption must be shown above the message media
      */
     show_caption_above_media?: boolean;
     /**
@@ -3907,27 +4142,27 @@ export interface SendPollParams {
      */
     type?: string;
     /**
-     * Pass True, if the poll allows multiple answers, defaults to False
+     * Pass True if the poll allows multiple answers, defaults to False
      */
     allows_multiple_answers?: boolean;
     /**
-     * Pass True, if the poll allows to change chosen answer options, defaults to False for quizzes and to True for regular polls
+     * Pass True if the poll allows to change chosen answer options, defaults to False for quizzes and to True for regular polls
      */
     allows_revoting?: boolean;
     /**
-     * Pass True, if the poll options must be shown in random order
+     * Pass True if the poll options must be shown in random order
      */
     shuffle_options?: boolean;
     /**
-     * Pass True, if answer options can be added to the poll after creation; not supported for anonymous polls and quizzes
+     * Pass True if answer options can be added to the poll after creation; not supported for anonymous polls and quizzes
      */
     allow_adding_options?: boolean;
     /**
-     * Pass True, if poll results must be shown only after the poll closes
+     * Pass True if poll results must be shown only after the poll closes
      */
     hide_results_until_closes?: boolean;
     /**
-     * Pass True, if voting is limited to users who have been members of the chat where the poll is being sent for more than 24 hours; for channel chats only
+     * Pass True if voting is limited to users who have been members of the chat where the poll is being sent for more than 24 hours; for channel chats only
      */
     members_only?: boolean;
     /**
@@ -4093,7 +4328,7 @@ export interface SendRichMessageDraftParams {
      */
     draft_id: number;
     /**
-     * The partial message to be streamed
+     * The partial message to be streamed. Direct upload of new files isn't supported.
      */
     rich_message: TelegramInputRichMessage | RichLike;
 }
@@ -4123,6 +4358,14 @@ export interface SendStickerParams {
      * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      */
     direct_messages_topic_id?: number;
+    /**
+     * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+     */
+    receiver_user_id?: number;
+    /**
+     * For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any
+     */
+    callback_query_id?: string;
     /**
      * Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP sticker from the Internet, or upload a new .WEBP, .TGS, or .WEBM sticker using multipart/form-data. More information on Sending Files ». Video and animated stickers can't be sent via an HTTP URL.
      */
@@ -4188,6 +4431,14 @@ export interface SendVenueParams {
      * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      */
     direct_messages_topic_id?: number;
+    /**
+     * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+     */
+    receiver_user_id?: number;
+    /**
+     * For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any
+     */
+    callback_query_id?: string;
     /**
      * Latitude of the venue
      */
@@ -4278,6 +4529,14 @@ export interface SendVideoParams {
      */
     direct_messages_topic_id?: number;
     /**
+     * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+     */
+    receiver_user_id?: number;
+    /**
+     * For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any
+     */
+    callback_query_id?: string;
+    /**
      * Video to send. Pass a file_id as String to send a video that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. More information on Sending Files »
      */
     video: TelegramInputFile | string;
@@ -4318,7 +4577,7 @@ export interface SendVideoParams {
      */
     caption_entities?: TelegramMessageEntity[];
     /**
-     * Pass True, if the caption must be shown above the message media
+     * Pass True if the caption must be shown above the message media
      */
     show_caption_above_media?: boolean;
     /**
@@ -4386,6 +4645,14 @@ export interface SendVideoNoteParams {
      * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      */
     direct_messages_topic_id?: number;
+    /**
+     * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+     */
+    receiver_user_id?: number;
+    /**
+     * For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any
+     */
+    callback_query_id?: string;
     /**
      * Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending video notes by a URL is currently unsupported.
      */
@@ -4459,6 +4726,14 @@ export interface SendVoiceParams {
      * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
      */
     direct_messages_topic_id?: number;
+    /**
+     * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+     */
+    receiver_user_id?: number;
+    /**
+     * For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any
+     */
+    callback_query_id?: string;
     /**
      * Audio file to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
      */
@@ -4544,7 +4819,7 @@ export interface SetBusinessAccountGiftSettingsParams {
      */
     business_connection_id: string;
     /**
-     * Pass True, if a button for sending a gift to the user or by the business account must always be shown in the input field
+     * Pass True if a button for sending a gift to the user or by the business account must always be shown in the input field
      */
     show_gift_button: boolean;
     /**
@@ -4854,11 +5129,11 @@ export interface SetManagedBotAccessSettingsParams {
      */
     user_id: number;
     /**
-     * Pass True, if only selected users can access the bot. The bot's owner can always access it.
+     * Pass True if only selected users can access the bot. The bot's owner can always access it.
      */
     is_access_restricted: boolean;
     /**
-     * A JSON-serialized list of up to 10 identifiers of users who will have access to the bot in addition to its owner. Ignored if is_access_restricted is false.
+     * A JSON-serialized list of up to 10 identifiers of users who will have access to the bot in addition to its owner. Ignored if is_access_restricted is False.
      */
     added_user_ids?: number[];
 }
@@ -5019,7 +5294,7 @@ export interface SetPassportDataErrorsParams {
      */
     user_id: number;
     /**
-     * A JSON-serialized array describing the errors
+     * A JSON-serialized Array describing the errors
      */
     errors: TelegramPassportElementError[];
 }

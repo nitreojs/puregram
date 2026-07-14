@@ -8,11 +8,13 @@
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
-      "import": "./lib/index.js"
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
     },
     "./types": {
       "types": "./lib/generated/types.d.ts",
-      "import": "./lib/generated/types.js"
+      "import": "./lib/generated/types.js",
+      "default": "./lib/generated/types.js"
     }
   },
   "files": [

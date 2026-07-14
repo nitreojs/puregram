@@ -8,27 +8,33 @@
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
-      "import": "./lib/index.js"
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
     },
     "./keyboards": {
       "types": "./lib/keyboards/index.d.ts",
-      "import": "./lib/keyboards/index.js"
+      "import": "./lib/keyboards/index.js",
+      "default": "./lib/keyboards/index.js"
     },
     "./parse-mode": {
       "types": "./lib/parse-mode/index.d.ts",
-      "import": "./lib/parse-mode/index.js"
+      "import": "./lib/parse-mode/index.js",
+      "default": "./lib/parse-mode/index.js"
     },
     "./filters": {
       "types": "./lib/filters/index.d.ts",
-      "import": "./lib/filters/index.js"
+      "import": "./lib/filters/index.js",
+      "default": "./lib/filters/index.js"
     },
     "./plugin": {
       "types": "./lib/plugins/plugin.d.ts",
-      "import": "./lib/plugins/plugin.js"
+      "import": "./lib/plugins/plugin.js",
+      "default": "./lib/plugins/plugin.js"
     },
     "./webhook": {
       "types": "./lib/transport/webhook/index.d.ts",
-      "import": "./lib/transport/webhook/index.js"
+      "import": "./lib/transport/webhook/index.js",
+      "default": "./lib/transport/webhook/index.js"
     }
   },
   "files": [

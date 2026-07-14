@@ -8,47 +8,58 @@
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
-      "import": "./lib/index.js"
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
     },
     "./builders": {
       "types": "./lib/builders/index.d.ts",
-      "import": "./lib/builders/index.js"
+      "import": "./lib/builders/index.js",
+      "default": "./lib/builders/index.js"
     },
     "./session": {
       "types": "./lib/plugins/session.d.ts",
-      "import": "./lib/plugins/session.js"
+      "import": "./lib/plugins/session.js",
+      "default": "./lib/plugins/session.js"
     },
     "./scenes": {
       "types": "./lib/plugins/scenes.d.ts",
-      "import": "./lib/plugins/scenes.js"
+      "import": "./lib/plugins/scenes.js",
+      "default": "./lib/plugins/scenes.js"
     },
     "./flow": {
       "types": "./lib/plugins/flow.d.ts",
-      "import": "./lib/plugins/flow.js"
+      "import": "./lib/plugins/flow.js",
+      "default": "./lib/plugins/flow.js"
     },
     "./rate-limit": {
       "types": "./lib/plugins/rate-limit.d.ts",
-      "import": "./lib/plugins/rate-limit.js"
+      "import": "./lib/plugins/rate-limit.js",
+      "default": "./lib/plugins/rate-limit.js"
     },
     "./media-cacher": {
       "types": "./lib/plugins/media-cacher.d.ts",
-      "import": "./lib/plugins/media-cacher.js"
+      "import": "./lib/plugins/media-cacher.js",
+      "default": "./lib/plugins/media-cacher.js"
     },
     "./payments": {
       "types": "./lib/advanced/payments.d.ts",
-      "import": "./lib/advanced/payments.js"
+      "import": "./lib/advanced/payments.js",
+      "default": "./lib/advanced/payments.js"
     },
     "./business": {
       "types": "./lib/advanced/business.d.ts",
-      "import": "./lib/advanced/business.js"
+      "import": "./lib/advanced/business.js",
+      "default": "./lib/advanced/business.js"
     },
     "./forum": {
       "types": "./lib/advanced/forum.d.ts",
-      "import": "./lib/advanced/forum.js"
+      "import": "./lib/advanced/forum.js",
+      "default": "./lib/advanced/forum.js"
     },
     "./polls": {
       "types": "./lib/advanced/polls.d.ts",
-      "import": "./lib/advanced/polls.js"
+      "import": "./lib/advanced/polls.js",
+      "default": "./lib/advanced/polls.js"
     }
   },
   "files": [

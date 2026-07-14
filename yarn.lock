@@ -1245,7 +1245,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@puregram/rich@workspace:packages/rich":
+"@puregram/rich@npm:*, @puregram/rich@workspace:packages/rich":
   version: 0.0.0-use.local
   resolution: "@puregram/rich@workspace:packages/rich"
   dependencies:
@@ -3875,6 +3875,7 @@ __metadata:
     "@puregram/markup": "npm:*"
     "@puregram/media-cacher": "npm:*"
     "@puregram/rate-limit": "npm:*"
+    "@puregram/rich": "npm:*"
     "@puregram/scenes": "npm:*"
     "@puregram/session": "npm:*"
     "@puregram/storage": "npm:*"

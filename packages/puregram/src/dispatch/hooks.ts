@@ -65,6 +65,11 @@ export class HookRegistry {
   private readonly error: ErrorHandler[] = []
   private readonly dispatchError: DispatchErrorHandler[] = []
 
+  /** drives the crash-by-default startup warning in `Telegram.bootstrap` */
+  get hasDispatchErrorHandler () {
+    return this.dispatchError.length > 0
+  }
+
   add (name: RequestHookName, fn: Middleware<RequestContext>, opts?: HookOptions): void
   add (name: 'onApiCall', fn: Middleware<RequestContext>, opts?: HookOptions): void
   add (name: 'onUpdate', fn: Middleware<unknown>, opts?: HookOptions): void

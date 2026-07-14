@@ -353,7 +353,7 @@ export class Telegram<Ext = unknown> {
 
   useHook (name: RequestHookName, fn: Middleware<RequestContext>, options?: HookOptions): this
   useHook (name: 'onApiCall', fn: Middleware<RequestContext>, options?: HookOptions): this
-  useHook (name: 'onUpdate', fn: Middleware<unknown>, options?: HookOptions): this
+  useHook (name: 'onUpdate', fn: Middleware<AnyUpdate>, options?: HookOptions): this
   useHook (name: 'onInit' | 'onShutdown', fn: Middleware<{ tg: unknown }>): this
   useHook (name: 'onError', fn: ErrorHandler): this
   useHook (name: 'onDispatchError', fn: DispatchErrorHandler): this
@@ -385,7 +385,7 @@ export class Telegram<Ext = unknown> {
    * }, { priority: 'high' })
    * ```
    */
-  use (fn: Middleware<unknown>, options?: HookOptions): this
+  use (fn: Middleware<AnyUpdate>, options?: HookOptions): this
   use<Base, Mod> (
     filter: Filter<Base, Mod>,
     mw: Middleware<Base & Mod>,
@@ -797,6 +797,16 @@ export class Telegram<Ext = unknown> {
     }
 
     await this.hooks.run('onInit', { tg: this })
+
+    // the v2 composer swallowed handler errors; v3 crashes by default — make the delta loud
+    // at startup instead of at the first thrown 403
+    if (!this.options.swallowDispatchErrors && !this.hooks.hasDispatchErrorHandler) {
+      process.emitWarning(
+        'no dispatch error handler registered — an error thrown inside an update handler will crash the process. register tg.catch(handler) or set swallowDispatchErrors: true',
+        { code: 'PUREGRAM_NO_DISPATCH_ERROR_HANDLER' }
+      )
+    }
+
     this.started = true
   }
 

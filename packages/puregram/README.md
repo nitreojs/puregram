@@ -703,6 +703,24 @@ telegram.onUpdate((update) => {
 
 every kind has a matching `telegram.on<Kind>(handler)` — `onMessage`, `onEditedMessage`, `onChannelPost`, `onCallbackQuery`, `onInlineQuery`, `onChatMember`, `onPoll`, … — picking a kind that doesn't exist is a compile error. for cross-kind handlers or custom predicates, `telegram.onUpdate(...)` is the catch-all
 
+<a name='uniform-accessors'></a>
+### uniform accessors
+
+a few accessors keep the same name across kinds, so cross-kind code never juggles spellings:
+
+- `update.senderId` — the acting user's id on every kind whose payload identifies one (`callback_query`, `inline_query`, `pre_checkout_query`, `chat_member`, `business_connection`, …). messages fall back `from.id` → `sender_chat.id` → `chat.id`; `poll_answer` / `message_reaction` fall back to their anonymous-chat actor and may be `undefined`
+- `update.tg` — the client that dispatched the update; `update.tg.bot` is the bot's own identity (the `getMe` result, resolved before dispatch starts) — handy for mention-stripping, deep links, and self-detection
+- `message.startPayload` — the deep-link payload after `/start` (`t.me/<bot>?start=ref-42` → `'ref-42'`), grounded in the `bot_command` entity telegram parsed — plain text that merely looks like a command never matches, and a `/start@other_bot` addressed to a different bot yields `undefined`. `filters.start` gates handlers on /start too, but is regex-based and mention-agnostic by design
+
+callback queries also carry the message-scoped edit family — `edit`, `editCaption`, `editMedia`, `editReplyMarkup`, `editRich`, `delete` — auto-filling `chat_id` + `message_id` from the originating message, or `inline_message_id` for inline-mode messages (those resolve `true` instead of the edited message; `delete` throws for them). the pager pattern in one call:
+
+```ts
+telegram.onCallbackQuery(async (query) => {
+  await query.edit(`page ${page + 1}`, { reply_markup: pagerKeyboard(page + 1) })
+  await query.answer()
+})
+```
+
 ---
 
 <a name='filters'></a>
@@ -770,9 +788,7 @@ telegram.use(async (update, next) => {
 
   await next()
 
-  const u = update as { kind: string }
-
-  console.log(`${u.kind} took ${Date.now() - start}ms`)
+  console.log(`${update.kind} took ${Date.now() - start}ms`)
 })
 
 telegram.onMessage(message => message.send('ok'))
@@ -788,6 +804,21 @@ telegram.use(filters.kind.message, async (message, next) => {
   await next()
 })
 ```
+
+to hang app state off an update — the `req.user` pattern — use `attach`. it defines a non-enumerable property, and its assertion signature narrows the update right in scope:
+
+```ts
+import { attach, filters } from 'puregram'
+
+telegram.use(filters.kind.message, async (message, next) => {
+  attach(message, 'user', await db.users.get(message.senderId))
+
+  message.user // typed — no casts
+  await next()
+})
+```
+
+downstream handlers see the property at runtime; to get it typed there too, gate them on a filter whose second type argument declares the shape — `defineFilter<MessageUpdate, { user: DbUser }>('hasUser', u => 'user' in u)` — the same mechanism `filters.regex` uses to type `update.match`
 
 middlewares are prioritised — `'high'` runs first, then `'normal'` (the default), then user `telegram.on<Kind>(...)` handlers, then `'low'`. plugins like `@puregram/flow`'s `waitFor` claim `'high'` to intercept updates before any user handler sees them
 
@@ -1195,6 +1226,8 @@ with the default `on: ['flood']`, only `429` with a numeric `retry_after` retrie
 
 `tg.catch(fn)` registers an error handler for anything thrown inside a dispatched update handler — it's a thin alias over `useHook('onDispatchError', fn)`. without a catch handler, puregram is loud by default: errors get rethrown on a microtask so node's `uncaughtException` fires. set `swallowDispatchErrors: true` and that fallback goes away — registered `tg.catch` handlers are the only escape hatch
 
+because a routine api rejection (a user blocking the bot mid-send, an expired callback query) shouldn't take the whole process down unnoticed, starting the bot with neither a `tg.catch` handler nor `swallowDispatchErrors` emits a `PUREGRAM_NO_DISPATCH_ERROR_HANDLER` process warning — register a handler to silence it
+
 ```ts
 const telegram = new Telegram({
   token: process.env.TOKEN!,
@@ -1335,9 +1368,19 @@ see the [debug logs](#debug-logs) section. tldr: `PUREGRAM_DEBUG='puregram:*' no
 
 honestly? by hand. the api shape changed a lot — `Context` is gone, mixins are gone, `telegram.updates.on` became `telegram.onMessage` / `telegram.onCallbackQuery` / etc, plugins are first-class via `.extend()`, sessions/scenes/hear/prompt all live in their own packages with their own redesigned apis. there is no codemod and there will not be one. write the migration by hand, lean on the [examples][examples] and per-package READMEs, file an issue if something is genuinely unclear
 
+the deltas that bite v2 muscle memory the most:
+
+- **dispatch errors crash by default.** v2's composer logged escaped handler errors and kept running; v3 rethrows into `uncaughtException` unless you register `tg.catch(...)` (or set `swallowDispatchErrors: true`). the [startup warning](#tg-catch) points at this, but wire a handler before you ship
+- **factory params are camelCase and two spots rename beyond that.** every factory takes required fields positionally and an extras bag mirroring the bot-api field in camelCase (`reply_markup` → `replyMarkup`, `parse_mode` → `parseMode`). `InlineQueryResult.*` additionally flattens `input_message_content` → `content` and the `thumbnail_*` field group → `thumbnail: { url, width?, height?, mimeType? }`
+- **`startPayload` is a string.** v2 coerced numeric / json-looking payloads into `any`; v3's `message.startPayload` is `string | undefined`, parsed from the `bot_command` entity — parse it yourself if you need more
+
 ### what happens to v2?
 
 v2 is frozen. once v3 is ready, the `lord` branch (currently v2) gets overwritten with v3, and packages that were dropped in v3 (`@puregram/hear`, `@puregram/prompt`) will have their source code removed from the tree. the npm tarballs for v2 stay published forever — your existing `puregram@2.x` install isn't going anywhere — but the repo will be a v3 repo
+
+### can i `require('puregram')` from commonjs?
+
+on node ≥ 22.12 — yes. `puregram` ships esm only, but modern node can `require()` an esm graph directly, so cjs scripts, `tsx -e` one-liners, and the repl all work. on node 22.0–22.11 the same call throws `ERR_REQUIRE_ESM` — that error means "this package is esm-only on your node version": upgrade node, or switch to `import` / `await import('puregram')`
 
 ### are there any telegram chats or channels?
 

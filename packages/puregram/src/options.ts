@@ -74,19 +74,24 @@ export interface ResolvedTelegramOptions extends Required<Omit<TelegramOptions, 
   swallowDispatchErrors: boolean
 }
 
-// sourced from package.json so the user-agent never drifts from the published
-// version. read lazily — keeps node:fs off the import graph so core stays loadable
-// on edge runtimes, where it degrades to an unversioned user-agent
+// sourced from package.json so the user-agent never drifts from the published version.
+// `getBuiltinModule` keeps node:fs off the import graph (core stays loadable on edge
+// runtimes, degrading to an unversioned user-agent) without the top-level await that
+// would make the whole graph un-require()able
 let version = ''
 
 try {
-  const { readFileSync } = await import('node:fs')
+  const fs = process.getBuiltinModule?.('node:fs')
 
-  version = (JSON.parse(
-    readFileSync(new URL('../package.json', import.meta.url), 'utf8')
-  ) as { version: string }).version
+  if (fs) {
+    const pkg: unknown = JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.url), 'utf8'))
+
+    if (pkg !== null && typeof pkg === 'object' && 'version' in pkg && typeof pkg.version === 'string') {
+      version = pkg.version
+    }
+  }
 } catch {
-  // no filesystem (edge runtime) — leave the version out of the user-agent
+  // unreadable package.json — leave the version out of the user-agent
 }
 
 const USER_AGENT = version

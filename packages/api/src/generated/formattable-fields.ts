@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
 /// Bot API 10.2
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-07-14T20:58:39.619Z
+/// generated at: 2026-07-16T12:06:41.677Z
 /// see scripts/emit.ts in @puregram/api
 
 export const FORMATTABLE_FIELDS = {

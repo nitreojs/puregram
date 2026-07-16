@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
 /// Bot API 10.2
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-07-14T20:58:39.619Z
+/// generated at: 2026-07-16T12:06:41.677Z
 /// see scripts/emit.ts in @puregram/api
 
 import type { TelegramAcceptedGiftTypes, TelegramBotAccessSettings, TelegramBotCommand, TelegramBotCommandScope, TelegramBotDescription, TelegramBotName, TelegramBotShortDescription, TelegramBusinessConnection, TelegramChatAdministratorRights, TelegramChatFullInfo, TelegramChatInviteLink, TelegramChatMember, TelegramChatMemberAdministrator, TelegramChatMemberOwner, TelegramChatPermissions, TelegramFile, TelegramForceReply, TelegramForumTopic, TelegramGameHighScore, TelegramGifts, TelegramInlineKeyboardMarkup, TelegramInlineQueryResult, TelegramInlineQueryResultsButton, TelegramInputChecklist, TelegramInputFile, TelegramInputMedia, TelegramInputMediaAudio, TelegramInputMediaDocument, TelegramInputMediaLivePhoto, TelegramInputMediaPhoto, TelegramInputMediaVideo, TelegramInputPaidMedia, TelegramInputPollMedia, TelegramInputPollOption, TelegramInputProfilePhoto, TelegramInputRichMessage, TelegramInputSticker, TelegramInputStoryContent, TelegramKeyboardButton, TelegramLabeledPrice, TelegramLinkPreviewOptions, TelegramMaskPosition, TelegramMenuButton, TelegramMessage, TelegramMessageEntity, TelegramMessageId, TelegramOwnedGifts, TelegramPassportElementError, TelegramPoll, TelegramPreparedInlineMessage, TelegramPreparedKeyboardButton, TelegramReactionType, TelegramReplyKeyboardMarkup, TelegramReplyKeyboardRemove, TelegramReplyParameters, TelegramSentGuestMessage, TelegramSentWebAppMessage, TelegramShippingOption, TelegramStarAmount, TelegramStarTransactions, TelegramSticker, TelegramStickerSet, TelegramStory, TelegramStoryArea, TelegramSuggestedPostParameters, TelegramUpdate, TelegramUser, TelegramUserChatBoosts, TelegramUserProfileAudios, TelegramUserProfilePhotos, TelegramWebhookInfo } from "./types";
@@ -2850,7 +2850,7 @@ export interface SendAnimationParams {
      */
     receiver_user_id?: number;
     /**
-     * For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any
+     * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
      */
     callback_query_id?: string;
     /**
@@ -2956,7 +2956,7 @@ export interface SendAudioParams {
      */
     receiver_user_id?: number;
     /**
-     * For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any
+     * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
      */
     callback_query_id?: string;
     /**
@@ -3147,7 +3147,7 @@ export interface SendContactParams {
      */
     receiver_user_id?: number;
     /**
-     * For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any
+     * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
      */
     callback_query_id?: string;
     /**
@@ -3289,7 +3289,7 @@ export interface SendDocumentParams {
      */
     receiver_user_id?: number;
     /**
-     * For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any
+     * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
      */
     callback_query_id?: string;
     /**
@@ -3607,7 +3607,7 @@ export interface SendLivePhotoParams {
      */
     receiver_user_id?: number;
     /**
-     * For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any
+     * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
      */
     callback_query_id?: string;
     /**
@@ -3700,7 +3700,7 @@ export interface SendLocationParams {
      */
     receiver_user_id?: number;
     /**
-     * For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any
+     * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
      */
     callback_query_id?: string;
     /**
@@ -3840,7 +3840,7 @@ export interface SendMessageParams {
      */
     receiver_user_id?: number;
     /**
-     * For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any
+     * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
      */
     callback_query_id?: string;
     /**
@@ -4037,7 +4037,7 @@ export interface SendPhotoParams {
      */
     receiver_user_id?: number;
     /**
-     * For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any
+     * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
      */
     callback_query_id?: string;
     /**
@@ -4363,7 +4363,7 @@ export interface SendStickerParams {
      */
     receiver_user_id?: number;
     /**
-     * For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any
+     * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
      */
     callback_query_id?: string;
     /**
@@ -4436,7 +4436,7 @@ export interface SendVenueParams {
      */
     receiver_user_id?: number;
     /**
-     * For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any
+     * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
      */
     callback_query_id?: string;
     /**
@@ -4533,7 +4533,7 @@ export interface SendVideoParams {
      */
     receiver_user_id?: number;
     /**
-     * For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any
+     * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
      */
     callback_query_id?: string;
     /**
@@ -4650,7 +4650,7 @@ export interface SendVideoNoteParams {
      */
     receiver_user_id?: number;
     /**
-     * For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any
+     * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
      */
     callback_query_id?: string;
     /**
@@ -4731,7 +4731,7 @@ export interface SendVoiceParams {
      */
     receiver_user_id?: number;
     /**
-     * For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any
+     * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
      */
     callback_query_id?: string;
     /**

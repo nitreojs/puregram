@@ -85,6 +85,13 @@ export class MockTelegram {
       return
     }
 
-    await new Promise<void>(resolve => server.close(() => resolve()))
+    const { promise, resolve } = Promise.withResolvers<void>()
+
+    // close() alone waits for the http client's keep-alive socket to drain, which
+    // never happens inside a test — force those sockets shut so teardown resolves
+    server.close(() => resolve())
+    server.closeAllConnections()
+
+    await promise
   }
 }

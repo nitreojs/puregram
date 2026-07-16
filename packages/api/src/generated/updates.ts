@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
 /// Bot API 10.2
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-07-14T20:58:39.619Z
+/// generated at: 2026-07-16T12:06:41.677Z
 /// see scripts/emit.ts in @puregram/api
 
 import type { Readable } from "node:stream";
@@ -2050,7 +2050,7 @@ class MessageShared {
         return this.raw.passport_data ? (this._passportData ??= new PassportData(this.raw.passport_data)) : undefined;
     }
     /**
-     * Optional. Service message. A user in the chat triggered another user's proximity alert while sharing Live Location.
+     * Optional. Service message: a user in the chat triggered another user's proximity alert while sharing Live Location
      */
     get proximityAlertTriggered(): ProximityAlertTriggered | undefined {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;
@@ -6496,7 +6496,7 @@ export class GuestMessageUpdate {
         return this.raw.passport_data ? (this._passportData ??= new PassportData(this.raw.passport_data)) : undefined;
     }
     /**
-     * Optional. Service message. A user in the chat triggered another user's proximity alert while sharing Live Location.
+     * Optional. Service message: a user in the chat triggered another user's proximity alert while sharing Live Location
      */
     get proximityAlertTriggered(): ProximityAlertTriggered | undefined {
         return this.raw.proximity_alert_triggered ? (this._proximityAlertTriggered ??= new ProximityAlertTriggered(this.raw.proximity_alert_triggered)) : undefined;

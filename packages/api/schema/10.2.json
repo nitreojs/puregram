@@ -5165,7 +5165,7 @@
         },
         {
           "name": "callback_query_id",
-          "description": "For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any",
+          "description": "For outgoing ephemeral messages, identifier of the callback query which triggered the message if any",
           "required": false,
           "type": {
             "kind": "string"
@@ -5411,7 +5411,7 @@
         },
         {
           "name": "callback_query_id",
-          "description": "For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any",
+          "description": "For outgoing ephemeral messages, identifier of the callback query which triggered the message if any",
           "required": false,
           "type": {
             "kind": "string"
@@ -5806,7 +5806,7 @@
         },
         {
           "name": "callback_query_id",
-          "description": "For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any",
+          "description": "For outgoing ephemeral messages, identifier of the callback query which triggered the message if any",
           "required": false,
           "type": {
             "kind": "string"
@@ -6118,7 +6118,7 @@
         },
         {
           "name": "callback_query_id",
-          "description": "For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any",
+          "description": "For outgoing ephemeral messages, identifier of the callback query which triggered the message if any",
           "required": false,
           "type": {
             "kind": "string"
@@ -6791,7 +6791,7 @@
         },
         {
           "name": "callback_query_id",
-          "description": "For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any",
+          "description": "For outgoing ephemeral messages, identifier of the callback query which triggered the message if any",
           "required": false,
           "type": {
             "kind": "string"
@@ -7013,7 +7013,7 @@
         },
         {
           "name": "callback_query_id",
-          "description": "For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any",
+          "description": "For outgoing ephemeral messages, identifier of the callback query which triggered the message if any",
           "required": false,
           "type": {
             "kind": "string"
@@ -7334,7 +7334,7 @@
         },
         {
           "name": "callback_query_id",
-          "description": "For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any",
+          "description": "For outgoing ephemeral messages, identifier of the callback query which triggered the message if any",
           "required": false,
           "type": {
             "kind": "string"
@@ -7762,7 +7762,7 @@
         },
         {
           "name": "callback_query_id",
-          "description": "For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any",
+          "description": "For outgoing ephemeral messages, identifier of the callback query which triggered the message if any",
           "required": false,
           "type": {
             "kind": "string"
@@ -8483,7 +8483,7 @@
         },
         {
           "name": "callback_query_id",
-          "description": "For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any",
+          "description": "For outgoing ephemeral messages, identifier of the callback query which triggered the message if any",
           "required": false,
           "type": {
             "kind": "string"
@@ -8652,7 +8652,7 @@
         },
         {
           "name": "callback_query_id",
-          "description": "For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any",
+          "description": "For outgoing ephemeral messages, identifier of the callback query which triggered the message if any",
           "required": false,
           "type": {
             "kind": "string"
@@ -8860,7 +8860,7 @@
         },
         {
           "name": "callback_query_id",
-          "description": "For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any",
+          "description": "For outgoing ephemeral messages, identifier of the callback query which triggered the message if any",
           "required": false,
           "type": {
             "kind": "string"
@@ -9139,7 +9139,7 @@
         },
         {
           "name": "callback_query_id",
-          "description": "For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any",
+          "description": "For outgoing ephemeral messages, identifier of the callback query which triggered the message if any",
           "required": false,
           "type": {
             "kind": "string"
@@ -9333,7 +9333,7 @@
         },
         {
           "name": "callback_query_id",
-          "description": "For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any",
+          "description": "For outgoing ephemeral messages, identifier of the callback query which triggered the message if any",
           "required": false,
           "type": {
             "kind": "string"
@@ -23315,7 +23315,7 @@
         },
         {
           "name": "proximity_alert_triggered",
-          "description": "Optional. Service message. A user in the chat triggered another user's proximity alert while sharing Live Location.",
+          "description": "Optional. Service message: a user in the chat triggered another user's proximity alert while sharing Live Location",
           "required": false,
           "type": {
             "kind": "reference",
@@ -31438,6 +31438,6 @@
   "source": {
     "corefork": "https://corefork.telegram.org/bots/api",
     "core": "https://core.telegram.org/bots/api",
-    "fetchedAt": "2026-07-14T20:58:39.619Z"
+    "fetchedAt": "2026-07-16T12:06:41.677Z"
   }
 }

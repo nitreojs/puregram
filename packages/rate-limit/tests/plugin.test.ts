@@ -1,8 +1,10 @@
-import { MemoryStorage } from '@puregram/storage'
+import { inspect } from 'node:util'
+
+import { LruMemoryStorage, MemoryStorage } from '@puregram/storage'
 import { Telegram } from 'puregram'
 import { describe, expect, it } from 'vitest'
 
-import { rateLimit } from '../src/plugin'
+import { DEFAULT_MAX_ENTRIES, rateLimit } from '../src/plugin'
 import type { AnyUpdate, RateLimitEntry } from '../src/types'
 
 interface RlProbeUpdate {
@@ -43,12 +45,29 @@ describe('rateLimit() — install shape', () => {
     await t.shutdown()
   })
 
-  it('default storage is a fresh MemoryStorage', async () => {
+  it('defaults to an lru store capped at DEFAULT_MAX_ENTRIES', async () => {
     const t = new Telegram({ token: 'TEST', bot: STUB_BOT }).extend(rateLimit())
 
     await t.start()
 
-    expect(t.rateLimit.storage).toBeInstanceOf(MemoryStorage)
+    expect(t.rateLimit.storage).toBeInstanceOf(LruMemoryStorage)
+    expect(inspect(t.rateLimit.storage)).toContain(`max=${DEFAULT_MAX_ENTRIES}`)
+
+    await t.shutdown()
+  })
+
+  it('evicts the least recently hit key once maxEntries is exceeded', async () => {
+    const t = new Telegram({ token: 'TEST', bot: STUB_BOT }).extend(rateLimit({ maxEntries: 2 }))
+
+    await t.start()
+
+    await t.rateLimit.hit('a', 5, 60)
+    await t.rateLimit.hit('b', 5, 60)
+    await t.rateLimit.hit('c', 5, 60)
+
+    expect(await t.rateLimit.storage.get('a')).toBeUndefined()
+    expect(await t.rateLimit.storage.get('b')).toBeDefined()
+    expect(await t.rateLimit.storage.get('c')).toBeDefined()
 
     await t.shutdown()
   })

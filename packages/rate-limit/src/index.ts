@@ -1,4 +1,4 @@
-export { rateLimit, type RateLimitExtension } from './plugin'
+export { DEFAULT_MAX_ENTRIES, rateLimit, type RateLimitExtension } from './plugin'
 export { rateLimitFilter } from './filter'
 export { rateLimitMiddleware } from './middleware'
 export type {

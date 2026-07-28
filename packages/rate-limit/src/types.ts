@@ -19,8 +19,15 @@ export type RateLimitCallback = (update: AnyUpdate, retryAfter: number) => void 
 
 /** plugin-level options. defaults flow through to per-call options when not overridden */
 export interface RateLimitOptions {
-  /** backing storage. default: fresh `MemoryStorage<RateLimitEntry>` */
+  /**
+   * backing storage. defaults to an {@link LruMemoryStorage} capped at `maxEntries` —
+   * the fixed-window contract gives entries no self-expiry, so an unbounded map would
+   * hold one record per user who ever touched the bot. pass a persistent storage with
+   * its own ttl (`RedisStorage({ ttlMs })`) to shed them server-side instead
+   */
   storage?: KVStorage<RateLimitEntry>
+  /** cap on the default in-process store. ignored when `storage` is supplied. default: `10_000` */
+  maxEntries?: number
   /** how to derive the per-user storage key. default: from.id ?? senderChat.id ?? chat.id */
   getStorageKey?: (update: AnyUpdate) => string | undefined
   /** invoked once per blocked update unless overridden per call. default: silent no-op */

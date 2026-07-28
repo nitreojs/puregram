@@ -244,7 +244,8 @@ telegram.onMessage(
 
 | option | type | description |
 |---|---|---|
-| `storage` | `KVStorage<RateLimitEntry>` | backing store. default: a fresh `MemoryStorage<RateLimitEntry>`. swap in `LruMemoryStorage` for bounded memory, redis/sqlite/etc for persistence across restarts |
+| `storage` | `KVStorage<RateLimitEntry>` | backing store. default: an `LruMemoryStorage<RateLimitEntry>` capped at `maxEntries`. swap in redis/sqlite/etc for persistence across restarts and across processes |
+| `maxEntries` | `number` | cap on the default in-process store. ignored when `storage` is supplied. default: `10_000` |
 | `getStorageKey` | `(update) => string \| undefined` | how to derive the per-user key. default: `from.id ?? senderChat.id ?? chat.id`. return `undefined` to leave that update unkeyable (passes through filters/middleware untouched) |
 | `onLimitExceeded` | `(update, retryAfter) => void \| Promise<void>` | plugin-level fallback callback. fires once per blocked update from filter/middleware paths |
 
@@ -275,26 +276,34 @@ rateLimit({
 
 ### bounded memory
 
-cap how many user counters live in memory at once — once the cap is hit, the least-recently-touched user gets evicted (so they regain their budget early, which is the right failure mode for spam-prevention):
+a fixed-window entry carries no self-expiry, so a user who sends one message and never returns would otherwise keep a counter forever. the default store is therefore an `LruMemoryStorage` capped at `10_000` entries — past the cap the least-recently-hit user is evicted, regaining their budget early, which is the right failure mode here.
+
+raise or lower the cap:
 
 ```ts
-import { LruMemoryStorage, type RateLimitEntry } from '@puregram/rate-limit'
+rateLimit({ maxEntries: 50_000 })
+```
+
+a persistent backend with its own ttl sheds the entries server-side instead, which is what you want across restarts or across processes:
+
+```ts
+import { RedisStorage } from '@puregram/storage-redis'
 
 rateLimit({
-  storage: new LruMemoryStorage<RateLimitEntry>({ max: 50_000 })
+  storage: new RedisStorage({ client, ttlMs: 60_000 })
 })
 ```
 
-### persistent backend
+### custom backend
 
 ```ts
 import type { KVStorage, RateLimitEntry } from '@puregram/rate-limit'
 
-class RedisStorage implements KVStorage<RateLimitEntry> {
+class MyStorage implements KVStorage<RateLimitEntry> {
   // get/set/delete/has — see @puregram/storage
 }
 
-rateLimit({ storage: new RedisStorage() })
+rateLimit({ storage: new MyStorage() })
 ```
 
 see [`@puregram/storage`](../storage) for the full `KVStorage<V>` contract

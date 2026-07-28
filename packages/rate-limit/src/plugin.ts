@@ -1,4 +1,4 @@
-import { type KVStorage, MemoryStorage } from '@puregram/storage'
+import { type KVStorage, LruMemoryStorage } from '@puregram/storage'
 import { createPlugin, type Telegram } from 'puregram'
 
 import { hit as coreHit, reset as coreReset } from './core'
@@ -6,6 +6,9 @@ import { composeKey, defaultGetStorageKey } from './key'
 import type {
   AnyUpdate, RateLimitCallback, RateLimitCheckOptions, RateLimitEntry, RateLimitOptions, RateLimitOutcome
 } from './types'
+
+/** entries the default in-process store keeps before evicting the least recently hit key */
+export const DEFAULT_MAX_ENTRIES = 10_000
 
 /**
  * `tg.rateLimit` extension. `check` gates an update on a per-call budget; `hit`
@@ -36,7 +39,8 @@ const toRetryAfter = (outcome: RateLimitOutcome) =>
  * `rateLimitMiddleware` shims or the imperative `tg.rateLimit.check(update, opts)`
  */
 export function rateLimit (options: RateLimitOptions = {}) {
-  const storage: KVStorage<RateLimitEntry> = options.storage ?? new MemoryStorage<RateLimitEntry>()
+  const storage: KVStorage<RateLimitEntry> = options.storage ??
+    new LruMemoryStorage<RateLimitEntry>({ max: options.maxEntries ?? DEFAULT_MAX_ENTRIES })
   const getStorageKey = options.getStorageKey ?? defaultGetStorageKey
   const onLimitExceeded = options.onLimitExceeded
 

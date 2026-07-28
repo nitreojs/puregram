@@ -2,15 +2,17 @@ import type { KVStorage } from '@puregram/storage'
 
 import type { RateLimitEntry, RateLimitOutcome } from './types'
 
-// last-write-wins under contention — worst case is a slight over-count, fails safer for spam prevention.
-// `now` is injected for deterministic tests
 const ALLOWED: RateLimitOutcome = { allowed: true }
 
 /**
  * fixed-window hit — start a new window if absent/expired, increment if under budget,
- * return retry-after at the cap
+ * return retry-after at the cap. `now` is injected so callers can test deterministically.
+ *
+ * the get/set pair is not atomic: concurrent hits on one key read the same count and both
+ * write `n + 1`, so contention **under**-counts and lets extra traffic through. harmless
+ * against `MemoryStorage` behind a single dispatch loop, wide open across processes sharing
+ * a redis — `KVStorage` has no compare-and-set to close it with
  */
-
 export async function hit (
   storage: KVStorage<RateLimitEntry>,
   key: string,

@@ -154,6 +154,24 @@ function ensureBody (response: HttpDownloadResponse, url: string) {
   return response.body
 }
 
+async function * readBody (body: ReadableStream<Uint8Array>) {
+  const reader = body.getReader()
+
+  try {
+    while (true) {
+      const { done, value } = await reader.read()
+
+      if (done) {
+        return
+      }
+
+      yield value
+    }
+  } finally {
+    reader.releaseLock()
+  }
+}
+
 /** download into a `Buffer` (most common case) */
 export async function download (deps: DownloadDeps, target: DownloadTarget) {
   const url = await getFileURL(deps, target)
@@ -167,8 +185,12 @@ export async function download (deps: DownloadDeps, target: DownloadTarget) {
   const response = await fetchBody(deps, url)
   const body = ensureBody(response, url)
   const chunks: Uint8Array[] = []
+  // node's web streams are async-iterable at runtime, but ts 5.3's lib doesn't declare it
+  const iterable = Symbol.asyncIterator in body
+    ? body as AsyncIterable<Uint8Array>
+    : readBody(body)
 
-  for await (const chunk of body as AsyncIterable<Uint8Array>) {
+  for await (const chunk of iterable) {
     chunks.push(chunk)
   }
 

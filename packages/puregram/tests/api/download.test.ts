@@ -42,6 +42,21 @@ function streamFromBytes (bytes: Buffer) {
   })
 }
 
+function readerOnlyStream (chunks: Buffer[]) {
+  const source = new ReadableStream<Uint8Array>({
+    start (controller) {
+      for (const chunk of chunks) {
+        controller.enqueue(new Uint8Array(chunk))
+      }
+
+      controller.close()
+    }
+  })
+
+  // emulates a runtime whose ReadableStream exposes only getReader()
+  return { getReader: () => source.getReader() } as unknown as ReadableStream<Uint8Array>
+}
+
 function mockClient (overrides?: Partial<HttpClient>) {
   return {
     request: vi.fn(),
@@ -189,6 +204,17 @@ describe('download primitives', () => {
     }
 
     expect(Buffer.concat(chunks).equals(FILE_BYTES)).toBe(true)
+  })
+
+  it('download() falls back to getReader() when the body is not async-iterable', async () => {
+    const parts = [Buffer.from('hello '), Buffer.from('world from '), Buffer.from('telegram')]
+    const httpClient = mockClient({
+      download: vi.fn().mockResolvedValue({ status: 200, body: readerOnlyStream(parts) })
+    })
+    const deps = depsWith(httpClient)
+    const buf = await download(deps, 'fid')
+
+    expect(buf.equals(FILE_BYTES)).toBe(true)
   })
 
   let dir: string

@@ -26,7 +26,7 @@ export function createWaitForMiddleware (registry: WaiterRegistry, tg?: Telegram
     }
 
     const kind = update.kind as keyof UpdateKindMap
-    const matched = registry.matchOrPeek(kind, update as UpdateKindMap[typeof kind])
+    const matched = registry.match(kind, update as UpdateKindMap[typeof kind])
 
     if (matched.outcome === 'none') {
       await next()

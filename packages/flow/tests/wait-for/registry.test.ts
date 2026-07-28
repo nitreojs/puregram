@@ -1,7 +1,13 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
+import type { MatchOutcome } from '../../src/wait-for/registry'
 import { WaiterRegistry } from '../../src/wait-for/registry'
 import { Waiter } from '../../src/wait-for/waiter'
+
+// deep-equality on a Waiter says nothing useful — every assertion here is about identity
+function waiterOf (outcome: MatchOutcome<'message'>) {
+  return outcome.outcome === 'matched' ? outcome.waiter : undefined
+}
 
 describe('WaiterRegistry', () => {
   beforeEach(() => {
@@ -20,17 +26,13 @@ describe('WaiterRegistry', () => {
     reg.register(a)
     reg.register(b)
 
-    const matched = reg.match('message', { id: 1 } as any)
-
-    expect(matched).toBe(a)
+    expect(waiterOf(reg.match('message', { id: 1 } as any))).toBe(a)
 
     // a removed; b still pending
-    const matchedAgain = reg.match('message', { id: 1 } as any)
-
-    expect(matchedAgain).toBe(b)
+    expect(waiterOf(reg.match('message', { id: 1 } as any))).toBe(b)
 
     // both gone now
-    expect(reg.match('message', { id: 1 } as any)).toBeUndefined()
+    expect(reg.match('message', { id: 1 } as any)).toEqual({ outcome: 'none' })
   })
 
   it('skips non-matching waiters and matches the first that does', () => {
@@ -41,18 +43,48 @@ describe('WaiterRegistry', () => {
     reg.register(a)
     reg.register(b)
 
-    const matched = reg.match('message', { id: 1 } as any)
-
-    expect(matched).toBe(b)
+    expect(waiterOf(reg.match('message', { id: 1 } as any))).toBe(b)
 
     // a still in queue
     expect(reg.size('message')).toBe(1)
   })
 
-  it('returns undefined when no waiter for the kind', () => {
+  it('matches the waiter armed for the update chat and leaves the other one armed', () => {
+    const reg = new WaiterRegistry()
+    const first = new Waiter<'message'>('message', { filter: u => (u as any).chat.id === 1 })
+    const second = new Waiter<'message'>('message', { filter: u => (u as any).chat.id === 2 })
+
+    reg.register(first)
+    reg.register(second)
+
+    expect(waiterOf(reg.match('message', { chat: { id: 2 }, text: 'hi' } as any))).toBe(second)
+    expect(reg.size('message')).toBe(1)
+    expect(waiterOf(reg.match('message', { chat: { id: 1 }, text: 'hi' } as any))).toBe(first)
+  })
+
+  it('reports rejected with feedback when the filter matches but validate fails', () => {
+    const reg = new WaiterRegistry()
+    const other = new Waiter<'message'>('message', { filter: u => (u as any).chat.id === 1 })
+    const waiter = new Waiter<'message'>('message', {
+      filter: u => (u as any).chat.id === 2,
+      validate: u => Number.isFinite(Number((u as any).text)) || 'must be a number'
+    })
+
+    reg.register(other)
+    reg.register(waiter)
+
+    expect(reg.match('message', { chat: { id: 2 }, text: 'nope' } as any))
+      .toEqual({ outcome: 'rejected', feedback: 'must be a number' })
+
+    // left armed, so a valid retry still resolves it
+    expect(reg.size('message')).toBe(2)
+    expect(waiterOf(reg.match('message', { chat: { id: 2 }, text: '42' } as any))).toBe(waiter)
+  })
+
+  it('returns none when no waiter for the kind', () => {
     const reg = new WaiterRegistry()
 
-    expect(reg.match('callback_query', { id: 'q' } as any)).toBeUndefined()
+    expect(reg.match('callback_query', { id: 'q' } as any)).toEqual({ outcome: 'none' })
   })
 
   it('does not match across different kinds', () => {
@@ -61,7 +93,7 @@ describe('WaiterRegistry', () => {
 
     reg.register(a)
 
-    expect(reg.match('callback_query', {} as any)).toBeUndefined()
+    expect(reg.match('callback_query', {} as any)).toEqual({ outcome: 'none' })
     expect(reg.size('message')).toBe(1)
   })
 
@@ -93,8 +125,6 @@ describe('WaiterRegistry', () => {
     vi.advanceTimersByTime(100)
     await a.promise.catch(() => undefined)
 
-    const matched = reg.match('message', { id: 1 } as any)
-
-    expect(matched).toBe(b)
+    expect(waiterOf(reg.match('message', { id: 1 } as any))).toBe(b)
   })
 })

@@ -22,69 +22,40 @@ export class WaiterRegistry {
     }
   }
 
-  match<K extends keyof UpdateKindMap> (kind: K, update: UpdateKindMap[K]): Waiter<K> | undefined {
-    const queue = this.queues.get(kind as string)
-
-    if (!queue || queue.length === 0) {
-      return undefined
-    }
-
+  // scans the whole live queue rather than its head: waiters armed in unrelated chats share the
+  // per-kind queue and must be allowed to decline the update. the first waiter whose filter accepts
+  // owns it — a validate failure there surfaces feedback and leaves that waiter armed
+  // eslint-disable-next-line local-rules/no-redundant-return-type -- discriminated outcome documents the contract
+  match<K extends keyof UpdateKindMap> (kind: K, update: UpdateKindMap[K]): MatchOutcome<K> {
     this.evictSettled(kind as string)
 
     const live = this.queues.get(kind as string)
 
-    if (!live || live.length === 0) {
-      return undefined
+    if (live === undefined || live.length === 0) {
+      return { outcome: 'none' }
     }
 
     for (let i = 0; i < live.length; i++) {
       const candidate = live[i] as Waiter<K>
 
-      if (candidate.match(update)) {
-        live.splice(i, 1)
-
-        if (live.length === 0) {
-          this.queues.delete(kind as string)
-        }
-
-        return candidate
+      if (!candidate.accepts(update)) {
+        continue
       }
-    }
 
-    return undefined
-  }
+      if (!candidate.validate(update)) {
+        return { outcome: 'rejected', feedback: candidate.lastValidationFeedback }
+      }
 
-  // peek + match the head waiter. on filter/validate reject, surfaces validate-string feedback
-  // so the caller can echo to chat and leaves the waiter armed for the next inbound update
-  // eslint-disable-next-line local-rules/no-redundant-return-type -- discriminated outcome documents the contract
-  matchOrPeek<K extends keyof UpdateKindMap> (kind: K, update: UpdateKindMap[K]): MatchOutcome<K> {
-    const queue = this.queues.get(kind as string)
-
-    if (!queue || queue.length === 0) {
-      return { outcome: 'none' }
-    }
-
-    this.evictSettled(kind as string)
-
-    const live = this.queues.get(kind as string)
-
-    if (!live || live.length === 0) {
-      return { outcome: 'none' }
-    }
-
-    const head = live[0] as Waiter<K>
-
-    if (head.match(update)) {
-      live.splice(0, 1)
+      live.splice(i, 1)
 
       if (live.length === 0) {
         this.queues.delete(kind as string)
       }
 
-      return { outcome: 'matched', waiter: head }
+      return { outcome: 'matched', waiter: candidate }
     }
 
-    return { outcome: 'rejected', feedback: head.lastValidationFeedback }
+    return { outcome: 'none' }
   }
 
   size (kind: string) {

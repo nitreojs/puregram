@@ -20,17 +20,17 @@ describe('Waiter', () => {
     await expect(waiter.promise).resolves.toEqual({ id: 1 })
   })
 
-  it('match() returns true only when filter matches', () => {
+  it('accepts() returns true only when filter matches', () => {
     const waiter = new Waiter<'message'>('message', { filter: u => (u as any).id === 1 })
 
-    expect(waiter.match({ id: 1 } as any)).toBe(true)
-    expect(waiter.match({ id: 2 } as any)).toBe(false)
+    expect(waiter.accepts({ id: 1 } as any)).toBe(true)
+    expect(waiter.accepts({ id: 2 } as any)).toBe(false)
   })
 
-  it('match() returns true unconditionally when no filter is provided', () => {
+  it('accepts() returns true unconditionally when no filter is provided', () => {
     const waiter = new Waiter<'message'>('message', {})
 
-    expect(waiter.match({ id: 99 } as any)).toBe(true)
+    expect(waiter.accepts({ id: 99 } as any)).toBe(true)
   })
 
   it('schedules a timeout that rejects with WaitForTimeout', async () => {
@@ -83,13 +83,19 @@ describe('Waiter', () => {
 })
 
 describe('Waiter validate/transform', () => {
-  it('match() returns false when validate returns false', () => {
+  it('validate() returns false when validate returns false', () => {
     const waiter = new Waiter<'message'>('message', {
       validate: m => (m as any).text === 'ok'
     })
 
-    expect(waiter.match({ text: 'no' } as any)).toBe(false)
-    expect(waiter.match({ text: 'ok' } as any)).toBe(true)
+    expect(waiter.validate({ text: 'no' } as any)).toBe(false)
+    expect(waiter.validate({ text: 'ok' } as any)).toBe(true)
+  })
+
+  it('validate() returns true when no validate is provided', () => {
+    const waiter = new Waiter<'message'>('message', {})
+
+    expect(waiter.validate({ text: 'anything' } as any)).toBe(true)
   })
 
   it('exposes validate string feedback via the lastValidationFeedback channel', () => {
@@ -97,20 +103,20 @@ describe('Waiter validate/transform', () => {
       validate: () => 'must be a number'
     })
 
-    waiter.match({ text: 'x' } as any)
+    waiter.validate({ text: 'x' } as any)
 
     expect(waiter.lastValidationFeedback).toBe('must be a number')
   })
 
-  it('clears lastValidationFeedback on a subsequent passing match', () => {
+  it('clears lastValidationFeedback on a subsequent passing validate', () => {
     const waiter = new Waiter<'message'>('message', {
       validate: m => (m as any).text === 'ok' || 'must say ok'
     })
 
-    waiter.match({ text: 'no' } as any)
+    waiter.validate({ text: 'no' } as any)
     expect(waiter.lastValidationFeedback).toBe('must say ok')
 
-    waiter.match({ text: 'ok' } as any)
+    waiter.validate({ text: 'ok' } as any)
     expect(waiter.lastValidationFeedback).toBeUndefined()
   })
 

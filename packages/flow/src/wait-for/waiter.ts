@@ -62,11 +62,13 @@ export class Waiter<K extends keyof UpdateKindMap, T = UpdateKindMap[K]> {
     return this.settledFlag
   }
 
-  match (update: UpdateKindMap[K]) {
-    if (this.filterFn !== undefined && !this.filterFn(update)) {
-      return false
-    }
+  /** does the filter accept this update — kept apart from `validate` so the matcher can skip other chats' waiters */
+  accepts (update: UpdateKindMap[K]) {
+    return this.filterFn === undefined || this.filterFn(update)
+  }
 
+  /** run `validate` for an update the filter already accepted — stashes string feedback for the matcher */
+  validate (update: UpdateKindMap[K]) {
     if (this.validateFn === undefined) {
       this.lastValidationFeedback = undefined
 

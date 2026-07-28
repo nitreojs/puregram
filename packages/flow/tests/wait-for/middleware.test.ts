@@ -78,4 +78,23 @@ describe('createWaitForMiddleware', () => {
     expect(next).toHaveBeenCalledOnce()
     expect(reg.size('message')).toBe(1)
   })
+
+  it('resolves the waiter armed for the update chat, not the queue head', async () => {
+    const reg = new WaiterRegistry()
+    const first = new Waiter<'message'>('message', { filter: u => (u as any).chat.id === 1 })
+    const second = new Waiter<'message'>('message', { filter: u => (u as any).chat.id === 2 })
+
+    reg.register(first)
+    reg.register(second)
+
+    const mw = createWaitForMiddleware(reg)
+    const next = vi.fn(async () => {})
+    const update = { kind: 'message', chat: { id: 2 }, text: 'hi' } as any
+
+    await mw(update, next)
+
+    expect(next).not.toHaveBeenCalled()
+    await expect(second.promise).resolves.toEqual(update)
+    expect(reg.size('message')).toBe(1)
+  })
 })

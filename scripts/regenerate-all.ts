@@ -16,6 +16,7 @@ const STEPS: Step[] = [
 
   // 2. plugin augmentations (per-update declaration merges driven by the same schema)
   { label: '@puregram/flow augmentations', command: 'yarn', args: ['workspace', '@puregram/flow', 'generate:augmentations'] },
+  { label: '@puregram/scenes augmentations', command: 'yarn', args: ['workspace', '@puregram/scenes', 'generate:augmentations'] },
   { label: '@puregram/session augmentations', command: 'yarn', args: ['workspace', '@puregram/session', 'generate:augmentations'] },
 
   // 3. build everything so downstream packages pick up the new types

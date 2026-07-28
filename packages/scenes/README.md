@@ -92,7 +92,7 @@ three pieces:
 
 - **`StepScene`** — a named, ordered list of step handlers. each handler can read+write `scene.state`, advance with `scene.step.next()`, jump with `scene.step.go(id)`, or bail out with `scene.leave()`. the same handler is invoked for every update that lands while you're sitting on its step
 - **`scenes({ scenes: [...] })`** — the plugin install. registers a high-priority `onUpdate` middleware that:
-  - attaches `update.scene` (a `SceneContext`) to every update
+  - attaches `update.scene` (a `SceneContext`) to every update that carries a session
   - if the user has an active scene, dispatches the update into the current step instead of letting it flow to your normal handlers
   - exposes `telegram.scenes` for runtime registry mutation (`add` / `has` / `remove` / `all`)
 - **the session-backed state** — `update.session.__scene` is where `{ current, state, stepId, firstTime }` actually lives. you don't normally touch it directly; `update.scene.*` is the api. but it's useful to know when you want to inspect another user's scene status (see [advanced patterns](#advanced))
@@ -311,7 +311,6 @@ telegram.scenes.all()              // every registered scene
 | option | type | description |
 |---|---|---|
 | `scenes` | `SceneInterface[]` | initial scene set. shortcut equivalent to calling `telegram.scenes.add(...)` for each at install time |
-| `getStorageKey` | `(update) => string \| undefined` | how to derive the per-update storage key. default: `from.id ?? senderChat.id ?? chat.id`. return `undefined` to skip scene attachment for that update |
 | `passthrough` | `(update) => boolean` | when this returns `true` for an update from a user with an active scene, the update flows through to subsequent middleware as if no scene were active. `update.scene` stays attached so handlers can still call `update.scene.leave()`. perfect for global `/help`, `/cancel`, `/whoami` |
 
 ```ts
@@ -321,6 +320,16 @@ scenes({
     'text' in update && (update.text === '/cancel' || update.text === '/help')
 })
 ```
+
+`scenes()` takes no storage key of its own: scene state is written into the session record at `session.__scene`, so it is scoped by [`session({ getStorageKey })`](../session#composite-keys) — by default `user:<id>:chat:<id>`, one scene per user per chat. want scenes shared across a user's chats, or scoped per forum topic? configure it on `session()`:
+
+```ts
+telegram
+  .extend(session({ getStorageKey: update => ({ user: update.from?.id }) }))
+  .extend(scenes({ scenes: [signup] }))
+```
+
+updates that `session` can't key (no `update.session`) get no `update.scene` either
 
 `StepScene` also accepts `enterHandler` / `leaveHandler` / `beforeStep` / `afterStep` hooks:
 
@@ -355,21 +364,24 @@ new StepScene<MyState, MessageUpdate>('wizard', {
 
 ### inspecting another user's scene state
 
-scene state lives on the session, so `telegram.session.get(String(userId))` gives you the raw payload, including `__scene`:
+scene state lives on the session, so reading it means reading the session record under the key `session` derived for that user. with the default keyer that's `user:<id>:chat:<id>` — in a private chat, `chatId` equals `userId`:
 
 ```ts
-const raw = await telegram.session.get(String(userId)) as Record<string, unknown> ?? {}
+const key = `user:${userId}:chat:${chatId}`
+const raw = await telegram.session.get(key) as Record<string, unknown> ?? {}
 
 console.log(raw.__scene?.current, raw.__scene?.stepId)
 ```
+
+if you gave `session()` a custom `getStorageKey`, build the key the same way it does
 
 ### force-priming a user into a scene
 
 you can write the `__scene` shape directly to a target user's session entry — they'll resume into that scene on their **next** message:
 
 ```ts
-async function primeScene (userId: number, slug: string, initialState: object = {}) {
-  const key = String(userId)
+async function primeScene (userId: number, chatId: number, slug: string, initialState: object = {}) {
+  const key = `user:${userId}:chat:${chatId}`
   const stored = (await telegram.session.get(key)) as Record<string, unknown> ?? {}
 
   stored.__scene = {
@@ -391,8 +403,8 @@ caveat: the scene's `enterHandler` won't fire from outside (no `Update` to bind 
 ### force-leaving another user's scene
 
 ```ts
-async function dropScene (userId: number) {
-  const key = String(userId)
+async function dropScene (userId: number, chatId: number) {
+  const key = `user:${userId}:chat:${chatId}`
   const stored = (await telegram.session.get(key)) as Record<string, unknown> ?? {}
 
   delete stored.__scene

@@ -1,7 +1,9 @@
 import { session } from '@puregram/session'
+import { MemoryStorage } from '@puregram/storage'
 import { Telegram } from 'puregram'
 import { describe, expect, it, vi } from 'vitest'
 
+import type { SceneContext } from '../src/contexts/scene'
 import { scenes } from '../src/plugin'
 import { StepScene } from '../src/scenes/step'
 
@@ -9,11 +11,24 @@ interface ProbeUpdate {
   [key: string]: unknown
   kind: 'probe'
   from?: { id: number }
+  chat?: { id: number }
 }
 
 interface OrphanUpdate {
   kind: 'orphan'
   x: number
+}
+
+interface WizardState {
+  name: string
+}
+
+interface SceneProbe {
+  scene: SceneContext<WizardState>
+}
+
+interface StoredScene {
+  __scene?: { current?: string, state?: { name?: string } }
 }
 
 declare module '@puregram/api' {
@@ -70,7 +85,7 @@ describe('scenes() — install shape', () => {
 })
 
 describe('scenes() — onUpdate middleware', () => {
-  it('attaches update.scene when the storage key resolves', async () => {
+  it('attaches update.scene when the update carries a session', async () => {
     const t = makeTg()
 
     await t.start()
@@ -90,7 +105,7 @@ describe('scenes() — onUpdate middleware', () => {
     await t.shutdown()
   })
 
-  it('does not attach update.scene when the storage key is undefined', async () => {
+  it('does not attach update.scene when the update has no session', async () => {
     const t = makeTg()
 
     await t.start()
@@ -206,5 +221,48 @@ describe('scenes() — onUpdate middleware', () => {
     expect(userHandler).toHaveBeenCalledTimes(1)
 
     await t.shutdown()
+  })
+
+  it("round-trips scene state through session's composite storage key", async () => {
+    const storage = new MemoryStorage()
+    const seen: (string | undefined)[] = []
+    const wizard = new StepScene<WizardState>('wizard', [
+      (ctx) => {
+        seen.push(ctx.scene.state.name)
+      }
+    ])
+    const makeBot = () => new Telegram({ token: 'TEST', bot: STUB_BOT })
+      .extend(session({ storage }))
+      .extend(scenes({ scenes: [wizard] }))
+
+    const writer = makeBot()
+
+    await writer.start()
+    writer.defineUpdate('probe')
+    writer.on('probe', u => (u as unknown as SceneProbe).scene.enter('wizard', { state: { name: 'alice' } }))
+
+    writer.emit('probe', { from: { id: 7 }, chat: { id: -100 } })
+    await new Promise(resolve => setImmediate(resolve))
+    await writer.shutdown()
+
+    const stored = await storage.get('user:7:chat:-100') as StoredScene | undefined
+
+    expect(stored?.__scene?.current).toBe('wizard')
+    expect(stored?.__scene?.state?.name).toBe('alice')
+    // scenes rides session's key — nothing is written under a scenes-specific one
+    expect(await storage.get('user:7')).toBeUndefined()
+
+    const reader = makeBot()
+
+    await reader.start()
+    reader.defineUpdate('probe')
+
+    reader.emit('probe', { from: { id: 7 }, chat: { id: -100 } })
+    await new Promise(resolve => setImmediate(resolve))
+
+    // second entry comes from a bot that only ever saw the stored record
+    expect(seen).toEqual(['alice', 'alice'])
+
+    await reader.shutdown()
   })
 })

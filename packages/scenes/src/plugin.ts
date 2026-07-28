@@ -3,35 +3,10 @@ import { createPlugin, type Telegram } from 'puregram'
 import { SceneContext, type ScenePayload } from './contexts/scene'
 import { SceneManager } from './manager'
 import type { SceneInterface } from './scenes/scene'
-import type { AnyUpdate, SceneOptions } from './types'
+import type { SceneOptions } from './types'
 
-interface KeyResolvable {
-  from?: { id?: number | string }
-  senderChat?: { id?: number | string }
-  chat?: { id?: number | string }
-}
-
-const defaultGetStorageKey = (update: AnyUpdate) => {
-  const u = update as KeyResolvable
-  const fromId = u.from?.id
-
-  if (fromId !== undefined) {
-    return String(fromId)
-  }
-
-  const senderChatId = u.senderChat?.id
-
-  if (senderChatId !== undefined) {
-    return String(senderChatId)
-  }
-
-  const chatId = u.chat?.id
-
-  if (chatId !== undefined) {
-    return String(chatId)
-  }
-
-  return undefined
+interface MaybeSessionUpdate {
+  session?: ScenePayload['session']
 }
 
 /** runtime scene registry exposed as `tg.scenes`. mirrors the manager surface; SceneManager stays package-private */
@@ -44,7 +19,6 @@ export interface ScenesExtension {
 
 export function scenes (options: SceneOptions = {}) {
   const manager = new SceneManager(options.scenes !== undefined ? { scenes: options.scenes } : {})
-  const getStorageKey = options.getStorageKey ?? defaultGetStorageKey
   const passthrough = options.passthrough ?? (() => false)
 
   return createPlugin({
@@ -52,15 +26,14 @@ export function scenes (options: SceneOptions = {}) {
     dependsOn: ['session'],
     install: (tg: Telegram) => {
       tg.useHook('onUpdate', async (update, next) => {
-        const key = getStorageKey(update)
-
-        if (key === undefined) {
+        // session middleware ran first via `dependsOn`. scene state lives inside its record,
+        // so an update session skipped (unkeyable) has nowhere to keep `__scene`
+        if ((update as MaybeSessionUpdate).session === undefined) {
           await next()
 
           return
         }
 
-        // session middleware ran first via `dependsOn` — `update.session` is already attached
         const payload = update as unknown as ScenePayload
         const ctx = new SceneContext({ payload, manager })
 

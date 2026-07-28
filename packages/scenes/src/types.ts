@@ -26,11 +26,6 @@ export interface SceneOptions {
   /** initial scene set; runtime additions go through `tg.scenes.add(scene)` */
   scenes?: SceneInterface[]
   /**
-   * how to derive the storage key per update — defaults to
-   * `from.id ?? senderChat.id ?? chat.id`. undefined → no scene attached
-   */
-  getStorageKey?: (update: AnyUpdate) => string | undefined
-  /**
    * bypass scene reentry for selected updates — when this returns true for a user
    * with an active scene, the update flows to subsequent middleware as if no scene
    * were active. `update.scene` stays attached so handlers can still call

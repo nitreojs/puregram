@@ -203,8 +203,14 @@ tg.scenes.all()
 | option | type | default | description |
 |---|---|---|---|
 | `scenes` | `SceneInterface[]` | `[]` | initial scene set. equivalent to calling `tg.scenes.add(scene)` for each at install time |
-| `getStorageKey` | `(update) => string \| undefined` | `from.id ?? senderChat.id ?? chat.id` | how to derive the per-update storage key. `undefined` → no scene attached for that update |
 | `passthrough` | `(update) => boolean` | `() => false` | when this returns `true` for an update from a user with an active scene, the update flows through to subsequent handlers. `update.scene` stays attached so handlers can still call `update.scene.leave()` |
+
+scene state lives inside the session record at `session.__scene`, so scenes has no storage key of its own — scoping comes entirely from `session({ getStorageKey })`, which defaults to `user:<id>:chat:<id>`. widen it there to share one scene across a whole chat:
+
+```ts
+tg.extend(session({ getStorageKey: (update) => ({ chat: update.chat?.id }) }))
+  .extend(scenes())
+```
 
 ### `StepScene` options
 

@@ -18,7 +18,7 @@ export type { ScenePayload, SceneSessionState }
  */
 export class SceneContext<S = SceneState> {
   /** lazy proxy bound to payload.session.__scene */
-  session!: SceneSessionState
+  session!: SceneSessionState<S>
   /** lazy proxy bound to payload.session.__scene.state */
   state!: S
   /** set during leave(), surfaced inside the scene's leaveHandler */
@@ -27,10 +27,10 @@ export class SceneContext<S = SceneState> {
   /** controlled-behavior leave flag — mirrors v2 */
   leaving = false
 
-  private readonly payload: ScenePayload
-  private readonly manager: SceneContextOptions['manager']
+  private readonly payload: ScenePayload<S>
+  private readonly manager: SceneContextOptions<S>['manager']
 
-  constructor (options: SceneContextOptions) {
+  constructor (options: SceneContextOptions<S>) {
     this.payload = options.payload
     this.manager = options.manager
     this.updateSession()
@@ -125,9 +125,9 @@ export class SceneContext<S = SceneState> {
   }
 
   private updateSession () {
-    const sessionTarget: SceneSessionState = this.payload.session.__scene ?? {}
+    const sessionTarget: SceneSessionState<S> = this.payload.session.__scene ?? {}
 
-    this.session = new Proxy<SceneSessionState>(sessionTarget, {
+    this.session = new Proxy<SceneSessionState<S>>(sessionTarget, {
       set: (target, key, value: unknown) => {
         const writable = target as Record<string, unknown>
 
@@ -138,14 +138,15 @@ export class SceneContext<S = SceneState> {
       }
     })
 
-    const stateTarget = (this.session.state ?? {}) as S & object
+    const stateTarget: Partial<S> & object = this.session.state ?? {}
 
-    this.state = new Proxy<S & object>(stateTarget, {
+    // the store fills in field by field, but handlers read it as the fully-typed `S` they declared
+    this.state = new Proxy<Partial<S> & object>(stateTarget, {
       set: (target, key, value: unknown) => {
-        const writable = target as unknown as Record<string, unknown>
+        const writable = target as Record<string, unknown>
 
         writable[key as string] = value
-        this.session.state = target as Record<string, unknown>
+        this.session.state = target
 
         return true
       }

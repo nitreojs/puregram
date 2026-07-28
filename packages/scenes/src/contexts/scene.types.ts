@@ -7,7 +7,8 @@ import type { SceneState } from '../types'
  */
 export interface SceneSessionState<S = SceneState> {
   current?: string
-  state?: S
+  // handlers fill the state field by field, so the stored record is partial until they do
+  state?: Partial<S>
   stepId?: number
   firstTime?: boolean
 }
@@ -16,21 +17,21 @@ export interface SceneSessionState<S = SceneState> {
  * runtime payload a SceneContext binds to: wrapped update + `session`.
  * structural by design — scenes is generic over update kinds
  */
-export interface ScenePayload {
+export interface ScenePayload<S = SceneState> {
   [key: string]: unknown
-  session: { __scene?: SceneSessionState } & Record<string, unknown>
+  session: { __scene?: SceneSessionState<S> } & Record<string, unknown>
 }
 
-export interface SceneContextOptions {
-  payload: ScenePayload
+export interface SceneContextOptions<S = SceneState> {
+  payload: ScenePayload<S>
   manager: SceneManager
 }
 
 export interface SceneContextEnterOptions<S = SceneState> {
   /** logging into a handler without executing it */
   silent?: boolean
-  /** the standard state for the scene */
-  state?: S
+  /** seed state merged into the scene's state on enter */
+  state?: Partial<S>
 }
 
 export interface SceneContextLeaveOptions {

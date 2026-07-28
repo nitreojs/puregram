@@ -2,7 +2,7 @@ import { isTtlStorage, type KVStorage, MemoryStorage } from '@puregram/storage'
 import { createPlugin, type Telegram } from 'puregram'
 
 import { wrap } from './proxy'
-import type { TtlData } from './ttl'
+import { TTL_KEY, type TtlData } from './ttl'
 import type { AnyUpdate, SessionContext, SessionOptions, StorageKeyDescriptor } from './types'
 
 interface KeyResolvable {
@@ -82,6 +82,42 @@ const resolveKey = (
   return normalized.length === 0 ? undefined : normalized
 }
 
+// the stored record is writable from outside the plugin via `tg.session.set`, so metadata is validated key by key
+const stripTtlMeta = (record: Record<string, unknown>, ttlMap: Map<string, TtlData>) => {
+  if (typeof record !== 'object' || record === null || !Object.hasOwn(record, TTL_KEY)) {
+    return record
+  }
+
+  const meta = record[TTL_KEY] as Record<string, Partial<TtlData> | null> | null
+  const payload = { ...record }
+
+  delete payload[TTL_KEY]
+
+  if (typeof meta === 'object' && meta !== null) {
+    for (const [k, entry] of Object.entries(meta)) {
+      if (typeof entry?.t === 'number' && typeof entry.at === 'number' && Object.hasOwn(payload, k)) {
+        ttlMap.set(k, { t: entry.t, at: entry.at })
+      }
+    }
+  }
+
+  return payload
+}
+
+const attachTtlMeta = (payload: Record<string, unknown>, ttlMap: Map<string, TtlData>) => {
+  for (const k of ttlMap.keys()) {
+    if (!Object.hasOwn(payload, k)) {
+      ttlMap.delete(k)
+    }
+  }
+
+  if (ttlMap.size === 0) {
+    return payload
+  }
+
+  return { ...payload, [TTL_KEY]: Object.fromEntries(ttlMap) }
+}
+
 /** direct storage handle exposed as `tg.session` — methods proxy to the configured `KVStorage<unknown>` */
 export interface SessionExtension {
   get: (key: string) => Promise<unknown>
@@ -129,7 +165,7 @@ export function session (options: SessionOptions = {}) {
 
           if (Object.keys(sessionData).length !== 0) {
             changed = false
-            await storage.set(key, sessionData)
+            await storage.set(key, attachTtlMeta(sessionData, ttlMap))
 
             return
           }
@@ -145,7 +181,7 @@ export function session (options: SessionOptions = {}) {
           loaded = true
           stored = await storage.get(key)
           sessionData = stored !== undefined
-            ? stored as Record<string, unknown>
+            ? stripTtlMeta(stored as Record<string, unknown>, ttlMap)
             : initial(update as AnyUpdate) as Record<string, unknown>
 
           proxy = wrap(sessionData, $forceUpdate, ttlMap, onChange) as SessionContext

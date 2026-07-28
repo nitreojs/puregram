@@ -1,6 +1,10 @@
 export const PROXY_SYM = Symbol('proxy')
 export const TTL_SYM = Symbol('ttl')
 
+// ttl bookkeeping rides on the stored record under this key so lazy expiry survives a
+// storage round trip — stripped on load, so it never reaches `update.session`
+export const TTL_KEY = '__ttl'
+
 export interface TtlData {
   t: number
   at: number

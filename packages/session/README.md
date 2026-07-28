@@ -62,7 +62,7 @@ $ npm i -S @puregram/session
 
 ## `ttl`
 
-mark a session value as expiring after `t` ms — telegram will see it as gone once the timeout elapses, regardless of whether your storage backend supports ttl natively (the proxy checks per access):
+mark a session value as expiring after `t` ms — the deadline is persisted with the session, so it holds across updates and restarts regardless of whether your storage backend supports ttl natively (the proxy checks it per access):
 
 ```ts
 import { ttl } from '@puregram/session'
@@ -102,7 +102,11 @@ message.session.counter += 1                                     // counter = 3
 setTimeout(() => console.log(message.session.counter), 50_000)   // logs: 3
 ```
 
-if your backend already supports sliding-window expiry (redis, sqlite with `last_seen`, …) it'll be detected automatically via `isTtlStorage(storage)` and `touch()`'d on every read, so the timer rolls forward without you having to re-wrap
+expiry is lazy — a value is dropped the first time it's read past its deadline, not by a background sweep. that read returns `undefined` and removes the key from the session; the storage record catches up on the next flush
+
+the deadlines themselves ride on the stored record under a reserved `__ttl` key. it's stripped when the session loads, so it never reaches `update.session` — `Object.keys(session)` won't list it, and a session left with nothing but deadlines still deletes its storage record. you will see it if you read the raw record through `telegram.session.get`, though
+
+if your backend already supports sliding-window expiry (redis, sqlite with `last_seen`, …) it'll be detected automatically via `isTtlStorage(storage)` and `touch()`'d whenever an update reads the session without changing it, so the timer rolls forward without you having to re-wrap
 
 ---
 
@@ -139,7 +143,7 @@ await telegram.session.delete('promo:flag')
 const exists = await telegram.session.has('promo:flag')
 ```
 
-bypasses the proxy and the ttl-marker layer — what you write is what you get when you read
+bypasses the proxy and the ttl-marker layer — what you write is what you get when you read. records the middleware wrote carry the reserved `__ttl` key when any of their values are ttl-marked
 
 ---
 

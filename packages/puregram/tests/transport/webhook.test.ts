@@ -64,14 +64,14 @@ describe('hardening', () => {
       token: 'X',
       bot: STUB_BOT,
       httpClient: {
-        async request () {
+        request () {
           attempts += 1
 
           if (attempts === 1) {
-            throw new Error('network down')
+            return Promise.reject(new Error('network down'))
           }
 
-          return { status: 200, json: () => Promise.resolve({ ok: true, result: true }) }
+          return Promise.resolve({ status: 200, json: () => Promise.resolve({ ok: true, result: true }) })
         }
       }
     })
@@ -91,8 +91,10 @@ describe('hardening', () => {
     const tg = new Telegram({ token: 'X', bot: STUB_BOT })
     let cleaned = 0
 
-    tg.registerCleanup(async () => {
+    tg.registerCleanup(() => {
       cleaned += 1
+
+      return Promise.resolve()
     })
     await tg.start()
     await tg.shutdown()
@@ -106,8 +108,10 @@ describe('hardening', () => {
     let secondRan = false
 
     tg.registerCleanup(() => Promise.reject(new Error('boom')))
-    tg.registerCleanup(async () => {
+    tg.registerCleanup(() => {
       secondRan = true
+
+      return Promise.resolve()
     })
     await tg.start()
     await tg.shutdown()
@@ -261,19 +265,20 @@ describe('webhook reply (transparent)', () => {
   const recordingClient = (override?: (method: string) => unknown) => {
     const calls: string[] = []
     const client = {
-      async request (input: { url: string }) {
+      request (input: { url: string }) {
         const method = input.url.split('?')[0]?.split('/').pop() ?? ''
+
         calls.push(method)
 
         if (override) {
           const out = override(method)
 
           if (out !== undefined) {
-            return okJson(out)
+            return Promise.resolve(okJson(out))
           }
         }
 
-        return okJson(true)
+        return Promise.resolve(okJson(true))
       }
     }
 
@@ -434,13 +439,16 @@ describe('webhook reply (transparent)', () => {
     const tg = new Telegram({ token: 'X', bot: STUB_BOT })
     const cb = tg.getWebhookCallback({ timeoutMilliseconds: 20, onTimeout: 'throw' })
     const caught: Error[] = []
-    const handler = Promise.withResolvers<void>()
+    let release = () => {}
+    const held = new Promise<void>((resolve) => {
+      release = resolve
+    })
 
     tg.catch((error) => {
       caught.push(error)
     })
 
-    tg.onMessage(() => handler.promise)
+    tg.onMessage(() => held)
 
     const body = JSON.stringify({
       update_id: 1,
@@ -454,14 +462,17 @@ describe('webhook reply (transparent)', () => {
     expect(caught).toHaveLength(1)
     expect(caught[0]).toBeInstanceOf(WebhookTimeout)
 
-    handler.resolve()
+    release()
     await tg.shutdown()
   })
 
   it('onTimeout as a function receives the raw update and still answers 200', async () => {
     const tg = new Telegram({ token: 'X', bot: STUB_BOT })
     const seen: Record<string, unknown>[] = []
-    const handler = Promise.withResolvers<void>()
+    let release = () => {}
+    const held = new Promise<void>((resolve) => {
+      release = resolve
+    })
     const cb = tg.getWebhookCallback({
       timeoutMilliseconds: 20,
       onTimeout: (raw) => {
@@ -469,7 +480,7 @@ describe('webhook reply (transparent)', () => {
       }
     })
 
-    tg.onMessage(() => handler.promise)
+    tg.onMessage(() => held)
 
     const body = JSON.stringify({
       update_id: 7,
@@ -483,7 +494,7 @@ describe('webhook reply (transparent)', () => {
     expect(seen).toHaveLength(1)
     expect(seen[0].update_id).toBe(7)
 
-    handler.resolve()
+    release()
     await tg.shutdown()
   })
 })

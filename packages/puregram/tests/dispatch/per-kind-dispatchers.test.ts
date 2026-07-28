@@ -89,11 +89,7 @@ describe('per-kind dispatchers', () => {
 
     function _typeCheck () {
       // @ts-expect-error — onNotARealKind is not codegen'd
-      const fn: (h: () => void) => unknown = tg.onNotARealKind.bind(tg)
-
-      void fn
+      const _fn: (h: () => void) => unknown = tg.onNotARealKind.bind(tg)
     }
-
-    void _typeCheck
   })
 })

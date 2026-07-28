@@ -181,12 +181,8 @@ describe('tg.on predicate types', () => {
     // pulling the method through a typed alias gates on the property existing
     function _typeCheck () {
       // @ts-expect-error — onNotARealKind is not a codegen'd dispatcher method
-      const fn: (h: () => void) => unknown = tg.onNotARealKind.bind(tg)
-
-      void fn
+      const _fn: (h: () => void) => unknown = tg.onNotARealKind.bind(tg)
     }
-
-    void _typeCheck
   })
 
   it('narrowed handler arg supports per-kind shortcuts', () => {

@@ -87,6 +87,7 @@ describe('toBotApiId', () => {
   it('round-trips with parsePeerId for every type', () => {
     for (const id of [123456789, -987654321, -1001234567890]) {
       const parsed = parsePeerId(id)
+
       expect(toBotApiId(parsed.id, parsed.type)).toBe(id)
     }
   })

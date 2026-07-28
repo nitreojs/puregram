@@ -112,7 +112,7 @@ describe('@puregram/scenes — e2e', () => {
     const userHits: string[] = []
 
     tg.on('message', async (u) => {
-      userHits.push(u.raw.text!)
+      userHits.push(u.raw.text)
 
       if (u.raw.text === 'enter') {
         await u.scene.enter('wizard')

@@ -20,7 +20,7 @@ declare const tg: Telegram
 
 tg.extend(session())
 
-tg.on('message', (u: MessageUpdate) => {
+tg.onMessage((u: MessageUpdate) => {
   // typed via SessionData augmentation
   u.session.counter = 1
 
@@ -35,7 +35,7 @@ tg.on('message', (u: MessageUpdate) => {
   return u.session.$forceUpdate()
 })
 
-tg.on('callback_query', (u: CallbackQueryUpdate) => {
+tg.onCallbackQuery((u: CallbackQueryUpdate) => {
   // same SessionData shape on every augmented kind
   u.session.counter = 2
 

@@ -8,7 +8,7 @@ const STUB_BOT = { id: 1, is_bot: true, first_name: 'stub', username: 'stubbot' 
 const recordingClient = () => {
   const calls: { url: string, body: unknown }[] = []
   const client: HttpClient = {
-    async request (input) {
+    request (input) {
       let body: unknown
 
       if (input.init.body instanceof URLSearchParams) {
@@ -23,7 +23,7 @@ const recordingClient = () => {
 
       calls.push({ url: input.url, body })
 
-      return { status: 200, json: () => Promise.resolve({ ok: true, result: true }) }
+      return Promise.resolve({ status: 200, json: () => Promise.resolve({ ok: true, result: true }) })
     }
   }
 

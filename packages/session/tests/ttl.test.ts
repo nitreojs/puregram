@@ -28,15 +28,13 @@ const makeHarness = async () => {
     handler(update.session)
   })
 
-  const dispatch = (fn: (s: SessionContext) => void) => {
-    const { promise, resolve } = Promise.withResolvers<void>()
-
-    handler = fn
-    t.emit('ttlprobe', { from: { id: 7 } })
-    setImmediate(resolve)
-
-    return promise
-  }
+  const dispatch = (fn: (s: SessionContext) => void) => (
+    new Promise<void>((resolve) => {
+      handler = fn
+      t.emit('ttlprobe', { from: { id: 7 } })
+      setImmediate(resolve)
+    })
+  )
 
   return { storage, t, dispatch }
 }

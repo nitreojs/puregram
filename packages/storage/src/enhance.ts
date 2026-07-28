@@ -51,7 +51,7 @@ const latestVersion = (migrations: Record<number, unknown>) => {
  */
 export function enhanceStorage<V> (base: TtlStorage<unknown>, opts?: EnhanceStorageOptions): TtlStorage<V>
 export function enhanceStorage<V> (base: KVStorage<unknown>, opts?: EnhanceStorageOptions): KVStorage<V>
-export function enhanceStorage<V> (base: KVStorage<unknown>, opts: EnhanceStorageOptions = {}): KVStorage<V> {
+export function enhanceStorage<V> (base: KVStorage<unknown>, opts: EnhanceStorageOptions = {}) {
   const migrations = opts.migrations ?? {}
   const target = latestVersion(migrations)
 

@@ -31,7 +31,7 @@ describe('fileUniqueIdFromFileId', () => {
   })
 
   it('maps every real file type to a unique_id class', () => {
-    for (let fileType = 0; fileType < FileType.Size; fileType++) {
+    for (let fileType: FileType = 0; fileType < FileType.Size; fileType++) {
       expect(FILE_TYPE_TO_UNIQUE.has(fileType)).toBe(true)
     }
   })

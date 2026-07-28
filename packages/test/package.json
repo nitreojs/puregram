@@ -70,6 +70,7 @@
   },
   "scripts": {
     "build": "rm -rf lib && tsc --project tsconfig.build.json && tsc-alias -p tsconfig.build.json --resolve-full-paths",
+    "typecheck": "tsc --noEmit -p tsconfig.eslint.json",
     "test": "vitest run",
     "test:watch": "vitest"
   },

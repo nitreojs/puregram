@@ -9,7 +9,7 @@ import type { Schema } from '../../scripts/lib/schema-types'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
-async function loadFixture (): Promise<Schema> {
+async function loadFixture () {
   return JSON.parse(
     await readFile(resolve(__dirname, '../fixtures/formattable-schema.json'), 'utf8')
   ) as Schema

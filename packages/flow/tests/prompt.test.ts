@@ -168,7 +168,7 @@ describe('prompt', () => {
     const seen: string[] = []
 
     t.on('message', (message) => {
-      seen.push(message.raw.text!)
+      seen.push(message.raw.text)
     })
 
     await (t as any).dispatch({

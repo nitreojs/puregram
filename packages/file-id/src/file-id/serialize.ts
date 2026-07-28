@@ -1,4 +1,4 @@
-import { FILE_REFERENCE_FLAG, FileType, WEB_LOCATION_FLAG } from '../constants'
+import { FILE_REFERENCE_FLAG, type FileType, isPhotoFileType, WEB_LOCATION_FLAG } from '../constants'
 import {
   base64urlEncode,
   BinaryWriter,
@@ -10,8 +10,8 @@ import { serializePhotoSizeSource } from '../photo-size-source/serialize'
 import type { ParsedFileId } from './types'
 
 function assertPhotoFileType (fileType: FileType) {
-  if (fileType !== FileType.Thumbnail && fileType !== FileType.ProfilePhoto && fileType !== FileType.Photo) {
-    throw new Error(`photo FileId requires file type Thumbnail | ProfilePhoto | Photo, got ${fileType}`)
+  if (!isPhotoFileType(fileType)) {
+    throw new Error(`photo FileId requires a photo-class file type, got ${fileType}`)
   }
 }
 

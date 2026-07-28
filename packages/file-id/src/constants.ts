@@ -26,7 +26,37 @@ export enum FileType {
   SelfDestructingVideo = 23,
   SelfDestructingVideoNote = 24,
   SelfDestructingVoiceNote = 25,
-  None = 26
+  LivePhoto = 26,
+  SelfDestructingLivePhoto = 27,
+  // sentinel one past the last real type — TDLib's MAX_FILE_TYPE
+  Size = 28,
+  None = 29
+}
+
+// TDLib's FileTypeClass::Photo — these file_ids carry a trailing PhotoSizeSource
+// instead of the plain { id, access_hash } document body
+export type PhotoFileType =
+  | FileType.Thumbnail
+  | FileType.ProfilePhoto
+  | FileType.Photo
+  | FileType.EncryptedThumbnail
+  | FileType.Wallpaper
+  | FileType.PhotoStory
+  | FileType.SelfDestructingPhoto
+
+const PHOTO_FILE_TYPES: ReadonlySet<FileType> = new Set([
+  FileType.Thumbnail,
+  FileType.ProfilePhoto,
+  FileType.Photo,
+  FileType.EncryptedThumbnail,
+  FileType.Wallpaper,
+  FileType.PhotoStory,
+  FileType.SelfDestructingPhoto
+])
+
+/** whether a file type is a photo location — i.e. its `file_id` carries a `PhotoSizeSource` */
+export function isPhotoFileType (fileType: FileType): fileType is PhotoFileType {
+  return PHOTO_FILE_TYPES.has(fileType)
 }
 
 // type_id flags packed into the high bits of the first i32
@@ -62,14 +92,11 @@ export enum PhotoSizeSourceType {
 export const VERSION_ADD_PHOTO_SIZE_SOURCE = 22
 export const VERSION_REMOVE_PHOTO_VOLUME_AND_LOCAL_ID = 32
 
-// known-good (version, sub_version) pairs round-tripped by this package
-export const SUPPORTED_VERSIONS: readonly (readonly [number, number])[] = [
-  [2, 0],
-  [4, 22],
-  [4, 27],
-  [4, 30],
-  [4, 32]
-]
+// major versions the parser accepts. 3 is TDLib's "generated" local-file id and never appears
+// as a remote file_id, so it's absent on purpose. sub_version is deliberately unbounded — TDLib
+// writes `Version::Next - 1` there, so it climbs on every telegram release, while the only
+// layout cutoffs that matter are the two above
+export const SUPPORTED_VERSIONS: readonly number[] = [2, 4]
 
 // mapping from full FileType to FileUniqueType — used by fileUniqueIdFromFileId
 export const FILE_TYPE_TO_UNIQUE: ReadonlyMap<FileType, FileUniqueType> = new Map([
@@ -91,10 +118,13 @@ export const FILE_TYPE_TO_UNIQUE: ReadonlyMap<FileType, FileUniqueType> = new Ma
   [FileType.Background, FileUniqueType.Document],
   [FileType.DocumentAsFile, FileUniqueType.Document],
   [FileType.Ringtone, FileUniqueType.Document],
+  [FileType.CallLog, FileUniqueType.Document],
   [FileType.VideoStory, FileUniqueType.Document],
   [FileType.SelfDestructingVideo, FileUniqueType.Document],
   [FileType.SelfDestructingVideoNote, FileUniqueType.Document],
   [FileType.SelfDestructingVoiceNote, FileUniqueType.Document],
+  [FileType.LivePhoto, FileUniqueType.Document],
+  [FileType.SelfDestructingLivePhoto, FileUniqueType.Document],
 
   [FileType.SecureDecrypted, FileUniqueType.Secure],
   [FileType.SecureEncrypted, FileUniqueType.Secure],

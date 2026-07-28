@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
+import { FILE_TYPE_TO_UNIQUE, FileType } from '../../src/constants'
 import { parseFileId } from '../../src/file-id/parse'
 import { fileUniqueIdFromFileId } from '../../src/file-unique-id/from-file-id'
 import { serializeFileUniqueId } from '../../src/file-unique-id/serialize'
@@ -27,5 +28,11 @@ describe('fileUniqueIdFromFileId', () => {
 
     expect(unique.volumeId).toBe(257017715n)
     expect(unique.localId).toBe(110699)
+  })
+
+  it('maps every real file type to a unique_id class', () => {
+    for (let fileType = 0; fileType < FileType.Size; fileType++) {
+      expect(FILE_TYPE_TO_UNIQUE.has(fileType)).toBe(true)
+    }
   })
 })

@@ -202,10 +202,13 @@ FileType.VoiceNote              // 3
 FileType.VideoNote              // 13
 FileType.Document               // 5
 FileType.SelfDestructingPhoto   // 22
-// …and ~30 more
+FileType.LivePhoto              // 26
+// …and ~20 more
 ```
 
-the full list lives in [`packages/file-id/src/constants.ts`](src/constants.ts)
+the full list lives in [`packages/file-id/src/constants.ts`](src/constants.ts). `FileType.Size` is a sentinel one past the last real type — a `file_id` carrying anything at or above it is rejected as unknown
+
+`isPhotoFileType(fileType)` narrows to `PhotoFileType`, the photo-location subset (`Thumbnail`, `ProfilePhoto`, `Photo`, `EncryptedThumbnail`, `Wallpaper`, `PhotoStory`, `SelfDestructingPhoto`) — those are the `file_id`s that carry a `PhotoSizeSource`
 
 <a name='photo-size-source'></a>
 ### `PhotoSizeSource` discriminated union
@@ -221,16 +224,23 @@ if (isPhotoFileId(file.raw)) {
   const ps = file.raw.photoSize
 
   switch (ps.type) {
-    case 'legacy':                ps.localId; break
-    case 'thumbnail':             ps.thumbnailType; break
-    case 'dialog_photo_small':    ps.dialogId; break
-    case 'dialog_photo_big':      ps.dialogId; break
-    case 'sticker_set_thumbnail': ps.stickerSetId; break
+    case 'legacy':                              ps.localId; break
+    case 'thumbnail':                           ps.thumbnailType; break
+    case 'dialog_photo_small':                  ps.dialogId; break
+    case 'dialog_photo_big':                    ps.dialogId; break
+    case 'sticker_set_thumbnail':               ps.stickerSetId; break
+    case 'full_legacy':                         ps.secret; break
+    case 'dialog_photo_small_legacy':           ps.dialogId; break
+    case 'dialog_photo_big_legacy':             ps.dialogId; break
+    case 'sticker_set_thumbnail_legacy':        ps.stickerSetId; break
+    case 'sticker_set_thumbnail_version':       ps.version; break
   }
 }
 ```
 
-each variant has its own type guard exported from the same module — `isLegacySource`, `isThumbnailSource`, `isDialogPhotoSmallSource`, `isDialogPhotoBigSource`, `isStickerSetThumbnailSource`. the `PhotoSizeSource` union itself is also exported for type-only use
+the last five variants only show up on `sub_version >= 32` ids, where the volume id and local id moved inside the source instead of sitting around it
+
+each variant has its own type guard exported from the same module — `isLegacySource`, `isThumbnailSource`, `isDialogPhotoSmallSource`, `isDialogPhotoBigSource`, `isStickerSetThumbnailSource`, `isFullLegacySource`, `isDialogPhotoSmallLegacySource`, `isDialogPhotoBigLegacySource`, `isStickerSetThumbnailLegacySource`, `isStickerSetThumbnailVersionSource`. the `PhotoSizeSource` union itself is also exported for type-only use
 
 <a name='functional-api'></a>
 ### functional api (no class)
@@ -295,7 +305,8 @@ these are stable but very low-level. if you reach for them, you probably want to
 
 ## constants
 
-- `SUPPORTED_VERSIONS` — readonly tuple of `[majorVersion, subVersion]` pairs the parser accepts
+- `SUPPORTED_VERSIONS` — the major `file_id` versions the parser accepts (`[2, 4]`); anything else throws `UnsupportedFileIdVersionError`. `sub_version` is unbounded on purpose — tdlib bumps it every release, but only the two layout cutoffs below change how the payload is read
+- `VERSION_ADD_PHOTO_SIZE_SOURCE` / `VERSION_REMOVE_PHOTO_VOLUME_AND_LOCAL_ID` — the `sub_version` cutoffs (22 and 32) where the photo payload layout changed
 - `FILE_REFERENCE_FLAG` — `0x02000000`, the high-bit flag in the type id meaning "this id has a fresh file_reference"
 - `WEB_LOCATION_FLAG` — `0x01000000`, the high-bit flag meaning "this id is a web location"
 

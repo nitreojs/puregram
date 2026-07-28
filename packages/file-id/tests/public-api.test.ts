@@ -11,6 +11,11 @@ describe('public api surface', () => {
       'isWebUniqueId', 'isPhotoUniqueId', 'isDocumentUniqueId',
       'isSecureUniqueId', 'isEncryptedUniqueId', 'isTempUniqueId',
       'parsePhotoSizeSource', 'serializePhotoSizeSource',
+      'isLegacySource', 'isThumbnailSource',
+      'isDialogPhotoSmallSource', 'isDialogPhotoBigSource', 'isStickerSetThumbnailSource',
+      'isFullLegacySource', 'isDialogPhotoSmallLegacySource', 'isDialogPhotoBigLegacySource',
+      'isStickerSetThumbnailLegacySource', 'isStickerSetThumbnailVersionSource',
+      'isPhotoFileType',
       'base64urlDecode', 'base64urlEncode', 'rleDecode', 'rleEncode',
       'packTlString', 'unpackTlString',
       'BinaryReader', 'BinaryWriter',
@@ -22,7 +27,11 @@ describe('public api surface', () => {
     }
   })
 
-  it('exports the FileType enum', () => {
+  it('exports the FileType enum, in sync with TDLib', () => {
     expect(api.FileType.Sticker).toBe(8)
+    expect(api.FileType.LivePhoto).toBe(26)
+    expect(api.FileType.SelfDestructingLivePhoto).toBe(27)
+    expect(api.FileType.Size).toBe(28)
+    expect(api.FileType.None).toBe(29)
   })
 })

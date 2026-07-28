@@ -1,7 +1,26 @@
 import { describe, expect, it } from 'vitest'
 
+import { FileType, type PhotoFileType } from '../../src/constants'
+import {
+  base64urlDecode,
+  base64urlEncode,
+  rleDecode,
+  rleEncode
+} from '../../src/encoding'
+import { FileIdParseError, UnsupportedFileIdVersionError } from '../../src/errors'
 import { parseFileId } from '../../src/file-id/parse'
+import { serializeFileId } from '../../src/file-id/serialize'
+import type { ParsedFileId } from '../../src/file-id/types'
+import { fileUniqueIdFromFileId } from '../../src/file-unique-id/from-file-id'
 import { FIXTURES } from '../fixtures/file-ids'
+
+function patchBytes (fileId: string, patch: (bytes: Uint8Array) => void) {
+  const bytes = Uint8Array.from(rleDecode(base64urlDecode(fileId)))
+
+  patch(bytes)
+
+  return base64urlEncode(rleEncode(bytes))
+}
 
 describe('parseFileId', () => {
   it('parses a v2 sticker (document family)', () => {
@@ -133,5 +152,63 @@ describe('parseFileId', () => {
 
     expect(file.photoSize.localId).toBe(265446)
     expect(file.photoSize.thumbnailType).toBe('x')
+  })
+
+  it('parses every photo-class file type as a photo location', () => {
+    const photoTypes: PhotoFileType[] = [
+      FileType.Thumbnail,
+      FileType.ProfilePhoto,
+      FileType.Photo,
+      FileType.EncryptedThumbnail,
+      FileType.Wallpaper,
+      FileType.PhotoStory,
+      FileType.SelfDestructingPhoto
+    ]
+
+    for (const fileType of photoTypes) {
+      const raw: ParsedFileId = {
+        kind: 'photo',
+        source: '',
+        version: 4,
+        subVersion: 32,
+        fileType,
+        dcId: 2,
+        id: 1234n,
+        accessHash: 5678n,
+        photoSize: { type: 'full_legacy', volumeId: 7n, secret: 8n, localId: 9 }
+      }
+
+      const file = parseFileId(serializeFileId(raw))
+
+      expect(file.kind).toBe('photo')
+      expect(file.fileType).toBe(fileType)
+      expect(fileUniqueIdFromFileId(file).kind).toBe('photo')
+    }
+  })
+
+  it('rejects file_id versions the parser does not know', () => {
+    for (const version of [1, 3, 5]) {
+      const patched = patchBytes(FIXTURES.STICKER_V4_27, (bytes) => {
+        bytes[bytes.byteLength - 1] = version
+      })
+
+      expect(() => parseFileId(patched)).toThrow(UnsupportedFileIdVersionError)
+    }
+  })
+
+  it('accepts a sub_version newer than any tdlib release has written', () => {
+    const patched = patchBytes(FIXTURES.STICKER_V4_27, (bytes) => {
+      bytes[bytes.byteLength - 2] = 0xff
+    })
+
+    expect(parseFileId(patched).subVersion).toBe(0xff)
+  })
+
+  it('rejects a file type past the known range', () => {
+    const patched = patchBytes(FIXTURES.STICKER_V4_27, (bytes) => {
+      bytes[0] = FileType.Size
+    })
+
+    expect(() => parseFileId(patched)).toThrow(FileIdParseError)
   })
 })

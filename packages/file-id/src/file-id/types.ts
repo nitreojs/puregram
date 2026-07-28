@@ -1,4 +1,4 @@
-import type { FileType } from '../constants'
+import type { FileType, PhotoFileType } from '../constants'
 import type { PhotoSizeSource } from '../photo-size-source/types'
 
 interface BaseFileId {
@@ -12,7 +12,7 @@ interface BaseFileId {
 
 export interface PhotoFileId extends BaseFileId {
   kind: 'photo'
-  fileType: FileType.Thumbnail | FileType.ProfilePhoto | FileType.Photo
+  fileType: PhotoFileType
   id: bigint
   accessHash: bigint
   photoSize: PhotoSizeSource

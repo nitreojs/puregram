@@ -208,23 +208,30 @@ if (isPhotoFileId(file.raw)) {
   const ps = file.raw.photoSize
 
   switch (ps.type) {
-    case 'legacy':                ps.localId; break
-    case 'thumbnail':             ps.thumbnailType; break
-    case 'dialog_photo_small':    ps.dialogId; break
-    case 'dialog_photo_big':      ps.dialogId; break
-    case 'sticker_set_thumbnail': ps.stickerSetId; break
+    case 'legacy':                        ps.localId; break
+    case 'thumbnail':                     ps.thumbnailType; break
+    case 'dialog_photo_small':            ps.dialogId; break
+    case 'dialog_photo_big':              ps.dialogId; break
+    case 'sticker_set_thumbnail':         ps.stickerSetId; break
+    case 'full_legacy':                   ps.secret; break
+    case 'dialog_photo_small_legacy':     ps.dialogId; break
+    case 'dialog_photo_big_legacy':       ps.dialogId; break
+    case 'sticker_set_thumbnail_legacy':  ps.stickerSetId; break
+    case 'sticker_set_thumbnail_version': ps.version; break
   }
 }
 ```
 
-per-variant type guards: `isLegacySource`, `isThumbnailSource`, `isDialogPhotoSmallSource`, `isDialogPhotoBigSource`, `isStickerSetThumbnailSource`
+the last five variants only appear on `sub_version >= 32` ids, where volume id and local id moved inside the source
+
+per-variant type guards: `isLegacySource`, `isThumbnailSource`, `isDialogPhotoSmallSource`, `isDialogPhotoBigSource`, `isStickerSetThumbnailSource`, `isFullLegacySource`, `isDialogPhotoSmallLegacySource`, `isDialogPhotoBigLegacySource`, `isStickerSetThumbnailLegacySource`, `isStickerSetThumbnailVersionSource`
 
 ## errors
 
 | class | thrown when |
 |---|---|
 | `FileIdParseError` | malformed base64url, truncated TL, unknown file type |
-| `UnsupportedFileIdVersionError` | the `file_id`'s major/minor version is newer than what this package supports |
+| `UnsupportedFileIdVersionError` | the `file_id`'s major version is not one this package knows how to lay out (only `2` and `4` exist today) |
 
 ```ts
 import { FileId, FileIdParseError, UnsupportedFileIdVersionError } from '@puregram/file-id'
@@ -242,7 +249,7 @@ try {
 }
 ```
 
-`UnsupportedFileIdVersionError` exposes `.version` and `.subVersion` — open an issue when you hit this; telegram has bumped the format
+`UnsupportedFileIdVersionError` exposes `.version` and `.subVersion` — open an issue when you hit this; telegram has bumped the format. `sub_version` alone never triggers it: tdlib raises it on every release, but only the `22` and `32` cutoffs change the payload layout
 
 ## types
 
@@ -265,7 +272,7 @@ import type {
 import { FileType, FileUniqueType, PhotoSizeSourceType } from '@puregram/file-id'
 ```
 
-`FileType` mirrors [TDLib's FileType enum](https://core.telegram.org/tdlib/getting-started#downloading-files) — 26 variants from `Thumbnail` through `SelfDestructingVoiceNote`
+`FileType` mirrors [TDLib's FileType enum](https://core.telegram.org/tdlib/getting-started#downloading-files) — 28 variants from `Thumbnail` through `SelfDestructingLivePhoto`, plus the `Size` sentinel and `None`. `isPhotoFileType(fileType)` narrows to `PhotoFileType`, the subset whose `file_id`s carry a `PhotoSizeSource`
 
 ## low-level encoding helpers
 

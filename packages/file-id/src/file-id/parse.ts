@@ -1,11 +1,17 @@
-import { FILE_REFERENCE_FLAG, FileType, WEB_LOCATION_FLAG } from '../constants'
+import {
+  FILE_REFERENCE_FLAG,
+  FileType,
+  isPhotoFileType,
+  SUPPORTED_VERSIONS,
+  WEB_LOCATION_FLAG
+} from '../constants'
 import {
   base64urlDecode,
   BinaryReader,
   rleDecode,
   unpackTlString
 } from '../encoding'
-import { FileIdParseError } from '../errors'
+import { FileIdParseError, UnsupportedFileIdVersionError } from '../errors'
 import { parsePhotoSizeSource } from '../photo-size-source/parse'
 
 import type { ParsedFileId } from './types'
@@ -23,12 +29,22 @@ export function parseFileId (input: string): ParsedFileId {
   const hasSubVersion = version === 4
   const subVersion = hasSubVersion ? (decoded[decoded.byteLength - 2] ?? 0) : 0
   const payloadEnd = decoded.byteLength - (hasSubVersion ? 2 : 1)
+
+  if (!SUPPORTED_VERSIONS.includes(version)) {
+    throw new UnsupportedFileIdVersionError(version, subVersion)
+  }
+
   const reader = new BinaryReader(decoded.subarray(0, payloadEnd))
 
   const rawTypeId = reader.readU32()
   const hasWebLocation = (rawTypeId & WEB_LOCATION_FLAG) !== 0
   const hasFileReference = (rawTypeId & FILE_REFERENCE_FLAG) !== 0
   const fileType = (rawTypeId & ~WEB_LOCATION_FLAG & ~FILE_REFERENCE_FLAG) as FileType
+
+  if (fileType >= FileType.Size) {
+    throw new FileIdParseError(`unknown file type ${fileType}`, input)
+  }
+
   const dcId = reader.readU32()
 
   let fileReference: Uint8Array | undefined
@@ -57,7 +73,7 @@ export function parseFileId (input: string): ParsedFileId {
   const id = reader.readI64()
   const accessHash = reader.readI64()
 
-  if (fileType === FileType.Thumbnail || fileType === FileType.ProfilePhoto || fileType === FileType.Photo) {
+  if (isPhotoFileType(fileType)) {
     const photoSize = parsePhotoSizeSource(reader, version, subVersion)
 
     return {

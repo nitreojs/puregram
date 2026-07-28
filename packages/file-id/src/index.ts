@@ -2,10 +2,12 @@ export {
   FILE_REFERENCE_FLAG,
   FileType,
   FileUniqueType,
+  isPhotoFileType,
   PhotoSizeSourceType,
   SUPPORTED_VERSIONS,
   WEB_LOCATION_FLAG
 } from './constants'
+export type { PhotoFileType } from './constants'
 export {
   base64urlDecode,
   base64urlEncode,
@@ -49,19 +51,29 @@ export type {
   WebFileUniqueId
 } from './file-unique-id'
 export {
+  isDialogPhotoBigLegacySource,
   isDialogPhotoBigSource,
+  isDialogPhotoSmallLegacySource,
   isDialogPhotoSmallSource,
+  isFullLegacySource,
   isLegacySource,
+  isStickerSetThumbnailLegacySource,
   isStickerSetThumbnailSource,
+  isStickerSetThumbnailVersionSource,
   isThumbnailSource,
   parsePhotoSizeSource,
   serializePhotoSizeSource
 } from './photo-size-source'
 export type {
+  DialogPhotoBigLegacyPhotoSizeSource,
   DialogPhotoBigPhotoSizeSource,
+  DialogPhotoSmallLegacyPhotoSizeSource,
   DialogPhotoSmallPhotoSizeSource,
+  FullLegacyPhotoSizeSource,
   LegacyPhotoSizeSource,
   PhotoSizeSource,
+  StickerSetThumbnailLegacyPhotoSizeSource,
   StickerSetThumbnailPhotoSizeSource,
+  StickerSetThumbnailVersionPhotoSizeSource,
   ThumbnailPhotoSizeSource
 } from './photo-size-source'

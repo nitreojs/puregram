@@ -4,6 +4,7 @@ import type { TestUser } from '../actors/user'
 import type { TestEnv } from '../env'
 
 import { registerPack } from './registry'
+import { sessionKeyOfUser } from './session-key'
 
 interface SessionExtensionRuntime {
   get: (key: string) => Promise<unknown>
@@ -48,8 +49,6 @@ declare module '../env' {
   }
 }
 
-const keyOf = (user: TestUser) => String(user.id)
-
 const isObject = (value: unknown): value is SessionRecord => (
   typeof value === 'object' && value !== null && !Array.isArray(value)
 )
@@ -83,7 +82,7 @@ registerPack({
 
     const handle: ScenesHandle = {
       async current (user) {
-        const key = keyOf(user)
+        const key = sessionKeyOfUser(user)
         const data = await readSession(key)
         const scene = data.__scene
 
@@ -99,7 +98,7 @@ registerPack({
       },
 
       async enter (user, sceneId, opts) {
-        const key = keyOf(user)
+        const key = sessionKeyOfUser(user)
         const data = await readSession(key)
         const sceneState: SceneStateRecord = { current: sceneId }
 
@@ -127,7 +126,7 @@ registerPack({
       },
 
       async leave (user) {
-        const key = keyOf(user)
+        const key = sessionKeyOfUser(user)
         const data = await readSession(key)
 
         if (data.__scene === undefined) {

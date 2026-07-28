@@ -63,7 +63,7 @@ export class TestEnv<TG extends Telegram = Telegram> {
       const resolved = await this.overrides.resolve(method, captured)
 
       if (resolved.kind === 'error') {
-        const sentinel = resolved.value as { error_code: number, description: string, parameters?: object }
+        const sentinel = resolved.value
         const envelope = {
           ok: false as const,
           error_code: sentinel.error_code,
@@ -82,6 +82,10 @@ export class TestEnv<TG extends Telegram = Telegram> {
       }
 
       if (resolved.kind === 'reply') {
+        if (resolved.mutateWorld) {
+          this.applyWorldSideEffects(method, captured)
+        }
+
         record.result = resolved.value
         this.apiCalls.push(record)
 
@@ -285,6 +289,17 @@ export class TestEnv<TG extends Telegram = Telegram> {
     }
 
     return this.storage
+  }
+
+  // `mutateWorld` overrides still want the world to move (message appended to history,
+  // member banned, …) while the caller sees the forced reply — so the auto-stub runs for
+  // its side effects only
+  private applyWorldSideEffects (method: string, params: Record<string, unknown>) {
+    try {
+      runAutoStub(this.world, method, params)
+    } catch {
+      // a stub that can't find its target simply has no side effect to keep
+    }
   }
 
   private async injectInternal (raw: Record<string, unknown>) {

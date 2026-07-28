@@ -1,4 +1,4 @@
-import { scenes } from '@puregram/scenes'
+import { scenes, StepScene } from '@puregram/scenes'
 import { session } from '@puregram/session'
 import { Telegram } from 'puregram'
 import { afterEach, describe, expect, it } from 'vitest'
@@ -106,5 +106,63 @@ describe('@puregram/test/scenes', () => {
     expect(history[1]?.sceneId).toBe('profile')
     expect(history[1]?.step).toBe(1)
     expect(typeof history[0]?.enteredAt).toBe('number')
+  })
+
+  it('current(user) observes a scene entered by a real dispatch', async () => {
+    const wizard = new StepScene('wizard', {
+      steps: [
+        (context) => {
+          if (!context.scene.step.firstTime) {
+            return context.scene.step.next()
+          }
+        },
+        () => {}
+      ]
+    })
+
+    const tg = new Telegram({ token: 'TEST', apiBaseUrl: 'http://unused/bot' })
+      .extend(session())
+      .extend(scenes({ scenes: [wizard] }))
+    const env = createTestEnv(tg)
+
+    cleanup = () => env.shutdown()
+
+    const alice = env.createUser()
+
+    tg.onMessage(context => context.scene.enter('wizard'))
+
+    await alice.sendMessage('/start')
+
+    expect(await env.scenes!.current(alice)).toMatchObject({ sceneId: 'wizard', step: 0 })
+
+    await alice.sendMessage('go on')
+
+    expect(await env.scenes!.current(alice)).toMatchObject({ sceneId: 'wizard', step: 1 })
+  })
+
+  it('a scene seeded through enter(user, …) is picked up by a real dispatch', async () => {
+    const hits: number[] = []
+    const wizard = new StepScene('wizard', { steps: [() => hits.push(0), () => hits.push(1)] })
+
+    const tg = new Telegram({ token: 'TEST', apiBaseUrl: 'http://unused/bot' })
+      .extend(session())
+      .extend(scenes({ scenes: [wizard] }))
+    const env = createTestEnv(tg)
+
+    cleanup = () => env.shutdown()
+
+    let fellThrough = false
+
+    tg.onMessage(() => {
+      fellThrough = true
+    })
+
+    const alice = env.createUser()
+
+    await env.scenes!.enter(alice, 'wizard', { step: 1 })
+    await alice.sendMessage('hi')
+
+    expect(hits).toEqual([1])
+    expect(fellThrough).toBe(false)
   })
 })

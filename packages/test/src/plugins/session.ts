@@ -4,6 +4,7 @@ import type { TestUser } from '../actors/user'
 import type { TestEnv } from '../env'
 
 import { registerPack } from './registry'
+import { sessionKeyOfUpdate, sessionKeyOfUser } from './session-key'
 
 interface SessionExtensionRuntime {
   get: (key: string) => Promise<unknown>
@@ -26,37 +27,9 @@ declare module '../env' {
   }
 }
 
-interface KeyResolvable {
-  from?: { id?: number | string }
-  senderChat?: { id?: number | string }
-  chat?: { id?: number | string }
-}
-
-// mirrors `@puregram/session`'s default composite keyer: `user:<from.id>:chat:<chat.id>`
-// with undefined segments omitted. testuser→pm convention means user.id === pmChat.id
-const keyOf = (user: TestUser) => `user:${user.id}:chat:${user.id}`
-
 const isObject = (value: unknown): value is SessionData => (
   typeof value === 'object' && value !== null && !Array.isArray(value)
 )
-
-const updateKey = (update: unknown) => {
-  const u = update as KeyResolvable
-  const fromId = u.from?.id
-  const chatId = u.chat?.id ?? u.senderChat?.id
-
-  const segments: string[] = []
-
-  if (fromId !== undefined) {
-    segments.push(`user:${fromId}`)
-  }
-
-  if (chatId !== undefined) {
-    segments.push(`chat:${chatId}`)
-  }
-
-  return segments.length > 0 ? segments.join(':') : undefined
-}
 
 registerPack({
   pluginName: 'session',
@@ -100,7 +73,7 @@ registerPack({
         return
       }
 
-      const key = updateKey(payload)
+      const key = sessionKeyOfUpdate(payload)
 
       if (key !== undefined) {
         await refresh(key)
@@ -108,7 +81,7 @@ registerPack({
     })
 
     const handle: SessionHandle = ((user: TestUser) => {
-      const key = keyOf(user)
+      const key = sessionKeyOfUser(user)
 
       if (!cache.has(key)) {
         cache.set(key, {})
@@ -152,7 +125,7 @@ registerPack({
     }) as SessionHandle
 
     handle.seed = async (user, data) => {
-      const key = keyOf(user)
+      const key = sessionKeyOfUser(user)
       const next = { ...data }
 
       cache.set(key, { ...next })

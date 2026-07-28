@@ -40,26 +40,6 @@
       "types": "./lib/plugins/media-cacher.d.ts",
       "import": "./lib/plugins/media-cacher.js",
       "default": "./lib/plugins/media-cacher.js"
-    },
-    "./payments": {
-      "types": "./lib/advanced/payments.d.ts",
-      "import": "./lib/advanced/payments.js",
-      "default": "./lib/advanced/payments.js"
-    },
-    "./business": {
-      "types": "./lib/advanced/business.d.ts",
-      "import": "./lib/advanced/business.js",
-      "default": "./lib/advanced/business.js"
-    },
-    "./forum": {
-      "types": "./lib/advanced/forum.d.ts",
-      "import": "./lib/advanced/forum.js",
-      "default": "./lib/advanced/forum.js"
-    },
-    "./polls": {
-      "types": "./lib/advanced/polls.d.ts",
-      "import": "./lib/advanced/polls.js",
-      "default": "./lib/advanced/polls.js"
     }
   },
   "files": [

@@ -11,7 +11,7 @@ export type OverrideEntry = unknown
 export type ResolveResult =
   | { kind: 'fall-through' }
   | { kind: 'reply', value: unknown, mutateWorld: boolean }
-  | { kind: 'error', value: ApiErrorSentinel, mutateWorld: boolean }
+  | { kind: 'error', value: ApiErrorSentinel }
 
 interface InternalEntry {
   entries: OverrideEntry[]
@@ -48,7 +48,8 @@ export class OverrideRegistry {
     this.map.delete(method)
   }
 
-  async resolve (method: string, params: Record<string, unknown>) {
+  // eslint-disable-next-line local-rules/no-redundant-return-type -- discriminant unions need explicit kind to narrow
+  async resolve (method: string, params: Record<string, unknown>): Promise<ResolveResult> {
     const entry = this.map.get(method)
 
     if (!entry) {
@@ -82,7 +83,7 @@ export class OverrideRegistry {
     }
 
     if (isApiErrorSentinel(value)) {
-      return { kind: 'error', value, mutateWorld: entry.mutateWorld }
+      return { kind: 'error', value }
     }
 
     return { kind: 'reply', value, mutateWorld: entry.mutateWorld }

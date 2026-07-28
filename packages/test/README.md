@@ -355,7 +355,7 @@ env.onApi('sendMessage', apiError(429, 'Too Many Requests', { retry_after: 1 }),
 env.onApi('sendMessage', { message_id: 1, date: 0, chat: { id: 1, type: 'private' } })
 ```
 
-`opts.mutateWorld: true` keeps the world-state mutations (e.g. appending the synthetic message to chat history) even when the reply is overridden
+`opts.mutateWorld` (default `true`) keeps the world-state mutations (e.g. appending the synthetic message to chat history) even when the reply is overridden — the auto-stub runs for its side effects and the override still decides what the caller sees. set it to `false` to freeze the world. overrides that resolve to an `apiError(...)` never mutate: the call didn't happen
 
 ### `apiError(code, description, parameters?)` — error sentinels
 

@@ -101,4 +101,53 @@ describe('TestEnv (skeleton)', () => {
     await env.shutdown()
     expect(shutdownFired).toBe(1)
   })
+
+  it('mutateWorld keeps the world side effect while returning the override reply', async () => {
+    const tg = new Telegram({ token: 'TEST', apiBaseUrl: 'http://unused/bot' })
+    const env = createTestEnv(tg)
+
+    cleanup = () => env.shutdown()
+
+    const alice = env.createUser()
+    const forced = { message_id: 999, date: 0, chat: { id: alice.pmChat.id, type: 'private' }, text: 'forced' }
+
+    env.onApi('sendMessage', forced)
+
+    const r = await tg.api.sendMessage({ chat_id: alice.pmChat.id, text: 'real' })
+
+    expect(r).toMatchObject({ message_id: 999, text: 'forced' })
+    expect(alice.pmChat.messages).toHaveLength(1)
+    expect(alice.pmChat.messages[0]?.text).toBe('real')
+  })
+
+  it('mutateWorld: false leaves the world untouched', async () => {
+    const tg = new Telegram({ token: 'TEST', apiBaseUrl: 'http://unused/bot' })
+    const env = createTestEnv(tg)
+
+    cleanup = () => env.shutdown()
+
+    const alice = env.createUser()
+    const forced = { message_id: 999, date: 0, chat: { id: alice.pmChat.id, type: 'private' }, text: 'forced' }
+
+    env.onApi('sendMessage', forced, { mutateWorld: false })
+
+    await tg.api.sendMessage({ chat_id: alice.pmChat.id, text: 'real' })
+
+    expect(alice.pmChat.messages).toHaveLength(0)
+  })
+
+  it('a failing auto-stub does not leak into the mutateWorld override reply', async () => {
+    const tg = new Telegram({ token: 'TEST', apiBaseUrl: 'http://unused/bot' })
+    const env = createTestEnv(tg)
+
+    cleanup = () => env.shutdown()
+
+    const alice = env.createUser()
+
+    env.onApi('editMessageText', { message_id: 7, date: 0, chat: { id: alice.pmChat.id, type: 'private' }, text: 'e' })
+
+    const r = await tg.api.editMessageText({ chat_id: alice.pmChat.id, message_id: 7, text: 'e' })
+
+    expect(r).toMatchObject({ message_id: 7, text: 'e' })
+  })
 })

@@ -237,7 +237,7 @@ export function editMessageText (world: World, params: Record<string, unknown>) 
   const found = findMessage(world, params.chat_id as number | string, params.message_id as number)
 
   if (found === undefined) {
-    throw new Error('editMessageText: message not found')
+    return apiError(400, 'Bad Request: message to edit not found')
   }
 
   found.msg.text = params.text as string
@@ -249,7 +249,7 @@ export function editMessageCaption (world: World, params: Record<string, unknown
   const found = findMessage(world, params.chat_id as number | string, params.message_id as number)
 
   if (found === undefined) {
-    throw new Error('editMessageCaption: message not found')
+    return apiError(400, 'Bad Request: message to edit not found')
   }
 
   if (params.caption !== undefined) {
@@ -265,7 +265,7 @@ export function editMessageReplyMarkup (world: World, params: Record<string, unk
   const found = findMessage(world, params.chat_id as number | string, params.message_id as number)
 
   if (found === undefined) {
-    throw new Error('editMessageReplyMarkup: message not found')
+    return apiError(400, 'Bad Request: message to edit not found')
   }
 
   found.msg.replyMarkup = params.reply_markup

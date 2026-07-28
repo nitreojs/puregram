@@ -20,7 +20,7 @@ _cache sent media `file_id`s with ease for `puregram` package_
 
 if you send a lot of similar `MediaSource.path` or `MediaSource.url` files you've probably noticed how slow that gets. heavy files take real seconds to upload, every single time, and it's not like you actually *want* to wait those extra times. that's why you probably need `@puregram/media-cacher`
 
-it sits as an `onBeforeRequest` hook on every cacheable upload method (`sendPhoto`, `sendVideo`, `sendAnimation`, `sendVideoNote`, `sendAudio`, `sendDocument`, `sendSticker`). first call uploads as normal and stores the resulting `file_id` keyed by `(chatId, sourceValue)`. every later call swaps the path/url for the cached `MediaSource.fileId(...)` before the request leaves your bot — telegram never sees the file twice
+it sits as an `onBeforeRequest` hook on every cacheable upload method (`sendPhoto`, `sendVideo`, `sendAnimation`, `sendVideoNote`, `sendAudio`, `sendDocument`, `sendSticker`, `sendVoice`). first call uploads as normal and stores the resulting `file_id` keyed by `(chatId, sourceValue)`. every later call swaps the path/url for the cached `MediaSource.fileId(...)` before the request leaves your bot — telegram never sees the file twice
 
 ### example
 
@@ -65,9 +65,12 @@ $ npm i -S @puregram/media-cacher
 | `sendAudio` | `audio` | ✅ |
 | `sendDocument` | `document` | ✅ |
 | `sendSticker` | `sticker` | ✅ |
+| `sendVoice` | `voice` | ✅ |
 | every other api method | — | ❌ untouched |
 
 cache only fires for `MediaSource.path(...)` and `MediaSource.url(...)` inputs. buffers, streams, base64 — those are typically one-off and don't repeat enough to be worth tracking
+
+everything else in a media slot passes through untouched. a bare `file_id` or url string (`photo: 'AgACAgIAAx…'`) is valid bot api that needs no upload in the first place, so the plugin stays out of its way — installing it never changes the behavior of code that already resends by `file_id`
 
 the live list lives at `MEDIA_METHOD_TO_KEY_MAP` and `ALLOWED_MEDIA_TYPES` if you need to introspect
 
@@ -149,6 +152,7 @@ await telegram.mediaCacher.storage.set('whatever:key', 'AgADAQA…')
 | `storage` | `KVStorage<string>` | backing store. default: a fresh `MemoryStorage<string>`. swap for redis/sqlite/`LruMemoryStorage`/etc to persist or bound the cache |
 | `getStorageKey` | `(ctx: RequestContext) => string` | how to derive the cache scope key from each outgoing request. default: `String(ctx.params.chat_id)`. throws if `chat_id` is absent and you haven't overridden |
 | `keyStrategy` | `'sourceValue' \| 'hash'` | how the second half of the cache key is derived. default `'sourceValue'` (raw path/url). `'hash'` keys by sha-256 of the bytes so distinct sources with identical content share one entry |
+| `fetchImpl` | `typeof fetch` | the `fetch` used to pull `MediaSource.url(...)` bytes under `keyStrategy: 'hash'`. default: global `fetch`. pass a wrapper carrying an `AbortSignal` to bound a url that never answers |
 | `staleFileIdPatterns` | `readonly string[]` | substrings that trigger the auto-evict + retry path on a 400 response, matched case-insensitively against `description`. defaults cover the three known telegram messages |
 
 ---
@@ -229,6 +233,15 @@ what the hash is computed over, per source type:
 
 **tradeoff** — on `MediaSource.url(...)` with the `hash` strategy, the cache miss path fetches the url twice: once to compute the digest, once to actually upload (telegram fetches the url itself). for paths it's a single `readFile`, then the upload re-reads it; in practice the kernel page cache makes the second read free
 
+hashing a url goes through the global `fetch` by default. pass `fetchImpl` to bound it:
+
+```ts
+telegram.extend(mediaCacher({
+  keyStrategy: 'hash',
+  fetchImpl: (url, init) => fetch(url, { ...init, signal: AbortSignal.timeout(5_000) })
+}))
+```
+
 manual inspection still works the same — pass the hash as `sourceValue`:
 
 ```ts
@@ -244,7 +257,7 @@ const fileId = await telegram.mediaCacher.get(String(chatId), hash)
 
 ```ts
 import type {
-  AllowedMediaMethod,         // 'sendPhoto' | 'sendVideo' | … (the seven cached methods)
+  AllowedMediaMethod,         // 'sendPhoto' | 'sendVideo' | … (the eight cached methods)
   KeyStrategy,                 // 'sourceValue' | 'hash'
   KVStorage,                   // re-exported from @puregram/storage
   MediaCacherExtension,        // shape of telegram.mediaCacher

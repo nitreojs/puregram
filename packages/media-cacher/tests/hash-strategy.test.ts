@@ -193,4 +193,30 @@ describe('mediaCacher — keyStrategy: hash', () => {
       globalThis.fetch = originalFetch
     }
   })
+
+  it('fetchImpl overrides the fetch used for url hashing', async () => {
+    const bytes = Buffer.from('bounded payload')
+    const expectedHash = createHash('sha256').update(bytes).digest('hex')
+
+    const globalSpy = vi.spyOn(globalThis, 'fetch')
+    const fetchImpl = vi.fn(() => Promise.resolve(new Response(bytes, { status: 200 })))
+
+    const storage = new MemoryStorage<string>()
+    const harness = makeHarness()
+
+    mediaCacher({ storage, keyStrategy: 'hash', fetchImpl: fetchImpl as unknown as typeof fetch }).install(harness.tg)
+
+    const ctx: RequestContext = {
+      method: 'sendVoice',
+      params: { chat_id: 3, voice: MediaSource.url('https://example/hi.ogg') }
+    }
+
+    await harness.run('onBeforeRequest', ctx)
+    ctx.json = { ok: true, result: { voice: { file_id: 'voice_fid' } } }
+    await harness.run('onResponseIntercept', ctx)
+
+    expect(fetchImpl).toHaveBeenCalledWith('https://example/hi.ogg')
+    expect(globalSpy).not.toHaveBeenCalled()
+    expect(await storage.get(`3:${expectedHash}`)).toBe('voice_fid')
+  })
 })

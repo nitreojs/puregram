@@ -2,7 +2,7 @@ import { MediaSourceType } from 'puregram'
 
 export type AllowedMediaMethod =
   | 'sendPhoto' | 'sendVideo' | 'sendAnimation' | 'sendVideoNote'
-  | 'sendAudio' | 'sendDocument' | 'sendSticker'
+  | 'sendAudio' | 'sendDocument' | 'sendSticker' | 'sendVoice'
 
 /** maps each cacheable upload method to the param/result key carrying its media */
 export const MEDIA_METHOD_TO_KEY_MAP: Readonly<Record<AllowedMediaMethod, string>> = {
@@ -12,7 +12,8 @@ export const MEDIA_METHOD_TO_KEY_MAP: Readonly<Record<AllowedMediaMethod, string
   sendVideoNote: 'video_note',
   sendAudio: 'audio',
   sendDocument: 'document',
-  sendSticker: 'sticker'
+  sendSticker: 'sticker',
+  sendVoice: 'voice'
 }
 
 /** only path/url media is worth caching: fileId is already cached, others are typically one-off */

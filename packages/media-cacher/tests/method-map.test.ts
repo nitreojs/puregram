@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest'
 import { ALLOWED_MEDIA_TYPES, MEDIA_METHOD_TO_KEY_MAP } from '../src/method-map'
 
 describe('MEDIA_METHOD_TO_KEY_MAP', () => {
-  it('covers all seven cacheable upload methods', () => {
+  it('covers all eight cacheable upload methods', () => {
     expect(MEDIA_METHOD_TO_KEY_MAP).toEqual({
       sendPhoto: 'photo',
       sendVideo: 'video',
@@ -12,7 +12,8 @@ describe('MEDIA_METHOD_TO_KEY_MAP', () => {
       sendVideoNote: 'video_note',
       sendAudio: 'audio',
       sendDocument: 'document',
-      sendSticker: 'sticker'
+      sendSticker: 'sticker',
+      sendVoice: 'voice'
     })
   })
 })

@@ -124,13 +124,54 @@ describe('mediaCacher plugin', () => {
     expect(await env.storage.has('1:hi')).toBe(false)
   })
 
-  it('throws when a method-mapped media slot has a non-MediaInput value', async () => {
+  it('leaves a bare file_id string untouched and never caches it', async () => {
     const ctx: RequestContext = {
       method: 'sendPhoto',
-      params: { chat_id: 1, photo: 'raw-string-id' }
+      params: { chat_id: 1, photo: 'AgACAgIAAxkBAAIB' }
     }
 
-    await expect(env.run('onBeforeRequest', ctx)).rejects.toThrow(TypeError)
+    await env.run('onBeforeRequest', ctx)
+
+    expect(ctx.params!.photo).toBe('AgACAgIAAxkBAAIB')
+
+    ctx.json = { ok: true, result: { photo: [{ file_id: 'response_id' }] } }
+    await env.run('onResponseIntercept', ctx)
+
+    expect(await env.storage.has('1:AgACAgIAAxkBAAIB')).toBe(false)
+  })
+
+  it('leaves a bare http url string untouched', async () => {
+    const ctx: RequestContext = {
+      method: 'sendPhoto',
+      params: { chat_id: 1, photo: 'https://x/cat.png' }
+    }
+
+    await env.run('onBeforeRequest', ctx)
+
+    expect(ctx.params!.photo).toBe('https://x/cat.png')
+    expect(await env.storage.has('1:https://x/cat.png')).toBe(false)
+  })
+
+  it('caches and reuses the file_id of a sendVoice path upload', async () => {
+    const first: RequestContext = {
+      method: 'sendVoice',
+      params: { chat_id: 9, voice: MediaSource.path('/tmp/hi.ogg') }
+    }
+
+    await env.run('onBeforeRequest', first)
+    first.json = { ok: true, result: { voice: { file_id: 'voice_id' } } }
+    await env.run('onResponseIntercept', first)
+
+    expect(await env.storage.get('9:/tmp/hi.ogg')).toBe('voice_id')
+
+    const second: RequestContext = {
+      method: 'sendVoice',
+      params: { chat_id: 9, voice: MediaSource.path('/tmp/hi.ogg') }
+    }
+
+    await env.run('onBeforeRequest', second)
+
+    expect(second.params!.voice).toEqual({ type: MediaSourceType.FileId, value: 'voice_id' })
   })
 
   it('does not persist when response is not ok', async () => {

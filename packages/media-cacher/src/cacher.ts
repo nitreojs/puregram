@@ -1,10 +1,8 @@
 import { type KVStorage, MemoryStorage } from '@puregram/storage'
-import {
-  createPlugin, type MediaInput, MediaSource, MediaSourceType, type RequestContext, type Telegram
-} from 'puregram'
+import { createPlugin, type MediaInput, MediaSource, type RequestContext, type Telegram } from 'puregram'
 
 import { hashMediaInput } from './hash'
-import { type AllowedMediaMethod, MEDIA_METHOD_TO_KEY_MAP } from './method-map'
+import { ALLOWED_MEDIA_TYPES, type AllowedMediaMethod, MEDIA_METHOD_TO_KEY_MAP } from './method-map'
 
 type GetStorageKey = (ctx: RequestContext) => string
 
@@ -35,6 +33,11 @@ export interface MediaCacherOptions {
    *   fetch the source twice (once for the digest, once for the actual upload)
    */
   keyStrategy?: KeyStrategy
+  /**
+   * `fetch` used to pull `MediaSource.url(...)` bytes when `keyStrategy: 'hash'` — pass a wrapper
+   * carrying an `AbortSignal` to bound a url that never answers. default: global `fetch`
+   */
+  fetchImpl?: typeof fetch
   /**
    * which descriptions trigger auto-evict + one retry. case-insensitive substring match
    * against `description`. defaults cover the known stale-file-id paths
@@ -140,7 +143,7 @@ export function mediaCacher (options: MediaCacherOptions = {}) {
 
   const deriveSecondHalf = async (media: MediaInput) => {
     if (keyStrategy === 'hash') {
-      return hashMediaInput(media)
+      return hashMediaInput(media, options.fetchImpl)
     }
 
     return typeof media.value === 'string' ? media.value : undefined
@@ -169,11 +172,8 @@ export function mediaCacher (options: MediaCacherOptions = {}) {
 
         const media = params[mediaKey]
 
-        if (!isMediaInput(media)) {
-          throw new TypeError(`mediaCacher: ${ctx.method}.${mediaKey} must be created via MediaSource.*`)
-        }
-
-        if (media.type !== MediaSourceType.Path && media.type !== MediaSourceType.Url) {
+        // a bare file_id / url string is valid bot api and needs no upload — stay out of its way
+        if (!isMediaInput(media) || !ALLOWED_MEDIA_TYPES.includes(media.type)) {
           await next()
 
           return

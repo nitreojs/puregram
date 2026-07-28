@@ -1,5 +1,5 @@
 export { CallbackDataBuilder, defineCallbackData } from './callback-data'
-export type { ButtonInput, CallbackData, CallbackDataOptions } from './callback-data'
+export type { ButtonInput, CallbackData, CallbackDataOptions, NarrowedCallbackData } from './callback-data'
 
 export { missing, present } from './conditions'
 export type {

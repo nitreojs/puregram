@@ -84,6 +84,8 @@ each method returns a fresh `CallbackData` (immutable / chainable), so storing i
 | `.boolean(key, opts?)` | 1 bit (in header) | `boolean` |
 | `.literal(key, [...] as const, opts?)` | `ceil(log2(N))` bits (in header) | union of literals |
 
+`.literal(...)` values must be unique — duplicates would give one value two wire encodings, so they throw at schema-build time
+
 ### options
 
 ```ts
@@ -129,13 +131,14 @@ Action.validate(data)
 // true
 ```
 
-`unpack` returns `null` on any malformed input — wrong slug, truncated body, invalid literal index. it never throws
+`unpack` returns `null` on any malformed input — wrong slug, truncated body, invalid literal index, a number that decodes outside the safe-integer range. it never throws
 
 `pack` throws on:
 - missing required field with no default → `CallbackDataInvalid`
 - wrong type (e.g. `'true'` for a boolean) → `CallbackDataInvalid`
 - non-integer / non-safe number → `CallbackDataInvalid`
 - string > 127 code units → `CallbackDataInvalid`
+- string containing an unpaired surrogate — e.g. from a `text.slice(0, n)` that split an emoji → `CallbackDataInvalid`
 - final payload > 64 bytes → `CallbackDataTooLong`
 
 ### `.button({ text, ...state })`
@@ -200,7 +203,16 @@ telegram.onCallbackQuery(Action.with({ reason: present }).filter, q => /* q.payl
 telegram.onCallbackQuery(Action.with({ reason: missing }).filter, q => /* q.payload.reason: undefined */)
 ```
 
-`.with(...)` chains — multiple calls AND together. each call returns a new `CallbackData` (and its `.filter`) without mutating the original schema
+`.with(...)` chains — multiple calls AND together. each call returns a new `NarrowedCallbackData` (and its `.filter`) without mutating the original schema
+
+a narrowed schema keeps `pack` / `unpack` / `validate` / `button` / `repack`, but no longer exposes `.string` / `.number` / `.boolean` / `.literal` — declare every field first, then narrow:
+
+```ts
+const Action = defineCallbackData('a').number('user_id').literal('kind', ['ban', 'kick'] as const)
+
+const Ban = Action.with({ kind: 'ban' })   // ✅ narrow last
+const Kick = Action.with({ kind: 'kick' }) // ✅ the base schema is untouched
+```
 
 ### filter chain ops
 

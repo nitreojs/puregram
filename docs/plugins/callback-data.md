@@ -160,7 +160,7 @@ throws `CallbackDataInvalid` if `data` doesn't match this schema
 
 ### `schema.with(conditions)`
 
-narrow the filter with per-field conditions. returns a new `CallbackData` (immutable). matchers can be values, predicates, arrays of either, or the `present` / `missing` markers:
+narrow the filter with per-field conditions. returns a new `NarrowedCallbackData` — the field builders are gone, since a field declared after narrowing would drop the conditions. declare every field first, then narrow. matchers can be values, predicates, arrays of either, or the `present` / `missing` markers:
 
 ```ts
 import { defineCallbackData, present, missing } from '@puregram/callback-data'
@@ -239,8 +239,8 @@ booleans cost 1 bit, not 1 byte. small telegram user ids (< 127) fit in 2 bytes;
 | error | when |
 |---|---|
 | `CallbackDataTooLong` | `pack()` produces a payload > 64 utf-8 bytes |
-| `CallbackDataInvalid` | `pack()` receives a value that fails field validation (missing required field, wrong type, non-safe integer, string > 127 code units); also thrown by `repack()` when the source doesn't match |
-| `RangeError` | `slugLength` is outside `[1, 22]`; or `literal` field receives an empty values array |
+| `CallbackDataInvalid` | `pack()` receives a value that fails field validation (missing required field, wrong type, non-safe integer, string > 127 code units, string containing an unpaired surrogate); also thrown by `repack()` when the source doesn't match |
+| `RangeError` | `slugLength` is outside `[1, 22]`; or `literal` field receives an empty values array or duplicate values |
 | `Error` (slug collision) | thrown by `callbackData([...])` plugin at install when two schemas hash to the same slug |
 
 ```ts
@@ -275,7 +275,8 @@ import type {
   CallbackDataOptions,
   FieldOptions,
   FieldSpec,
-  FieldType
+  FieldType,
+  NarrowedCallbackData
 } from '@puregram/callback-data'
 ```
 

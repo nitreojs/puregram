@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { CallbackDataBuilder, CallbackDataInvalid, CallbackDataTooLong, defineCallbackData } from '../src'
+import type { CallbackData } from '../src'
 
 describe('defineCallbackData', () => {
   it('produces a 6-char base64url slug by default', () => {
@@ -191,6 +192,16 @@ describe('with — conditions', () => {
     expect(cd.validate(cd.pack({ n: -1, m: 5 }))).toBe(false)
     expect(cd.validate(cd.pack({ n: 1, m: 100 }))).toBe(false)
   })
+
+  it('survives a field declared after the condition', () => {
+    const narrowed = defineCallbackData('x').number('a').with({ a: 1 })
+    // the builders are hidden from the narrowed type, but plain-js callers still
+    // reach them — conditions must not be dropped by a later field
+    const cd = (narrowed as unknown as CallbackData<{ a: number, b: number }>).number('b')
+
+    expect(cd.validate(cd.pack({ a: 1, b: 2 }))).toBe(true)
+    expect(cd.validate(cd.pack({ a: 999, b: 2 }))).toBe(false)
+  })
 })
 
 describe('with — present / missing', () => {
@@ -266,6 +277,42 @@ describe('schema validation', () => {
 
   it('rejects empty literal value list', () => {
     expect(() => defineCallbackData('x').literal('k', [])).toThrow(RangeError)
+  })
+
+  it('rejects duplicate literal values', () => {
+    expect(() => defineCallbackData('x').literal('k', ['a', 'b', 'a'])).toThrow(RangeError)
+  })
+})
+
+describe('pack — string well-formedness', () => {
+  it('rejects an unpaired surrogate', () => {
+    const cd = defineCallbackData('s').string('t')
+
+    expect(() => cd.pack({ t: '\uD83D' })).toThrow(CallbackDataInvalid)
+    expect(() => cd.pack({ t: '\uDE00' })).toThrow(CallbackDataInvalid)
+    expect(() => cd.pack({ t: 'ok\uD83Dend' })).toThrow(CallbackDataInvalid)
+  })
+
+  it('round-trips a well-formed astral character', () => {
+    const cd = defineCallbackData('s').string('t')
+
+    expect(cd.unpack(cd.pack({ t: '\u{1F600}' }))).toEqual({ t: '\u{1F600}' })
+  })
+})
+
+describe('unpack — hostile payloads', () => {
+  it('returns null for an over-long varint instead of an unsafe integer', () => {
+    const cd = defineCallbackData('x').number('n')
+    const crafted = cd.slug + '\u007F'.repeat(10) + '\u0001'
+
+    expect(cd.unpack(crafted)).toBeNull()
+  })
+
+  it('still round-trips the safe-integer boundary', () => {
+    const cd = defineCallbackData('x').number('n')
+
+    expect(cd.unpack(cd.pack({ n: Number.MAX_SAFE_INTEGER }))).toEqual({ n: Number.MAX_SAFE_INTEGER })
+    expect(cd.unpack(cd.pack({ n: -Number.MAX_SAFE_INTEGER }))).toEqual({ n: -Number.MAX_SAFE_INTEGER })
   })
 })
 

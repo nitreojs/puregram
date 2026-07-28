@@ -3,6 +3,9 @@
 const CONTINUATION = 0x40
 const DATA_MASK = 0x3F
 const BASE = 64n
+// zigzag(MAX_SAFE_INTEGER) is 54 bits wide — 9 units of 6 data bits. anything
+// longer can only come from a corrupt or hostile payload
+const MAX_UNITS = 9
 
 // internally varint walks bigint to round-trip the full ±MAX_SAFE_INTEGER range —
 // number-space zigzag would lose 1 lsb at the boundary
@@ -43,7 +46,8 @@ export interface VarintRead {
 
 /**
  * decode a varint starting at `bytes[offset]`. throws `RangeError` if the
- * sequence is truncated (no terminator before the end of input)
+ * sequence is truncated (no terminator before the end of input) or decodes
+ * outside the safe-integer range
  */
 export function decodeVarint (bytes: ArrayLike<number>, offset: number) {
   let value = 0n
@@ -51,6 +55,10 @@ export function decodeVarint (bytes: ArrayLike<number>, offset: number) {
   let i = offset
 
   while (true) {
+    if (i - offset >= MAX_UNITS) {
+      throw new RangeError('varint overflow')
+    }
+
     const b = bytes[i]
 
     if (b === undefined) {
@@ -67,5 +75,11 @@ export function decodeVarint (bytes: ArrayLike<number>, offset: number) {
     shift += 6n
   }
 
-  return { value: zigzagDecode(value), length: i - offset }
+  const decoded = zigzagDecode(value)
+
+  if (!Number.isSafeInteger(decoded)) {
+    throw new RangeError('varint out of safe-integer range')
+  }
+
+  return { value: decoded, length: i - offset }
 }

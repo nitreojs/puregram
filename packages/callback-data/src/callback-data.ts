@@ -30,12 +30,11 @@ interface InternalState {
 export type ButtonInput<State> = { text: string } & State
 
 /**
- * opaque schema record produced by `defineCallbackData`. NOT a filter directly —
- * the dispatch-ready filter lives at `.filter`. (a callable schema-as-filter
- * intersection breaks `Filter<unknown, Mod>` inference at the dispatch site,
- * so the filter is a separate property)
+ * a schema whose filter has already been narrowed by `.with(...)`. the field
+ * builders are intentionally absent — declaring a field after narrowing would
+ * widen `State` past what the conditions were written against
  */
-export interface CallbackData<
+export interface NarrowedCallbackData<
   State extends Record<string, Accepted> = Record<never, never>,
   Narrowed extends State = State
 > {
@@ -49,6 +48,37 @@ export interface CallbackData<
   /** field schema in declaration order */
   readonly fields: readonly FieldSpec[]
 
+  /** narrow the filter further with declarative per-field conditions */
+  with: <C extends ConditionalObject<State>>(
+    conditions: C
+  ) => NarrowedCallbackData<State, Simplify<Narrowed & ValidateConditions<C, State>>>
+
+  /** serialize a state object to a callback_data string; throws on invalid values or 64-byte overflow */
+  pack: (state: State) => string
+
+  /** parse a callback_data string. returns `null` if it doesn't match this schema */
+  unpack: (data: string) => State | null
+
+  /** true iff `data` matches this schema (and all `.with()` conditions) */
+  validate: (data: string) => boolean
+
+  /** convenience: produce a `TelegramInlineKeyboardButton` with text + packed callback_data */
+  button: (input: ButtonInput<State>) => TelegramInlineKeyboardButton
+
+  /** unpack `data`, merge `partial`, re-pack. throws if `data` doesn't belong to this schema */
+  repack: (data: string, partial: Partial<State>) => string
+}
+
+/**
+ * opaque schema record produced by `defineCallbackData`. NOT a filter directly —
+ * the dispatch-ready filter lives at `.filter`. (a callable schema-as-filter
+ * intersection breaks `Filter<unknown, Mod>` inference at the dispatch site,
+ * so the filter is a separate property)
+ */
+export interface CallbackData<
+  State extends Record<string, Accepted> = Record<never, never>,
+  Narrowed extends State = State
+> extends NarrowedCallbackData<State, Narrowed> {
   /** add a `string` field (utf-16 code units, max 127 long after pack) */
   string: <Key extends string, O extends FieldOptions<string>>(
     key: Key,
@@ -76,26 +106,6 @@ export interface CallbackData<
     values: V,
     options?: O
   ) => CallbackData<Simplify<State & DetermineStateKey<V[number], Key, O>>>
-
-  /** narrow the filter further with declarative per-field conditions */
-  with: <C extends ConditionalObject<State>>(
-    conditions: C
-  ) => CallbackData<State, Simplify<Narrowed & ValidateConditions<C, State>>>
-
-  /** serialize a state object to a callback_data string; throws on invalid values or 64-byte overflow */
-  pack: (state: State) => string
-
-  /** parse a callback_data string. returns `null` if it doesn't match this schema */
-  unpack: (data: string) => State | null
-
-  /** true iff `data` matches this schema (and all `.with()` conditions) */
-  validate: (data: string) => boolean
-
-  /** convenience: produce a `TelegramInlineKeyboardButton` with text + packed callback_data */
-  button: (input: ButtonInput<State>) => TelegramInlineKeyboardButton
-
-  /** unpack `data`, merge `partial`, re-pack. throws if `data` doesn't belong to this schema */
-  repack: (data: string, partial: Partial<State>) => string
 }
 
 /** factory — defines a callback-data schema. chain `.string`/`.number`/`.boolean`/`.literal` to declare fields */
@@ -232,8 +242,7 @@ function makeCallbackData<
   function addField (newField: FieldSpec) {
     return makeCallbackData<Record<string, Accepted>, Record<string, Accepted>>({
       ...internal,
-      fields: [...fields, newField],
-      conditions: []
+      fields: [...fields, newField]
     })
   }
 
@@ -259,6 +268,10 @@ function makeCallbackData<
   ) {
     if (values.length === 0) {
       throw new RangeError('literal field requires at least one value')
+    }
+
+    if (new Set(values).size !== values.length) {
+      throw new RangeError(`literal field "${key}": values must be unique`)
     }
 
     const spec: FieldSpec = {

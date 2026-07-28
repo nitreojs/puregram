@@ -4,6 +4,9 @@ import type { Accepted, FieldSpec } from './types'
 import { decodeVarint, encodeVarint } from './varint'
 
 const STRING_LENGTH_LIMIT = 127
+// telegram round-trips callback_data as utf-8 — an unpaired surrogate comes back
+// as U+FFFD, so the payload would silently unpack to different data (or to null)
+const LONE_SURROGATE = /[\uD800-\uDFFF]/u
 
 type CodeUnit = number
 
@@ -75,6 +78,10 @@ export function packBody (fields: readonly FieldSpec[], state: Record<string, un
 
     if (field.type === 'string') {
       const str = String(state[field.key] ?? field.default)
+
+      if (LONE_SURROGATE.test(str)) {
+        throw new CallbackDataInvalid(field.key, 'string contains an unpaired surrogate')
+      }
 
       if (str.length > STRING_LENGTH_LIMIT) {
         throw new CallbackDataInvalid(field.key, `string is ${str.length} code units, max is ${STRING_LENGTH_LIMIT}`)

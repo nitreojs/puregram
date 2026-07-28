@@ -127,4 +127,59 @@ describe('prompt', () => {
 
     await t.shutdown()
   })
+
+  it('resolves a reply dispatched while the send is still in flight', async () => {
+    const t = new Telegram({ token: 'TEST', bot: STUB_BOT }).extend(flow())
+
+    await t.start()
+
+    // the waiter must be armed before tg.send settles — polling keeps dispatching
+    // during the round-trip, so a reply arriving mid-send must still match
+    const gate = Promise.withResolvers<{ message_id: number }>()
+
+    ;(t as any).send = () => gate.promise
+
+    const promptPromise = (t as any).flow.prompt(100, 'name?')
+
+    await (t as any).dispatch({
+      kind: 'message',
+      chat: { id: 100 },
+      text: 'alice',
+      raw: { chat: { id: 100 }, text: 'alice' }
+    })
+
+    gate.resolve({ message_id: 1 })
+
+    await expect(promptPromise).resolves.toMatchObject({ text: 'alice' })
+
+    await t.shutdown()
+  })
+
+  it('rejects with the send error and disarms the waiter when the send fails', async () => {
+    const t = new Telegram({ token: 'TEST', bot: STUB_BOT }).extend(flow())
+
+    await t.start()
+
+    ;(t as any).send = vi.fn().mockRejectedValue(new Error('network down'))
+
+    await expect((t as any).flow.prompt(100, 'name?')).rejects.toThrow('network down')
+
+    // the failed prompt left nothing armed: a later reply reaches handlers untouched
+    const seen: string[] = []
+
+    t.on('message', (message) => {
+      seen.push(message.raw.text!)
+    })
+
+    await (t as any).dispatch({
+      kind: 'message',
+      chat: { id: 100 },
+      text: 'alice',
+      raw: { chat: { id: 100 }, text: 'alice' }
+    })
+
+    expect(seen).toEqual(['alice'])
+
+    await t.shutdown()
+  })
 })

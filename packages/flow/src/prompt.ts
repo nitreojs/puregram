@@ -44,16 +44,6 @@ export function createPrompt (tg: Telegram, registry: WaiterRegistry) {
   ) {
     const kind = (options.kind ?? 'message') as K
 
-    if (options.reply_markup !== undefined) {
-      // bot api markup shape uses snake_case keys; flatten via Record<string, unknown>
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/naming-convention
-      const sendParams: Record<string, unknown> = { reply_markup: options.reply_markup }
-
-      await tg.send(chat, text, sendParams)
-    } else {
-      await tg.send(chat, text)
-    }
-
     const callerFilter = options.filter
     const expectedFrom = options.from
 
@@ -95,9 +85,30 @@ export function createPrompt (tg: Telegram, registry: WaiterRegistry) {
       waiterOptions.transform = options.transform
     }
 
+    // arm before sending: `tg.send` is a network round-trip and the transport keeps
+    // dispatching updates during it, so a reply that lands mid-flight would sail past a
+    // waiter registered afterwards
     const waiter = new Waiter<K, T>(kind, waiterOptions)
 
     registry.register(waiter)
+
+    try {
+      if (options.reply_markup !== undefined) {
+        // bot api markup shape uses snake_case keys; flatten via Record<string, unknown>
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/naming-convention
+        const sendParams: Record<string, unknown> = { reply_markup: options.reply_markup }
+
+        await tg.send(chat, text, sendParams)
+      } else {
+        await tg.send(chat, text)
+      }
+    } catch (error) {
+      waiter.cancel()
+      // the cancellation is ours, not the caller's — keep it off the unhandled rejection path
+      waiter.promise.catch(() => {})
+
+      throw error
+    }
 
     return waiter.promise
   }

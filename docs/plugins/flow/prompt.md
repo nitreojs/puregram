@@ -7,9 +7,11 @@ description: send a question and wait for the reply in one call — the ergonomi
 
 `prompt` does three things atomically:
 
-1. sends `text` to the chat
-2. opens a `waitFor` scoped to that chat and the same sender
+1. opens a `waitFor` scoped to that chat and the same sender
+2. sends `text` to the chat
 3. resolves with the matched reply (or `null` on timeout if `nullOnTimeout: true`)
+
+the waiter is armed *before* the message goes out — `sendMessage` is a network round-trip and the transport keeps dispatching updates during it, so a reply that lands mid-send would otherwise sail past. if the send itself fails, the waiter is disarmed and `prompt` rejects with the send error
 
 ```ts
 tg.command('signup', async (message) => {

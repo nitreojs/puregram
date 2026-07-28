@@ -6,7 +6,7 @@ import { FlowKindMismatch } from '../errors'
 import type { PromptOptions } from '../prompt'
 
 import type { HandlerRegistry } from './handlers'
-import { writeRecord } from './persist'
+import { deleteRecord, writeRecord } from './persist'
 import type { PersistedFlow } from './types'
 
 export interface PersistDeps {
@@ -83,16 +83,6 @@ export async function persistentPrompt<K extends keyof UpdateKindMap = 'message'
     throw new Error(`flow.prompt({ id }) requires a numeric chat id (got ${typeof chat})`)
   }
 
-  if (options.reply_markup !== undefined) {
-    // bot api markup shape uses snake_case keys
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/naming-convention
-    const sendParams: Record<string, unknown> = { reply_markup: options.reply_markup }
-
-    await tg.send(chat, text, sendParams)
-  } else {
-    await tg.send(chat, text)
-  }
-
   const ttl = options.ttl ?? deps.defaultTtl
   const now = Date.now()
   const record: PersistedFlow = {
@@ -108,5 +98,23 @@ export async function persistentPrompt<K extends keyof UpdateKindMap = 'message'
     record.expiresAt = now + ttl
   }
 
+  // persist before sending: `tg.send` is a network round-trip and the transport keeps
+  // dispatching updates during it, so a reply that lands mid-flight would find no record
   await writeRecord(deps.storage, record)
+
+  try {
+    if (options.reply_markup !== undefined) {
+      // bot api markup shape uses snake_case keys
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/naming-convention
+      const sendParams: Record<string, unknown> = { reply_markup: options.reply_markup }
+
+      await tg.send(chat, text, sendParams)
+    } else {
+      await tg.send(chat, text)
+    }
+  } catch (error) {
+    await deleteRecord(deps.storage, chat, options.from, kind)
+
+    throw error
+  }
 }

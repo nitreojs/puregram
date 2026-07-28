@@ -71,4 +71,55 @@ describe('persistent prompt round-trip', () => {
     await tg.shutdown()
     await mock.stop()
   })
+
+  it('writes the record before the send settles, so a mid-send reply still dispatches', async () => {
+    const storage = new MemoryStorage<PersistedFlow>()
+    const { tg, mock } = await makeTg(t => t.extend(flow({ storage })))
+
+    await tg.start()
+
+    const gate = Promise.withResolvers<{ message_id: number }>()
+
+    ;(tg as { send: unknown }).send = () => gate.promise
+
+    const onAnswer = vi.fn()
+
+    tg.flow.handle('register:name', { transform: m => m.text!, onAnswer })
+
+    const promptPromise = tg.flow.prompt(100, 'what is your name?', { id: 'register:name', from: 9 })
+
+    // the reply lands while sendMessage is still in flight
+    await vi.waitUntil(() => storage.has('100:9:message'))
+    await dispatchOf(tg)(makeUpdate('message', { chat: { id: 100 }, from: { id: 9 }, text: 'alice' }))
+
+    gate.resolve({ message_id: 1 })
+    await promptPromise
+
+    expect(onAnswer).toHaveBeenCalledOnce()
+    expect(onAnswer.mock.calls[0]![0]).toBe('alice')
+    expect(await storage.has('100:9:message')).toBe(false)
+
+    await tg.shutdown()
+    await mock.stop()
+  })
+
+  it('removes the record when the send fails', async () => {
+    const storage = new MemoryStorage<PersistedFlow>()
+    const { tg, mock } = await makeTg(t => t.extend(flow({ storage })))
+
+    await tg.start()
+
+    ;(tg as { send: unknown }).send = vi.fn().mockRejectedValue(new Error('network down'))
+
+    tg.flow.handle('register:name', { transform: m => m.text!, onAnswer: vi.fn() })
+
+    await expect(
+      tg.flow.prompt(100, 'what is your name?', { id: 'register:name', from: 9 })
+    ).rejects.toThrow('network down')
+
+    expect(await storage.has('100:9:message')).toBe(false)
+
+    await tg.shutdown()
+    await mock.stop()
+  })
 })

@@ -19,6 +19,17 @@ export interface WebhookOptions {
   timeoutMilliseconds?: number
 
   /**
+   * what to do when `timeoutMilliseconds` elapses before dispatch settles.
+   * `'return'` (default) answers 200 — telegram considers the update delivered
+   * and releases its per-chat queue, so the next update for that chat may
+   * arrive while this one is still running. `'throw'` answers 500 instead, so
+   * telegram redelivers; pair it with `dedupeUpdates`, or the still-running
+   * dispatch and the redelivered one both process the same update. a function
+   * receives the raw update and then answers 200
+   */
+  onTimeout?: 'return' | 'throw' | ((raw: Record<string, unknown>) => void)
+
+  /**
    * `nodeAdapter` body-size cap; requests over the limit return 413. default
    * 1MB (telegram updates are typically <100KB). other adapters use their
    * framework's own limits
@@ -30,6 +41,7 @@ export interface ResolvedWebhookOptions {
   secretToken: string | undefined
   webhookReply: boolean
   timeoutMilliseconds: number
+  onTimeout: NonNullable<WebhookOptions['onTimeout']>
   maxBodyBytes: number
 }
 
@@ -41,6 +53,7 @@ export function resolveWebhookOptions (input?: WebhookOptions) {
     secretToken: input?.secretToken,
     webhookReply: input?.webhookReply ?? true,
     timeoutMilliseconds: input?.timeoutMilliseconds ?? DEFAULT_TIMEOUT_MS,
+    onTimeout: input?.onTimeout ?? 'return',
     maxBodyBytes: input?.maxBodyBytes ?? DEFAULT_MAX_BODY_BYTES
   }
 }

@@ -50,3 +50,19 @@ export class ApiError extends TelegramError {
     }
   }
 }
+
+/**
+ * routed through the dispatch-error funnel when a webhook dispatch outlives
+ * `timeoutMilliseconds` and `onTimeout` is `'throw'`
+ */
+export class WebhookTimeout extends Error {
+  readonly timeoutMilliseconds: number
+
+  constructor (timeoutMilliseconds: number) {
+    super(`webhook dispatch outlived ${timeoutMilliseconds}ms`)
+
+    this.timeoutMilliseconds = timeoutMilliseconds
+    this.name = this.constructor.name
+    Error.captureStackTrace(this, this.constructor)
+  }
+}

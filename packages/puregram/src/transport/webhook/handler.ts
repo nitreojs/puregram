@@ -1,5 +1,10 @@
+import { createDebug } from '../../debug'
+import { WebhookTimeout } from '../../errors'
+
 import type { ResolvedWebhookOptions } from './options'
 import { ReplySlot, replyAls } from './reply'
+
+const debug = createDebug('puregram:webhook')
 
 export interface ParsedRequest {
   method: string
@@ -28,6 +33,10 @@ export type WebhookHandler = (req: ParsedRequest) => Promise<WebhookResponse>
 
 const EMPTY: WebhookResponse = { status: 200, body: '', contentType: 'text/plain' }
 
+type RaceOutcome = 'settled' | 'claimed' | 'timeout'
+
+let warnedAboutTimeout = false
+
 export function createHandler (
   options: ResolvedWebhookOptions,
   deps: WebhookHandlerDeps
@@ -40,7 +49,7 @@ export function createHandler (
     if (options.secretToken !== undefined) {
       const got = req.headers['x-telegram-bot-api-secret-token']
 
-      if (got !== options.secretToken) {
+      if (got === undefined || !safeCompare(got, options.secretToken)) {
         return { status: 401, body: '', contentType: 'text/plain' }
       }
     }
@@ -83,17 +92,23 @@ async function runWithReplySlot (
 
   deps.trackInFlight(dispatchPromise)
 
-  const racers: Promise<unknown>[] = [dispatchPromise, slot.claimed]
+  const racers: Promise<RaceOutcome>[] = [
+    dispatchPromise.then<RaceOutcome>(() => 'settled'),
+    slot.claimed.then<RaceOutcome>(() => 'claimed')
+  ]
+
   let timeoutHandle: ReturnType<typeof setTimeout> | undefined
 
   if (options.timeoutMilliseconds > 0) {
-    racers.push(new Promise<void>((resolve) => {
-      timeoutHandle = setTimeout(resolve, options.timeoutMilliseconds)
+    racers.push(new Promise<RaceOutcome>((resolve) => {
+      timeoutHandle = setTimeout(() => resolve('timeout'), options.timeoutMilliseconds)
     }))
   }
 
+  let outcome: RaceOutcome
+
   try {
-    await Promise.race(racers)
+    outcome = await Promise.race(racers)
   } finally {
     if (timeoutHandle !== undefined) {
       clearTimeout(timeoutHandle)
@@ -108,5 +123,56 @@ async function runWithReplySlot (
     }
   }
 
+  if (outcome === 'timeout') {
+    return answerTimeout(raw, options, deps)
+  }
+
   return EMPTY
+}
+
+function answerTimeout (
+  raw: Record<string, unknown>,
+  options: ResolvedWebhookOptions,
+  deps: WebhookHandlerDeps
+) {
+  debug('dispatch outlived %dms', options.timeoutMilliseconds)
+
+  if (typeof options.onTimeout === 'function') {
+    options.onTimeout(raw)
+
+    return EMPTY
+  }
+
+  if (options.onTimeout === 'throw') {
+    deps.reportError(new WebhookTimeout(options.timeoutMilliseconds), raw)
+
+    return { status: 500, body: '', contentType: 'text/plain' }
+  }
+
+  if (!warnedAboutTimeout) {
+    warnedAboutTimeout = true
+
+    process.emitWarning(
+      `a webhook dispatch outlived timeoutMilliseconds (${options.timeoutMilliseconds}) and was answered with 200 while still running — telegram now treats the update as delivered and may send the next one for that chat concurrently. set onTimeout to change this`,
+      { code: 'PUREGRAM_WEBHOOK_DISPATCH_TIMEOUT' }
+    )
+  }
+
+  return EMPTY
+}
+
+// secret_token is A-Za-z0-9_-, so charCodeAt is exact; a pure-js compare keeps
+// node:crypto off the import graph for the edge-targeting `web` adapter
+function safeCompare (a: string, b: string) {
+  if (a.length !== b.length) {
+    return false
+  }
+
+  let diff = 0
+
+  for (let i = 0; i < a.length; i++) {
+    diff |= a.charCodeAt(i) ^ b.charCodeAt(i)
+  }
+
+  return diff === 0
 }

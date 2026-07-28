@@ -2,6 +2,7 @@ import { Readable } from 'node:stream'
 
 import { describe, expect, it } from 'vitest'
 
+import { WebhookTimeout } from '../../src/errors'
 import { Telegram } from '../../src/telegram'
 
 const STUB_BOT = { id: 1, is_bot: true, first_name: 'stub', username: 'stubbot' } as any
@@ -426,6 +427,63 @@ describe('webhook reply (transparent)', () => {
     expect(res.body).toBe('')
     expect(elapsed).toBeLessThan(150)
 
+    await tg.shutdown()
+  })
+
+  it('onTimeout: throw answers 500 and routes a WebhookTimeout to tg.catch', async () => {
+    const tg = new Telegram({ token: 'X', bot: STUB_BOT })
+    const cb = tg.getWebhookCallback({ timeoutMilliseconds: 20, onTimeout: 'throw' })
+    const caught: Error[] = []
+    const handler = Promise.withResolvers<void>()
+
+    tg.catch((error) => {
+      caught.push(error)
+    })
+
+    tg.onMessage(() => handler.promise)
+
+    const body = JSON.stringify({
+      update_id: 1,
+      message: { message_id: 1, date: 0, chat: { id: 99, type: 'private' }, text: 'x' }
+    })
+    const res = fakeRes()
+
+    await cb(fakeReq(body), res)
+
+    expect(res.statusCode).toBe(500)
+    expect(caught).toHaveLength(1)
+    expect(caught[0]).toBeInstanceOf(WebhookTimeout)
+
+    handler.resolve()
+    await tg.shutdown()
+  })
+
+  it('onTimeout as a function receives the raw update and still answers 200', async () => {
+    const tg = new Telegram({ token: 'X', bot: STUB_BOT })
+    const seen: Record<string, unknown>[] = []
+    const handler = Promise.withResolvers<void>()
+    const cb = tg.getWebhookCallback({
+      timeoutMilliseconds: 20,
+      onTimeout: (raw) => {
+        seen.push(raw)
+      }
+    })
+
+    tg.onMessage(() => handler.promise)
+
+    const body = JSON.stringify({
+      update_id: 7,
+      message: { message_id: 1, date: 0, chat: { id: 99, type: 'private' }, text: 'x' }
+    })
+    const res = fakeRes()
+
+    await cb(fakeReq(body), res)
+
+    expect(res.statusCode).toBe(200)
+    expect(seen).toHaveLength(1)
+    expect(seen[0].update_id).toBe(7)
+
+    handler.resolve()
     await tg.shutdown()
   })
 })

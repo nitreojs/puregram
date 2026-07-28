@@ -2,7 +2,7 @@ import * as filters from './filters'
 
 export { Telegram } from './telegram'
 export type { TelegramOptions } from './options'
-export { TelegramError, ApiError } from './errors'
+export { TelegramError, ApiError, WebhookTimeout } from './errors'
 export type { ApiResponseError } from './errors'
 export { MediaSource, MediaSourceType, type MediaInput } from './media-source'
 export { UpdatesFilter } from './updates-filter'

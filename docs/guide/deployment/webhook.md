@@ -53,6 +53,7 @@ omit `port` to skip the built-in listener and just register the webhook — usef
 | `dropPendingUpdates` | `boolean` | drop the queued backlog before subscribing |
 | `webhookReply` | `boolean` | webhook-reply optimization (default `true`) — see below |
 | `timeoutMilliseconds` | `number` | max wait before the 200 response. default `25000` |
+| `onTimeout` | `'return' \| 'throw' \| (raw) => void` | what to do when that wait elapses. default `'return'` — see below |
 | `maxBodyBytes` | `number` | body-size cap for the node adapter. default 1 MB |
 
 ## bring your own framework
@@ -145,6 +146,24 @@ disable it only when a proxy or firewall strips non-empty 200 bodies:
 ```ts
 tg.webhookHandler({ webhookReply: false })
 ```
+
+## slow handlers
+
+telegram delivers updates for one chat sequentially — it holds the next one until you answer the current request. that ordering is what keeps [`@puregram/session`](/plugins/session) and [`@puregram/scenes`](/plugins/scenes) from racing themselves.
+
+if dispatch outlives `timeoutMilliseconds`, puregram has to answer anyway, and `onTimeout` picks how:
+
+```ts
+tg.webhookHandler({ onTimeout: 'throw' })
+```
+
+| value | response | consequence |
+|---|---|---|
+| `'return'` (default) | empty 200 | telegram treats the update as delivered and releases the per-chat queue, so the next update for that chat can arrive while this one is still running. warns once per process |
+| `'throw'` | 500 | telegram redelivers after a backoff and the per-chat queue stays held. a `WebhookTimeout` goes to `tg.catch`. the original dispatch is still running, so pair this with [`dedupeUpdates`](/guide/deployment/resilience) or the redelivery is processed twice |
+| a function | empty 200 | called with the raw update; use it to record the timeout and answer however you like |
+
+neither answer is free. the durable fix is to keep handlers short — acknowledge the update, hand the slow work to a queue, and reply from there.
 
 ## see also
 

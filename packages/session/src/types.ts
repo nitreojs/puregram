@@ -66,11 +66,10 @@ export interface SessionOptions {
   /** initial session value when storage is empty (default: `() => ({})`) */
   initial?: (update: AnyUpdate) => SessionData
   /**
-   * when `true` (default), `storage.get` is deferred until `update.session` is
-   * accessed inside the handler. consumers `await update.session` to receive the
-   * proxy. set `false` to keep the legacy eager-preload behavior (sync access
-   * inside handlers) — required when plugins like `@puregram/scenes` rely on
-   * synchronous `update.session.<key>` reads
+   * when `true`, `storage.get` is deferred until `update.session` is accessed inside
+   * the handler, and consumers `await update.session` to receive the proxy. defaults
+   * to `false` — the eager preload keeps `update.session.<key>` synchronous, which
+   * plugins like `@puregram/scenes` depend on
    */
   lazy?: boolean
 }

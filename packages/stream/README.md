@@ -154,7 +154,7 @@ same engine — adapters, pacing, callbacks, abort, reply/thread forwarding all 
 | `editIntervalMs`      | `number`                                | `250`   | soft floor between `sendMessageDraft` calls                        |
 | `maxEditBackoff`      | `number`                                | `4000`  | drop a draft tick if local backoff exceeds this                    |
 | `thinkingPlaceholder` | `boolean`                               | `true`  | emit an empty draft eagerly on start                               |
-| `draftIdOffset`       | `number`                                | hybrid  | derived from `message_id << 8` on `update.stream`; counter for tg  |
+| `draftIdOffset`       | `number`                                | hybrid  | derived from `message_id * 256` on `update.stream`; counter for tg |
 | `signal`              | `AbortSignal`                           | —       | aborts mid-stream, finalizes last-good                             |
 | `message_thread_id`   | `number`                                | —       | forwarded                                                          |
 | `reply_parameters`    | `ReplyParameters`                       | —       | forwarded                                                          |
@@ -203,7 +203,7 @@ interface StreamResult {
 |----------------------------------|-----------------------------------------------------|---------------------------------------------|
 | transport                        | `sendMessageDraft` + `sendMessage` (bot api 10.0)   | `editMessageText` polling                   |
 | group chats                      | not supported (private-only — bot-api constraint)   | supported                                   |
-| 4096 rollover                    | automatic; multi-message finalize                   | manual                                      |
+| 4096 rollover                    | automatic; multi-message finalize, cut on a boundary | manual                                     |
 | LLM source detection             | duck-typed + named adapters for 6+ SDKs             | one adapter form                            |
 | parseMode handling               | lenient per-tick / strict on finalize               | strict only                                 |
 | abort                            | `AbortSignal`                                       | `AbortSignal`                               |

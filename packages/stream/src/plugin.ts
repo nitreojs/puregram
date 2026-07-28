@@ -5,6 +5,7 @@ import {
 import type { TelegramMessage } from '@puregram/api'
 import { createPlugin, type Telegram } from 'puregram'
 
+import { DRAFT_ID_MAX, DRAFT_ID_WINDOW } from './constants'
 import { runStream, type RichDialect, type StreamApi, type StreamResult } from './core'
 import type { ParseMode } from './formatted'
 import { normalize, type StreamSource } from './normalize'
@@ -86,8 +87,9 @@ function assertPrivate (chatType: string, chatId: number) {
 }
 
 function deriveOffsetFromMessage (raw: { message_id: number }) {
-  // 256 unique draft ids per source message — high bits hold message_id, low bits hold the counter
-  return (raw.message_id << 8) >>> 0
+  // 256 unique draft ids per source message — high bits hold message_id, low bits hold the counter.
+  // `<< 8` would truncate at 2^32, folding every message_id past 2^24 onto an earlier window
+  return raw.message_id * DRAFT_ID_WINDOW
 }
 
 /**
@@ -111,10 +113,12 @@ export function stream () {
       const pickApi = (rich: boolean | RichDialect | undefined) => rich ? richApi : api
 
       let counter = 0
+      // stride a whole window, matching the message-derived path — a stride of 1 puts
+      // one stream's second slot on the next stream's first slot
       const nextOffset = () => {
         const offset = counter
 
-        counter = (counter + 1) >>> 0
+        counter = (counter + DRAFT_ID_WINDOW) % DRAFT_ID_MAX
 
         return offset
       }

@@ -13,6 +13,9 @@ export const MAX_RICH_CHUNK = 32_768
 /** draft_id must be non-zero; ids are reduced modulo this range to fit a 32-bit positive int */
 export const DRAFT_ID_MAX = 0xFFFF_FFFF
 
+/** draft ids reserved per source message — high bits hold the message_id, low bits the slot counter */
+export const DRAFT_ID_WINDOW = 256
+
 /** default soft floor between sendMessageDraft calls */
 export const DEFAULT_EDIT_INTERVAL_MS = 250
 

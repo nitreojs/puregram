@@ -7,7 +7,7 @@ export { runStream } from './core'
 export type { StreamApi, RunStreamOptions, StreamForwardOptions, StreamCallbacks, RichDialect } from './core'
 
 export {
-  DRAFT_TTL_MS, DRAFT_SAFETY_MS, MAX_CHUNK, MAX_RICH_CHUNK, DRAFT_ID_MAX,
+  DRAFT_TTL_MS, DRAFT_SAFETY_MS, MAX_CHUNK, MAX_RICH_CHUNK, DRAFT_ID_MAX, DRAFT_ID_WINDOW,
   DEFAULT_EDIT_INTERVAL_MS, DEFAULT_MAX_EDIT_BACKOFF
 } from './constants'
 

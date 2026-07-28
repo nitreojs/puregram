@@ -66,10 +66,40 @@ const sleep = (ms: number) =>
   ms <= 0 ? Promise.resolve() : new Promise<void>(resolve => setTimeout(resolve, ms))
 
 function normalizeDraftId (offset: number, counter: number) {
-  // draft_id must be a non-zero positive 32-bit int
-  const raw = ((offset + counter) >>> 0) % DRAFT_ID_MAX
+  // draft_id must be a non-zero positive 32-bit int. reduced arithmetically — a bitwise
+  // coercion truncates offsets past 2^32 and lands two distant streams on one id
+  const raw = Math.abs(Math.trunc(offset) + counter) % DRAFT_ID_MAX
 
   return raw === 0 ? 1 : raw
+}
+
+// bounded so a whitespace-free chunk can't turn every rollover into a full-buffer scan
+const ROLLOVER_LOOKBEHIND = 256
+
+// telegram renders a halved surrogate pair as U+FFFD. `limit` must be positive
+function findCut (text: string, limit: number) {
+  const floor = Math.max(1, limit - ROLLOVER_LOOKBEHIND)
+
+  const newline = text.lastIndexOf('\n', limit - 1)
+
+  if (newline >= floor - 1) {
+    return newline + 1
+  }
+
+  const space = text.lastIndexOf(' ', limit - 1)
+
+  if (space >= floor - 1) {
+    return space + 1
+  }
+
+  const tail = text.charCodeAt(limit - 1)
+  const next = text.charCodeAt(limit)
+
+  if (tail >= 0xD800 && tail <= 0xDBFF && next >= 0xDC00 && next <= 0xDFFF) {
+    return limit - 1
+  }
+
+  return limit
 }
 
 interface SendPayload {
@@ -225,11 +255,13 @@ export async function runStream (api: StreamApi, opts: RunStreamOptions) {
           if (remaining.length <= room) {
             slot.text += remaining; remaining = ''
           } else {
-            slot.text += remaining.slice(0, room)
+            const cut = room > 0 ? findCut(remaining, room) : 0
+
+            slot.text += remaining.slice(0, cut)
             slot.finalized = true
             completed.push(slot)
             slots.push({ id: normalizeDraftId(opts.draftIdOffset, slots.length), text: '', finalized: false })
-            remaining = remaining.slice(room)
+            remaining = remaining.slice(cut)
           }
         }
 

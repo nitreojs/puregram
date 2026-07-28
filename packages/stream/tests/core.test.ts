@@ -38,6 +38,18 @@ async function * fromArray (items: readonly string[], delays?: readonly number[]
   }
 }
 
+function hasLoneSurrogate (text: string) {
+  for (const char of text) {
+    const code = char.codePointAt(0)!
+
+    if (code >= 0xD800 && code <= 0xDFFF) {
+      return true
+    }
+  }
+
+  return false
+}
+
 describe('runStream — core state machine', () => {
   beforeEach(() => {
     vi.useFakeTimers({ shouldAdvanceTime: true })
@@ -100,6 +112,65 @@ describe('runStream — core state machine', () => {
     expect(messages).toHaveLength(2)
     expect((messages[0]!.text as string).length).toBe(4096)
     expect(messages[1]!.text).toBe(tail)
+  })
+
+  it('never splits a surrogate pair across a rollover', async () => {
+    const { api, messages } = makeMockApi()
+
+    const input = `${'a'.repeat(4095)}😀${'b'.repeat(10)}`
+
+    await runStream(api, {
+      chatId: 1,
+      source: fromArray([input]),
+      draftIdOffset: 0,
+      editIntervalMs: 0,
+      thinkingPlaceholder: false
+    })
+
+    expect(messages).toHaveLength(2)
+    expect((messages[0]!.text as string).length).toBe(4095)
+
+    for (const message of messages) {
+      expect(hasLoneSurrogate(message.text as string)).toBe(false)
+    }
+
+    expect(messages.map(message => message.text as string).join('')).toBe(input)
+  })
+
+  it('backs a rollover off to a newline inside the lookbehind window', async () => {
+    const { api, messages } = makeMockApi()
+
+    const input = `${'a'.repeat(4000)}\n${'b'.repeat(200)}`
+
+    await runStream(api, {
+      chatId: 1,
+      source: fromArray([input]),
+      draftIdOffset: 0,
+      editIntervalMs: 0,
+      thinkingPlaceholder: false
+    })
+
+    expect(messages).toHaveLength(2)
+    expect(messages[0]!.text).toBe(`${'a'.repeat(4000)}\n`)
+    expect(messages[1]!.text).toBe('b'.repeat(200))
+  })
+
+  it('hard-cuts at the cap when the window holds no whitespace, losing no characters', async () => {
+    const { api, messages } = makeMockApi()
+
+    const input = 'x'.repeat(5000)
+
+    await runStream(api, {
+      chatId: 1,
+      source: fromArray([input]),
+      draftIdOffset: 0,
+      editIntervalMs: 0,
+      thinkingPlaceholder: false
+    })
+
+    expect(messages).toHaveLength(2)
+    expect((messages[0]!.text as string).length).toBe(4096)
+    expect(messages.map(message => message.text as string).join('')).toBe(input)
   })
 
   it('honors an AbortSignal and reports aborted=true', async () => {

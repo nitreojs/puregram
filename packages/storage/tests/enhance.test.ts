@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { enhanceStorage } from '../src/enhance'
+import { isTtlStorage, type TtlStorage } from '../src/kv-storage'
 import { MemoryStorage } from '../src/memory'
 
 describe('enhanceStorage()', () => {
@@ -163,5 +164,77 @@ describe('enhanceStorage()', () => {
     }
 
     expect(seen.sort()).toEqual(['a', 'b'])
+  })
+
+  it('values iterator yields unwrapped payloads, not envelopes', async () => {
+    const base = new MemoryStorage()
+    const s = enhanceStorage<number>(base)
+
+    await s.set('a', 1)
+    await s.set('b', 2)
+
+    const seen: number[] = []
+
+    for await (const v of s.values?.() ?? []) {
+      seen.push(v)
+    }
+
+    expect(seen.sort()).toEqual([1, 2])
+  })
+
+  it('entries iterator yields unwrapped payloads and skips expired entries', async () => {
+    const base = new MemoryStorage()
+
+    await base.set('stale', { __v: 0, __exp: Date.now() - 1_000, data: 'gone' })
+
+    const s = enhanceStorage<string>(base)
+
+    await s.set('live', 'here')
+
+    const seen: (readonly [string, string])[] = []
+
+    for await (const e of s.entries?.() ?? []) {
+      seen.push(e)
+    }
+
+    expect(seen).toEqual([['live', 'here']])
+  })
+
+  it('has() reports false once __exp has passed', async () => {
+    const base = new MemoryStorage()
+
+    await base.set('k', { __v: 0, __exp: Date.now() - 1_000, data: 'gone' })
+
+    const s = enhanceStorage(base)
+
+    expect(await s.has('k')).toBe(false)
+    expect(await s.get('k')).toBeUndefined()
+  })
+
+  describe('ttl forwarding', () => {
+    class TouchableStorage<V = unknown> extends MemoryStorage<V> implements TtlStorage<V> {
+      readonly touched: string[] = []
+
+      touch (key: string) {
+        this.touched.push(key)
+
+        return Promise.resolve()
+      }
+    }
+
+    it('keeps a ttl base detectable by isTtlStorage and routes touch to it', async () => {
+      const base = new TouchableStorage()
+      const s = enhanceStorage<number>(base)
+
+      expect(isTtlStorage(s)).toBe(true)
+
+      await s.touch('k')
+
+      expect(base.touched).toEqual(['k'])
+    })
+
+    it('leaves a plain kv base without touch', () => {
+      expect(isTtlStorage(enhanceStorage(new MemoryStorage()))).toBe(false)
+    })
   })
 })

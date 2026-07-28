@@ -268,9 +268,11 @@ const storage = enhanceStorage<SessionV3>(new MemoryStorage(), {
 semantics:
 
 - legacy unversioned values are treated as **v0** and migrated forward on first read
-- expired entries (`__exp < Date.now()`) return `undefined` and are deleted from the base storage on read
+- expired entries (`__exp < Date.now()`) return `undefined` from `get`, `false` from `has`, and are deleted from the base storage on read
 - migrated envelopes are written back at the current version, so subsequent reads skip the upgrade
 - concurrent reads converge on the same migrated payload (last write wins)
+- `keys`, `values`, `entries` and `touch` are forwarded when the base implements them. `values`/`entries` unwrap the envelope and skip expired entries
+- wrapping a `TtlStorage` returns a `TtlStorage`, so `isTtlStorage(enhanceStorage(base))` stays `true` and sliding-window expiry keeps working through the wrapper
 
 ### batteries-included adapters
 

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/require-await -- KVStorage contract is async */
-import type { KVStorage } from './kv-storage'
+import { isTtlStorage, type KVStorage, type TtlStorage } from './kv-storage'
 
 /** options accepted by {@link enhanceStorage} */
 export interface EnhanceStorageOptions {
-  /** when set, attach `__exp` (unix ms) so reads can lazily evict stale entries */
+  /** when set, preserves an `__exp` (unix ms) already present on the envelope across re-writes — never sets one */
   millisecondPrecision?: boolean
   /**
    * versioned migrations applied lazily on read. keyed by the target version —
@@ -21,6 +21,9 @@ interface Envelope<V> {
 }
 
 const ENVELOPE_SHAPE: keyof Envelope<unknown> = '__v'
+
+// sentinel distinguishes "entry lapsed" from a legitimately stored `undefined`
+const EXPIRED = Symbol('expired')
 
 // eslint-disable-next-line local-rules/no-redundant-return-type -- type predicate needed for narrowing
 const isEnvelope = (value: unknown): value is Envelope<unknown> => (
@@ -40,9 +43,15 @@ const latestVersion = (migrations: Record<number, unknown>) => {
 /**
  * wraps a base {@link KVStorage} with versioned migrations and optional
  * per-entry expiry encoded inline as `__exp`. envelope keys (`__v`, `__exp`,
- * `data`) are namespaced to minimise collision with user payloads
+ * `data`) are namespaced to minimise collision with user payloads.
+ *
+ * `keys`, `values`, `entries` and `touch` are forwarded when the base
+ * implements them — wrapping a {@link TtlStorage} still satisfies
+ * {@link isTtlStorage}
  */
-export function enhanceStorage<V> (base: KVStorage<unknown>, opts: EnhanceStorageOptions = {}) {
+export function enhanceStorage<V> (base: TtlStorage<unknown>, opts?: EnhanceStorageOptions): TtlStorage<V>
+export function enhanceStorage<V> (base: KVStorage<unknown>, opts?: EnhanceStorageOptions): KVStorage<V>
+export function enhanceStorage<V> (base: KVStorage<unknown>, opts: EnhanceStorageOptions = {}): KVStorage<V> {
   const migrations = opts.migrations ?? {}
   const target = latestVersion(migrations)
 
@@ -64,6 +73,18 @@ export function enhanceStorage<V> (base: KVStorage<unknown>, opts: EnhanceStorag
     }
 
     return current as V
+  }
+
+  const unwrap = async (raw: unknown) => {
+    if (!isEnvelope(raw)) {
+      return runMigrations(raw, 0)
+    }
+
+    if (raw.__exp !== undefined && Date.now() > raw.__exp) {
+      return EXPIRED
+    }
+
+    return raw.__v < target ? runMigrations(raw.data, raw.__v) : raw.data as V
   }
 
   const enhanced: KVStorage<V> = {
@@ -123,11 +144,60 @@ export function enhanceStorage<V> (base: KVStorage<unknown>, opts: EnhanceStorag
     },
 
     delete: (key: string) => base.delete(key),
-    has: (key: string) => base.has(key)
+
+    has: async (key: string) => {
+      const raw = await base.get(key)
+
+      if (raw === undefined) {
+        return base.has(key)
+      }
+
+      if (isEnvelope(raw) && raw.__exp !== undefined && Date.now() > raw.__exp) {
+        await base.delete(key)
+
+        return false
+      }
+
+      return true
+    }
   }
 
   if (base.keys !== undefined) {
     enhanced.keys = base.keys.bind(base)
+  }
+
+  if (base.values !== undefined) {
+    const values = base.values.bind(base)
+
+    enhanced.values = async function * () {
+      for await (const raw of values()) {
+        const value = await unwrap(raw)
+
+        if (value !== EXPIRED) {
+          yield value
+        }
+      }
+    }
+  }
+
+  if (base.entries !== undefined) {
+    const entries = base.entries.bind(base)
+
+    enhanced.entries = async function * () {
+      for await (const [key, raw] of entries()) {
+        const value = await unwrap(raw)
+
+        if (value !== EXPIRED) {
+          yield [key, value] as const
+        }
+      }
+    }
+  }
+
+  if (isTtlStorage(base)) {
+    const ttl = enhanced as TtlStorage<V>
+
+    ttl.touch = base.touch.bind(base)
   }
 
   return enhanced

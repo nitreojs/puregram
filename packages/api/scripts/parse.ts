@@ -22,7 +22,7 @@ async function main () {
   const coreforkFragment = parseCorefork(coreforkHtml)
   const coreFragment = parseCore(coreHtml)
 
-  const merged = mergeFragments(coreforkFragment, coreFragment)
+  const { returnTypeFallbacks, ...merged } = mergeFragments(coreforkFragment, coreFragment)
 
   const schema: Schema = {
     ...merged,
@@ -62,6 +62,10 @@ async function main () {
   }
 
   console.log(`[parse]   ${schema.methods.length} methods, ${schema.objects.length} objects`)
+
+  const fallbackList = returnTypeFallbacks.length > 0 ? returnTypeFallbacks.join(', ') : 'none'
+
+  console.error(`[parse]   ${returnTypeFallbacks.length} method(s) fell back to True: ${fallbackList}`)
 }
 
 main().catch((error) => {

@@ -1,11 +1,11 @@
 import { extractFromHtml } from './normalize'
 
 export function parseCore (html: string) {
-  const { methods, objects } = extractFromHtml(html)
+  const { methods, objects, returnTypeFallbacks } = extractFromHtml(html)
   const version = parseVersion(html)
   const recentChanges = parseRecentChanges(html)
 
-  return { methods, objects, version, recentChanges }
+  return { methods, objects, returnTypeFallbacks, version, recentChanges }
 }
 
 function parseVersion (html: string) {

@@ -149,4 +149,19 @@ describe('extractFromHtml', () => {
       expect(item.fields.find(f => f.name === 'status')!.type).toEqual({ kind: 'string' })
     }
   })
+
+  it('flags methods whose return type resolves from neither prose nor anchors', () => {
+    const html = `
+      <h4>logOut</h4>
+      <p>Use this method to log out from the cloud Bot API server. Returns True on success.</p>
+      <h4>rebrandedMethod</h4>
+      <p>Use this method to do the thing. The result is delivered asynchronously to the webhook.</p>
+    `
+
+    const { methods, returnTypeFallbacks } = extractFromHtml(html)
+
+    expect(returnTypeFallbacks).toEqual(['rebrandedMethod'])
+    expect(methods.find(m => m.name === 'rebrandedMethod')!.returnType).toEqual({ kind: 'true' })
+    expect(methods.find(m => m.name === 'logOut')!.returnType).toEqual({ kind: 'true' })
+  })
 })

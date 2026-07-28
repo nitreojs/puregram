@@ -65,6 +65,10 @@ function splitUnion (text: string) {
 export interface ExtractedSchema {
   methods: SchemaMethod[]
   objects: SchemaObject[]
+  // methods whose return type neither a prose pattern nor a description anchor could resolve.
+  // they default to `True`, which compiles either way — surfacing the names is the only way a
+  // bot-api rephrasing that defeats every pattern gets noticed
+  returnTypeFallbacks: string[]
 }
 
 export function extractFromHtml (html: string) {
@@ -72,6 +76,7 @@ export function extractFromHtml (html: string) {
 
   const methods: SchemaMethod[] = []
   const objects: SchemaObject[] = []
+  const returnTypeFallbacks: string[] = []
 
   $('h4').each((_, h4) => {
     const $h4 = $(h4)
@@ -87,14 +92,20 @@ export function extractFromHtml (html: string) {
     const $table = findSectionTable($, $h4)
 
     if (isMethodName(name)) {
-      methods.push(extractMethod($, name, description, descriptionLinks, $table))
+      const { method, returnTypeGuessed } = extractMethod($, name, description, descriptionLinks, $table)
+
+      methods.push(method)
+
+      if (returnTypeGuessed) {
+        returnTypeFallbacks.push(name)
+      }
     } else if (isObjectName(name)) {
       objects.push(extractObject($, name, description, sectionLinks, $table))
     }
     // names with spaces are section headers (e.g. "Available types"), ignore
   })
 
-  return { methods, objects }
+  return { methods, objects, returnTypeFallbacks }
 }
 
 function isMethodName (name: string) {
@@ -263,14 +274,16 @@ function extractMethod (
 
   const returnType = parseReturnTypeFromDescription(description, descriptionLinks)
 
-  return {
+  const method: SchemaMethod = {
     name,
     description,
     documentationLink: `https://core.telegram.org/bots/api#${name.toLowerCase()}`,
     multipartOnly: /multipart/i.test(description),
     arguments: dedupeFields(args, name),
-    returnType
+    returnType: returnType ?? { kind: 'true' }
   }
+
+  return { method, returnTypeGuessed: returnType === undefined }
 }
 
 function extractObject (
@@ -376,8 +389,9 @@ function parseReturnTypeFromDescription (description: string, links: string[]) {
     return parseTypeRef(links[links.length - 1]!)
   }
 
-  // most no-return-value methods document themselves as returning `True`
-  return { kind: 'true' as const }
+  // unresolved. the caller defaults to `True` — the common no-return-value shape — rather than
+  // throwing, since a genuinely True-returning method is legitimate and frequent
+  return undefined
 }
 
 // trigger phrases for string-field allowed values; scoped to a sentence span so unrelated

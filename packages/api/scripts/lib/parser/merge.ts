@@ -8,13 +8,21 @@ export function mergeFragments (corefork: SchemaFragment, core: SchemaFragment) 
   const [primary, secondary] = pickPrimary(corefork, core) as [SchemaFragment, SchemaFragment]
 
   const methodsByName = new Map<string, Schema['methods'][number]>()
+  const returnTypeFallbacks = new Set<string>()
 
-  for (const m of secondary.methods) {
-    methodsByName.set(m.name, m)
-  }
+  // secondary first, so a method present on both sides takes the primary's fallback verdict too
+  for (const fragment of [secondary, primary]) {
+    const fragmentFallbacks = new Set(fragment.returnTypeFallbacks)
 
-  for (const m of primary.methods) {
-    methodsByName.set(m.name, m)
+    for (const m of fragment.methods) {
+      methodsByName.set(m.name, m)
+
+      if (fragmentFallbacks.has(m.name)) {
+        returnTypeFallbacks.add(m.name)
+      } else {
+        returnTypeFallbacks.delete(m.name)
+      }
+    }
   }
 
   const objectsByName = new Map<string, Schema['objects'][number]>()
@@ -31,7 +39,8 @@ export function mergeFragments (corefork: SchemaFragment, core: SchemaFragment) 
     version: primary.version,
     recentChanges: primary.recentChanges,
     methods: [...methodsByName.values()].sort((a, b) => a.name.localeCompare(b.name)),
-    objects: [...objectsByName.values()].sort((a, b) => a.name.localeCompare(b.name))
+    objects: [...objectsByName.values()].sort((a, b) => a.name.localeCompare(b.name)),
+    returnTypeFallbacks: [...returnTypeFallbacks].sort((a, b) => a.localeCompare(b))
   }
 }
 

@@ -7,7 +7,8 @@ const baseFragment: SchemaFragment = {
   version: { major: 8, minor: 0, patch: 0 },
   recentChanges: { year: 2026, month: 4, day: 1 },
   methods: [],
-  objects: []
+  objects: [],
+  returnTypeFallbacks: []
 }
 
 describe('mergeFragments', () => {
@@ -122,5 +123,23 @@ describe('mergeFragments', () => {
     const schema = mergeFragments(corefork, core)
 
     expect(schema.methods.map(m => m.name).sort()).toEqual(['newBetaMethod', 'oldStableMethod'])
+  })
+
+  it('takes the return-type fallback verdict from the winning fragment', () => {
+    const method = { name: 'sendThing', description: '', documentationLink: '', multipartOnly: false, arguments: [], returnType: { kind: 'true' as const } }
+    const corefork: SchemaFragment = {
+      ...baseFragment,
+      version: { major: 9, minor: 7, patch: 0 },
+      methods: [method],
+      returnTypeFallbacks: []
+    }
+    const core: SchemaFragment = {
+      ...baseFragment,
+      version: { major: 9, minor: 6, patch: 0 },
+      methods: [method, { ...method, name: 'coreOnly' }],
+      returnTypeFallbacks: ['sendThing', 'coreOnly']
+    }
+
+    expect(mergeFragments(corefork, core).returnTypeFallbacks).toEqual(['coreOnly'])
   })
 })

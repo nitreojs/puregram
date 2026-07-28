@@ -17,6 +17,12 @@ export const PER_CHAT_WINDOW_MS = 1_000
 export const PER_GROUP_WINDOW_MS = 60_000
 
 /**
+ * lower bound on the gap between implicit bucket sweeps. one per-chat window is
+ * long enough that the O(buckets) scan amortizes to nothing on the request path
+ */
+export const SWEEP_INTERVAL_MS = PER_CHAT_WINDOW_MS
+
+/**
  * methods exempt from throttling by default. these are control-plane calls that
  * either don't count toward send budgets or shouldn't ever be queued behind them
  */

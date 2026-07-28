@@ -191,7 +191,7 @@ interface ThrottlerExtension {
   readonly chatWindows: number
   /** number of distinct per-group windows currently tracked */
   readonly groupWindows: number
-  /** drop expired buckets — happens implicitly on every acquire; useful in long-running tests */
+  /** drop buckets whose windows have gone empty — forces the cleanup acquiring already does */
   sweep: () => void
 }
 ```
@@ -201,6 +201,8 @@ setInterval(() => {
   console.log('throttler pending:', telegram.throttler.pending)
 }, 5_000)
 ```
+
+every acquire that lands at least one second (`SWEEP_INTERVAL_MS`, one per-chat window) after the previous sweep drops the buckets whose windows have gone empty, so a bot that talks to a million chats doesn't hold a million sliding windows. the scan is O(tracked buckets) and time-gated, so it costs nothing on the request path. `sweep()` runs the same pass on demand — useful in long-running tests or on a shutdown path.
 
 ---
 

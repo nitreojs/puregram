@@ -1,6 +1,7 @@
 import type { RequestContext, Telegram } from 'puregram'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
+import { PER_CHAT_WINDOW_MS, SWEEP_INTERVAL_MS } from '../src/constants'
 import { throttler, ThrottlerDroppedError, type ThrottlerExtension } from '../src/throttler'
 
 type Hook = (ctx: RequestContext, next: () => Promise<void>) => unknown
@@ -381,6 +382,49 @@ describe('throttler — extension surface', () => {
 
       expect(env.ext.chatWindows).toBe(0)
       expect(env.ext.groupWindows).toBe(0)
+    } finally {
+      vi.useRealTimers()
+    }
+  })
+
+  it('an acquire past the sweep interval drops windows for chats that went idle', async () => {
+    vi.useFakeTimers()
+    vi.setSystemTime(0)
+
+    try {
+      const env = setup({ globalPerSec: 100, perChatPerSec: 100, perGroupPerMin: 100 })
+
+      await env.run(ctx('sendMessage', { chat_id: 1, text: 'a' }))
+      await env.run(ctx('sendMessage', { chat_id: 2, text: 'b' }))
+
+      expect(env.ext.chatWindows).toBe(2)
+
+      vi.setSystemTime(SWEEP_INTERVAL_MS + PER_CHAT_WINDOW_MS)
+
+      await env.run(ctx('sendMessage', { chat_id: 3, text: 'c' }))
+
+      expect(env.ext.chatWindows).toBe(1)
+    } finally {
+      vi.useRealTimers()
+    }
+  })
+
+  it('an implicit sweep keeps windows that still hold live timestamps', async () => {
+    vi.useFakeTimers()
+    vi.setSystemTime(0)
+
+    try {
+      const env = setup({ globalPerSec: 100, perChatPerSec: 100, perGroupPerMin: 100 })
+
+      await env.run(ctx('sendMessage', { chat_id: -100, text: 'a' }))
+
+      vi.setSystemTime(SWEEP_INTERVAL_MS)
+
+      await env.run(ctx('sendMessage', { chat_id: 1, text: 'b' }))
+
+      // the group window spans a minute, so the t=0 stamp is still live and its bucket must survive
+      expect(env.ext.groupWindows).toBe(1)
+      expect(env.ext.chatWindows).toBe(1)
     } finally {
       vi.useRealTimers()
     }

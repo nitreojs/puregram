@@ -73,4 +73,16 @@ describe('BucketRegistry', () => {
 
     expect(reg.count).toBe(0)
   })
+
+  it('sweep keeps windows that still hold live stamps', () => {
+    const reg = new BucketRegistry(1, 1_000)
+
+    reg.get('a').record(0)
+    reg.get('b').record(900)
+
+    reg.sweep(1_500)
+
+    expect(reg.count).toBe(1)
+    expect(reg.get('b').size(1_500)).toBe(1)
+  })
 })

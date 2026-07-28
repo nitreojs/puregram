@@ -8,7 +8,8 @@ import {
   DEFAULT_PER_GROUP_PER_MIN,
   GLOBAL_WINDOW_MS,
   PER_CHAT_WINDOW_MS,
-  PER_GROUP_WINDOW_MS
+  PER_GROUP_WINDOW_MS,
+  SWEEP_INTERVAL_MS
 } from './constants'
 
 /** error raised when `mode: 'drop'` rejects a queued request because the bucket queue is full */
@@ -81,7 +82,10 @@ export interface ThrottlerExtension {
   readonly chatWindows: number
   /** number of distinct per-group windows currently tracked */
   readonly groupWindows: number
-  /** drop expired buckets — runs implicitly on every acquire; exposed for tests/observability */
+  /**
+   * drop buckets whose windows have gone empty. acquiring already does this at most
+   * once per `SWEEP_INTERVAL_MS`; call it to force a sweep from tests or a shutdown path
+   */
   sweep: () => void
 }
 
@@ -111,7 +115,9 @@ const sleep = (ms: number) =>
 
 interface BucketHandle {
   readonly key: string
-  readonly window: SlidingWindow
+  // resolved late, per attempt — an implicit sweep can evict an idle window between
+  // queueing and acquiring, and recording into the evicted object would lose the stamp
+  readonly window: () => SlidingWindow
 }
 
 /**
@@ -224,8 +230,31 @@ export function throttler (options: ThrottlerOptions = {}) {
     }
   }
 
+  let lastSweep = 0
+
+  const sweepAll = (now: number) => {
+    lastSweep = now
+
+    chatRegistry.sweep(now)
+    groupRegistry.sweep(now)
+
+    for (const reg of methodChatRegistries.values()) {
+      reg.sweep(now)
+    }
+
+    for (const reg of methodGroupRegistries.values()) {
+      reg.sweep(now)
+    }
+  }
+
   /** acquire a slot on every bucket in order. returns once all windows have room and have recorded our hit */
   const acquire = async (method: string, handles: BucketHandle[]) => {
+    const startedAt = Date.now()
+
+    if (startedAt - lastSweep >= SWEEP_INTERVAL_MS) {
+      sweepAll(startedAt)
+    }
+
     for (const handle of handles) {
       if (mode === 'drop') {
         const depth = queueDepth.get(handle.key) ?? 0
@@ -241,10 +270,11 @@ export function throttler (options: ThrottlerOptions = {}) {
       try {
         await withMutex(handle.key, async () => {
           while (true) {
-            const wait = handle.window.msUntilSlot(Date.now())
+            const window = handle.window()
+            const wait = window.msUntilSlot(Date.now())
 
             if (wait === 0) {
-              handle.window.record(Date.now())
+              window.record(Date.now())
 
               return
             }
@@ -270,24 +300,24 @@ export function throttler (options: ThrottlerOptions = {}) {
         }
 
         const handles: BucketHandle[] = [
-          { key: 'global', window: globalWindow }
+          { key: 'global', window: () => globalWindow }
         ]
 
         const chatId = extractChatId(ctx.method, ctx.params)
 
         if (chatId !== undefined) {
-          const hasOverride = ctx.method in perMethod
+          const hasOverride = Object.hasOwn(perMethod, ctx.method)
 
           if (extractIsGroup(chatId)) {
             const registry = hasOverride ? getMethodGroupRegistry(ctx.method) : groupRegistry
             const key = hasOverride ? `${ctx.method}:group:${chatId}` : `group:${chatId}`
 
-            handles.push({ key, window: registry.get(`group:${chatId}`) })
+            handles.push({ key, window: () => registry.get(`group:${chatId}`) })
           } else {
             const registry = hasOverride ? getMethodChatRegistry(ctx.method) : chatRegistry
             const key = hasOverride ? `${ctx.method}:chat:${chatId}` : `chat:${chatId}`
 
-            handles.push({ key, window: registry.get(`chat:${chatId}`) })
+            handles.push({ key, window: () => registry.get(`chat:${chatId}`) })
           }
         }
 
@@ -318,18 +348,7 @@ export function throttler (options: ThrottlerOptions = {}) {
           return total
         },
         sweep: () => {
-          const now = Date.now()
-
-          chatRegistry.sweep(now)
-          groupRegistry.sweep(now)
-
-          for (const reg of methodChatRegistries.values()) {
-            reg.sweep(now)
-          }
-
-          for (const reg of methodGroupRegistries.values()) {
-            reg.sweep(now)
-          }
+          sweepAll(Date.now())
         }
       }
 

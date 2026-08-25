@@ -1419,7 +1419,7 @@ const buildFragment: (
 
       const { restEnd, credit } = splitCredit(source, span.start, span.innerEnd, host, opts)
 
-      // telegram's rich-html example spells this `expandable`, its object docs `collapsed`
+      // telegram's object docs spelled this attribute `collapsed` until bot api 10.3.2
       if ('expandable' in attrs || 'collapsed' in attrs) {
         return {
           level: 'block',

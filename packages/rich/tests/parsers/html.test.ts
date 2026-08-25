@@ -308,7 +308,7 @@ describe('block mappings', () => {
     })
   })
 
-  it('accepts the collapsed spelling the object docs use', () => {
+  it('accepts the collapsed spelling the object docs used before 10.3.2', () => {
     expect(firstBlock('<blockquote collapsed>long</blockquote>')).toEqual({
       type: 'expandable_blockquote',
       text: 'long'

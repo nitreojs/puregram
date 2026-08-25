@@ -221,19 +221,42 @@ export async function runStream (api: StreamApi, opts: RunStreamOptions) {
     wakeResolve = resolve
   })
 
+  let cancelResolve: (() => void) | undefined
+  const cancelled = new Promise<void>((resolve) => {
+    cancelResolve = resolve
+  })
+  const cancel = () => {
+    cancelResolve?.()
+    cancelResolve = undefined
+    wake()
+  }
+
   if (stop !== undefined) {
-    stop.onStop = wake
+    stop.onStop = cancel
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- noUncheckedIndexedAccess
   const currentSlot = () => slots[slots.length - 1] as DraftSlot
 
   const pumpSource = async () => {
+    const iterator = opts.source[Symbol.asyncIterator]()
+
+    opts.signal?.addEventListener('abort', cancel, { once: true })
+
     try {
-      for await (const chunk of opts.source) {
+      while (true) {
         if (stop?.stopped === true || opts.signal?.aborted) {
           break
         }
+
+        // a stalled source leaves next() pending forever, wedging the run past abort and stop
+        const step = await Promise.race([iterator.next(), cancelled.then(() => undefined)])
+
+        if (step === undefined || step.done === true) {
+          break
+        }
+
+        const chunk = step.value
 
         if (chunk.length === 0) {
           continue
@@ -266,8 +289,12 @@ export async function runStream (api: StreamApi, opts: RunStreamOptions) {
     } catch (err) {
       pullErr = err
     } finally {
+      opts.signal?.removeEventListener('abort', cancel)
       pulling = false
       wake()
+
+      // never awaited: a generator parked inside its own await cannot process return()
+      Promise.resolve(iterator.return?.()).catch(() => {})
     }
   }
 

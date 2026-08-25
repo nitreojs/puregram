@@ -147,7 +147,7 @@ const kb = InlineKeyboard.keyboard([
 | `InlineKeyboard.game({ text, game })` | launches a game |
 | `InlineKeyboard.pay({ text })` | pay button for invoices |
 
-each factory also accepts `style`, `iconCustomEmojiId` and `disabled` inside the params object
+each factory also accepts `style`, `iconCustomEmojiId` and `disabled` inside the params object, plus a standalone `disabledButton` / `disabled` factory
 
 ```ts
 // callback button
@@ -175,14 +175,24 @@ visible. it exists on inline buttons only; reply-keyboard buttons have no such f
 ```ts
 InlineKeyboard.keyboard([[
   InlineKeyboard.text({ text: 'free', payload: 'plan:free' }),
-  InlineKeyboard.text({ text: 'pro — soon', payload: 'plan:pro', disabled: true })
+  InlineKeyboard.disabledButton({ text: 'pro — soon' })
 ]])
 ```
 
-::: warning telegram does not echo it back
-the field is accepted and sent (`"disabled":{}` on the wire), but the returned message's
-`reply_markup` omits it, so you cannot read it back off a sent message
-:::
+`disabled` is an **action**, not a decoration: telegram's `InlineKeyboardButton` needs exactly one
+action, and `disabled` is one of them. so `disabled: true` on any factory **replaces** that
+factory's action — the `payload` / `url` you passed is dropped, because a disabled button has
+nothing to do:
+
+```ts
+// these two are identical
+InlineKeyboard.text({ text: 'pro', payload: 'plan:pro', disabled: true })
+InlineKeyboard.disabledButton({ text: 'pro' })
+```
+
+that mirrors the server: telegram silently discards `disabled` on a button that also carries an
+action, which is why the flag has to take the action's place to mean anything. `style` and
+`iconCustomEmojiId` do survive alongside it
 
 ### force reply
 

@@ -33,6 +33,18 @@ export interface StreamCallbacks {
 /** rich-message dialect — exactly one of these is written into `rich_message` */
 export type RichDialect = 'markdown' | 'html'
 
+/**
+ * the stop channel shared between a run and whatever watches `stopped_message_generation`.
+ * the run registers every draft id it puts on the wire; the watcher flips `stopped` and calls
+ * `onStop` when telegram reports the user pressed the button for one of them
+ */
+export interface StreamStopController {
+  chatId: number
+  draftIds: Set<number>
+  stopped: boolean
+  onStop?: () => void
+}
+
 /** full options for `runStream`; aggregates the call-site shape into a single struct */
 export interface RunStreamOptions extends StreamForwardOptions, StreamCallbacks {
   chatId: number
@@ -42,6 +54,9 @@ export interface RunStreamOptions extends StreamForwardOptions, StreamCallbacks 
   editIntervalMs?: number
   maxEditBackoff?: number
   thinkingPlaceholder?: boolean
+  canStop?: boolean
+  keepOnStop?: boolean
+  stop?: StreamStopController
   draftIdOffset: number
   signal?: AbortSignal
 }
@@ -54,6 +69,7 @@ export interface StreamResult {
   bytes: number
   skipped: number
   aborted: boolean
+  stopped: boolean
 }
 
 /** minimal tg-api surface this core leans on — keeps the state machine testable without a `Telegram` instance */
@@ -66,10 +82,9 @@ const sleep = (ms: number) =>
   ms <= 0 ? Promise.resolve() : new Promise<void>(resolve => setTimeout(resolve, ms))
 
 function normalizeDraftId (offset: number, counter: number) {
-  // draft_id must be a non-zero positive 32-bit int
-  const raw = ((offset + counter) >>> 0) % DRAFT_ID_MAX
-
-  return raw === 0 ? 1 : raw
+  // draft_id must be a non-zero positive 32-bit int; folding 0 up to 1 would alias two offsets
+  // onto one id, and the stop watcher identifies a run by the ids it owns
+  return ((offset + counter) >>> 0) % (DRAFT_ID_MAX - 1) + 1
 }
 
 interface SendPayload {
@@ -172,8 +187,15 @@ export async function runStream (api: StreamApi, opts: RunStreamOptions) {
   const editInterval = opts.editIntervalMs ?? DEFAULT_EDIT_INTERVAL_MS
   const maxBackoff = opts.maxEditBackoff ?? DEFAULT_MAX_EDIT_BACKOFF
   const wantThinking = opts.thinkingPlaceholder ?? true
+  const stop = opts.stop
+  const draftFields: Record<string, unknown> = {
+    ...(opts.canStop === undefined ? {} : { can_stop: opts.canStop }),
+    ...(opts.keepOnStop === undefined ? {} : { keep_on_stop: opts.keepOnStop })
+  }
 
-  const result: StreamResult = { messages: [], drafts: 0, pieces: 0, bytes: 0, skipped: 0, aborted: false }
+  const result: StreamResult = {
+    messages: [], drafts: 0, pieces: 0, bytes: 0, skipped: 0, aborted: false, stopped: false
+  }
   const slots: DraftSlot[] = [{ id: normalizeDraftId(opts.draftIdOffset, 0), text: '', finalized: false }]
   const completed: DraftSlot[] = []
 
@@ -190,7 +212,7 @@ export async function runStream (api: StreamApi, opts: RunStreamOptions) {
   }
 
   const waitForWork = () => new Promise<void>((resolve) => {
-    if (!pulling || completed.length > 0 || dirty || opts.signal?.aborted) {
+    if (!pulling || completed.length > 0 || dirty || stop?.stopped === true || opts.signal?.aborted) {
       resolve()
 
       return
@@ -199,13 +221,17 @@ export async function runStream (api: StreamApi, opts: RunStreamOptions) {
     wakeResolve = resolve
   })
 
+  if (stop !== undefined) {
+    stop.onStop = wake
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- noUncheckedIndexedAccess
   const currentSlot = () => slots[slots.length - 1] as DraftSlot
 
   const pumpSource = async () => {
     try {
       for await (const chunk of opts.source) {
-        if (opts.signal?.aborted) {
+        if (stop?.stopped === true || opts.signal?.aborted) {
           break
         }
 
@@ -249,10 +275,13 @@ export async function runStream (api: StreamApi, opts: RunStreamOptions) {
 
   if (wantThinking) {
     try {
+      stop?.draftIds.add(currentSlot().id)
+
       await api.sendMessageDraft({
         chat_id: opts.chatId,
         draft_id: currentSlot().id,
         ...mode.body({ text: '' }),
+        ...draftFields,
         ...(opts.message_thread_id !== undefined ? { message_thread_id: opts.message_thread_id } : {})
       })
 
@@ -267,6 +296,10 @@ export async function runStream (api: StreamApi, opts: RunStreamOptions) {
   while (true) {
     if (opts.signal?.aborted) {
       result.aborted = true; break
+    }
+
+    if (stop?.stopped === true && opts.keepOnStop !== true) {
+      result.stopped = true; break
     }
 
     // ttl-protected forced finalize — gated on first draft going out so a delayed source
@@ -298,6 +331,10 @@ export async function runStream (api: StreamApi, opts: RunStreamOptions) {
 
       result.messages.push(sent)
       opts.onDraftFinalized?.(sent)
+    }
+
+    if (stop?.stopped === true) {
+      result.stopped = true; break
     }
 
     if (!pulling && !dirty && completed.length === 0) {
@@ -336,7 +373,8 @@ export async function runStream (api: StreamApi, opts: RunStreamOptions) {
       const draftParams: Record<string, unknown> = {
         chat_id: opts.chatId,
         draft_id: slot.id,
-        ...mode.body(payload)
+        ...mode.body(payload),
+        ...draftFields
       }
 
       if (opts.message_thread_id !== undefined) {
@@ -344,6 +382,8 @@ export async function runStream (api: StreamApi, opts: RunStreamOptions) {
       }
 
       try {
+        stop?.draftIds.add(slot.id)
+
         await api.sendMessageDraft(draftParams)
         result.drafts += 1
         lastDraftTs = Date.now()
@@ -360,7 +400,7 @@ export async function runStream (api: StreamApi, opts: RunStreamOptions) {
 
   const tail = currentSlot()
 
-  if (tail.text.length > 0) {
+  if (tail.text.length > 0 && (!result.stopped || opts.keepOnStop === true)) {
     const payload = await parseStrict(tail.text, opts.parseMode).catch(async (err) => {
       await opts.onError?.(err)
 

@@ -1,3 +1,6 @@
+/** draft ids reserved per stream run, so concurrent runs in one chat never share an id */
+export const DRAFT_IDS_PER_RUN = 256
+
 /** ephemeral draft preview ttl on telegram clients */
 export const DRAFT_TTL_MS = 30_000
 

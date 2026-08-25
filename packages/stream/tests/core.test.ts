@@ -80,7 +80,7 @@ describe('runStream — core state machine', () => {
       thinkingPlaceholder: true
     })
 
-    expect(drafts[0]).toMatchObject({ text: '', draft_id: 10 })
+    expect(drafts[0]).toMatchObject({ text: '', draft_id: 11 })
   })
 
   it('rolls over to a fresh draft after 4096 chars and finalizes each window separately', async () => {
@@ -181,7 +181,7 @@ describe('runStream — core state machine', () => {
 
     expect(onPiece).toHaveBeenCalledTimes(2)
     expect(onPiece.mock.calls[0]![0]).toEqual({ text: 'a' })
-    expect(onPiece.mock.calls[0]![1]).toBe(42)
+    expect(onPiece.mock.calls[0]![1]).toBe(43)
   })
 
   it('invokes onDraftFinalized for each sendMessage', async () => {
@@ -377,7 +377,7 @@ describe('runStream — rich mode', () => {
       rich: 'markdown'
     })
 
-    expect(drafts[0]).toMatchObject({ rich_message: { markdown: '' }, draft_id: 10 })
+    expect(drafts[0]).toMatchObject({ rich_message: { markdown: '' }, draft_id: 11 })
   })
 
   it('throws when rich and parseMode are both set', async () => {

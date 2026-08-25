@@ -5,7 +5,8 @@ import {
 import type { TelegramMessage } from '@puregram/api'
 import { createPlugin, type Telegram } from 'puregram'
 
-import { runStream, type RichDialect, type StreamApi, type StreamResult } from './core'
+import { DRAFT_IDS_PER_RUN } from './constants'
+import { runStream, type RichDialect, type StreamApi, type StreamResult, type StreamStopController } from './core'
 import type { ParseMode } from './formatted'
 import { normalize, type StreamSource } from './normalize'
 
@@ -22,6 +23,8 @@ export interface StreamCallOptions {
   editIntervalMs?: number
   maxEditBackoff?: number
   thinkingPlaceholder?: boolean
+  canStop?: boolean
+  keepOnStop?: boolean
   draftIdOffset?: number
   signal?: AbortSignal
   message_thread_id?: number
@@ -86,8 +89,21 @@ function assertPrivate (chatType: string, chatId: number) {
 }
 
 function deriveOffsetFromMessage (raw: { message_id: number }) {
-  // 256 unique draft ids per source message — high bits hold message_id, low bits hold the counter
-  return (raw.message_id << 8) >>> 0
+  return ((raw.message_id * DRAFT_IDS_PER_RUN) >>> 0)
+}
+
+interface StopUpdateLike {
+  chat: { id: number }
+  draftId: number
+}
+
+// dispatch hands hooks an UnsupportedUpdate for unknown kinds, and that class has no is()
+function isStopUpdate (update: unknown): update is StopUpdateLike {
+  if (typeof update !== 'object' || update === null || !('kind' in update)) {
+    return false
+  }
+
+  return update.kind === 'stopped_message_generation'
 }
 
 /**
@@ -110,26 +126,65 @@ export function stream () {
       }
       const pickApi = (rich: boolean | RichDialect | undefined) => rich ? richApi : api
 
+      const live = new Set<StreamStopController>()
+
+      tg.useHook('onUpdate', async (update, next) => {
+        if (isStopUpdate(update)) {
+          for (const controller of live) {
+            if (controller.chatId === update.chat.id && controller.draftIds.has(update.draftId)) {
+              controller.stopped = true
+              controller.onStop?.()
+            }
+          }
+        }
+
+        await next()
+      }, { priority: 'high' })
+
+      // `allowedUpdates: 'auto'` derives its subscription from registered handlers, not hooks
+      tg.onStoppedMessageGeneration(() => {})
+
+      const run = async (chatId: number, options: StreamCallOptions, source: StreamSource, offset: number) => {
+        const { draftIdOffset, ...rest } = options
+        const controller: StreamStopController | undefined = options.canStop === true
+          ? { chatId, draftIds: new Set(), stopped: false }
+          : undefined
+
+        if (controller !== undefined) {
+          live.add(controller)
+        }
+
+        try {
+          return await runStream(pickApi(rest.rich), {
+            ...rest,
+            chatId,
+            source: normalize(source),
+            ...(controller === undefined ? {} : { stop: controller }),
+            draftIdOffset: draftIdOffset ?? offset
+          })
+        } finally {
+          if (controller !== undefined) {
+            live.delete(controller)
+          }
+        }
+      }
+
       let counter = 0
       const nextOffset = () => {
         const offset = counter
 
-        counter = (counter + 1) >>> 0
+        // one range per run, matching deriveOffsetFromMessage's spacing — overlapping ranges
+        // would let one stop update match a run it does not own
+        counter = (counter + DRAFT_IDS_PER_RUN) >>> 0
 
         return offset
       }
 
       const runFromTg: StreamExtension = async (params) => {
         // tg.stream is out-of-context; caller passes a private chat id
-        const { chat_id: chatId, source, draftIdOffset, ...rest } = params
-        const normalized = normalize(source)
+        const { chat_id: chatId, source, ...rest } = params
 
-        return runStream(pickApi(rest.rich), {
-          ...rest,
-          chatId,
-          source: normalized,
-          draftIdOffset: draftIdOffset ?? nextOffset()
-        })
+        return run(chatId, rest, source, nextOffset())
       }
 
       // eslint-disable-next-line @typescript-eslint/naming-convention -- ctor refs are PascalCase classes
@@ -138,15 +193,7 @@ export function stream () {
           value: function (this: PrivateGuardSource, source: StreamSource, options: StreamCallOptions = {}) {
             assertPrivate(this.raw.chat.type, this.raw.chat.id)
 
-            const { draftIdOffset, ...rest } = options
-            const normalized = normalize(source)
-
-            return runStream(pickApi(rest.rich), {
-              ...rest,
-              chatId: this.raw.chat.id,
-              source: normalized,
-              draftIdOffset: draftIdOffset ?? deriveOffsetFromMessage(this.raw)
-            })
+            return run(this.raw.chat.id, options, source, deriveOffsetFromMessage(this.raw))
           },
           writable: true,
           configurable: true,

@@ -12,7 +12,11 @@ function makeFakeTg () {
   }))
   const sendMessageDraft = vi.fn(() => Promise.resolve(true))
 
-  const tg = { api: { sendRichMessage, sendRichMessageDraft, sendMessage, sendMessageDraft } }
+  const tg = {
+    api: { sendRichMessage, sendRichMessageDraft, sendMessage, sendMessageDraft },
+    useHook: vi.fn(),
+    onStoppedMessageGeneration: vi.fn()
+  }
 
   return { tg, sendRichMessage, sendRichMessageDraft, sendMessage, sendMessageDraft }
 }

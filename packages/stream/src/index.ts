@@ -4,7 +4,9 @@ export type { StreamSource } from './normalize'
 export type { ParseMode, ParsedPayload } from './formatted'
 export type { StreamResult } from './core'
 export { runStream } from './core'
-export type { StreamApi, RunStreamOptions, StreamForwardOptions, StreamCallbacks, RichDialect } from './core'
+export type {
+  StreamApi, RunStreamOptions, StreamForwardOptions, StreamCallbacks, RichDialect, StreamStopController
+} from './core'
 
 export {
   DRAFT_TTL_MS, DRAFT_SAFETY_MS, MAX_CHUNK, MAX_RICH_CHUNK, DRAFT_ID_MAX,

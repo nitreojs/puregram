@@ -61,6 +61,15 @@ assistance if **you** are the author and accept full responsibility:
 if a maintainer cannot tell whether a human stands behind a contribution, it will
 be treated as agent slop and closed.
 
+## comments
+
+the default number of comments in a contribution is **zero**. never write a comment in the same
+act as the code it sits next to — decide afterwards, re-reading the finished diff as a stranger,
+and keep only a line stating a fact the code, the names, the types and the surrounding 5-10 lines
+cannot give (a wire or spec constraint, a named external bug, a measured number). changelog
+narration, restatements of the next line, and explanations of the author's reasoning are slop and
+are treated as such in review. unclear code is fixed with a better name or a smaller function.
+
 ## enforcement
 
 violations result in the pr/issue being closed, the account being blocked, and a

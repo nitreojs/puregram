@@ -1,6 +1,7 @@
 import * as filters from './filters'
 
 export { Telegram } from './telegram'
+export type { EphemeralScopeOptions } from './telegram'
 export type { TelegramOptions } from './options'
 export { TelegramError, ApiError } from './errors'
 export type { ApiResponseError } from './errors'

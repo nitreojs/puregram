@@ -1,7 +1,7 @@
 import type * as Interfaces from '@puregram/api'
 
-import type { ButtonStyleParams, CallbackData } from './types'
-import { normalizeCallbackData } from './types'
+import type { InlineButtonParams, CallbackData } from './types'
+import { decorateInlineButton, normalizeCallbackData } from './types'
 
 interface TextButtonParams {
   text: string
@@ -53,19 +53,20 @@ interface LoginButtonParams {
   loginUrl: Interfaces.TelegramLoginUrl
 }
 
-type TextButtonParamsWithStyle = TextButtonParams & ButtonStyleParams
-type UrlButtonParamsWithStyle = UrlButtonParams & ButtonStyleParams
-type WebAppButtonParamsWithStyle = WebAppButtonParams & ButtonStyleParams
-type SwitchToCurrentChatButtonParamsWithStyle = SwitchToCurrentChatButtonParams & ButtonStyleParams
-type SwitchToChatButtonParamsWithStyle = SwitchToChatButtonParams & ButtonStyleParams
-type SwitchToChosenChatButtonParamsWithStyle = SwitchToChosenChatButtonParams & ButtonStyleParams
-type GameButtonParamsWithStyle = GameButtonParams & ButtonStyleParams
-type PayButtonParamsWithStyle = PayButtonParams & ButtonStyleParams
-type LoginButtonParamsWithStyle = LoginButtonParams & ButtonStyleParams
+type TextButtonParamsWithStyle = TextButtonParams & InlineButtonParams
+type UrlButtonParamsWithStyle = UrlButtonParams & InlineButtonParams
+type WebAppButtonParamsWithStyle = WebAppButtonParams & InlineButtonParams
+type SwitchToCurrentChatButtonParamsWithStyle = SwitchToCurrentChatButtonParams & InlineButtonParams
+type SwitchToChatButtonParamsWithStyle = SwitchToChatButtonParams & InlineButtonParams
+type SwitchToChosenChatButtonParamsWithStyle = SwitchToChosenChatButtonParams & InlineButtonParams
+type GameButtonParamsWithStyle = GameButtonParams & InlineButtonParams
+type PayButtonParamsWithStyle = PayButtonParams & InlineButtonParams
+type LoginButtonParamsWithStyle = LoginButtonParams & InlineButtonParams
 
 export class InlineKeyboardBuilder {
   private rows: Interfaces.TelegramInlineKeyboardButton[][] = []
   private currentRow: Interfaces.TelegramInlineKeyboardButton[] = []
+  private isForceReply = false
 
   /** whether the builder has no buttons (committed rows + current row) */
   get isEmpty () {
@@ -93,26 +94,17 @@ export class InlineKeyboardBuilder {
     const builder = new InlineKeyboardBuilder()
 
     builder.rows = structuredClone(markup.inline_keyboard)
+    builder.isForceReply = markup.force_reply ?? false
 
     return builder
   }
 
   /** generate text button */
   textButton (params: TextButtonParamsWithStyle) {
-    const button: Interfaces.TelegramInlineKeyboardButton = {
+    return this.addButton(decorateInlineButton({
       text: params.text,
       callback_data: normalizeCallbackData(params.payload)
-    }
-
-    if (params.style) {
-      button.style = params.style
-    }
-
-    if (params.iconCustomEmojiId) {
-      button.icon_custom_emoji_id = params.iconCustomEmojiId
-    }
-
-    return this.addButton(button)
+    }, params))
   }
 
   /** generate URL button */
@@ -126,69 +118,31 @@ export class InlineKeyboardBuilder {
       button.callback_data = normalizeCallbackData(params.payload)
     }
 
-    if (params.style) {
-      button.style = params.style
-    }
-
-    if (params.iconCustomEmojiId) {
-      button.icon_custom_emoji_id = params.iconCustomEmojiId
-    }
-
-    return this.addButton(button)
+    return this.addButton(decorateInlineButton(button, params))
   }
 
   /** generate Web App button */
   webAppButton (params: WebAppButtonParamsWithStyle) {
-    const button: Interfaces.TelegramInlineKeyboardButton = {
+    return this.addButton(decorateInlineButton({
       text: params.text,
       web_app: { url: params.url }
-    }
-
-    if (params.style) {
-      button.style = params.style
-    }
-
-    if (params.iconCustomEmojiId) {
-      button.icon_custom_emoji_id = params.iconCustomEmojiId
-    }
-
-    return this.addButton(button)
+    }, params))
   }
 
   /** generate button that will switch to current chat and type the query */
   switchToCurrentChatButton (params: SwitchToCurrentChatButtonParamsWithStyle) {
-    const button: Interfaces.TelegramInlineKeyboardButton = {
+    return this.addButton(decorateInlineButton({
       text: params.text,
       switch_inline_query_current_chat: params.query
-    }
-
-    if (params.style) {
-      button.style = params.style
-    }
-
-    if (params.iconCustomEmojiId) {
-      button.icon_custom_emoji_id = params.iconCustomEmojiId
-    }
-
-    return this.addButton(button)
+    }, params))
   }
 
   /** generate button that will prompt user to select one of their chats */
   switchToChatButton (params: SwitchToChatButtonParamsWithStyle) {
-    const button: Interfaces.TelegramInlineKeyboardButton = {
+    return this.addButton(decorateInlineButton({
       text: params.text,
       switch_inline_query: params.query
-    }
-
-    if (params.style) {
-      button.style = params.style
-    }
-
-    if (params.iconCustomEmojiId) {
-      button.icon_custom_emoji_id = params.iconCustomEmojiId
-    }
-
-    return this.addButton(button)
+    }, params))
   }
 
   /**
@@ -219,74 +173,44 @@ export class InlineKeyboardBuilder {
       chosenChat.allow_user_chats = params.allowUserChats
     }
 
-    const button: Interfaces.TelegramInlineKeyboardButton = {
+    return this.addButton(decorateInlineButton({
       text: params.text,
       switch_inline_query_chosen_chat: chosenChat
-    }
-
-    if (params.style) {
-      button.style = params.style
-    }
-
-    if (params.iconCustomEmojiId) {
-      button.icon_custom_emoji_id = params.iconCustomEmojiId
-    }
-
-    return this.addButton(button)
+    }, params))
   }
 
   /** generate game button */
   gameButton (params: GameButtonParamsWithStyle) {
-    const button: Interfaces.TelegramInlineKeyboardButton = {
+    return this.addWideButton(decorateInlineButton({
       text: params.text,
       callback_game: params.game
-    }
-
-    if (params.style) {
-      button.style = params.style
-    }
-
-    if (params.iconCustomEmojiId) {
-      button.icon_custom_emoji_id = params.iconCustomEmojiId
-    }
-
-    return this.addWideButton(button)
+    }, params))
   }
 
   /** generate pay button */
   payButton (params: PayButtonParamsWithStyle) {
-    const button: Interfaces.TelegramInlineKeyboardButton = {
+    return this.addWideButton(decorateInlineButton({
       pay: true,
       text: params.text
-    }
-
-    if (params.style) {
-      button.style = params.style
-    }
-
-    if (params.iconCustomEmojiId) {
-      button.icon_custom_emoji_id = params.iconCustomEmojiId
-    }
-
-    return this.addWideButton(button)
+    }, params))
   }
 
   /** generate login button */
   loginButton (params: LoginButtonParamsWithStyle) {
-    const button: Interfaces.TelegramInlineKeyboardButton = {
+    return this.addWideButton(decorateInlineButton({
       login_url: params.loginUrl,
       text: params.text
-    }
+    }, params))
+  }
 
-    if (params.style) {
-      button.style = params.style
-    }
+  /**
+   * requests clients to show a reply interface to the user together with the keyboard, as if the
+   * user had selected the bot's message and tapped 'reply'
+   */
+  forceReply (forceReply = true) {
+    this.isForceReply = forceReply
 
-    if (params.iconCustomEmojiId) {
-      button.icon_custom_emoji_id = params.iconCustomEmojiId
-    }
-
-    return this.addButton(button)
+    return this
   }
 
   /** save current row of buttons in the general rows */
@@ -328,9 +252,15 @@ export class InlineKeyboardBuilder {
       ? [...this.rows, this.currentRow]
       : this.rows
 
-    return {
+    const json: Interfaces.TelegramInlineKeyboardMarkup = {
       inline_keyboard: buttons
     }
+
+    if (this.isForceReply) {
+      json.force_reply = true
+    }
+
+    return json
   }
 
   toString () {

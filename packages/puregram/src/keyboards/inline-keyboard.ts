@@ -1,7 +1,7 @@
 import type * as Interfaces from '@puregram/api'
 
-import type { ButtonStyleParams, CallbackData } from './types'
-import { normalizeCallbackData } from './types'
+import type { InlineButtonParams, CallbackData } from './types'
+import { decorateInlineButton, normalizeCallbackData } from './types'
 
 interface TextButtonParams {
   text: string
@@ -56,16 +56,16 @@ interface LoginButtonParams {
   loginUrl: Interfaces.TelegramLoginUrl
 }
 
-type TextButtonParamsWithStyle = TextButtonParams & ButtonStyleParams
-type UrlButtonParamsWithStyle = UrlButtonParams & ButtonStyleParams
-type WebAppButtonParamsWithStyle = WebAppButtonParams & ButtonStyleParams
-type SwitchToCurrentChatButtonParamsWithStyle = SwitchToCurrentChatButtonParams & ButtonStyleParams
-type SwitchToChatButtonParamsWithStyle = SwitchToChatButtonParams & ButtonStyleParams
-type SwitchToChosenChatButtonParamsWithStyle = SwitchToChosenChatButtonParams & ButtonStyleParams
-type CopyButtonParamsWithStyle = CopyButtonParams & ButtonStyleParams
-type GameButtonParamsWithStyle = GameButtonParams & ButtonStyleParams
-type PayButtonParamsWithStyle = PayButtonParams & ButtonStyleParams
-type LoginButtonParamsWithStyle = LoginButtonParams & ButtonStyleParams
+type TextButtonParamsWithStyle = TextButtonParams & InlineButtonParams
+type UrlButtonParamsWithStyle = UrlButtonParams & InlineButtonParams
+type WebAppButtonParamsWithStyle = WebAppButtonParams & InlineButtonParams
+type SwitchToCurrentChatButtonParamsWithStyle = SwitchToCurrentChatButtonParams & InlineButtonParams
+type SwitchToChatButtonParamsWithStyle = SwitchToChatButtonParams & InlineButtonParams
+type SwitchToChosenChatButtonParamsWithStyle = SwitchToChosenChatButtonParams & InlineButtonParams
+type CopyButtonParamsWithStyle = CopyButtonParams & InlineButtonParams
+type GameButtonParamsWithStyle = GameButtonParams & InlineButtonParams
+type PayButtonParamsWithStyle = PayButtonParams & InlineButtonParams
+type LoginButtonParamsWithStyle = LoginButtonParams & InlineButtonParams
 
 /** inline keyboard */
 export class InlineKeyboard {
@@ -73,6 +73,7 @@ export class InlineKeyboard {
   static empty = new InlineKeyboard()
 
   private buttons: Interfaces.TelegramInlineKeyboardButton[][] = []
+  private isForceReply = false
 
   constructor (rows: (Interfaces.TelegramInlineKeyboardButton | Interfaces.TelegramInlineKeyboardButton[])[] = []) {
     for (const row of rows) {
@@ -113,26 +114,17 @@ export class InlineKeyboard {
     const keyboard = new InlineKeyboard()
 
     keyboard.buttons = structuredClone(markup.inline_keyboard)
+    keyboard.isForceReply = markup.force_reply ?? false
 
     return keyboard
   }
 
   /** generate text button */
   static textButton (params: TextButtonParamsWithStyle) {
-    const button: Interfaces.TelegramInlineKeyboardButton = {
+    return decorateInlineButton({
       text: params.text,
       callback_data: normalizeCallbackData(params.payload)
-    }
-
-    if (params.style) {
-      button.style = params.style
-    }
-
-    if (params.iconCustomEmojiId) {
-      button.icon_custom_emoji_id = params.iconCustomEmojiId
-    }
-
-    return button
+    }, params)
   }
 
   /** an alias for `textButton` */
@@ -142,20 +134,10 @@ export class InlineKeyboard {
 
   /** generate URL button */
   static urlButton (params: UrlButtonParamsWithStyle) {
-    const button: Interfaces.TelegramInlineKeyboardButton = {
+    return decorateInlineButton({
       text: params.text,
       url: params.url
-    }
-
-    if (params.style) {
-      button.style = params.style
-    }
-
-    if (params.iconCustomEmojiId) {
-      button.icon_custom_emoji_id = params.iconCustomEmojiId
-    }
-
-    return button
+    }, params)
   }
 
   /** an alias for `urlButton` */
@@ -165,20 +147,10 @@ export class InlineKeyboard {
 
   /** generate Web App button */
   static webAppButton (params: WebAppButtonParamsWithStyle) {
-    const button: Interfaces.TelegramInlineKeyboardButton = {
+    return decorateInlineButton({
       text: params.text,
       web_app: { url: params.url }
-    }
-
-    if (params.style) {
-      button.style = params.style
-    }
-
-    if (params.iconCustomEmojiId) {
-      button.icon_custom_emoji_id = params.iconCustomEmojiId
-    }
-
-    return button
+    }, params)
   }
 
   /** an alias for `webAppButton` */
@@ -190,20 +162,10 @@ export class InlineKeyboard {
   static switchToCurrentChatButton (
     params: SwitchToCurrentChatButtonParamsWithStyle
   ) {
-    const button: Interfaces.TelegramInlineKeyboardButton = {
+    return decorateInlineButton({
       text: params.text,
       switch_inline_query_current_chat: params.query
-    }
-
-    if (params.style) {
-      button.style = params.style
-    }
-
-    if (params.iconCustomEmojiId) {
-      button.icon_custom_emoji_id = params.iconCustomEmojiId
-    }
-
-    return button
+    }, params)
   }
 
   /** an alias for `switchToCurrentChatButton` */
@@ -215,20 +177,10 @@ export class InlineKeyboard {
   static switchToChatButton (
     params: SwitchToChatButtonParamsWithStyle
   ) {
-    const button: Interfaces.TelegramInlineKeyboardButton = {
+    return decorateInlineButton({
       text: params.text,
       switch_inline_query: params.query
-    }
-
-    if (params.style) {
-      button.style = params.style
-    }
-
-    if (params.iconCustomEmojiId) {
-      button.icon_custom_emoji_id = params.iconCustomEmojiId
-    }
-
-    return button
+    }, params)
   }
 
   /** an alias for `switchToChatButton` */
@@ -266,20 +218,10 @@ export class InlineKeyboard {
       chosenChat.allow_user_chats = params.allowUserChats
     }
 
-    const button: Interfaces.TelegramInlineKeyboardButton = {
+    return decorateInlineButton({
       text: params.text,
       switch_inline_query_chosen_chat: chosenChat
-    }
-
-    if (params.style) {
-      button.style = params.style
-    }
-
-    if (params.iconCustomEmojiId) {
-      button.icon_custom_emoji_id = params.iconCustomEmojiId
-    }
-
-    return button
+    }, params)
   }
 
   /** an alias for `switchToChosenChatButton` */
@@ -289,22 +231,12 @@ export class InlineKeyboard {
 
   /** description of the button that copies the specified text to the clipboard */
   static copyButton (params: CopyButtonParamsWithStyle) {
-    const button: Interfaces.TelegramInlineKeyboardButton = {
+    return decorateInlineButton({
       text: params.text,
       copy_text: {
         text: params.copy
       }
-    }
-
-    if (params.style) {
-      button.style = params.style
-    }
-
-    if (params.iconCustomEmojiId) {
-      button.icon_custom_emoji_id = params.iconCustomEmojiId
-    }
-
-    return button
+    }, params)
   }
 
   /** an alias for `copyButton` */
@@ -314,20 +246,10 @@ export class InlineKeyboard {
 
   /** generate game button */
   static gameButton (params: GameButtonParamsWithStyle) {
-    const button: Interfaces.TelegramInlineKeyboardButton = {
+    return decorateInlineButton({
       text: params.text,
       callback_game: params.game
-    }
-
-    if (params.style) {
-      button.style = params.style
-    }
-
-    if (params.iconCustomEmojiId) {
-      button.icon_custom_emoji_id = params.iconCustomEmojiId
-    }
-
-    return button
+    }, params)
   }
 
   /** an alias for `gameButton` */
@@ -337,20 +259,10 @@ export class InlineKeyboard {
 
   /** generate pay button */
   static payButton (params: PayButtonParamsWithStyle) {
-    const button: Interfaces.TelegramInlineKeyboardButton = {
+    return decorateInlineButton({
       pay: true,
       text: params.text
-    }
-
-    if (params.style) {
-      button.style = params.style
-    }
-
-    if (params.iconCustomEmojiId) {
-      button.icon_custom_emoji_id = params.iconCustomEmojiId
-    }
-
-    return button
+    }, params)
   }
 
   /** an alias for `payButton` */
@@ -360,25 +272,25 @@ export class InlineKeyboard {
 
   /** generate login button */
   static loginButton (params: LoginButtonParamsWithStyle) {
-    const button: Interfaces.TelegramInlineKeyboardButton = {
+    return decorateInlineButton({
       login_url: params.loginUrl,
       text: params.text
-    }
-
-    if (params.style) {
-      button.style = params.style
-    }
-
-    if (params.iconCustomEmojiId) {
-      button.icon_custom_emoji_id = params.iconCustomEmojiId
-    }
-
-    return button
+    }, params)
   }
 
   /** an alias for `loginButton` */
   static login (params: LoginButtonParamsWithStyle) {
     return InlineKeyboard.loginButton(params)
+  }
+
+  /**
+   * requests clients to show a reply interface to the user together with the keyboard, as if the
+   * user had selected the bot's message and tapped 'reply'
+   */
+  forceReply (forceReply = true) {
+    this.isForceReply = forceReply
+
+    return this
   }
 
   /** conditionally apply a chain of mutations to the keyboard */
@@ -394,9 +306,15 @@ export class InlineKeyboard {
 
   /** returns JSON which is compatible with Telegram's `InlineKeyboardMarkup` interface */
   toJSON () {
-    return {
+    const json: Interfaces.TelegramInlineKeyboardMarkup = {
       inline_keyboard: this.buttons
     }
+
+    if (this.isForceReply) {
+      json.force_reply = true
+    }
+
+    return json
   }
 
   /** clones the keyboard (creates a new one with the same set of buttons) */
@@ -404,6 +322,7 @@ export class InlineKeyboard {
     const cloned = new InlineKeyboard()
 
     cloned.buttons = structuredClone(this.buttons)
+    cloned.isForceReply = this.isForceReply
 
     return cloned
   }

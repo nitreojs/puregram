@@ -1,4 +1,4 @@
-import type { ApiMethods } from '@puregram/api'
+import type { ApiMethods, TelegramEphemeralMessageParameters } from '@puregram/api'
 
 import type { ApiResponseError } from '../errors'
 
@@ -33,6 +33,27 @@ export interface ApiCallEscape {
 }
 
 export type TelegramApi = SuppressableApi & ApiCallEscape
+
+type EphemeralTargetKey = 'receiver_user_id' | 'ephemeral_message_parameters'
+
+type EphemeralBound<P> = Omit<P, EphemeralTargetKey> & {
+  [K in Extract<keyof P, EphemeralTargetKey>]?: K extends 'ephemeral_message_parameters'
+    ? Partial<TelegramEphemeralMessageParameters>
+    : P[K]
+}
+
+/** `tg.ephemeral(…)` binds the ephemeral target, so those params become optional at the call site */
+export type EphemeralScopedApi = {
+  [K in keyof ApiMethods]: ApiMethods[K] extends (params: infer P) => Promise<infer R>
+    ? true extends IsNullableParams<P>
+      ? <B extends boolean | undefined = undefined>(
+          params?: EphemeralBound<P> & SuppressAddition<B>
+        ) => Promise<SuppressedReturn<R, B>>
+      : <B extends boolean | undefined = undefined>(
+          params: EphemeralBound<P> & SuppressAddition<B>
+        ) => Promise<SuppressedReturn<R, B>>
+    : never
+} & ApiCallEscape
 
 export function createApiProxy (caller: ApiCaller) {
   const target = {} as TelegramApi

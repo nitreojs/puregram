@@ -13,6 +13,7 @@ export class Keyboard {
   private isOneTime = false
   private isSelective = false
   private isPersistent = false
+  private isForceReply = false
   private placeholder?: string
 
   constructor (rows: MaybeArray<Interfaces.TelegramKeyboardButton | string>[] = []) {
@@ -315,6 +316,16 @@ export class Keyboard {
     return this
   }
 
+  /**
+   * requests clients to show a reply interface to the user together with the keyboard, as if the
+   * user had selected the bot's message and tapped 'reply'
+   */
+  forceReply (forceReply = true) {
+    this.isForceReply = forceReply
+
+    return this
+  }
+
   /** the placeholder to be shown in the input field when the keyboard is active */
   setPlaceholder (placeholder: string) {
     this.placeholder = placeholder
@@ -345,6 +356,10 @@ export class Keyboard {
 
     if (this.placeholder !== undefined) {
       json.input_field_placeholder = this.placeholder
+    }
+
+    if (this.isForceReply) {
+      json.force_reply = true
     }
 
     return json

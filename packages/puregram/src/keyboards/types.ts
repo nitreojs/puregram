@@ -1,4 +1,4 @@
-import type { TelegramKeyboardButton } from '@puregram/api'
+import type { TelegramInlineKeyboardButton, TelegramKeyboardButton } from '@puregram/api'
 
 export type MaybeArray<T> = T | T[]
 
@@ -16,6 +16,11 @@ export interface ButtonStyleParams {
   iconCustomEmojiId?: string
 }
 
+/** `disabled` exists on `InlineKeyboardButton` only — reply-keyboard buttons have no such field */
+export interface InlineButtonParams extends ButtonStyleParams {
+  disabled?: boolean
+}
+
 export type CallbackData = string | number
 
 export function normalizeCallbackData (data: CallbackData) {
@@ -27,4 +32,20 @@ export function normalizeCallbackData (data: CallbackData) {
   }
 
   return str
+}
+
+export function decorateInlineButton (button: TelegramInlineKeyboardButton, params: InlineButtonParams) {
+  if (params.style) {
+    button.style = params.style
+  }
+
+  if (params.iconCustomEmojiId) {
+    button.icon_custom_emoji_id = params.iconCustomEmojiId
+  }
+
+  if (params.disabled === true) {
+    button.disabled = {}
+  }
+
+  return button
 }

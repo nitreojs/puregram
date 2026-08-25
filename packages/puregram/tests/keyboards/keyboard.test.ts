@@ -136,3 +136,13 @@ describe('KeyboardBuilder', () => {
     expect(cloned.length).toBe(3)
   })
 })
+
+describe('bot api 10.3 force reply', () => {
+  it('sets force_reply only when requested', () => {
+    const kb = Keyboard.keyboard([Keyboard.textButton('x')])
+
+    expect(kb.toJSON()).not.toHaveProperty('force_reply')
+    expect(kb.forceReply().toJSON().force_reply).toBe(true)
+    expect(kb.forceReply(false).toJSON()).not.toHaveProperty('force_reply')
+  })
+})

@@ -168,3 +168,62 @@ describe('InlineKeyboardBuilder', () => {
     expect(cloned.length).toBe(3)
   })
 })
+
+describe('bot api 10.3 reply markup', () => {
+  it('marks a button disabled', () => {
+    expect(InlineKeyboard.textButton({ text: 'x', payload: 'y', disabled: true }).disabled).toEqual({})
+    expect(InlineKeyboard.textButton({ text: 'x', payload: 'y' })).not.toHaveProperty('disabled')
+    expect(InlineKeyboard.textButton({ text: 'x', payload: 'y', disabled: false })).not.toHaveProperty('disabled')
+  })
+
+  it('marks a builder button disabled', () => {
+    const json = new InlineKeyboardBuilder()
+      .urlButton({ text: 'x', url: 'https://example.com', disabled: true })
+      .toJSON()
+
+    expect(json.inline_keyboard[0]![0]!.disabled).toEqual({})
+  })
+
+  it('keeps disabled alongside the other decorations', () => {
+    const button = InlineKeyboard.urlButton({
+      text: 'x',
+      url: 'https://example.com',
+      style: 'danger',
+      iconCustomEmojiId: '5368324170671202286',
+      disabled: true
+    })
+
+    expect(button).toMatchObject({
+      style: 'danger',
+      icon_custom_emoji_id: '5368324170671202286',
+      disabled: {}
+    })
+  })
+
+  it('sets force_reply only when requested', () => {
+    const kb = InlineKeyboard.keyboard([InlineKeyboard.textButton({ text: 'x', payload: 'y' })])
+
+    expect(kb.toJSON()).not.toHaveProperty('force_reply')
+    expect(kb.forceReply().toJSON().force_reply).toBe(true)
+    expect(kb.forceReply(false).toJSON()).not.toHaveProperty('force_reply')
+  })
+
+  it('carries force_reply through from() and clone()', () => {
+    const kb = InlineKeyboard.from({
+      inline_keyboard: [[{ text: 'x', callback_data: 'y' }]],
+      force_reply: true
+    })
+
+    expect(kb.toJSON().force_reply).toBe(true)
+    expect(kb.clone().toJSON().force_reply).toBe(true)
+  })
+
+  it('sets force_reply on a builder', () => {
+    const json = new InlineKeyboardBuilder()
+      .textButton({ text: 'x', payload: 'y' })
+      .forceReply()
+      .toJSON()
+
+    expect(json.force_reply).toBe(true)
+  })
+})

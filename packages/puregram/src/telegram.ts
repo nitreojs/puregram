@@ -7,10 +7,11 @@ import type {
   MessageUpdate,
   SendChatActionParams,
   TelegramDispatchers,
+  TelegramEphemeralMessageParameters,
   TelegramShortcuts,
   TelegramUser
 } from '@puregram/api'
-import { and, CallbackQueryUpdate, defineFilter, isFilter } from '@puregram/api'
+import { and, CallbackQueryUpdate, defineFilter, isFilter, METHOD_PARAMS } from '@puregram/api'
 
 import { ChatActionController } from './api/chat-action'
 import type { DownloadTarget } from './api/download'
@@ -23,7 +24,7 @@ import {
 } from './api/download'
 import { runRequest } from './api/lifecycle'
 import { cursorPaginator, offsetPaginator } from './api/paginate'
-import type { ApiCaller, TelegramApi } from './api/proxy'
+import type { ApiCaller, EphemeralScopedApi, TelegramApi } from './api/proxy'
 import { createApiProxy } from './api/proxy'
 import { installShortcuts, type ManualShortcuts } from './api/shortcuts'
 import { createDebug } from './debug'
@@ -67,6 +68,14 @@ import type { StartWebhookOptions } from './transport/webhook/listener'
 import { resolveWebhookOptions } from './transport/webhook/options'
 
 const dispatchDebug = createDebug('puregram:dispatch')
+
+const CREATES_MESSAGE = /^(send|copy|forward)/
+
+/** the ephemeral target `tg.ephemeral(…)` binds to every call */
+export interface EphemeralScopeOptions {
+  callbackQueryId?: string
+  replaceCallbackQueryMessage?: boolean
+}
 
 /* eslint-disable @typescript-eslint/no-empty-interface, @typescript-eslint/no-unused-vars */
 export interface Telegram<Ext = unknown> extends TelegramShortcuts, TelegramDispatchers, ManualShortcuts {}
@@ -578,10 +587,14 @@ export class Telegram<Ext = unknown> {
   }
 
   /**
-   * a scoped api proxy that injects `receiver_user_id` (and optionally `callback_query_id`)
-   * into every call — send group messages visible only to one user. call-site params
-   * override the bound ones. not chainable with `tg.business(…)` (both return flat api
-   * proxies) — pass `business_connection_id` as a call-site param instead.
+   * a scoped api proxy that injects the ephemeral target into every call — send group messages
+   * visible only to one user. send-family methods receive `ephemeral_message_parameters`, the
+   * `editEphemeralMessage*` / `deleteEphemeralMessage` family receives a flat `receiver_user_id`.
+   * a method that creates a message but accepts neither (`sendDice`, `sendPoll`, `sendMediaGroup`,
+   * `copyMessage`, …) throws rather than silently posting to the whole chat; methods that cannot
+   * produce a message pass through untouched. call-site params override the bound ones field by
+   * field. not chainable with `tg.business(…)` (both return flat api proxies) — pass
+   * `business_connection_id` as a call-site param instead.
    *
    * @example
    * ```ts
@@ -589,14 +602,37 @@ export class Telegram<Ext = unknown> {
    * await eph.sendMessage({ chat_id, text: 'only you can see this' })
    * ```
    */
-  ephemeral (receiverUserId: number, callbackQueryId?: string) {
-    return createApiProxy((method, params) =>
-      this.apiCaller(method, {
-        receiver_user_id: receiverUserId,
-        ...(callbackQueryId !== undefined ? { callback_query_id: callbackQueryId } : {}),
-        ...params
-      })
-    )
+  ephemeral (receiverUserId: number, options: EphemeralScopeOptions = {}) {
+    const bound: TelegramEphemeralMessageParameters = {
+      receiver_user_id: receiverUserId,
+      ...(options.callbackQueryId === undefined ? {} : { callback_query_id: options.callbackQueryId }),
+      ...(options.replaceCallbackQueryMessage === undefined
+        ? {}
+        : { replace_callback_query_message: options.replaceCallbackQueryMessage })
+    }
+
+    return createApiProxy((method, params) => {
+      const accepted = METHOD_PARAMS[method]
+
+      if (accepted?.includes('ephemeral_message_parameters')) {
+        const callSite = params?.ephemeral_message_parameters as TelegramEphemeralMessageParameters | undefined
+
+        return this.apiCaller(method, { ...params, ephemeral_message_parameters: { ...bound, ...callSite } })
+      }
+
+      if (accepted?.includes('receiver_user_id')) {
+        return this.apiCaller(method, { receiver_user_id: receiverUserId, ...params })
+      }
+
+      if (accepted !== undefined && CREATES_MESSAGE.test(method) && accepted.includes('chat_id')) {
+        throw new TypeError(
+          `tg.ephemeral(…).${method} cannot be scoped — telegram has no ephemeral parameter for it, ` +
+          'so the message would be visible to the whole chat. use tg.api.' + method + ' if that is intended'
+        )
+      }
+
+      return this.apiCaller(method, params)
+    }) as unknown as EphemeralScopedApi
   }
 
   async deleteWebhook (options: DeleteWebhookOptions = {}) {

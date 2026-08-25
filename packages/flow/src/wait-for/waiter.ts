@@ -35,22 +35,7 @@ export class Waiter<K extends keyof UpdateKindMap, T = UpdateKindMap[K]> {
     })
 
     if (options.timeout !== undefined) {
-      const ms = options.timeout
-
-      this.timer = setTimeout(() => {
-        if (this.settledFlag) {
-          return
-        }
-
-        this.settledFlag = true
-        this.detachSignal()
-
-        if (options.nullOnTimeout === true) {
-          this.resolveFn(null)
-        } else {
-          this.rejectFn(new WaitForTimeout(kind, ms))
-        }
-      }, ms)
+      this.armTimeout(options.timeout, options.nullOnTimeout === true)
     }
 
     if (options.signal !== undefined) {
@@ -62,8 +47,31 @@ export class Waiter<K extends keyof UpdateKindMap, T = UpdateKindMap[K]> {
     return this.settledFlag
   }
 
+  armTimeout (ms: number, nullOnTimeout: boolean) {
+    if (this.settledFlag || this.timer !== undefined) {
+      return
+    }
+
+    this.timer = setTimeout(() => {
+      if (this.settledFlag) {
+        return
+      }
+
+      this.settledFlag = true
+      this.detachSignal()
+
+      if (nullOnTimeout) {
+        this.resolveFn(null)
+      } else {
+        this.rejectFn(new WaitForTimeout(this.kind, ms))
+      }
+    }, ms)
+  }
+
   match (update: UpdateKindMap[K]) {
     if (this.filterFn !== undefined && !this.filterFn(update)) {
+      this.lastValidationFeedback = undefined
+
       return false
     }
 

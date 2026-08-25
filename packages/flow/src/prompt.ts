@@ -1,6 +1,7 @@
 import type { UpdateKindMap } from '@puregram/api'
 import type { Telegram } from 'puregram'
 
+import { FlowChatIdNotNumeric } from './errors'
 import type { WaiterRegistry } from './wait-for/registry'
 import type { Filter, WaitForOptions } from './wait-for/types'
 import { Waiter } from './wait-for/waiter'
@@ -44,14 +45,9 @@ export function createPrompt (tg: Telegram, registry: WaiterRegistry) {
   ) {
     const kind = (options.kind ?? 'message') as K
 
-    if (options.reply_markup !== undefined) {
-      // bot api markup shape uses snake_case keys; flatten via Record<string, unknown>
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/naming-convention
-      const sendParams: Record<string, unknown> = { reply_markup: options.reply_markup }
-
-      await tg.send(chat, text, sendParams)
-    } else {
-      await tg.send(chat, text)
+    // chatIdOf reads a numeric id off the wire, so a string would build an unmatchable waiter
+    if (typeof chat !== 'number') {
+      throw new FlowChatIdNotNumeric(typeof chat)
     }
 
     const callerFilter = options.filter
@@ -75,14 +71,6 @@ export function createPrompt (tg: Telegram, registry: WaiterRegistry) {
       }
     }
 
-    if (options.timeout !== undefined) {
-      waiterOptions.timeout = options.timeout
-    }
-
-    if (options.nullOnTimeout !== undefined) {
-      waiterOptions.nullOnTimeout = options.nullOnTimeout
-    }
-
     if (options.consume !== undefined) {
       waiterOptions.consume = options.consume
     }
@@ -95,9 +83,38 @@ export function createPrompt (tg: Telegram, registry: WaiterRegistry) {
       waiterOptions.transform = options.transform
     }
 
+    if (options.signal !== undefined) {
+      waiterOptions.signal = options.signal
+    }
+
     const waiter = new Waiter<K, T>(kind, waiterOptions)
 
+    // registering after the send would drop a reply that lands while it is still in flight
     registry.register(waiter)
+
+    // a cancelAll inside the send window rejects this before the caller ever awaits it
+    waiter.promise.catch(() => {})
+
+    try {
+      if (options.reply_markup !== undefined) {
+        // bot api markup shape uses snake_case keys; flatten via Record<string, unknown>
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/naming-convention
+        const sendParams: Record<string, unknown> = { reply_markup: options.reply_markup }
+
+        await tg.send(chat, text, sendParams)
+      } else {
+        await tg.send(chat, text)
+      }
+    } catch (error) {
+      waiter.cancel()
+
+      throw error
+    }
+
+    // armed after delivery so a flood-wait retry on the send cannot eat the reply budget
+    if (options.timeout !== undefined) {
+      waiter.armTimeout(options.timeout, options.nullOnTimeout === true)
+    }
 
     return waiter.promise
   }

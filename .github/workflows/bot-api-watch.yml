@@ -43,6 +43,9 @@ jobs:
           hash=$(find packages/api/schema -type f -name '*.json' | sort | xargs -I{} jq -S 'del(.source.fetchedAt)' {} | sha256sum | cut -d' ' -f1)
           echo "hash=$hash" >> "$GITHUB_OUTPUT"
 
+          # kept for the affected-skills diff after parse rewrites/archives the file
+          cp "$(ls packages/api/schema/*.json | sort -V | tail -1)" /tmp/schema-before.json
+
       - name: parse bot api
         run: yarn workspace @puregram/api parse
 
@@ -102,6 +105,20 @@ jobs:
         if: steps.detect.outputs.changed == 'true'
         run: yarn regenerate-all
 
+      - name: affected skills
+        id: skills
+        if: steps.detect.outputs.changed == 'true'
+        run: |
+          cd packages/api
+          checklist=$(yarn exec tsx scripts/affected-skills.ts \
+            /tmp/schema-before.json \
+            "schema/${{ steps.detect.outputs.version }}.json" || true)
+          {
+            echo 'checklist<<AFFECTED_SKILLS_EOF'
+            echo "$checklist"
+            echo 'AFFECTED_SKILLS_EOF'
+          } >> "$GITHUB_OUTPUT"
+
       - name: open pull request
         if: steps.detect.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v8
@@ -122,6 +139,8 @@ jobs:
             - `@puregram/api` version bump → `${{ env.next }}`
 
             review the diff before merging — schema bumps occasionally need manual touch-ups in handcrafted code (telegram routinely renames fields in "minor" bumps)
+
+            ${{ steps.skills.outputs.checklist }}
           labels: |
             bot-api
             auto-generated

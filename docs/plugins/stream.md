@@ -195,6 +195,42 @@ if (result.stopped) {
 
 `keepOnStop: true` forwards `keep_on_stop` to every draft, which asks telegram to leave the draft on screen after the press — but only briefly: it disappears after a short while, or as soon as the bot sends anything. persisting the partial is the plugin's half of the option — with it the accumulated tail goes out through the normal terminal `sendMessage`, without it the tail is dropped and `result.messages` holds only the windows already committed before the stop. it only matters alongside `canStop`, since nothing can be stopped without the button
 
+### stopping from the bot side
+
+`canStop` controls telegram's button — it does not gate the bot's own ability to stop a run. `tg.stream.stop(chatId)` ends every live run in that chat, `tg.stream.stopAll()` ends all of them, and both return how many they stopped:
+
+```ts
+tg.stream.stop(100)  // -> 1
+tg.stream.stopAll()  // -> 3
+```
+
+a bot-side stop is indistinguishable from a user press: the run stops pulling, honours `keepOnStop` the same way, and resolves with `result.stopped === true`. it works on runs started without `canStop` too — those simply never showed a button to press
+
+`tg.stream.active` lists what is in flight right now, including runs started by `update.stream(...)`:
+
+```ts
+for (const run of tg.stream.active) {
+  console.log(run.chatId, run.drafts, run.canStop, run.stopped)
+}
+```
+
+| field | type | what it is |
+|---|---|---|
+| `chatId` | `number` | private chat the run is streaming into |
+| `drafts` | `number` | draft ids the run has put on the wire so far |
+| `canStop` | `boolean` | whether the run rendered telegram's stop button |
+| `stopped` | `boolean` | a stop has been requested — by the user, or by `stop` / `stopAll` |
+
+entries disappear as soon as a run settles, so a completed stream never lingers in `active`. a graceful shutdown reads:
+
+```ts
+tg.useHook('onShutdown', (_ctx, next) => {
+  tg.stream.stopAll()
+
+  return next()
+})
+```
+
 ## options
 
 `StreamCallOptions` — passed as the second argument to `update.stream(source, options?)` or spread into `tg.stream({ chat_id, source, ...options })`:
@@ -302,6 +338,7 @@ import type {
   StreamCallOptions,
   StreamTgParams,
   StreamExtension,
+  ActiveStream,
   StreamSource,
   StreamResult,
   StreamApi,

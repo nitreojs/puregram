@@ -159,6 +159,20 @@ if (result.stopped) {
 
 `keepOnStop: true` forwards `keep_on_stop` to every draft, which asks telegram to leave the draft on screen after the press — but only briefly: it disappears after a short while, or as soon as the bot sends anything. persisting the partial is the plugin's half of the option — with it the accumulated tail goes out through the normal terminal `sendMessage`, without it the tail is dropped and `result.messages` holds only the windows already committed before the stop. it only matters alongside `canStop`, since nothing can be stopped without the button
 
+### stopping from the bot side
+
+`canStop` controls telegram's button, not the bot's own ability to stop a run. `tg.stream.stop(chatId)` stops every live run in that chat, `tg.stream.stopAll()` stops all of them, and both return how many they stopped. a bot-side stop behaves exactly like a user press — it honours `keepOnStop` and resolves with `result.stopped === true` — and works on runs started without `canStop`
+
+`tg.stream.active` lists the runs in flight right now, `update.stream(...)` ones included, each carrying `{ chatId, drafts, canStop, stopped }`. entries drop as soon as a run settles
+
+```ts
+tg.useHook('onShutdown', (_ctx, next) => {
+  tg.stream.stopAll()
+
+  return next()
+})
+```
+
 ## options
 
 | option                | type                                    | default | notes                                                              |

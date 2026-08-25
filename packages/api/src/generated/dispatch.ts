@@ -1,13 +1,13 @@
 /// AUTO-GENERATED FILE — do not edit by hand
-/// Bot API 10.2
+/// Bot API 10.3
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-07-14T20:58:39.619Z
+/// generated at: 2026-08-24T21:14:26.629Z
 /// see scripts/emit.ts in @puregram/api
 
 import type { Filter } from "../filter-runtime";
 import type { Modify } from "../util-types";
 import type { OnOptions, UpdateHandler } from "../dispatch-runtime";
-import type { BoostAddedUpdate, BusinessConnectionUpdate, BusinessMessageUpdate, CallbackQueryUpdate, ChannelPostUpdate, ChatBoostUpdate, ChatJoinRequestUpdate, ChatMemberUpdate, ChatSharedUpdate, ChosenInlineResultUpdate, CommunityChatAddedUpdate, CommunityChatRemovedUpdate, DeleteChatPhotoUpdate, DeletedBusinessMessagesUpdate, EditedBusinessMessageUpdate, EditedChannelPostUpdate, EditedMessageUpdate, ForumTopicClosedUpdate, ForumTopicCreatedUpdate, ForumTopicEditedUpdate, ForumTopicReopenedUpdate, GeneralForumTopicHiddenUpdate, GeneralForumTopicUnhiddenUpdate, GiveawayCompletedUpdate, GiveawayCreatedUpdate, GiveawayWinnersUpdate, GroupChatCreatedUpdate, GuestMessageUpdate, InlineQueryUpdate, InvoiceUpdate, LeftChatMemberUpdate, ManagedBotUpdate, MessageAutoDeleteTimerChangedUpdate, MessageReactionCountUpdate, MessageReactionUpdate, MessageUpdate, MigrateFromChatIdUpdate, MigrateToChatIdUpdate, MyChatMemberUpdate, NewChatMembersUpdate, NewChatPhotoUpdate, NewChatTitleUpdate, PassportDataUpdate, PinnedMessageUpdate, PollAnswerUpdate, PollUpdate, PreCheckoutQueryUpdate, ProximityAlertTriggeredUpdate, PurchasedPaidMediaUpdate, RemovedChatBoostUpdate, ShippingQueryUpdate, SubscriptionUpdate, SuccessfulPaymentUpdate, UsersSharedUpdate, VideoChatEndedUpdate, VideoChatParticipantsInvitedUpdate, VideoChatScheduledUpdate, VideoChatStartedUpdate, WebAppDataUpdate, WriteAccessAllowedUpdate } from "./updates";
+import type { BoostAddedUpdate, BusinessConnectionUpdate, BusinessMessageUpdate, CallbackQueryUpdate, ChannelPostUpdate, ChatBoostUpdate, ChatJoinRequestUpdate, ChatMemberUpdate, ChatSharedUpdate, ChosenInlineResultUpdate, CommunityChatAddedUpdate, CommunityChatRemovedUpdate, DeleteChatPhotoUpdate, DeletedBusinessMessagesUpdate, EditedBusinessMessageUpdate, EditedChannelPostUpdate, EditedMessageUpdate, ForumTopicClosedUpdate, ForumTopicCreatedUpdate, ForumTopicEditedUpdate, ForumTopicReopenedUpdate, GeneralForumTopicHiddenUpdate, GeneralForumTopicUnhiddenUpdate, GiveawayCompletedUpdate, GiveawayCreatedUpdate, GiveawayWinnersUpdate, GroupChatCreatedUpdate, GuestMessageUpdate, InlineQueryUpdate, InvoiceUpdate, LeftChatMemberUpdate, ManagedBotUpdate, MessageAutoDeleteTimerChangedUpdate, MessageReactionCountUpdate, MessageReactionUpdate, MessageUpdate, MigrateFromChatIdUpdate, MigrateToChatIdUpdate, MyChatMemberUpdate, NewChatMembersUpdate, NewChatPhotoUpdate, NewChatTitleUpdate, PassportDataUpdate, PinnedMessageUpdate, PollAnswerUpdate, PollUpdate, PreCheckoutQueryUpdate, ProximityAlertTriggeredUpdate, PurchasedPaidMediaUpdate, RemovedChatBoostUpdate, ShippingQueryUpdate, StoppedMessageGenerationUpdate, SubscriptionUpdate, SuccessfulPaymentUpdate, UsersSharedUpdate, VideoChatEndedUpdate, VideoChatParticipantsInvitedUpdate, VideoChatScheduledUpdate, VideoChatStartedUpdate, WebAppDataUpdate, WriteAccessAllowedUpdate } from "./updates";
 export interface TelegramDispatchers {
     /**
      * register a handler for every `message` update
@@ -217,6 +217,14 @@ export interface TelegramDispatchers {
      * register a filter-gated handler for `subscription` updates. handler arg narrows via `Modify<SubscriptionUpdate, Mod>`
      */
     onSubscription<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<SubscriptionUpdate, Mod>>, options?: OnOptions): this;
+    /**
+     * register a handler for every `stopped_message_generation` update
+     */
+    onStoppedMessageGeneration(handler: UpdateHandler<StoppedMessageGenerationUpdate>, options?: OnOptions): this;
+    /**
+     * register a filter-gated handler for `stopped_message_generation` updates. handler arg narrows via `Modify<StoppedMessageGenerationUpdate, Mod>`
+     */
+    onStoppedMessageGeneration<Mod>(filter: Filter<unknown, Mod>, handler: UpdateHandler<Modify<StoppedMessageGenerationUpdate, Mod>>, options?: OnOptions): this;
     /**
      * register a handler for every `new_chat_members` update
      */

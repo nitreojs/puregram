@@ -34,7 +34,7 @@ const REGULAR_RAW = {
 }
 
 describe('ephemeral send injection', () => {
-  it('fills receiver_user_id and the ephemeral reply anchor on sends from an ephemeral message', async () => {
+  it('fills ephemeral_message_parameters and the reply anchor on sends from an ephemeral message', async () => {
     const { tg, calls } = recordingTg()
     const update = new MessageUpdate(EPHEMERAL_RAW as never, tg)
 
@@ -43,7 +43,7 @@ describe('ephemeral send injection', () => {
     expect(calls[0]!.params).toMatchObject({
       chat_id: -100,
       text: 'psst',
-      receiver_user_id: 5,
+      ephemeral_message_parameters: { receiver_user_id: 5 },
       reply_parameters: { ephemeral_message_id: 77 }
     })
     expect(calls[0]!.params).not.toHaveProperty('message_id')
@@ -56,7 +56,7 @@ describe('ephemeral send injection', () => {
 
     await update.send('psst')
 
-    expect(calls[0]!.params.receiver_user_id).toBe(5)
+    expect(calls[0]!.params.ephemeral_message_parameters).toEqual({ receiver_user_id: 5 })
   })
 
   it('falls back to receiver_user when from is a bot (own sent messages)', async () => {
@@ -89,10 +89,25 @@ describe('ephemeral send injection', () => {
     const { tg, calls } = recordingTg()
     const update = new MessageUpdate(EPHEMERAL_RAW as never, tg)
 
-    await update.send('psst', { receiver_user_id: 42, reply_parameters: { quote: 'q' } })
+    await update.send('psst', {
+      ephemeral_message_parameters: { receiver_user_id: 42 },
+      reply_parameters: { quote: 'q' }
+    })
 
-    expect(calls[0]!.params.receiver_user_id).toBe(42)
+    expect(calls[0]!.params.ephemeral_message_parameters).toEqual({ receiver_user_id: 42 })
     expect(calls[0]!.params.reply_parameters).toEqual({ ephemeral_message_id: 77, quote: 'q' })
+  })
+
+  it('keeps call-site ephemeral parameters the injection does not own', async () => {
+    const { tg, calls } = recordingTg()
+    const update = new MessageUpdate(EPHEMERAL_RAW as never, tg)
+
+    await update.send('psst', { ephemeral_message_parameters: { replace_callback_query_message: true } as never })
+
+    expect(calls[0]!.params.ephemeral_message_parameters).toEqual({
+      receiver_user_id: 5,
+      replace_callback_query_message: true
+    })
   })
 
   it('contributes nothing on regular messages', async () => {
@@ -101,7 +116,7 @@ describe('ephemeral send injection', () => {
 
     await update.send('hello')
 
-    expect(calls[0]!.params).not.toHaveProperty('receiver_user_id')
+    expect(calls[0]!.params).not.toHaveProperty('ephemeral_message_parameters')
     expect(calls[0]!.params).not.toHaveProperty('reply_parameters')
   })
 
@@ -120,9 +135,17 @@ describe('ephemeral send injection', () => {
 
     await update.send('public response', { ephemeral: false })
 
-    expect(calls[0]!.params).not.toHaveProperty('receiver_user_id')
+    expect(calls[0]!.params).not.toHaveProperty('ephemeral_message_parameters')
     expect(calls[0]!.params).not.toHaveProperty('reply_parameters')
     expect(calls[0]!.params.ephemeral).toBeUndefined()
+  })
+
+  it('refuses ephemeral: true outside an ephemeral context', () => {
+    const { tg, calls } = recordingTg()
+    const update = new MessageUpdate(REGULAR_RAW as never, tg)
+
+    expect(() => update.send('secret', { ephemeral: true })).toThrow(TypeError)
+    expect(calls).toHaveLength(0)
   })
 
   it('exposes isEphemeral()', () => {
@@ -172,23 +195,43 @@ describe('callback-query opt-in injection', () => {
     message: { message_id: 10, date: 0, chat: { id: -100, type: 'supergroup' as const } }
   }
 
-  it('fills callback_query_id only when receiver_user_id is passed', async () => {
+  it('fills the query id only when ephemeral parameters are passed', async () => {
     const { tg, calls } = recordingTg()
     const update = new CallbackQueryUpdate(CBQ_RAW as never, tg)
 
     await update.send(-100, 'public response')
-    await update.send(-100, 'whisper', { receiver_user_id: 5 })
+    await update.send(-100, 'whisper', { ephemeral_message_parameters: { receiver_user_id: 5 } })
 
-    expect(calls[0]!.params).not.toHaveProperty('callback_query_id')
-    expect(calls[1]!.params).toMatchObject({ receiver_user_id: 5, callback_query_id: 'q1' })
+    expect(calls[0]!.params).not.toHaveProperty('ephemeral_message_parameters')
+    expect(calls[1]!.params.ephemeral_message_parameters).toEqual({
+      receiver_user_id: 5,
+      callback_query_id: 'q1'
+    })
   })
 
   it('never overrides an explicit callback_query_id', async () => {
     const { tg, calls } = recordingTg()
     const update = new CallbackQueryUpdate(CBQ_RAW as never, tg)
 
-    await update.send(-100, 'whisper', { receiver_user_id: 5, callback_query_id: 'other' })
+    await update.send(-100, 'whisper', {
+      ephemeral_message_parameters: { receiver_user_id: 5, callback_query_id: 'other' }
+    })
 
-    expect(calls[0]!.params.callback_query_id).toBe('other')
+    expect(calls[0]!.params.ephemeral_message_parameters).toMatchObject({ callback_query_id: 'other' })
+  })
+
+  it('replaces the original message when the caller asks for it', async () => {
+    const { tg, calls } = recordingTg()
+    const update = new CallbackQueryUpdate(CBQ_RAW as never, tg)
+
+    await update.send(-100, 'in place', {
+      ephemeral_message_parameters: { receiver_user_id: 5, replace_callback_query_message: true }
+    })
+
+    expect(calls[0]!.params.ephemeral_message_parameters).toEqual({
+      receiver_user_id: 5,
+      replace_callback_query_message: true,
+      callback_query_id: 'q1'
+    })
   })
 })

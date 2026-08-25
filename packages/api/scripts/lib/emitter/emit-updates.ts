@@ -1546,9 +1546,9 @@ function emitShortcutMethod (sc: BoundShortcut, widenedArgs: Map<string, Set<str
   const ephemeralNote = sc.ephemeralTwin !== undefined
     ? ` — routes to \`tg.api.${sc.ephemeralTwin}\` when this message is ephemeral`
     : sc.ephemeralSend === true
-      ? ' — replying to an ephemeral message auto-fills `receiver_user_id` + `reply_parameters.ephemeral_message_id` (ephemeral responses only reach the receiver)'
+      ? ' — replying to an ephemeral message auto-fills `ephemeral_message_parameters.receiver_user_id` + `reply_parameters.ephemeral_message_id` (ephemeral responses only reach the receiver)'
       : sc.callbackEphemeral === true
-        ? ' — pass `receiver_user_id` to send an ephemeral response; `callback_query_id` then auto-fills from this query'
+        ? ' — pass `ephemeral_message_parameters` to send an ephemeral response; its `callback_query_id` then auto-fills from this query'
         : ''
 
   const doc = sc.reply

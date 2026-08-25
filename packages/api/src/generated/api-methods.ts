@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
-/// Bot API 10.2
+/// Bot API 10.3
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-07-14T20:58:39.619Z
+/// generated at: 2026-08-24T21:14:26.629Z
 /// see scripts/emit.ts in @puregram/api
 
 import * as api from "./methods";
@@ -103,13 +103,13 @@ export interface ApiMethods {
      */
     convertGiftToStars: api.convertGiftToStars;
     /**
-     * Use this method to copy messages of any kind. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message. Returns the MessageId of the sent message on success.
+     * Use this method to copy messages of any kind. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_ids is known to the bot. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message. Returns the MessageId of the sent message on success.
      *
      * [bot api docs](https://core.telegram.org/bots/api#copymessage)
      */
     copyMessage: api.copyMessage;
     /**
-     * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessages, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an Array of MessageId of the sent messages is returned.
+     * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_ids is known to the bot. The method is analogous to the method forwardMessages, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an Array of MessageId of the sent messages is returned.
      *
      * [bot api docs](https://core.telegram.org/bots/api#copymessages)
      */
@@ -271,7 +271,7 @@ export interface ApiMethods {
      */
     editEphemeralMessageReplyMarkup: api.editEphemeralMessageReplyMarkup;
     /**
-     * Use this method to edit an ephemeral text message. Note that it is not guaranteed that the user will receive the message edit event, especially if they are offline. On success, True is returned.
+     * Use this method to edit an ephemeral text or rich message. Note that it is not guaranteed that the user will receive the message edit event, especially if they are offline. On success, True is returned.
      *
      * [bot api docs](https://core.telegram.org/bots/api#editephemeralmessagetext)
      */
@@ -825,7 +825,7 @@ export interface ApiMethods {
      */
     sendVideo: api.sendVideo;
     /**
-     * As of v.4.0, Telegram clients support rounded square MPEG4 videos of up to 1 minute long. Use this method to send video messages. On success, the sent Message is returned.
+     * Use this method to send a rounded square MPEG4 video of up to 1 minute long. On success, the sent Message is returned.
      *
      * [bot api docs](https://core.telegram.org/bots/api#sendvideonote)
      */

@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
-/// Bot API 10.2
+/// Bot API 10.3
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-07-14T20:58:39.619Z
+/// generated at: 2026-08-24T21:14:26.629Z
 /// see scripts/emit.ts in @puregram/api
 
 export const FORMATTABLE_FIELDS = {
@@ -23,6 +23,11 @@ export const FORMATTABLE_FIELDS = {
         },
         {
             path: ["result", "input_message_content", "rich_message", "blocks", "*", "audio", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["result", "input_message_content", "rich_message", "blocks", "*", "document", "caption"],
             textKey: "caption",
             entitiesKey: "caption_entities"
         },
@@ -64,6 +69,11 @@ export const FORMATTABLE_FIELDS = {
             entitiesKey: "caption_entities"
         },
         {
+            path: ["results", "*", "input_message_content", "rich_message", "blocks", "*", "document", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
             path: ["results", "*", "input_message_content", "rich_message", "blocks", "*", "photo", "caption"],
             textKey: "caption",
             entitiesKey: "caption_entities"
@@ -97,6 +107,11 @@ export const FORMATTABLE_FIELDS = {
         },
         {
             path: ["result", "input_message_content", "rich_message", "blocks", "*", "audio", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["result", "input_message_content", "rich_message", "blocks", "*", "document", "caption"],
             textKey: "caption",
             entitiesKey: "caption_entities"
         },
@@ -147,6 +162,36 @@ export const FORMATTABLE_FIELDS = {
             path: ["text"],
             textKey: "text",
             entitiesKey: "entities"
+        },
+        {
+            path: ["rich_message", "blocks", "*", "animation", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["rich_message", "blocks", "*", "audio", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["rich_message", "blocks", "*", "document", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["rich_message", "blocks", "*", "photo", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["rich_message", "blocks", "*", "video", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["rich_message", "blocks", "*", "voice_note", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
         }
     ],
     "editMessageCaption": [
@@ -188,6 +233,11 @@ export const FORMATTABLE_FIELDS = {
         },
         {
             path: ["rich_message", "blocks", "*", "audio", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["rich_message", "blocks", "*", "document", "caption"],
             textKey: "caption",
             entitiesKey: "caption_entities"
         },
@@ -246,6 +296,11 @@ export const FORMATTABLE_FIELDS = {
         },
         {
             path: ["result", "input_message_content", "rich_message", "blocks", "*", "audio", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["result", "input_message_content", "rich_message", "blocks", "*", "document", "caption"],
             textKey: "caption",
             entitiesKey: "caption_entities"
         },
@@ -476,6 +531,11 @@ export const FORMATTABLE_FIELDS = {
             entitiesKey: "caption_entities"
         },
         {
+            path: ["rich_message", "blocks", "*", "document", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
             path: ["rich_message", "blocks", "*", "photo", "caption"],
             textKey: "caption",
             entitiesKey: "caption_entities"
@@ -504,6 +564,11 @@ export const FORMATTABLE_FIELDS = {
         },
         {
             path: ["rich_message", "blocks", "*", "audio", "caption"],
+            textKey: "caption",
+            entitiesKey: "caption_entities"
+        },
+        {
+            path: ["rich_message", "blocks", "*", "document", "caption"],
             textKey: "caption",
             entitiesKey: "caption_entities"
         },

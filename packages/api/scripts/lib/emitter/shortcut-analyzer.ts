@@ -19,7 +19,7 @@ export interface BoundShortcut {
   ephemeralSend?: boolean
   // the ephemeral variant an edit/delete shortcut routes to when the message is ephemeral
   ephemeralTwin?: string
-  // callback-query send — fills callback_query_id when the caller opts in via receiver_user_id
+  // callback-query send — fills the query id into ephemeral_message_parameters when the caller passes it
   callbackEphemeral?: boolean
 }
 
@@ -107,6 +107,8 @@ function augmentBusiness (bound: BoundShortcut, kind: UpdateKindSpec, schema: Sc
 }
 
 function augmentEphemeral (bound: BoundShortcut, kind: UpdateKindSpec, schema: Schema) {
+  const takesEphemeralParams = bound.userArgs.some(a => a.name === 'ephemeral_message_parameters')
+
   if (payloadHasField(kind, schema, 'ephemeral_message_id')) {
     const twin = EPHEMERAL_METHOD_TWINS[bound.method]
 
@@ -115,30 +117,22 @@ function augmentEphemeral (bound: BoundShortcut, kind: UpdateKindSpec, schema: S
     }
 
     // reply_parameters presence separates the send family from the direct editEphemeral* methods
-    if (bound.userArgs.some(a => a.name === 'receiver_user_id') && bound.userArgs.some(a => a.name === 'reply_parameters')) {
+    if (takesEphemeralParams && bound.userArgs.some(a => a.name === 'reply_parameters')) {
       return { ...bound, ephemeralSend: true }
     }
   }
 
-  // send-family methods on callback queries: the auto-bound callback_query_id anchor would
-  // make every send ephemeral — demote it to a conditional fill gated on receiver_user_id.
-  // answer* shortcuts keep their unconditional anchor
-  if (kind.payloadType === 'TelegramCallbackQuery' && bound.method.startsWith('send')) {
-    const anchored = bound.filledArgs.some(a => a.schemaArg === 'callback_query_id')
-
-    if (anchored) {
-      const arg = schema.methods.find(m => m.name === bound.method)?.arguments.find(a => a.name === 'callback_query_id')
-
-      return {
-        ...bound,
-        filledArgs: bound.filledArgs.filter(a => a.schemaArg !== 'callback_query_id'),
-        userArgs: arg === undefined ? bound.userArgs : [...bound.userArgs, arg],
-        callbackEphemeral: true
-      }
-    }
+  if (kind.payloadType === 'TelegramCallbackQuery' && bound.method.startsWith('send') && takesEphemeralParams) {
+    return { ...bound, callbackEphemeral: true }
   }
 
   return bound
+}
+
+function isCallbackEphemeralSend (kind: UpdateKindSpec, method: SchemaMethod) {
+  return kind.payloadType === 'TelegramCallbackQuery' &&
+    method.name.startsWith('send') &&
+    method.arguments.some(a => a.name === 'ephemeral_message_parameters')
 }
 
 function bindMethod (kind: UpdateKindSpec, method: SchemaMethod) {
@@ -155,7 +149,7 @@ function bindMethod (kind: UpdateKindSpec, method: SchemaMethod) {
     }
   }
 
-  if (filledArgs.length === 0) {
+  if (filledArgs.length === 0 && !isCallbackEphemeralSend(kind, method)) {
     return null
   }
 

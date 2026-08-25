@@ -1,4 +1,4 @@
-import type { TelegramReplyParameters } from './generated/types'
+import type { TelegramEphemeralMessageParameters, TelegramReplyParameters } from './generated/types'
 
 interface EphemeralMessageLike {
   ephemeral_message_id?: number
@@ -19,7 +19,7 @@ function nonBotParty (raw: EphemeralMessageLike) {
 }
 
 interface EphemeralSendOverrides {
-  receiver_user_id?: number
+  ephemeral_message_parameters?: TelegramEphemeralMessageParameters
   reply_parameters?: TelegramReplyParameters
   /** pass `false` to skip ephemeral auto-injection and send a regular message */
   ephemeral?: boolean
@@ -28,23 +28,38 @@ interface EphemeralSendOverrides {
 /**
  * ephemeral auto-injection for send-family shortcuts: an incoming ephemeral message can only
  * be answered ephemerally (within 15s, authorized by `reply_parameters.ephemeral_message_id`),
- * so sends from such a context fill `receiver_user_id` + the ephemeral reply anchor.
- * explicit call-site values win; `ephemeral: false` opts out; non-ephemeral contexts
- * contribute nothing. the flag itself never reaches the wire — `undefined` drops at
+ * so sends from such a context fill `ephemeral_message_parameters` + the ephemeral reply anchor.
+ * explicit call-site values win field by field; `ephemeral: false` opts out; non-ephemeral
+ * contexts contribute nothing. the flag itself never reaches the wire — `undefined` drops at
  * serialization, shadowing the value the params spread carried
  */
 export function ephemeralSendParams (raw: EphemeralMessageLike, params: EphemeralSendOverrides) {
   const scrub = 'ephemeral' in params ? { ephemeral: undefined } : {}
 
-  if (raw.ephemeral_message_id == null || params.ephemeral === false) {
+  if (raw.ephemeral_message_id == null) {
+    if (params.ephemeral === true) {
+      throw new TypeError('ephemeral: true needs an ephemeral context — this message carries no ephemeral_message_id')
+    }
+
     return scrub
   }
 
-  const receiver = params.receiver_user_id ?? nonBotParty(raw)
+  if (params.ephemeral === false) {
+    return scrub
+  }
+
+  const receiver = params.ephemeral_message_parameters?.receiver_user_id ?? nonBotParty(raw)
 
   return {
     ...scrub,
-    ...(receiver === undefined ? {} : { receiver_user_id: receiver }),
+    ...(receiver === undefined
+      ? {}
+      : {
+          ephemeral_message_parameters: {
+            receiver_user_id: receiver,
+            ...params.ephemeral_message_parameters
+          }
+        }),
     reply_parameters: { ephemeral_message_id: raw.ephemeral_message_id, ...params.reply_parameters }
   }
 }
@@ -72,14 +87,14 @@ export function ephemeralTarget (raw: EphemeralMessageLike) {
 }
 
 /**
- * callback-query sends opt into ephemeral by passing `receiver_user_id` — only then does the
- * query id auto-fill as the authorization token (a blanket fill would make every send ephemeral)
+ * callback-query sends opt into ephemeral by passing `ephemeral_message_parameters` — only then
+ * does the query id auto-fill as the authorization token (a blanket fill would make every send
+ * ephemeral)
  */
-export function callbackEphemeralParams (
-  queryId: string,
-  params: EphemeralSendOverrides & { callback_query_id?: string }
-) {
-  return params.receiver_user_id !== undefined && params.callback_query_id === undefined
-    ? { callback_query_id: queryId }
+export function callbackEphemeralParams (queryId: string, params: EphemeralSendOverrides) {
+  const parameters = params.ephemeral_message_parameters
+
+  return parameters !== undefined && parameters.callback_query_id === undefined
+    ? { ephemeral_message_parameters: { ...parameters, callback_query_id: queryId } }
     : {}
 }

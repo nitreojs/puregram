@@ -1,10 +1,10 @@
 /// AUTO-GENERATED FILE — do not edit by hand
-/// Bot API 10.2
+/// Bot API 10.3
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-07-14T20:58:39.619Z
+/// generated at: 2026-08-24T21:14:26.629Z
 /// see scripts/emit.ts in @puregram/api
 
-import type { TelegramAnimation, TelegramAudio, TelegramCallbackGame, TelegramChat, TelegramChatBackground, TelegramChatBoost, TelegramChatBoostAdded, TelegramChatBoostRemoved, TelegramChatBoostSource, TelegramChatBoostUpdated, TelegramChatInviteLink, TelegramChatJoinRequest, TelegramChatLocation, TelegramChatMember, TelegramChatMemberUpdated, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChatPermissions, TelegramChatPhoto, TelegramChatShared, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramChosenInlineResult, TelegramCommunityChatAdded, TelegramCommunityChatRemoved, TelegramContact, TelegramCopyTextButton, TelegramDice, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramDocument, TelegramEncryptedCredentials, TelegramEncryptedPassportElement, TelegramExternalReplyInfo, TelegramFile, TelegramForumTopicClosed, TelegramForumTopicCreated, TelegramForumTopicEdited, TelegramForumTopicReopened, TelegramGame, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveaway, TelegramGiveawayCompleted, TelegramGiveawayCreated, TelegramGiveawayWinners, TelegramInlineKeyboardButton, TelegramInlineKeyboardMarkup, TelegramInlineQuery, TelegramInvoice, TelegramLink, TelegramLinkPreviewOptions, TelegramLivePhoto, TelegramLocation, TelegramLoginUrl, TelegramManagedBotCreated, TelegramMaskPosition, TelegramMaybeInaccessibleMessage, TelegramMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageEntity, TelegramMessageId, TelegramMessageOrigin, TelegramMessageReactionCountUpdated, TelegramMessageReactionUpdated, TelegramOrderInfo, TelegramPaidMediaInfo, TelegramPaidMessagePriceChanged, TelegramPassportData, TelegramPhotoSize, TelegramPoll, TelegramPollAnswer, TelegramPollMedia, TelegramPollOption, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramPreCheckoutQuery, TelegramProximityAlertTriggered, TelegramReactionCount, TelegramReactionType, TelegramRefundedPayment, TelegramRichMessage, TelegramSharedUser, TelegramShippingAddress, TelegramShippingQuery, TelegramSticker, TelegramStickerSet, TelegramStory, TelegramSuccessfulPayment, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostRefunded, TelegramSwitchInlineQueryChosenChat, TelegramTextQuote, TelegramUniqueGiftInfo, TelegramUser, TelegramUserProfilePhotos, TelegramUsersShared, TelegramVenue, TelegramVideo, TelegramVideoChatEnded, TelegramVideoChatParticipantsInvited, TelegramVideoChatScheduled, TelegramVideoChatStarted, TelegramVideoNote, TelegramVideoQuality, TelegramVoice, TelegramWebAppData, TelegramWebAppInfo, TelegramWriteAccessAllowed } from "./types";
+import type { TelegramAnimation, TelegramAudio, TelegramCallbackGame, TelegramChat, TelegramChatBackground, TelegramChatBoost, TelegramChatBoostAdded, TelegramChatBoostRemoved, TelegramChatBoostSource, TelegramChatBoostUpdated, TelegramChatInviteLink, TelegramChatJoinRequest, TelegramChatLocation, TelegramChatMember, TelegramChatMemberUpdated, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChatPermissions, TelegramChatPhoto, TelegramChatShared, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramChosenInlineResult, TelegramCommunityChatAdded, TelegramCommunityChatJoined, TelegramCommunityChatRemoved, TelegramContact, TelegramCopyTextButton, TelegramDice, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramDisabledButton, TelegramDocument, TelegramEncryptedCredentials, TelegramEncryptedPassportElement, TelegramExternalReplyInfo, TelegramFile, TelegramForumTopicClosed, TelegramForumTopicCreated, TelegramForumTopicEdited, TelegramForumTopicReopened, TelegramGame, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveaway, TelegramGiveawayCompleted, TelegramGiveawayCreated, TelegramGiveawayWinners, TelegramInlineKeyboardButton, TelegramInlineKeyboardMarkup, TelegramInlineQuery, TelegramInvoice, TelegramLink, TelegramLinkPreviewOptions, TelegramLivePhoto, TelegramLocation, TelegramLoginUrl, TelegramManagedBotCreated, TelegramMaskPosition, TelegramMaybeInaccessibleMessage, TelegramMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageEntity, TelegramMessageId, TelegramMessageOrigin, TelegramMessageReactionCountUpdated, TelegramMessageReactionUpdated, TelegramOrderInfo, TelegramPaidMediaInfo, TelegramPaidMessagePriceChanged, TelegramPassportData, TelegramPhotoSize, TelegramPoll, TelegramPollAnswer, TelegramPollMedia, TelegramPollOption, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramPreCheckoutQuery, TelegramProximityAlertTriggered, TelegramReactionCount, TelegramReactionType, TelegramRefundedPayment, TelegramRichMessage, TelegramSharedUser, TelegramShippingAddress, TelegramShippingQuery, TelegramSticker, TelegramStickerSet, TelegramStory, TelegramSuccessfulPayment, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostRefunded, TelegramSwitchInlineQueryChosenChat, TelegramTextQuote, TelegramUniqueGiftInfo, TelegramUser, TelegramUserProfilePhotos, TelegramUsersShared, TelegramVenue, TelegramVideo, TelegramVideoChatEnded, TelegramVideoChatParticipantsInvited, TelegramVideoChatScheduled, TelegramVideoChatStarted, TelegramVideoNote, TelegramVideoQuality, TelegramVoice, TelegramWebAppData, TelegramWebAppInfo, TelegramWriteAccessAllowed } from "./types";
 import type { Has } from "../util-types";
 import { INSPECT, makeInspect } from "./inspect";
 import { Photo, VideoQualities } from "../structures-handcrafted";
@@ -2422,7 +2422,7 @@ export class InlineKeyboardButton {
         return this._webApp;
     }
     /**
-     * Optional. An HTTPS URL used to automatically authorize the user. Can be used as a replacement for the Telegram Login Widget.
+     * Optional. An HTTPS URL used to automatically authorize the user. Can be used as a replacement for the Telegram Login Widget. Not supported for ephemeral messages.
      */
     get loginUrl(): TelegramLoginUrl | undefined {
         return this.raw.login_url;
@@ -2462,6 +2462,12 @@ export class InlineKeyboardButton {
      */
     get pay(): boolean | undefined {
         return this.raw.pay;
+    }
+    /**
+     * Optional. If set, then the button is disabled and does nothing
+     */
+    get disabled(): TelegramDisabledButton | undefined {
+        return this.raw.disabled;
     }
     /**
      * true if `icon_custom_emoji_id` is set
@@ -2559,6 +2565,14 @@ export class InlineKeyboardButton {
     } {
         return this.raw.pay != null;
     }
+    /**
+     * true if `disabled` is set
+     */
+    hasDisabled(): this is this & {
+        disabled: TelegramDisabledButton;
+    } {
+        return this.raw.disabled != null;
+    }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("InlineKeyboardButton", this, depth, options, inspect);
     }
@@ -2589,6 +2603,20 @@ export class InlineKeyboardMarkup {
      */
     get inlineKeyboard(): TelegramInlineKeyboardButton[][] {
         return this.raw.inline_keyboard;
+    }
+    /**
+     * Optional. Pass True if the reply interface must be shown to the user, as if they had manually selected the bot's message and tapped 'Reply'. The value of the field can't be changed when the inline keyboard is edited.
+     */
+    get forceReply(): boolean | undefined {
+        return this.raw.force_reply;
+    }
+    /**
+     * true if `force_reply` is set
+     */
+    hasForceReply(): this is this & {
+        forceReply: boolean;
+    } {
+        return this.raw.force_reply != null;
     }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("InlineKeyboardMarkup", this, depth, options, inspect);
@@ -3716,7 +3744,7 @@ export class Message {
         return this._passportData;
     }
     /**
-     * Optional. Service message. A user in the chat triggered another user's proximity alert while sharing Live Location.
+     * Optional. Service message: a user in the chat triggered another user's proximity alert while sharing Live Location
      */
     get proximityAlertTriggered(): ProximityAlertTriggered | undefined {
         if (this._proximityAlertTriggered === undefined) {
@@ -3749,13 +3777,19 @@ export class Message {
         return this.raw.checklist_tasks_added;
     }
     /**
-     * Optional. Service message: chat added to a Community
+     * Optional. Service message: chat or bot added to a Community
      */
     get communityChatAdded(): TelegramCommunityChatAdded | undefined {
         return this.raw.community_chat_added;
     }
     /**
-     * Optional. Service message: chat removed from a Community
+     * Optional. Service message: chat was joined by a user from a Community
+     */
+    get communityChatJoined(): TelegramCommunityChatJoined | undefined {
+        return this.raw.community_chat_joined;
+    }
+    /**
+     * Optional. Service message: chat or bot removed from a Community
      */
     get communityChatRemoved(): TelegramCommunityChatRemoved | undefined {
         return this.raw.community_chat_removed;
@@ -4609,6 +4643,14 @@ export class Message {
         communityChatAdded: TelegramCommunityChatAdded;
     } {
         return this.raw.community_chat_added != null;
+    }
+    /**
+     * true if `community_chat_joined` is set
+     */
+    hasCommunityChatJoined(): this is this & {
+        communityChatJoined: TelegramCommunityChatJoined;
+    } {
+        return this.raw.community_chat_joined != null;
     }
     /**
      * true if `community_chat_removed` is set
@@ -7182,7 +7224,7 @@ export class VideoChatScheduled {
 }
 
 /**
- * This object represents a video message (available in Telegram apps as of v.4.0).
+ * This object represents a video message.
  */
 export class VideoNote {
     private _thumbnail?: PhotoSize | undefined;

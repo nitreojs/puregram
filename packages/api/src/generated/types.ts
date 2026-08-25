@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
-/// Bot API 10.2
+/// Bot API 10.3
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-07-14T20:58:39.619Z
+/// generated at: 2026-08-24T21:14:26.629Z
 /// see scripts/emit.ts in @puregram/api
 
 import type { Formattable } from "../formattable";
@@ -795,9 +795,13 @@ export interface TelegramChatAdministratorRights {
      */
     can_manage_direct_messages?: boolean;
     /**
-     * Optional. True, if the administrator can edit the tags of regular members; for groups and supergroups only. If omitted, defaults to the value of can_pin_messages.
+     * Optional. True, if the administrator can edit the tags of regular members; for groups and supergroups only
      */
     can_manage_tags?: boolean;
+    /**
+     * True, if the administrator can manage chat welcome messages or directly send them in the case of bots
+     */
+    can_send_welcome_messages: boolean;
 }
 
 /**
@@ -1339,9 +1343,13 @@ export interface TelegramChatMemberAdministrator {
      */
     can_manage_direct_messages?: boolean;
     /**
-     * Optional. True, if the administrator can edit the tags of regular members; for groups and supergroups only. If omitted, defaults to the value of can_pin_messages.
+     * Optional. True, if the administrator can edit the tags of regular members; for groups and supergroups only
      */
     can_manage_tags?: boolean;
+    /**
+     * True, if the administrator can manage chat welcome messages or directly send them in the case of bots
+     */
+    can_send_welcome_messages: boolean;
     /**
      * Optional. Custom title for this user
      */
@@ -1819,17 +1827,27 @@ export interface TelegramCommunity {
 }
 
 /**
- * Describes a service message about a chat being added to a community.
+ * Describes a service message about a chat or a bot being added to a community.
  */
 export interface TelegramCommunityChatAdded {
     /**
-     * The new community to which the chat belongs
+     * The new community to which the chat or the bot belongs
      */
     community: TelegramCommunity;
 }
 
 /**
- * Describes a service message about a chat being removed from a community. Currently holds no information.
+ * Describes a service message about a chat being joined by a user from a community.
+ */
+export interface TelegramCommunityChatJoined {
+    /**
+     * The community from which the chat was joined
+     */
+    community: TelegramCommunity;
+}
+
+/**
+ * Describes a service message about a chat or a bot being removed from a community. Currently holds no information.
  */
 export interface TelegramCommunityChatRemoved {
 }
@@ -1910,6 +1928,12 @@ export interface TelegramDirectMessagesTopic {
      * Optional. Information about the user that created the topic. Currently, it is always present.
      */
     user?: TelegramUser;
+}
+
+/**
+ * This object represents a disabled button which does nothing. Currently holds no information.
+ */
+export interface TelegramDisabledButton {
 }
 
 /**
@@ -2004,6 +2028,21 @@ export interface TelegramEncryptedPassportElement {
      * Base64-encoded element hash for using in PassportElementErrorUnspecified
      */
     hash: string;
+}
+
+export interface TelegramEphemeralMessageParameters {
+    /**
+     * Identifier of the user who will receive the message. It is not guaranteed that the user will receive the message, especially if they are offline. See here for more details.
+     */
+    receiver_user_id: number;
+    /**
+     * Optional. Identifier of the callback query which triggered the message, if any
+     */
+    callback_query_id?: string;
+    /**
+     * Optional. Pass True if the ephemeral message must be shown in place of the original message. Must be False for callback queries from ephemeral messages, which must be edited using regular editEphemeralMessage… methods.
+     */
+    replace_callback_query_message?: boolean;
 }
 
 /**
@@ -2143,7 +2182,7 @@ export interface TelegramFile {
  */
 export interface TelegramForceReply {
     /**
-     * Shows reply interface to the user, as if they manually selected the bot's message and tapped 'Reply'
+     * Shows reply interface to the user, as if they had manually selected the bot's message and tapped 'Reply'
      */
     force_reply: true;
     /**
@@ -2597,7 +2636,7 @@ export interface TelegramInlineKeyboardButton {
      */
     web_app?: TelegramWebAppInfo;
     /**
-     * Optional. An HTTPS URL used to automatically authorize the user. Can be used as a replacement for the Telegram Login Widget.
+     * Optional. An HTTPS URL used to automatically authorize the user. Can be used as a replacement for the Telegram Login Widget. Not supported for ephemeral messages.
      */
     login_url?: TelegramLoginUrl;
     /**
@@ -2624,6 +2663,10 @@ export interface TelegramInlineKeyboardButton {
      * Optional. Specify True, to send a Pay button. Substrings “” and “XTR” in the buttons's text will be replaced with a Telegram Star icon.NOTE: This type of button must always be the first button in the first row and can only be used in invoice messages.
      */
     pay?: boolean;
+    /**
+     * Optional. If set, then the button is disabled and does nothing
+     */
+    disabled?: TelegramDisabledButton;
 }
 
 /**
@@ -2634,6 +2677,10 @@ export interface TelegramInlineKeyboardMarkup {
      * Array of button rows, each represented by an Array of InlineKeyboardButton objects
      */
     inline_keyboard: TelegramInlineKeyboardButton[][];
+    /**
+     * Optional. Pass True if the reply interface must be shown to the user, as if they had manually selected the bot's message and tapped 'Reply'. The value of the field can't be changed when the inline keyboard is edited.
+     */
+    force_reply?: boolean;
 }
 
 /**
@@ -4445,7 +4492,7 @@ export interface TelegramInputProfilePhotoStatic {
 /**
  * This object represents a block in a rich formatted message to be sent. Currently, it can be any of the following types:
  */
-export type TelegramInputRichBlock = TelegramInputRichBlockParagraph | TelegramInputRichBlockSectionHeading | TelegramInputRichBlockPreformatted | TelegramInputRichBlockFooter | TelegramInputRichBlockDivider | TelegramInputRichBlockMathematicalExpression | TelegramInputRichBlockAnchor | TelegramInputRichBlockList | TelegramInputRichBlockBlockQuotation | TelegramInputRichBlockPullQuotation | TelegramInputRichBlockCollage | TelegramInputRichBlockSlideshow | TelegramInputRichBlockTable | TelegramInputRichBlockDetails | TelegramInputRichBlockMap | TelegramInputRichBlockAnimation | TelegramInputRichBlockAudio | TelegramInputRichBlockPhoto | TelegramInputRichBlockVideo | TelegramInputRichBlockVoiceNote | TelegramInputRichBlockThinking;
+export type TelegramInputRichBlock = TelegramInputRichBlockParagraph | TelegramInputRichBlockSectionHeading | TelegramInputRichBlockPreformatted | TelegramInputRichBlockFooter | TelegramInputRichBlockDivider | TelegramInputRichBlockMathematicalExpression | TelegramInputRichBlockAnchor | TelegramInputRichBlockList | TelegramInputRichBlockBlockQuotation | TelegramInputRichBlockExpandableBlockQuotation | TelegramInputRichBlockPullQuotation | TelegramInputRichBlockCollage | TelegramInputRichBlockSlideshow | TelegramInputRichBlockTable | TelegramInputRichBlockDetails | TelegramInputRichBlockMap | TelegramInputRichBlockButtons | TelegramInputRichBlockAnimation | TelegramInputRichBlockAudio | TelegramInputRichBlockDocument | TelegramInputRichBlockPhoto | TelegramInputRichBlockVideo | TelegramInputRichBlockVoiceNote | TelegramInputRichBlockThinking;
 
 /**
  * A block with an anchor, corresponding to the HTML tag <a> with the attribute name.
@@ -4516,6 +4563,24 @@ export interface TelegramInputRichBlockBlockQuotation {
 }
 
 /**
+ * A block containing a list of buttons that are shown in one row, corresponding to the custom HTML tag <tg-button-row>.
+ */
+export interface TelegramInputRichBlockButtons {
+    /**
+     * Type of the block, always “buttons”
+     */
+    type: "buttons";
+    /**
+     * List of 1-8 buttons to send
+     */
+    buttons: TelegramRichMessageButton[];
+    /**
+     * Optional. Horizontal alignment of the buttons. Currently, must be one of “left”, “center”, or “right”.
+     */
+    align?: "left" | "center" | "right";
+}
+
+/**
  * A collage, corresponding to the custom HTML tag <tg-collage>.
  */
 export interface TelegramInputRichBlockCollage {
@@ -4563,6 +4628,42 @@ export interface TelegramInputRichBlockDivider {
      * Type of the block, always “divider”
      */
     type: "divider";
+}
+
+/**
+ * A block with a general file, corresponding to the custom HTML tag <tg-document>.
+ */
+export interface TelegramInputRichBlockDocument {
+    /**
+     * Type of the block, always “document”
+     */
+    type: "document";
+    /**
+     * The document. Caption is ignored.
+     */
+    document: TelegramInputMediaDocument;
+    /**
+     * Optional. Caption of the block
+     */
+    caption?: TelegramRichBlockCaption;
+}
+
+/**
+ * A block quotation, corresponding to the HTML tag <blockquote> with custom attribute "collapsed".
+ */
+export interface TelegramInputRichBlockExpandableBlockQuotation {
+    /**
+     * Type of the block, always “expandable_blockquote”
+     */
+    type: "expandable_blockquote";
+    /**
+     * Content of the block
+     */
+    text: TelegramRichText;
+    /**
+     * Optional. Credit of the block
+     */
+    credit?: TelegramRichText;
 }
 
 /**
@@ -4632,17 +4733,17 @@ export interface TelegramInputRichBlockMap {
      */
     location: TelegramLocation;
     /**
-     * Map zoom level; 0-24
+     * Optional. Map zoom level; 0-24
      */
-    zoom: number;
+    zoom?: number;
     /**
-     * Map width; 0-10000
+     * Optional. Map width; 0-10000
      */
-    width: number;
+    width?: number;
     /**
-     * Map height; 0-10000
+     * Optional. Map height; 0-10000
      */
-    height: number;
+    height?: number;
     /**
      * Optional. Caption of the block
      */
@@ -4788,6 +4889,10 @@ export interface TelegramInputRichBlockTable {
      */
     is_striped?: true;
     /**
+     * Optional. Pass True if table cells must have smaller indents
+     */
+    is_compact?: true;
+    /**
      * Optional. Caption of the table
      */
     caption?: TelegramRichText;
@@ -4860,7 +4965,7 @@ export interface TelegramInputRichMessage {
      */
     markdown?: string;
     /**
-     * Optional. List of media that are specified in the markdown or html fields using tg://photo?id=, tg://video?id=, and tg://audio?id= links
+     * Optional. List of media that are specified in the markdown or html fields using tg://photo?id=, tg://video?id=, tg://document?id=, and tg://audio?id= links
      */
     media?: TelegramInputRichMessageMedia[];
     /**
@@ -4878,7 +4983,7 @@ export interface TelegramInputRichMessage {
  */
 export interface TelegramInputRichMessageContent {
     /**
-     * The message to be sent
+     * The message to be sent. Only previously uploaded files may be used in the message.
      */
     rich_message: TelegramInputRichMessage;
 }
@@ -4888,13 +4993,13 @@ export interface TelegramInputRichMessageContent {
  */
 export interface TelegramInputRichMessageMedia {
     /**
-     * Unique identifier of the media used in a tg://photo?id=, tg://video?id=, or tg://audio?id= link. 1-64 characters, only A-Z, a-z, 0-9, _ and - are allowed.
+     * Unique identifier of the media used in a tg://photo?id=, tg://video?id=, tg://document?id=, or tg://audio?id= link. 1-64 characters, only A-Z, a-z, 0-9, _ and - are allowed.
      */
     id: string;
     /**
      * The media to be sent. Everything except the media itself and its properties is ignored.
      */
-    media: TelegramInputMediaAnimation | TelegramInputMediaAudio | TelegramInputMediaPhoto | TelegramInputMediaVideo | TelegramInputMediaVoiceNote;
+    media: TelegramInputMediaAnimation | TelegramInputMediaAudio | TelegramInputMediaDocument | TelegramInputMediaPhoto | TelegramInputMediaVideo | TelegramInputMediaVoiceNote;
 }
 
 /**
@@ -5353,8 +5458,7 @@ export interface TelegramLocationAddress {
 }
 
 /**
- * This object represents a parameter of the inline keyboard button used to automatically authorize a user. Serves as a great replacement for the Telegram Login Widget when the user is coming from Telegram. All the user needs to do is tap/click a button and confirm that they want to log in:
- * Telegram apps support these buttons as of version 5.7.
+ * This object represents a parameter of the inline keyboard button used to automatically authorize a user. It serves as a great replacement for the Telegram Login Widget when the user is coming from Telegram. All the user needs to do is tap/click a button and confirm that they want to log in:
  */
 export interface TelegramLoginUrl {
     /**
@@ -5366,7 +5470,7 @@ export interface TelegramLoginUrl {
      */
     forward_text?: string;
     /**
-     * Optional. Username of a bot, which will be used for user authorization. See Setting up a bot for more details. If not specified, the current bot's username will be assumed. The url's domain must be the same as the domain linked with the bot. See Linking your domain to the bot for more details.
+     * Optional. Username of a bot, which will be used for user authorization; not supported in RichMessageButton. See Setting up a bot for more details. If not specified, the current bot's username will be assumed. The url's domain must be the same as the domain linked with the bot. See Linking your domain to the bot for more details.
      */
     bot_username?: string;
     /**
@@ -5819,7 +5923,7 @@ export interface TelegramMessage {
      */
     passport_data?: TelegramPassportData;
     /**
-     * Optional. Service message. A user in the chat triggered another user's proximity alert while sharing Live Location.
+     * Optional. Service message: a user in the chat triggered another user's proximity alert while sharing Live Location
      */
     proximity_alert_triggered?: TelegramProximityAlertTriggered;
     /**
@@ -5839,11 +5943,15 @@ export interface TelegramMessage {
      */
     checklist_tasks_added?: TelegramChecklistTasksAdded;
     /**
-     * Optional. Service message: chat added to a Community
+     * Optional. Service message: chat or bot added to a Community
      */
     community_chat_added?: TelegramCommunityChatAdded;
     /**
-     * Optional. Service message: chat removed from a Community
+     * Optional. Service message: chat was joined by a user from a Community
+     */
+    community_chat_joined?: TelegramCommunityChatJoined;
+    /**
+     * Optional. Service message: chat or bot removed from a Community
      */
     community_chat_removed?: TelegramCommunityChatRemoved;
     /**
@@ -6002,6 +6110,24 @@ export interface TelegramMessageEntity {
      * Optional. For “date_time” only, the string that defines the formatting of the date and time. See date-time entity formatting for more details.
      */
     date_time_format?: string;
+}
+
+/**
+ * This object describes an update about a user stopping message generation.
+ */
+export interface TelegramMessageGenerationStopped {
+    /**
+     * Chat in which the message is generated
+     */
+    chat: TelegramChat;
+    /**
+     * Optional. Unique identifier of the message thread in which the message is generated
+     */
+    message_thread_id?: number;
+    /**
+     * Unique identifier of the message draft which was stopped
+     */
+    draft_id: number;
 }
 
 /**
@@ -7119,6 +7245,10 @@ export interface TelegramReplyKeyboardMarkup {
      * Optional. Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message.Example: A user requests to change the bot's language, bot replies to the request with a keyboard to select the new language. Other users in the group don't see the keyboard.
      */
     selective?: boolean;
+    /**
+     * Optional. Pass True if the reply interface must be shown to the user, as if they had manually selected the bot's message and tapped 'Reply'
+     */
+    force_reply?: boolean;
 }
 
 /**
@@ -7241,7 +7371,7 @@ export interface TelegramRevenueWithdrawalStateSucceeded {
 /**
  * This object represents a block in a rich formatted message. Currently, it can be any of the following types:
  */
-export type TelegramRichBlock = TelegramRichBlockParagraph | TelegramRichBlockSectionHeading | TelegramRichBlockPreformatted | TelegramRichBlockFooter | TelegramRichBlockDivider | TelegramRichBlockMathematicalExpression | TelegramRichBlockAnchor | TelegramRichBlockList | TelegramRichBlockBlockQuotation | TelegramRichBlockPullQuotation | TelegramRichBlockCollage | TelegramRichBlockSlideshow | TelegramRichBlockTable | TelegramRichBlockDetails | TelegramRichBlockMap | TelegramRichBlockAnimation | TelegramRichBlockAudio | TelegramRichBlockPhoto | TelegramRichBlockVideo | TelegramRichBlockVoiceNote | TelegramRichBlockThinking;
+export type TelegramRichBlock = TelegramRichBlockParagraph | TelegramRichBlockSectionHeading | TelegramRichBlockPreformatted | TelegramRichBlockFooter | TelegramRichBlockDivider | TelegramRichBlockMathematicalExpression | TelegramRichBlockAnchor | TelegramRichBlockList | TelegramRichBlockBlockQuotation | TelegramRichBlockExpandableBlockQuotation | TelegramRichBlockPullQuotation | TelegramRichBlockCollage | TelegramRichBlockSlideshow | TelegramRichBlockTable | TelegramRichBlockDetails | TelegramRichBlockMap | TelegramRichBlockButtons | TelegramRichBlockAnimation | TelegramRichBlockAudio | TelegramRichBlockDocument | TelegramRichBlockPhoto | TelegramRichBlockVideo | TelegramRichBlockVoiceNote | TelegramRichBlockThinking;
 
 /**
  * A block with an anchor, corresponding to the HTML tag <a> with the attribute name.
@@ -7316,6 +7446,24 @@ export interface TelegramRichBlockBlockQuotation {
 }
 
 /**
+ * A block containing a list of buttons that are shown in one row, corresponding to the custom HTML tag <tg-button-row>.
+ */
+export interface TelegramRichBlockButtons {
+    /**
+     * Type of the block, always “buttons”
+     */
+    type: "buttons";
+    /**
+     * The buttons
+     */
+    buttons: TelegramRichMessageButton[];
+    /**
+     * Optional. Horizontal alignment of the buttons. Currently, must be one of “left”, “center”, or “right”.
+     */
+    align?: "left" | "center" | "right";
+}
+
+/**
  * Caption of a rich formatted block.
  */
 export interface TelegramRichBlockCaption {
@@ -7377,6 +7525,42 @@ export interface TelegramRichBlockDivider {
      * Type of the block, always “divider”
      */
     type: "divider";
+}
+
+/**
+ * A block with a general file, corresponding to the custom HTML tag <tg-document>.
+ */
+export interface TelegramRichBlockDocument {
+    /**
+     * Type of the block, always “document”
+     */
+    type: "document";
+    /**
+     * The document
+     */
+    document: TelegramDocument;
+    /**
+     * Optional. Caption of the block
+     */
+    caption?: TelegramRichBlockCaption;
+}
+
+/**
+ * A block quotation, corresponding to the HTML tag <blockquote> with custom attribute "collapsed".
+ */
+export interface TelegramRichBlockExpandableBlockQuotation {
+    /**
+     * Type of the block, always “expandable_blockquote”
+     */
+    type: "expandable_blockquote";
+    /**
+     * Content of the block
+     */
+    text: TelegramRichText;
+    /**
+     * Optional. Credit of the block
+     */
+    credit?: TelegramRichText;
 }
 
 /**
@@ -7450,7 +7634,7 @@ export interface TelegramRichBlockMap {
      */
     location: TelegramLocation;
     /**
-     * Map zoom level; 13-20
+     * Map zoom level
      */
     zoom: number;
     /**
@@ -7610,6 +7794,10 @@ export interface TelegramRichBlockTable {
      */
     is_striped?: true;
     /**
+     * Optional. True, if table cells have smaller indents
+     */
+    is_compact?: true;
+    /**
      * Optional. Caption of the table
      */
     caption?: TelegramRichText;
@@ -7714,9 +7902,59 @@ export interface TelegramRichMessage {
 }
 
 /**
+ * This object represents a button in a RichMessage. Exactly one of the fields other than text and style must be used to specify the type of the button.
+ */
+export interface TelegramRichMessageButton {
+    /**
+     * Text of the button. May contain only plain text, RichTextCustomEmoji and RichTextDateTime entities.
+     */
+    text: TelegramRichText;
+    /**
+     * Optional. Style of the button. Must be one of “danger” (red), “success” (green), “primary” (blue) or “link” (the button is shown as a regular link without borders). If omitted, then an app-specific style is used. The style “link” is allowed only for callback buttons.
+     */
+    style?: "danger" | "success" | "primary" | "link";
+    /**
+     * Optional. HTTP or tg:// URL to be opened when the button is pressed. Links tg://user?id=<user_id> can be used to mention a user by their identifier without using a username, if this is allowed by their privacy settings.
+     */
+    url?: string;
+    /**
+     * Optional. Data to be sent in a callback query to the bot when the button is pressed, 1-64 bytes
+     */
+    callback_data?: string;
+    /**
+     * Optional. Description of the Web App that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method answerWebAppQuery. Available only in private chats between a user and the bot. Not supported for messages sent on behalf of a business account.
+     */
+    web_app?: TelegramWebAppInfo;
+    /**
+     * Optional. An HTTPS URL used to automatically authorize the user. Can be used as a replacement for the Telegram Login Widget. Not supported for ephemeral messages.
+     */
+    login_url?: TelegramLoginUrl;
+    /**
+     * Optional. If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field. May be empty, in which case just the bot's username will be inserted. Not supported for messages sent in channel direct messages chats and on behalf of a business account.
+     */
+    switch_inline_query?: string;
+    /**
+     * Optional. If set, pressing the button will insert the bot's username and the specified inline query in the current chat's input field. May be empty, in which case only the bot's username will be inserted. Not supported in channels and for messages sent in channel direct messages chats and on behalf of a business account.
+     */
+    switch_inline_query_current_chat?: string;
+    /**
+     * Optional. If set, pressing the button will prompt the user to select one of their chats of the specified type, open that chat and insert the bot's username and the specified inline query in the input field. Not supported for messages sent in channel direct messages chats and on behalf of a business account.
+     */
+    switch_inline_query_chosen_chat?: TelegramSwitchInlineQueryChosenChat;
+    /**
+     * Optional. A button that copies the specified text to the clipboard
+     */
+    copy_text?: TelegramCopyTextButton;
+    /**
+     * Optional. If set, then the button is disabled and does nothing
+     */
+    disabled?: TelegramDisabledButton;
+}
+
+/**
  * This object represents a rich formatted text. Currently, it can be either a String for plain text, an Array of RichText, or any of the following types:
  */
-export type TelegramRichText = string | TelegramRichText[] | TelegramRichTextBold | TelegramRichTextItalic | TelegramRichTextUnderline | TelegramRichTextStrikethrough | TelegramRichTextSpoiler | TelegramRichTextDateTime | TelegramRichTextTextMention | TelegramRichTextSubscript | TelegramRichTextSuperscript | TelegramRichTextMarked | TelegramRichTextCode | TelegramRichTextCustomEmoji | TelegramRichTextMathematicalExpression | TelegramRichTextUrl | TelegramRichTextEmailAddress | TelegramRichTextPhoneNumber | TelegramRichTextBankCardNumber | TelegramRichTextMention | TelegramRichTextHashtag | TelegramRichTextCashtag | TelegramRichTextBotCommand | TelegramRichTextAnchor | TelegramRichTextAnchorLink | TelegramRichTextReference | TelegramRichTextReferenceLink;
+export type TelegramRichText = string | TelegramRichText[] | TelegramRichTextBold | TelegramRichTextItalic | TelegramRichTextUnderline | TelegramRichTextStrikethrough | TelegramRichTextSpoiler | TelegramRichTextDateTime | TelegramRichTextTextMention | TelegramRichTextSubscript | TelegramRichTextSuperscript | TelegramRichTextMarked | TelegramRichTextCode | TelegramRichTextCustomEmoji | TelegramRichTextMathematicalExpression | TelegramRichTextUrl | TelegramRichTextEmailAddress | TelegramRichTextPhoneNumber | TelegramRichTextBankCardNumber | TelegramRichTextMention | TelegramRichTextHashtag | TelegramRichTextCashtag | TelegramRichTextBotCommand | TelegramRichTextButton | TelegramRichTextAnchor | TelegramRichTextAnchorLink | TelegramRichTextReference | TelegramRichTextReferenceLink;
 
 /**
  * An anchor.
@@ -7798,6 +8036,20 @@ export interface TelegramRichTextBotCommand {
      * The bot command
      */
     bot_command: string;
+}
+
+/**
+ * A button.
+ */
+export interface TelegramRichTextButton {
+    /**
+     * Type of the rich text, always “button”
+     */
+    type: "button";
+    /**
+     * The button
+     */
+    button: TelegramRichMessageButton;
 }
 
 /**
@@ -9041,6 +9293,18 @@ export interface TelegramUniqueGiftInfo {
      */
     origin: "upgrade" | "transfer" | "resale" | "gifted_upgrade" | "offer";
     /**
+     * Optional. Text of the message that was added to the gift
+     */
+    text?: string;
+    /**
+     * Optional. Special entities that appear in the text
+     */
+    entities?: TelegramMessageEntity[];
+    /**
+     * Optional. True, if the sender and gift text are shown only to the gift receiver; otherwise, everyone will be able to see them
+     */
+    is_private?: true;
+    /**
      * Optional. For gifts bought from other users, the currency in which the payment for the gift was done. Currently, one of “XTR” for Telegram Stars or “TON” for TON grams.
      */
     last_resale_currency?: string;
@@ -9214,6 +9478,10 @@ export interface TelegramUpdate {
      * Optional. User payment subscription has changed
      */
     subscription?: TelegramBotSubscriptionUpdated;
+    /**
+     * Optional. A user asked the bot to stop the generation of a message
+     */
+    stopped_message_generation?: TelegramMessageGenerationStopped;
 }
 
 /**
@@ -9493,7 +9761,7 @@ export interface TelegramVideoChatStarted {
 }
 
 /**
- * This object represents a video message (available in Telegram apps as of v.4.0).
+ * This object represents a video message.
  */
 export interface TelegramVideoNote {
     /**

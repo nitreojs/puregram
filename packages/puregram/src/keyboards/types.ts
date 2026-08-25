@@ -35,17 +35,20 @@ export function normalizeCallbackData (data: CallbackData) {
 }
 
 export function decorateInlineButton (button: TelegramInlineKeyboardButton, params: InlineButtonParams) {
+  // telegram discards `disabled` whenever the button also carries an action, so the flag only
+  // means anything if it replaces one — verified against the api, which reports a button edited
+  // from {callback_data, disabled} to {callback_data} as "not modified"
+  const out: TelegramInlineKeyboardButton = params.disabled === true
+    ? { text: button.text, disabled: {} }
+    : button
+
   if (params.style) {
-    button.style = params.style
+    out.style = params.style
   }
 
   if (params.iconCustomEmojiId) {
-    button.icon_custom_emoji_id = params.iconCustomEmojiId
+    out.icon_custom_emoji_id = params.iconCustomEmojiId
   }
 
-  if (params.disabled === true) {
-    button.disabled = {}
-  }
-
-  return button
+  return out
 }

@@ -1,6 +1,6 @@
 import type * as Interfaces from '@puregram/api'
 
-import type { InlineButtonParams, CallbackData } from './types'
+import type { ButtonStyleParams, InlineButtonParams, CallbackData } from './types'
 import { decorateInlineButton, normalizeCallbackData } from './types'
 
 interface TextButtonParams {
@@ -62,6 +62,7 @@ type SwitchToChosenChatButtonParamsWithStyle = SwitchToChosenChatButtonParams & 
 type GameButtonParamsWithStyle = GameButtonParams & InlineButtonParams
 type PayButtonParamsWithStyle = PayButtonParams & InlineButtonParams
 type LoginButtonParamsWithStyle = LoginButtonParams & InlineButtonParams
+type DisabledButtonParams = { text: string } & ButtonStyleParams
 
 export class InlineKeyboardBuilder {
   private rows: Interfaces.TelegramInlineKeyboardButton[][] = []
@@ -201,6 +202,11 @@ export class InlineKeyboardBuilder {
       login_url: params.loginUrl,
       text: params.text
     }, params))
+  }
+
+  /** generate a disabled button — it renders but does nothing, and takes no action of its own */
+  disabledButton (params: DisabledButtonParams) {
+    return this.addButton(decorateInlineButton({ text: params.text }, { ...params, disabled: true }))
   }
 
   /**

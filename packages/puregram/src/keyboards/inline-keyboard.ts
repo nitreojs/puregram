@@ -1,6 +1,6 @@
 import type * as Interfaces from '@puregram/api'
 
-import type { InlineButtonParams, CallbackData } from './types'
+import type { ButtonStyleParams, InlineButtonParams, CallbackData } from './types'
 import { decorateInlineButton, normalizeCallbackData } from './types'
 
 interface TextButtonParams {
@@ -66,6 +66,7 @@ type CopyButtonParamsWithStyle = CopyButtonParams & InlineButtonParams
 type GameButtonParamsWithStyle = GameButtonParams & InlineButtonParams
 type PayButtonParamsWithStyle = PayButtonParams & InlineButtonParams
 type LoginButtonParamsWithStyle = LoginButtonParams & InlineButtonParams
+type DisabledButtonParams = { text: string } & ButtonStyleParams
 
 /** inline keyboard */
 export class InlineKeyboard {
@@ -281,6 +282,16 @@ export class InlineKeyboard {
   /** an alias for `loginButton` */
   static login (params: LoginButtonParamsWithStyle) {
     return InlineKeyboard.loginButton(params)
+  }
+
+  /** generate a disabled button — it renders but does nothing, and takes no action of its own */
+  static disabledButton (params: DisabledButtonParams) {
+    return decorateInlineButton({ text: params.text }, { ...params, disabled: true })
+  }
+
+  /** an alias for `disabledButton` */
+  static disabled (params: DisabledButtonParams) {
+    return InlineKeyboard.disabledButton(params)
   }
 
   /**

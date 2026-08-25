@@ -244,13 +244,38 @@ rich.raw.md('# raw **stuff**').toInputRichMessage()
 // → { markdown: '# raw **stuff**' }
 ```
 
-a raw string can reference uploads through `tg://…?id=` links backed by `media` entries:
+a raw string can reference uploads through `tg://…?id=` links backed by `media` entries. build both halves with the `RichMedia` factory from `puregram`, so the id is written once:
 
 ```ts
-rich.raw.md('![](tg://photo?id=m1)', {
-  media: [{ id: 'm1', media: { type: 'photo', media: 'https://x.test/a.jpg' } }]
+import { MediaSource, RichMedia } from 'puregram'
+
+const id = 'note'
+
+rich.raw.md(`![](${RichMedia.link('photo', 'hero')})`, {
+  media: [RichMedia.photo('hero', 'https://x.test/a.jpg')]
+})
+
+// documents must go through media[] — see the warning below
+rich.raw.md(`<tg-document src="${RichMedia.link('document', id)}"></tg-document>`, {
+  media: [RichMedia.document(id, MediaSource.path('./note.txt'))]
 })
 ```
+
+`RichMedia.photo` / `.video` / `.audio` / `.animation` / `.document` / `.voiceNote` build the entries; `RichMedia.link(kind, id)` builds the reference. telegram documents only four link forms — `photo`, `video`, `document`, `audio` — so `link()` accepts those; `tg://animation?id=` is not recognized.
+
+::: warning documents cannot be plain urls in a dialect
+measured against the live api: `![](https://…/logo.png)` yields a `photo`, but
+`<tg-document src="https://…">` answers `RICH_MESSAGE_DOCUMENT_NO_MEDIA_FOUND`. a document in a
+raw dialect string **must** be referenced through `media[]`. native `rich.document(...)` blocks
+are unaffected and take a url or a `MediaSource` directly
+:::
+
+::: warning a received document block keys its payload as `audio`
+telegram answers `{ type: 'document', audio: { file_id, file_name, … } }` even though
+`RichBlockDocument` declares the key as `document` — reproduced with `text/plain`,
+`application/zip` and `application/json`. read both keys when parsing a received rich message.
+the send side is unaffected
+:::
 
 raw envelopes expose no `.blocks` and cannot be composed into a blocks envelope or spliced into a template — parse them or use builders instead
 

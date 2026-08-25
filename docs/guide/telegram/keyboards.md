@@ -49,6 +49,7 @@ message.send('choose:', { reply_markup: kb })
 | `.selective(true?)` | shows the keyboard only to mentioned users |
 | `.persistent(true?)` | always shows the keyboard even when the regular one is hidden |
 | `.setPlaceholder(text)` | sets the input field placeholder while the keyboard is active |
+| `.forceReply(true?)` | opens the reply interface, as if the user had selected the bot's message and tapped 'Reply' |
 
 ```ts
 const kb = Keyboard.keyboard([['yes', 'no']]).resize().oneTime()
@@ -146,7 +147,7 @@ const kb = InlineKeyboard.keyboard([
 | `InlineKeyboard.game({ text, game })` | launches a game |
 | `InlineKeyboard.pay({ text })` | pay button for invoices |
 
-each factory also accepts `style` and `iconCustomEmojiId` inside the params object
+each factory also accepts `style`, `iconCustomEmojiId` and `disabled` inside the params object
 
 ```ts
 // callback button
@@ -165,6 +166,36 @@ InlineKeyboard.login({ text: 'sign in', loginUrl: { url: 'https://auth.example.c
 ::: tip callback_data validation
 `payload` accepts `string | number`. values are validated at construction time: 1–64 bytes. passing an out-of-range string throws a `RangeError`
 :::
+
+### disabled buttons
+
+`disabled: true` renders a button that does nothing — useful for a locked option you still want
+visible. it exists on inline buttons only; reply-keyboard buttons have no such field:
+
+```ts
+InlineKeyboard.keyboard([[
+  InlineKeyboard.text({ text: 'free', payload: 'plan:free' }),
+  InlineKeyboard.text({ text: 'pro — soon', payload: 'plan:pro', disabled: true })
+]])
+```
+
+::: warning telegram does not echo it back
+the field is accepted and sent (`"disabled":{}` on the wire), but the returned message's
+`reply_markup` omits it, so you cannot read it back off a sent message
+:::
+
+### force reply
+
+both markup kinds carry `.forceReply(true?)`, which opens the reply interface alongside the
+keyboard. on an inline keyboard telegram will not let the flag change on a later edit:
+
+```ts
+await message.send('what should I call you?', {
+  reply_markup: InlineKeyboard.keyboard([[
+    InlineKeyboard.text({ text: 'skip', payload: 'skip' })
+  ]]).forceReply()
+})
+```
 
 ### switch-to-chosen-chat
 

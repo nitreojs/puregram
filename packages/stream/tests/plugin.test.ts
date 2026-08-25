@@ -26,7 +26,7 @@ describe('stream plugin — rich wiring', () => {
     const { tg, sendRichMessage, sendMessage } = makeFakeTg()
     const ext = await stream().install(tg as never)
 
-    await ext.stream({
+    await ext({
       chat_id: 1,
       source: ['hello rich'],
       rich: true,
@@ -43,7 +43,7 @@ describe('stream plugin — rich wiring', () => {
     const { tg, sendMessage, sendRichMessage } = makeFakeTg()
     const ext = await stream().install(tg as never)
 
-    await ext.stream({ chat_id: 1, source: ['plain'], thinkingPlaceholder: false, editIntervalMs: 0 })
+    await ext({ chat_id: 1, source: ['plain'], thinkingPlaceholder: false, editIntervalMs: 0 })
 
     expect(sendMessage).toHaveBeenCalledTimes(1)
     expect((sendMessage.mock.calls[0]![0] as { text: unknown }).text).toBe('plain')

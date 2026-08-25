@@ -230,7 +230,7 @@ describe('stream plugin — stop watcher', () => {
       yield ' tail'
     })()
 
-    const run = ext.stream({
+    const run = ext({
       chat_id: 1,
       source,
       canStop: true,
@@ -262,7 +262,7 @@ describe('stream plugin — stop watcher', () => {
     const { tg, hooks } = makeFakeTg()
     const ext = await stream().install(tg as never)
 
-    const result = await ext.stream({
+    const result = await ext({
       chat_id: 1,
       source: ['plain'],
       thinkingPlaceholder: false,

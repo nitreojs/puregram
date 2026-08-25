@@ -1,5 +1,5 @@
 export { stream } from './plugin'
-export type { StreamCallOptions, StreamExtension, StreamTgParams } from './plugin'
+export type { ActiveStream, StreamCallOptions, StreamExtension, StreamTgParams } from './plugin'
 export type { StreamSource } from './normalize'
 export type { ParseMode, ParsedPayload } from './formatted'
 export type { StreamResult } from './core'

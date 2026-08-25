@@ -44,10 +44,23 @@ export interface StreamTgParams extends StreamCallOptions {
   source: StreamSource
 }
 
+/** snapshot of one in-flight run, as reported by `tg.stream.active` */
+export interface ActiveStream {
+  readonly chatId: number
+  readonly drafts: number
+  readonly canStop: boolean
+  readonly stopped: boolean
+}
+
 /** `tg.stream` extension shape — exposed on the `Telegram` instance after the plugin is installed */
 export interface StreamExtension {
   (params: StreamTgParams): Promise<StreamResult>
+  readonly active: readonly ActiveStream[]
+  stop: (chatId: number) => number
+  stopAll: () => number
 }
+
+type StreamRun = (params: StreamTgParams) => Promise<StreamResult>
 
 declare module '@puregram/api' {
   interface MessageUpdate {
@@ -97,6 +110,10 @@ interface StopUpdateLike {
   draftId: number
 }
 
+interface LiveRun extends StreamStopController {
+  canStop: boolean
+}
+
 // dispatch hands hooks an UnsupportedUpdate for unknown kinds, and that class has no is()
 function isStopUpdate (update: unknown): update is StopUpdateLike {
   if (typeof update !== 'object' || update === null || !('kind' in update)) {
@@ -126,16 +143,29 @@ export function stream () {
       }
       const pickApi = (rich: boolean | RichDialect | undefined) => rich ? richApi : api
 
-      const live = new Set<StreamStopController>()
+      const live = new Set<LiveRun>()
+
+      const requestStop = (matches: (entry: LiveRun) => boolean) => {
+        let stopped = 0
+
+        for (const entry of live) {
+          if (!matches(entry) || entry.stopped) {
+            continue
+          }
+
+          entry.stopped = true
+          entry.onStop?.()
+          stopped += 1
+        }
+
+        return stopped
+      }
 
       tg.useHook('onUpdate', async (update, next) => {
         if (isStopUpdate(update)) {
-          for (const controller of live) {
-            if (controller.chatId === update.chat.id && controller.draftIds.has(update.draftId)) {
-              controller.stopped = true
-              controller.onStop?.()
-            }
-          }
+          const { chat, draftId } = update
+
+          requestStop(entry => entry.canStop && entry.chatId === chat.id && entry.draftIds.has(draftId))
         }
 
         await next()
@@ -148,26 +178,25 @@ export function stream () {
 
       const run = async (chatId: number, options: StreamCallOptions, source: StreamSource, offset: number) => {
         const { draftIdOffset, ...rest } = options
-        const controller: StreamStopController | undefined = options.canStop === true
-          ? { chatId, draftIds: new Set(), stopped: false }
-          : undefined
-
-        if (controller !== undefined) {
-          live.add(controller)
+        const entry: LiveRun = {
+          chatId,
+          draftIds: new Set(),
+          stopped: false,
+          canStop: options.canStop === true
         }
+
+        live.add(entry)
 
         try {
           return await runStream(pickApi(rest.rich), {
             ...rest,
             chatId,
             source: normalize(source),
-            ...(controller === undefined ? {} : { stop: controller }),
+            stop: entry,
             draftIdOffset: draftIdOffset ?? offset
           })
         } finally {
-          if (controller !== undefined) {
-            live.delete(controller)
-          }
+          live.delete(entry)
         }
       }
 
@@ -175,14 +204,13 @@ export function stream () {
       const nextOffset = () => {
         const offset = counter
 
-        // one range per run, matching deriveOffsetFromMessage's spacing — overlapping ranges
-        // would let one stop update match a run it does not own
+        // only separates tg.stream calls from each other: the Nth still aliases message_id N
         counter = (counter + DRAFT_IDS_PER_RUN) >>> 0
 
         return offset
       }
 
-      const runFromTg: StreamExtension = async (params) => {
+      const runFromTg: StreamRun = async (params) => {
         // tg.stream is out-of-context; caller passes a private chat id
         const { chat_id: chatId, source, ...rest } = params
 
@@ -216,7 +244,22 @@ export function stream () {
         patchPrototype(target)
       }
 
-      return { stream: runFromTg }
+      const ext = Object.assign(runFromTg, {
+        stop: (chatId: number) => requestStop(entry => entry.chatId === chatId),
+        stopAll: () => requestStop(() => true)
+      })
+
+      Object.defineProperty(ext, 'active', {
+        get: () => [...live].map(entry => ({
+          chatId: entry.chatId,
+          drafts: entry.draftIds.size,
+          canStop: entry.canStop,
+          stopped: entry.stopped
+        })),
+        enumerable: true
+      })
+
+      return ext as StreamExtension
     }
   })
 }

@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
 /// Bot API 10.3
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-08-24T21:14:26.629Z
+/// generated at: 2026-08-25T14:25:05.655Z
 /// see scripts/emit.ts in @puregram/api
 
 export enum AttachmentType {

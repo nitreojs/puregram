@@ -62,6 +62,33 @@ tg.onMessage((message) => {
 })
 ```
 
+## collection wrappers
+
+most `T[]` fields stay plain arrays. a handful surface as a **collection wrapper** instead — an object that iterates like the array it replaced, keeps the array on `.raw`, and adds the query you actually wanted:
+
+| accessor | wrapper | what it adds |
+| --- | --- | --- |
+| `message.photo`, `video.cover` | `Photo` | `biggest`, `smallest`, `byMin(width)` |
+| `video.qualities` | `VideoQualities` | the same, plus `byCodec('h264')` |
+| `oldReaction`, `newReaction`, `added`, `removed` | `Reactions` | `emojis`, `customEmojiIds`, `has(emoji)`, `hasCustomEmoji(id)`, `hasPaid()` |
+| `reactions` (on `message_reaction_count`) | `ReactionCounts` | `total`, `top`, `countOf(emoji)`, `countOfCustomEmoji(id)`, `countOfPaid()` |
+| `poll.options` | `PollOptions` | `winner`, `totalVotes`, `byId(persistentId)` |
+
+```ts
+tg.onMessage((message) => {
+  message.photo?.biggest.fileId     // largest size, no `.at(-1)!` dance
+  message.photo?.byMin(320).width   // smallest size at least 320px wide
+})
+
+tg.onMessageReaction((update) => {
+  update.added.emojis               // ['🔥'] — only the emoji reactions
+  update.added.customEmojiIds       // ids to feed getCustomEmojiStickers
+  update.newReaction.has('👍')      // no hand-narrowing of the ReactionType union
+})
+```
+
+the wrapped element type is unchanged — iterating `Photo` yields `PhotoSize` instances, and `.raw` is still `TelegramPhotoSize[]`. `Reactions` is the exception: `ReactionType` is a bare union with no wrapper class, so iterating yields the raw entries
+
 ## the class-per-kind model
 
 each update kind is its own class — `MessageUpdate`, `CallbackQueryUpdate`, `InlineQueryUpdate`, etc. they're all codegen'd from the bot api schema. the codegen attaches:

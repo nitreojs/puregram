@@ -144,9 +144,37 @@ the underlying method is `tg.api.setMessageReaction({ chat_id, message_id, react
 await tg.react(CHAT_ID, messageId, [Reaction.emoji('❤')], { is_big: true })
 ```
 
-::: tip listening for reactions
-when a user adds or removes a reaction, telegram sends a `message_reaction` update. handle it with `tg.on('message_reaction', handler)`
+### reading reactions
+
+`Reaction` is the write side. reading is a `message_reaction` update, which carries both snapshots — `oldReaction` and `newReaction` — plus the diff as `added` and `removed`. all four are [`Reactions`](/guide/concepts/updates#collection-wrappers) wrappers, so you never hand-narrow the `ReactionType` union:
+
+```ts
+tg.onMessageReaction((update) => {
+  update.added.emojis          // ['🔥'] — emoji reactions only
+  update.removed.emojis        // ['👍']
+  update.added.customEmojiIds  // ids you can feed to getCustomEmojiStickers
+  update.added.hasPaid()       // a paid star reaction was added
+  update.senderId              // user.id → actor_chat.id, may be undefined
+})
+```
+
+`message_reaction_count` is the anonymous counterpart — no actor, just the running tally as a [`ReactionCounts`](/guide/concepts/updates#collection-wrappers):
+
+```ts
+tg.onMessageReactionCount((update) => {
+  update.reactions.total          // every reaction counted together
+  update.reactions.top?.totalCount
+  update.reactions.countOf('👍')  // 0 when nobody used it
+})
+```
+
+::: warning both kinds are opt-in
+`message_reaction` and `message_reaction_count` are excluded from the default `allowed_updates` — subscribe explicitly or the handlers silently never fire. reactions also require the bot to be a chat admin
 :::
+
+```ts
+await tg.startPolling({ allowedUpdates: ['message', 'message_reaction'] })
+```
 
 ## see also
 

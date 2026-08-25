@@ -147,6 +147,16 @@ m.raw             // the raw TelegramMessage payload
 
 every structure has a `static fromPayload(raw)` factory and exposes `.raw` as escape hatch. nested-object getters are `??=`-cached so wrapper allocation is one-shot per access path. **the same classes are re-exported from `puregram`** — for most consumers, the `puregram` re-export is the right entry point
 
+a few `T[]` fields are handcrafted **collection wrappers** rather than plain arrays — iterable, array on `.raw`, plus the query the array made awkward:
+
+```ts
+message.photo?.biggest          // Photo    — also .smallest, .byMin(width)
+video.qualities?.byCodec('av01') // VideoQualities
+update.added.emojis             // Reactions — also .customEmojiIds, .has, .hasPaid()
+update.reactions.total          // ReactionCounts — also .top, .countOf(emoji)
+poll.options.winner             // PollOptions — also .totalVotes, .byId(id)
+```
+
 ### update classes ✦
 
 one class per bot-api update kind plus per derived service-event. `MessageUpdate`, `CallbackQueryUpdate`, `EditedMessageUpdate`, `InlineQueryUpdate`, `ChatMemberUpdate`, `NewChatMembersUpdate` (service event), …. every class is a discriminated subclass of the `AnyUpdate` union, with:

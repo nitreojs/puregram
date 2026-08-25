@@ -54,8 +54,7 @@ export class WaiterRegistry {
     return undefined
   }
 
-  // peek + match the head waiter. on filter/validate reject, surfaces validate-string feedback
-  // so the caller can echo to chat and leaves the waiter armed for the next inbound update
+  // a reject leaves every waiter armed, and reports feedback only from one whose filter accepted
   // eslint-disable-next-line local-rules/no-redundant-return-type -- discriminated outcome documents the contract
   matchOrPeek<K extends keyof UpdateKindMap> (kind: K, update: UpdateKindMap[K]): MatchOutcome<K> {
     const queue = this.queues.get(kind as string)
@@ -72,19 +71,25 @@ export class WaiterRegistry {
       return { outcome: 'none' }
     }
 
-    const head = live[0] as Waiter<K>
+    let feedback: string | undefined
 
-    if (head.match(update)) {
-      live.splice(0, 1)
+    for (let i = 0; i < live.length; i++) {
+      const candidate = live[i] as Waiter<K>
 
-      if (live.length === 0) {
-        this.queues.delete(kind as string)
+      if (candidate.match(update)) {
+        live.splice(i, 1)
+
+        if (live.length === 0) {
+          this.queues.delete(kind as string)
+        }
+
+        return { outcome: 'matched', waiter: candidate }
       }
 
-      return { outcome: 'matched', waiter: head }
+      feedback ??= candidate.lastValidationFeedback
     }
 
-    return { outcome: 'rejected', feedback: head.lastValidationFeedback }
+    return { outcome: 'rejected', feedback }
   }
 
   size (kind: string) {

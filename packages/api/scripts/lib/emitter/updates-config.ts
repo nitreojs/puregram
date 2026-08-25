@@ -131,8 +131,8 @@ const MESSAGE_EXTRAS: UpdateExtra[] = [
 ]
 
 const MESSAGE_REACTION_EXTRAS: UpdateExtra[] = [
-  { kind: 'getter', name: 'added', expression: 'this.raw.new_reaction.filter(r => !this.raw.old_reaction.some(o => o.type === r.type && (o as { emoji?: string }).emoji === (r as { emoji?: string }).emoji && (o as { custom_emoji_id?: string }).custom_emoji_id === (r as { custom_emoji_id?: string }).custom_emoji_id))', returnType: 'TelegramReactionType[]', jsdoc: 'reactions present in `newReaction` but not in `oldReaction`' },
-  { kind: 'getter', name: 'removed', expression: 'this.raw.old_reaction.filter(o => !this.raw.new_reaction.some(r => r.type === o.type && (r as { emoji?: string }).emoji === (o as { emoji?: string }).emoji && (r as { custom_emoji_id?: string }).custom_emoji_id === (o as { custom_emoji_id?: string }).custom_emoji_id))', returnType: 'TelegramReactionType[]', jsdoc: 'reactions present in `oldReaction` but not in `newReaction`' },
+  { kind: 'getter', name: 'added', body: 'return new Reactions(this.raw.new_reaction.filter(r => !this.oldReaction.includes(r)))', returnType: 'Reactions', jsdoc: 'reactions present in `newReaction` but not in `oldReaction`' },
+  { kind: 'getter', name: 'removed', body: 'return new Reactions(this.raw.old_reaction.filter(r => !this.newReaction.includes(r)))', returnType: 'Reactions', jsdoc: 'reactions present in `oldReaction` but not in `newReaction`' },
   { kind: 'getter', name: 'senderId', expression: 'this.raw.user?.id ?? this.raw.actor_chat?.id', returnType: 'number | undefined', jsdoc: 'best-effort sender id: `user.id` → `actor_chat.id`' }
 ]
 

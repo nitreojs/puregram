@@ -103,6 +103,9 @@ export function hasWrapperClass (name: string, kind: SchemaObject['kind'] | unde
 // (e.g. `Photo` for `PhotoSize[]`). sources live in `packages/api/src/structures-handcrafted/`
 export const ARRAY_WRAPPER_FOR: Record<string, string> = {
   PhotoSize: 'Photo',
+  PollOption: 'PollOptions',
+  ReactionCount: 'ReactionCounts',
+  ReactionType: 'Reactions',
   VideoQuality: 'VideoQualities'
 }
 

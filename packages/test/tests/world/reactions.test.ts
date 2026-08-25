@@ -1,4 +1,4 @@
-import { Telegram } from 'puregram'
+import { Reactions, Telegram } from 'puregram'
 import { afterEach, describe, expect, it } from 'vitest'
 
 import { createTestEnv } from '../../src'
@@ -91,5 +91,71 @@ describe('world: reactions', () => {
     const msg = alice.pmChat.messages.find(m => m.message_id === sent.message_id)
 
     expect(msg?.reactions.get(env.bot.id)).toEqual(new Set(['🔥']))
+  })
+
+  it('added / removed expose Reactions wrappers over the diff', async () => {
+    const tg = new Telegram({ token: 'TEST', apiBaseUrl: 'http://unused/bot' })
+    const env = createTestEnv(tg)
+
+    cleanup = () => env.shutdown()
+
+    const seen: { added: string[], removed: string[], isWrapper: boolean }[] = []
+
+    tg.onMessageReaction((u) => {
+      seen.push({
+        added: u.added.emojis,
+        removed: u.removed.emojis,
+        isWrapper: u.added instanceof Reactions && u.newReaction instanceof Reactions
+      })
+    })
+
+    const alice = env.createUser()
+    const msg = await alice.sendMessage('react please')
+
+    await alice.react('👍', msg)
+    await alice.react('❤', msg)
+
+    expect(seen).toEqual([
+      { added: ['👍'], removed: [], isWrapper: true },
+      { added: ['❤'], removed: ['👍'], isWrapper: true }
+    ])
+  })
+
+  it('the diff matches each reaction variant by its own identity', async () => {
+    const tg = new Telegram({ token: 'TEST', apiBaseUrl: 'http://unused/bot' })
+    const env = createTestEnv(tg)
+
+    cleanup = () => env.shutdown()
+
+    const seen: unknown[] = []
+
+    tg.onMessageReaction((u) => {
+      seen.push({
+        addedEmojis: u.added.emojis,
+        addedCustom: u.added.customEmojiIds,
+        addedPaid: u.added.hasPaid(),
+        removedEmojis: u.removed.emojis,
+        removedPaid: u.removed.hasPaid()
+      })
+    })
+
+    await env.inject({
+      message_reaction: {
+        chat: { id: -100, type: 'supergroup', title: 'g' },
+        message_id: 1,
+        user: { id: 7, is_bot: false, first_name: 'a' },
+        date: 0,
+        old_reaction: [{ type: 'emoji', emoji: '👍' }, { type: 'paid' }],
+        new_reaction: [{ type: 'emoji', emoji: '👍' }, { type: 'custom_emoji', custom_emoji_id: '5368324170671202286' }]
+      }
+    })
+
+    expect(seen).toEqual([{
+      addedEmojis: [],
+      addedCustom: ['5368324170671202286'],
+      addedPaid: false,
+      removedEmojis: [],
+      removedPaid: true
+    }])
   })
 })

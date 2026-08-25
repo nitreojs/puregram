@@ -1,2 +1,5 @@
 export { Photo } from './photo'
+export { PollOptions } from './poll-options'
+export { ReactionCounts } from './reaction-counts'
+export { Reactions } from './reactions'
 export { VideoQualities } from './video-qualities'

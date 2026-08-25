@@ -12,7 +12,7 @@ import type { Has } from "../util-types";
 import type { Formattable } from "../formattable";
 import type { RichLike } from "../rich-like";
 import { Animation, Audio, Chat, ChatBoost, ChatInviteLink, ChatMember, ChatShared, Contact, Dice, Document, ExternalReplyInfo, ForumTopicCreated, ForumTopicEdited, Game, Giveaway, GiveawayCompleted, GiveawayWinners, InlineKeyboardMarkup, Invoice, LinkPreviewOptions, LivePhoto, Location, Message, MessageEntity, OrderInfo, PassportData, PhotoSize, Poll, PollMedia, PollOption, ProximityAlertTriggered, ReactionCount, ShippingAddress, Sticker, Story, SuccessfulPayment, TextQuote, User, UsersShared, Venue, Video, VideoChatEnded, VideoChatParticipantsInvited, VideoChatScheduled, VideoNote, Voice, WebAppData, WriteAccessAllowed } from "./structures";
-import { Photo } from "../structures-handcrafted";
+import { Photo, PollOptions, ReactionCounts, Reactions } from "../structures-handcrafted";
 import { callbackEphemeralParams, ephemeralSendParams, ephemeralTarget } from "../ephemeral";
 import { INSPECT, makeInspect } from "./inspect";
 /**
@@ -8605,6 +8605,8 @@ export class MessageReactionUpdate {
     private _chat?: Chat;
     private _user?: User;
     private _actorChat?: Chat;
+    private _oldReaction?: Reactions;
+    private _newReaction?: Reactions;
     constructor(public raw: TelegramMessageReactionUpdated, public readonly tg: TelegramLike) { }
     /**
      * The chat containing the message the user reacted to
@@ -8639,14 +8641,14 @@ export class MessageReactionUpdate {
     /**
      * Previous list of reaction types that were set by the user
      */
-    get oldReaction(): TelegramReactionType[] {
-        return this.raw.old_reaction;
+    get oldReaction(): Reactions {
+        return this._oldReaction ??= new Reactions(this.raw.old_reaction);
     }
     /**
      * New list of reaction types that have been set by the user
      */
-    get newReaction(): TelegramReactionType[] {
-        return this.raw.new_reaction;
+    get newReaction(): Reactions {
+        return this._newReaction ??= new Reactions(this.raw.new_reaction);
     }
     /**
      * true if `user` is set
@@ -8673,30 +8675,14 @@ export class MessageReactionUpdate {
     /**
      * reactions present in `newReaction` but not in `oldReaction`
      */
-    get added(): TelegramReactionType[] {
-        return this.raw.new_reaction.filter(r => !this.raw.old_reaction.some(o => o.type === r.type && (o as {
-            emoji?: string;
-        }).emoji === (r as {
-            emoji?: string;
-        }).emoji && (o as {
-            custom_emoji_id?: string;
-        }).custom_emoji_id === (r as {
-            custom_emoji_id?: string;
-        }).custom_emoji_id));
+    get added(): Reactions {
+        return new Reactions(this.raw.new_reaction.filter(r => !this.oldReaction.includes(r)));
     }
     /**
      * reactions present in `oldReaction` but not in `newReaction`
      */
-    get removed(): TelegramReactionType[] {
-        return this.raw.old_reaction.filter(o => !this.raw.new_reaction.some(r => r.type === o.type && (r as {
-            emoji?: string;
-        }).emoji === (o as {
-            emoji?: string;
-        }).emoji && (r as {
-            custom_emoji_id?: string;
-        }).custom_emoji_id === (o as {
-            custom_emoji_id?: string;
-        }).custom_emoji_id));
+    get removed(): Reactions {
+        return new Reactions(this.raw.old_reaction.filter(r => !this.newReaction.includes(r)));
     }
     /**
      * best-effort sender id: `user.id` → `actor_chat.id`
@@ -8718,7 +8704,7 @@ export class MessageReactionUpdate {
 export class MessageReactionCountUpdate {
     readonly kind = "message_reaction_count" as const;
     private _chat?: Chat;
-    private _reactions?: ReactionCount[];
+    private _reactions?: ReactionCounts;
     constructor(public raw: TelegramMessageReactionCountUpdated, public readonly tg: TelegramLike) { }
     /**
      * The chat containing the message
@@ -8741,8 +8727,8 @@ export class MessageReactionCountUpdate {
     /**
      * List of reactions that are present on the message
      */
-    get reactions(): ReactionCount[] {
-        return this._reactions ??= this.raw.reactions.map(x => new ReactionCount(x));
+    get reactions(): ReactionCounts {
+        return this._reactions ??= new ReactionCounts(this.raw.reactions);
     }
     /**
      * shortcut for `tg.api` — call any bot api method directly from the wrapped update
@@ -9778,7 +9764,7 @@ export class PurchasedPaidMediaUpdate {
 export class PollUpdate {
     readonly kind = "poll" as const;
     private _questionEntities?: MessageEntity[];
-    private _options?: PollOption[];
+    private _options?: PollOptions;
     private _explanationEntities?: MessageEntity[];
     private _explanationMedia?: PollMedia;
     private _descriptionEntities?: MessageEntity[];
@@ -9805,8 +9791,8 @@ export class PollUpdate {
     /**
      * List of poll options
      */
-    get options(): PollOption[] {
-        return this._options ??= this.raw.options.map(x => new PollOption(x));
+    get options(): PollOptions {
+        return this._options ??= new PollOptions(this.raw.options);
     }
     /**
      * Total number of users that voted in the poll

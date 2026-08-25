@@ -7,7 +7,7 @@
 import type { TelegramAnimation, TelegramAudio, TelegramCallbackGame, TelegramChat, TelegramChatBackground, TelegramChatBoost, TelegramChatBoostAdded, TelegramChatBoostRemoved, TelegramChatBoostSource, TelegramChatBoostUpdated, TelegramChatInviteLink, TelegramChatJoinRequest, TelegramChatLocation, TelegramChatMember, TelegramChatMemberUpdated, TelegramChatOwnerChanged, TelegramChatOwnerLeft, TelegramChatPermissions, TelegramChatPhoto, TelegramChatShared, TelegramChecklist, TelegramChecklistTasksAdded, TelegramChecklistTasksDone, TelegramChosenInlineResult, TelegramCommunityChatAdded, TelegramCommunityChatJoined, TelegramCommunityChatRemoved, TelegramContact, TelegramCopyTextButton, TelegramDice, TelegramDirectMessagePriceChanged, TelegramDirectMessagesTopic, TelegramDisabledButton, TelegramDocument, TelegramEncryptedCredentials, TelegramEncryptedPassportElement, TelegramExternalReplyInfo, TelegramFile, TelegramForumTopicClosed, TelegramForumTopicCreated, TelegramForumTopicEdited, TelegramForumTopicReopened, TelegramGame, TelegramGeneralForumTopicHidden, TelegramGeneralForumTopicUnhidden, TelegramGiftInfo, TelegramGiveaway, TelegramGiveawayCompleted, TelegramGiveawayCreated, TelegramGiveawayWinners, TelegramInlineKeyboardButton, TelegramInlineKeyboardMarkup, TelegramInlineQuery, TelegramInvoice, TelegramLink, TelegramLinkPreviewOptions, TelegramLivePhoto, TelegramLocation, TelegramLoginUrl, TelegramManagedBotCreated, TelegramMaskPosition, TelegramMaybeInaccessibleMessage, TelegramMessage, TelegramMessageAutoDeleteTimerChanged, TelegramMessageEntity, TelegramMessageId, TelegramMessageOrigin, TelegramMessageReactionCountUpdated, TelegramMessageReactionUpdated, TelegramOrderInfo, TelegramPaidMediaInfo, TelegramPaidMessagePriceChanged, TelegramPassportData, TelegramPhotoSize, TelegramPoll, TelegramPollAnswer, TelegramPollMedia, TelegramPollOption, TelegramPollOptionAdded, TelegramPollOptionDeleted, TelegramPreCheckoutQuery, TelegramProximityAlertTriggered, TelegramReactionCount, TelegramReactionType, TelegramRefundedPayment, TelegramRichMessage, TelegramSharedUser, TelegramShippingAddress, TelegramShippingQuery, TelegramSticker, TelegramStickerSet, TelegramStory, TelegramSuccessfulPayment, TelegramSuggestedPostApprovalFailed, TelegramSuggestedPostApproved, TelegramSuggestedPostDeclined, TelegramSuggestedPostInfo, TelegramSuggestedPostPaid, TelegramSuggestedPostRefunded, TelegramSwitchInlineQueryChosenChat, TelegramTextQuote, TelegramUniqueGiftInfo, TelegramUser, TelegramUserProfilePhotos, TelegramUsersShared, TelegramVenue, TelegramVideo, TelegramVideoChatEnded, TelegramVideoChatParticipantsInvited, TelegramVideoChatScheduled, TelegramVideoChatStarted, TelegramVideoNote, TelegramVideoQuality, TelegramVoice, TelegramWebAppData, TelegramWebAppInfo, TelegramWriteAccessAllowed } from "./types";
 import type { Has } from "../util-types";
 import { INSPECT, makeInspect } from "./inspect";
-import { Photo, VideoQualities } from "../structures-handcrafted";
+import { Photo, PollOptions, ReactionCounts, Reactions, VideoQualities } from "../structures-handcrafted";
 /**
  * This object represents an animation file (GIF or H.264/MPEG-4 AVC video without sound).
  */
@@ -5096,7 +5096,7 @@ export class MessageId {
  */
 export class MessageReactionCountUpdated {
     private _chat?: Chat;
-    private _reactions?: ReactionCount[];
+    private _reactions?: ReactionCounts;
     constructor(public raw: TelegramMessageReactionCountUpdated) { }
     static fromPayload(raw: TelegramMessageReactionCountUpdated): MessageReactionCountUpdated {
         return new MessageReactionCountUpdated(raw);
@@ -5122,8 +5122,8 @@ export class MessageReactionCountUpdated {
     /**
      * List of reactions that are present on the message
      */
-    get reactions(): ReactionCount[] {
-        return this._reactions ??= this.raw.reactions.map(x => new ReactionCount(x));
+    get reactions(): ReactionCounts {
+        return this._reactions ??= new ReactionCounts(this.raw.reactions);
     }
     [INSPECT](depth: any, options: any, inspect: any) {
         return makeInspect("MessageReactionCountUpdated", this, depth, options, inspect);
@@ -5137,6 +5137,8 @@ export class MessageReactionUpdated {
     private _chat?: Chat;
     private _user?: User | undefined;
     private _actorChat?: Chat | undefined;
+    private _oldReaction?: Reactions;
+    private _newReaction?: Reactions;
     constructor(public raw: TelegramMessageReactionUpdated) { }
     static fromPayload(raw: TelegramMessageReactionUpdated): MessageReactionUpdated {
         return new MessageReactionUpdated(raw);
@@ -5180,14 +5182,14 @@ export class MessageReactionUpdated {
     /**
      * Previous list of reaction types that were set by the user
      */
-    get oldReaction(): TelegramReactionType[] {
-        return this.raw.old_reaction;
+    get oldReaction(): Reactions {
+        return this._oldReaction ??= new Reactions(this.raw.old_reaction);
     }
     /**
      * New list of reaction types that have been set by the user
      */
-    get newReaction(): TelegramReactionType[] {
-        return this.raw.new_reaction;
+    get newReaction(): Reactions {
+        return this._newReaction ??= new Reactions(this.raw.new_reaction);
     }
     /**
      * true if `user` is set
@@ -5364,7 +5366,7 @@ export class PhotoSize {
  */
 export class Poll {
     private _questionEntities?: MessageEntity[] | undefined;
-    private _options?: PollOption[];
+    private _options?: PollOptions;
     private _explanationEntities?: MessageEntity[] | undefined;
     private _explanationMedia?: PollMedia | undefined;
     private _descriptionEntities?: MessageEntity[] | undefined;
@@ -5394,8 +5396,8 @@ export class Poll {
     /**
      * List of poll options
      */
-    get options(): PollOption[] {
-        return this._options ??= this.raw.options.map(x => new PollOption(x));
+    get options(): PollOptions {
+        return this._options ??= new PollOptions(this.raw.options);
     }
     /**
      * Total number of users that voted in the poll

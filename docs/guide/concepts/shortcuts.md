@@ -205,6 +205,15 @@ tg.onCallbackQuery(query =>
 )
 ```
 
+::: warning the flag must be off for buttons on an ephemeral message
+the spec says `replace_callback_query_message` must be `False` for callback queries that came
+**from** an ephemeral message, and telegram does enforce it — but it reports the violation as
+`Bad Request: query is too old and response timeout expired or query ID is invalid`, which reads
+like an expired query and is not one. measured against bot api 10.3: the same `callback_query_id`
+that fails with the flag succeeds without it, immediately afterwards. edit such a message with the
+`editEphemeralMessage…` family instead
+:::
+
 ::: warning `editEphemeralMessageMedia` is rejected server-side
 telegram answers every call to it with `Bad Request: MESSAGE_EMPTY`, measured against bot api 10.3
 with a `file_id`, an http url and a fresh upload, on both text and photo ephemerals. passing a

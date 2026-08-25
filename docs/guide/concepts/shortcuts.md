@@ -193,6 +193,13 @@ tg.onCallbackQuery(query =>
 
 outside a handler, `tg.ephemeral(userId)` binds the same target to a scoped `tg.api` — see [the three-layer api](/guide/concepts/three-layer-api#sending-an-ephemeral-message)
 
+::: warning `editEphemeralMessageMedia` is rejected server-side
+telegram answers every call to it with `Bad Request: MESSAGE_EMPTY`, measured against bot api 10.3
+with a `file_id`, an http url and a fresh upload, on both text and photo ephemerals. passing a
+`message_id` instead gives `MESSAGE_ID_INVALID`, so the ephemeral is found and it is the media leg
+that fails. `editEphemeralMessageText` and `editEphemeralMessageCaption` work on the same target
+:::
+
 ## `update.api` — the raw layer from inside a handler
 
 every update also exposes `update.api`, which is a direct reference to `tg.api`. this gives you access to any raw method without needing to close over `tg`:

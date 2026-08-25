@@ -141,8 +141,10 @@ export function stream () {
         await next()
       }, { priority: 'high' })
 
-      // `allowedUpdates: 'auto'` derives its subscription from registered handlers, not hooks
-      tg.onStoppedMessageGeneration(() => {})
+      // `allowedUpdates: 'auto'` derives its subscription from registered handlers, not hooks.
+      // a handler that skips next() halts the chain, so this one must pass through or it would
+      // swallow the update from the bot's own onStoppedMessageGeneration
+      tg.onStoppedMessageGeneration((_update, next) => next())
 
       const run = async (chatId: number, options: StreamCallOptions, source: StreamSource, offset: number) => {
         const { draftIdOffset, ...rest } = options

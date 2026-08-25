@@ -54,7 +54,7 @@ export { filters }
 /* eslint-disable import/export */
 export * from '@puregram/api'
 
-export { InputMedia, MediaGroup, InlineQueryResult, InlineQueryResultCached, InputMessageContent } from './factories'
+export { InputMedia, MediaGroup, RichMedia, InlineQueryResult, InlineQueryResultCached, InputMessageContent } from './factories'
 export { ReplyParameters, LinkPreview, Reaction } from './factories'
 export { ChatPermissions, ChatAdministratorRights } from './factories'
 export {
@@ -66,5 +66,5 @@ export {
   MenuButton,
   ShippingOption
 } from './factories'
-export type { InputMediaSticker, InputMediaVideoNote, InputMediaVoice } from './factories'
+export type { InputMediaSticker, InputMediaVideoNote, InputMediaVoice, RichMediaLinkKind } from './factories'
 /* eslint-enable import/export */

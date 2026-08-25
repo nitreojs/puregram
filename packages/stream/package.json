@@ -24,6 +24,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@puregram/api": "workspace:~",
     "puregram": "workspace:^"
   },
   "peerDependencies": {

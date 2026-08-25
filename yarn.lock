@@ -1324,6 +1324,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@puregram/stream@workspace:packages/stream"
   dependencies:
+    "@puregram/api": "workspace:~"
     "@puregram/markup": "workspace:^"
     puregram: "workspace:^"
     tsc-alias: "npm:1"

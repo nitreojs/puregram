@@ -145,6 +145,22 @@ tg.onBusinessMessage(async (message) => {
 
 it's the same proxy as `tg.api` — every method (and `suppress`) works identically, only `business_connection_id` is pre-filled
 
+## sending an ephemeral message
+
+`tg.ephemeral(receiverUserId, options?)` returns a scoped copy of `tg.api` bound to one recipient — a group message only that user sees. the proxy is method-aware: send-family methods receive the target as `ephemeral_message_parameters`, the `editEphemeralMessage*` / `deleteEphemeralMessage` family receives a flat `receiver_user_id`, and methods that accept neither are passed through untouched:
+
+```ts
+tg.onCallbackQuery(async (query) => {
+  const eph = tg.ephemeral(query.userId, { callbackQueryId: query.id })
+
+  await eph.sendMessage({ chat_id: query.chatId!, text: 'only you can see this' })
+})
+```
+
+`options` carries `callbackQueryId` — the authorization token when the message answers a callback query — and `replaceCallbackQueryMessage`, which puts the ephemeral message in place of the original. call-site params override the bound ones field by field
+
+it doesn't chain with `tg.business(…)` — both return flat api proxies, so pass `business_connection_id` at the call site instead
+
 ::: tip which layer should i use day to day?
 layer 3 (`update.send`, `update.delete`, `update.answer`, ...) inside handlers. layer 2 (`tg.send`, `tg.sendPhoto`, ...) when you need to push a message outside of a handler (e.g. from a cron job). layer 1 (`tg.api.X`) when the curated shortcuts don't cover the parameter you need
 :::

@@ -171,6 +171,28 @@ tg.onBusinessMessage(message =>
 )
 ```
 
+## ephemeral messages
+
+an ephemeral message is visible to a single member of a group. an incoming one carries an `ephemeral_message_id` and can only be answered ephemerally, so send shortcuts on such an update auto-fill `ephemeral_message_parameters.receiver_user_id` (the non-bot party) plus the `reply_parameters.ephemeral_message_id` that authorizes the reply:
+
+```ts
+tg.onMessage(message => message.send('only the sender sees this'))
+```
+
+pass `ephemeral: false` to answer with a regular message instead — the flag is consumed by the shortcut and never reaches telegram. `edit` / `editCaption` / `editMedia` / `editReplyMarkup` / `delete` on an ephemeral message route to the `editEphemeralMessage*` / `deleteEphemeralMessage` twins, which address it by `receiver_user_id` rather than `message_id`
+
+callback queries are the opt-in case — filling the target unconditionally would make every `query.send(...)` ephemeral, so you pass `ephemeral_message_parameters` yourself and only `callback_query_id` is anchored:
+
+```ts
+tg.onCallbackQuery(query =>
+  query.send(query.chatId!, 'just for you', {
+    ephemeral_message_parameters: { receiver_user_id: query.userId }
+  })
+)
+```
+
+outside a handler, `tg.ephemeral(userId)` binds the same target to a scoped `tg.api` — see [the three-layer api](/guide/concepts/three-layer-api#sending-an-ephemeral-message)
+
 ## `update.api` — the raw layer from inside a handler
 
 every update also exposes `update.api`, which is a direct reference to `tg.api`. this gives you access to any raw method without needing to close over `tg`:

@@ -64,6 +64,7 @@ standalone folders under `webhooks/` and `recipes/` are their own workspaces —
 - [basics — ephemeral command, auto-injection, isEphemeral(), opt-out](src/core/ephemeral/basics.ts)
 - [callback — receiver_user_id opt-in on a button press](src/core/ephemeral/callback.ts)
 - [proactive — tg.ephemeral(id) admin whisper](src/core/ephemeral/proactive.ts)
+- [explicit params — ephemeral_message_parameters by hand + tg.ephemeral(id, { callbackQueryId })](src/core/ephemeral/explicit-params.ts)
 
 ## @puregram/markup
 
@@ -78,6 +79,8 @@ standalone folders under `webhooks/` and `recipes/` are their own workspaces —
 - [builders — compose native blocks from data](src/rich/builders.ts)
 - [parse vs raw — rich.md / .lenient / rich.raw.md](src/rich/parse-vs-raw.ts)
 - [media — MediaSource uploads inside blocks](src/rich/media.ts)
+- [buttons — inline button(...) + buttonRow(...) with a callback handler](src/rich/buttons.ts)
+- [document / expandable quote / compact table](src/rich/document-quote-table.ts)
 
 ## @puregram/flow
 
@@ -137,6 +140,7 @@ standalone folders under `webhooks/` and `recipes/` are their own workspaces —
 - [anthropic auto-detect](src/stream/anthropic.ts)
 - [vercel ai sdk auto-detect](src/stream/vercel-ai.ts)
 - [markdown v2 streaming + AbortSignal.timeout](src/stream/markdown-with-abort.ts)
+- [stoppable — canStop + keepOnStop + stopped_message_generation](src/stream/stoppable.ts)
 
 ## @puregram/test
 

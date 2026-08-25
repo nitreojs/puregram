@@ -15,7 +15,7 @@ telegram.onMessage(async (message) => {
   }
 
   // isEphemeral() narrows the ephemeral fields. sends/replies from an ephemeral context
-  // auto-fill receiver_user_id + reply_parameters.ephemeral_message_id (only the sender sees them)
+  // auto-fill ephemeral_message_parameters + reply_parameters.ephemeral_message_id (only the sender sees them)
   if (message.isEphemeral()) {
     await message.send('only you can see this — ephemeral by default')
 

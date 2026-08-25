@@ -10,7 +10,7 @@ telegram [rich messages](/plugins/rich) accept a single raw markdown (or html) s
 drop the block below into the system prompt of any call that produces rich content. it's terse on purpose: it lists only what exists and names the mistakes models reach for by default
 
 ::: tip source of truth
-captured and verified against the telegram bot api rich-message anchors (`#rich-markdown-style`, `#rich-html-style`, `#rich-message-formatting-options`, `#rich-message-limits`) on 2026-06-12. the rich spec evolves — re-check before relying on it long-term
+captured and verified against the telegram bot api rich-message anchors (`#rich-markdown-style`, `#rich-html-style`, `#rich-message-formatting-options`, `#rich-message-limits`) on 2026-06-12; buttons, documents and collapsed quotes track bot api 10.3. the rich spec evolves — re-check before relying on it long-term
 :::
 
 ## the system prompt — markdown dialect
@@ -45,6 +45,7 @@ BLOCKS — separate each with a blank line
 - blockquote: > on each line (a > blank > line breaks paragraphs inside the quote)
 - media (http/https URL only): ![](https://…/photo.jpg)
   caption goes in quotes after the URL: ![](https://…/clip.mp4 "Caption")
+  a document-ish extension (.pdf, .zip, .docx, .csv, …) becomes a file block
 - table (cells are inline-only):
     | A | B |
     |:--|--:|
@@ -60,6 +61,12 @@ NO MARKDOWN TOKEN → use these inline HTML tags (valid inside Markdown):
   collapsible <details open><summary>…</summary> · blank line · body · blank line · </details>
   map <tg-map lat="…" long="…" zoom="…"/>
   collage <tg-collage>…media…</tg-collage> · slideshow <tg-slideshow>…media…</tg-slideshow>
+  collapsed quote <blockquote expandable>…</blockquote>
+  inline button <tg-button type="TYPE" [style="danger|success|primary|link"]>label</tg-button>
+    TYPE url|web_app|login_url → url="…" · callback_data → data="…" · copy_text → text="…"
+    switch_inline_query|switch_inline_query_current_chat|switch_inline_query_chosen_chat → query="…"
+    disabled → no value attribute
+  button row (block, 1-8 buttons) <tg-button-row align="left|center|right">…</tg-button-row>
 
 DON'T WRAP THESE — Telegram auto-detects them, write them plainly:
   URLs, e-mails, @mentions, #hashtags, $CASHTAGS, /commands, phone numbers, card numbers.
@@ -71,6 +78,8 @@ NEVER
   <code class="language-…"> nested inside <pre>)
 - use markdown extensions that aren't listed: ~sub~, ^sup^, definition lists, HTML comments
 - put a file_id, local path, or data: URI in media — HTTP/HTTPS only
+- write a callback_data button unless the exact payload was given to you — the bot
+  has to recognize the string; use a url or copy_text button otherwise
 - escape the LaTeX inside $…$ or $$…$$
 - backslash-escape <, >, or & — use a numeric entity (&#60; &#62; &#38;)
 - mix dialects — one message is all Markdown OR all HTML, never both
@@ -97,19 +106,24 @@ INLINE
   <tg-emoji emoji-id="…">alt</tg-emoji>  (or <img src="tg://emoji?id=…" alt=""/>)
   <tg-time unix="…" format="…">label</tg-time> date-time
   <tg-math>x^2</tg-math> inline math (raw LaTeX)
+  <tg-button type="url|callback_data|web_app|login_url|switch_inline_query|switch_inline_query_current_chat|switch_inline_query_chosen_chat|copy_text|disabled"
+    [style="danger|success|primary|link"]>label</tg-button>
+    value attribute: url="…" (url, web_app, login_url) · data="…" (callback_data)
+    query="…" (the switch_inline_query variants) · text="…" (copy_text) · none for disabled
 
 BLOCKS
   <h1>…<h6> · <p> · <pre> (language: nest <pre><code class="language-python">…</code></pre>)
   <footer> · <hr/>
   <ul><li>…</li></ul> · <ol><li>…</li></ol>  (<ol>: start, type, reversed; <li>: value, type)
-  <blockquote>…<br>…<cite>Author</cite></blockquote> · <aside>…<cite>Author</cite></aside>
-  media, HTTP/HTTPS only: <img src="URL"/>, <video src="URL"></video>, <audio src="URL"></audio>
-    (optional tg-spoiler attribute)
+  <blockquote>…<br>…<cite>Author</cite></blockquote>  (add expandable for a collapsed quote) · <aside>…<cite>Author</cite></aside>
+  media, HTTP/HTTPS only: <img src="URL"/>, <video src="URL"></video>, <audio src="URL"></audio>,
+    <tg-document src="URL"></tg-document>  (optional tg-spoiler attribute on img/video)
   <figure><img src="URL" tg-spoiler/><figcaption>Caption<cite>Credit</cite></figcaption></figure>
   <tg-map lat="…" long="…" zoom="…"/> · <tg-collage>…media…</tg-collage> · <tg-slideshow>…media…</tg-slideshow>
-  <table bordered striped><caption>…</caption><tr><th>…</th></tr>
+  <table bordered striped compact><caption>…</caption><tr><th>…</th></tr>
     <tr><td colspan="2" rowspan="2" align="left|center|right" valign="top|middle|bottom">…</td></tr></table>
   <details open><summary>…</summary>body</details>  (open = expanded)
+  <tg-button-row align="left|center|right">1-8 <tg-button> children</tg-button-row>
   <tg-math-block>E = mc^2</tg-math-block> block math (raw LaTeX)
 
 ENTITIES
@@ -135,7 +149,7 @@ models default to web html. these are the corrections worth showing them — a f
 |---|---|
 | `<div class="card">…</div>` to group content | nothing — write a heading + paragraphs; there is no container tag |
 | `line one<br>line two` for spacing | a blank line between blocks (or two list items); `<br>` only lives inside a `<blockquote>` |
-| `<button>Open</button>` in the text | buttons aren't message content — they're `reply_markup`, set separately |
+| `[Open](callback:…)` or `[[Open]]` for a button | there is no markdown button syntax — write the inline `<tg-button type="…">` tag; in a rich message buttons are content, not `reply_markup` |
 | `&copy;` / `&trade;` / `&rarr;` | numeric entities `&#169;` / `&#8482;` / `&#8594;` — only 13 named entities exist |
 | `5 \< 10` (backslash escape) | `5 &#60; 10` — backslash renders literally; use a numeric entity |
 | `![](AgACAgIAAx0…)` (a `file_id`) | an http/https url: `![](https://…/photo.jpg)` — no file ids, paths, or data URIs |

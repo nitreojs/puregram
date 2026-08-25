@@ -181,6 +181,20 @@ the engine is identical — same adapters, pacing, callbacks, `draft_id`, abort 
 - **`rich` and `parseMode` are mutually exclusive** — rich owns its dialect; setting both throws
 - **`link_preview_options` is ignored** in rich mode — `sendRichMessage` has no such param
 
+## letting the user stop
+
+`canStop: true` puts telegram's stop button on every draft. when the user presses it telegram sends a `stopped_message_generation` update; the plugin matches it to the running stream by chat and draft id, stops pulling the source, and returns with `result.stopped === true`. the update is only observed — your own `stopped_message_generation` handlers still fire
+
+```ts
+const result = await message.stream(fromOpenAI(completion), { canStop: true, keepOnStop: true })
+
+if (result.stopped) {
+  await message.send('stopped there')
+}
+```
+
+`keepOnStop: true` forwards `keep_on_stop` to every draft, which asks telegram to leave the draft on screen after the press — but only briefly: it disappears after a short while, or as soon as the bot sends anything. persisting the partial is the plugin's half of the option — with it the accumulated tail goes out through the normal terminal `sendMessage`, without it the tail is dropped and `result.messages` holds only the windows already committed before the stop. it only matters alongside `canStop`, since nothing can be stopped without the button
+
 ## options
 
 `StreamCallOptions` — passed as the second argument to `update.stream(source, options?)` or spread into `tg.stream({ chat_id, source, ...options })`:
@@ -192,6 +206,8 @@ the engine is identical — same adapters, pacing, callbacks, `draft_id`, abort 
 | `editIntervalMs` | `number` | `250` | soft floor between `sendMessageDraft` calls (ms) |
 | `maxEditBackoff` | `number` | `4000` | drop a draft tick when local backoff exceeds this |
 | `thinkingPlaceholder` | `boolean` | `true` | emit an empty draft eagerly on start so users see the "typing" animation |
+| `canStop` | `boolean` | off | show telegram's stop button on every draft |
+| `keepOnStop` | `boolean` | off | keep the draft up after a stop, and persist the partial through the terminal send |
 | `draftIdOffset` | `number` | hybrid | derived from `message_id << 8` on `update.stream`; counter-based for `tg.stream` |
 | `signal` | `AbortSignal` | — | aborts mid-stream, finalizes last-good text |
 | `message_thread_id` | `number` | — | forwarded to `sendMessage` / `sendMessageDraft` |
@@ -214,6 +230,7 @@ interface StreamResult {
   bytes: number               // total text bytes streamed
   skipped: number             // draft ticks coalesced or dropped under back-pressure
   aborted: boolean            // true when AbortSignal triggered
+  stopped: boolean            // true when the user pressed the stop button
 }
 ```
 
@@ -223,6 +240,7 @@ interface StreamResult {
 |---|---|
 | source throws mid-stream | stop pulling, finalize last-good via `sendMessage`, call `onError`, rethrow |
 | `AbortSignal.abort()` | stop pulling, finalize last-good, set `result.aborted = true`, no rethrow |
+| user presses the stop button | stop pulling, set `result.stopped = true`, finalize the partial only under `keepOnStop`, no rethrow |
 | chat is not private | throws synchronously before consuming the source |
 | `rich` + `parseMode` both set | throws before consuming the source |
 | `maxEditBackoff` exceeded | drop the draft tick, `skipped += 1`, continue |

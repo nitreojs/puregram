@@ -24,6 +24,8 @@ three layers, low to high — see [the three-layer api](/guide/concepts/three-la
 | --- | --- |
 | `tg.api.X(params)` | raw bot api call; returns the raw `Telegram*` result. `tg.api.call(method, params)` is the untyped escape hatch |
 | `tg.send(args)` | curated top-level shortcut, plus the `sendPhoto` / `forward` / `copy` / `delete` / `pin` / `ban` / `react` family — see [shortcuts](/guide/concepts/shortcuts) |
+| `tg.business(connectionId)` | a scoped `tg.api` copy that injects `business_connection_id` — see [acting as a business account](/guide/concepts/three-layer-api#acting-as-a-business-account) |
+| `tg.ephemeral(receiverUserId, options?)` | a scoped `tg.api` copy bound to one ephemeral recipient; `options` is `{ callbackQueryId?, replaceCallbackQueryMessage? }` — see [sending an ephemeral message](/guide/concepts/three-layer-api#sending-an-ephemeral-message) |
 
 ## dispatch
 

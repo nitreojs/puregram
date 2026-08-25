@@ -21,9 +21,11 @@ telegram.onCallbackQuery(async (query) => {
     return
   }
 
-  // passing receiver_user_id opts into ephemeral — callback_query_id auto-fills from the query,
-  // so only the presser sees this. omit receiver_user_id and the same send is public
-  await query.send(query.chatId, 'psst — only you can see this tip', { receiver_user_id: query.userId })
+  // passing ephemeral_message_parameters opts into ephemeral — callback_query_id auto-fills from
+  // the query, so only the presser sees this. omit it and the same send is public
+  await query.send(query.chatId, 'psst — only you can see this tip', {
+    ephemeral_message_parameters: { receiver_user_id: query.userId }
+  })
 })
 
 await telegram.startPolling()

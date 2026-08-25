@@ -590,7 +590,7 @@
     },
     {
       "name": "copyMessage",
-      "description": "Use this method to copy messages of any kind. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message. Returns the MessageId of the sent message on success.",
+      "description": "Use this method to copy messages of any kind. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_ids is known to the bot. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message. Returns the MessageId of the sent message on success.",
       "documentationLink": "https://core.telegram.org/bots/api#copymessage",
       "multipartOnly": false,
       "arguments": [
@@ -778,7 +778,7 @@
     },
     {
       "name": "copyMessages",
-      "description": "Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessages, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an Array of MessageId of the sent messages is returned.",
+      "description": "Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_ids is known to the bot. The method is analogous to the method forwardMessages, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an Array of MessageId of the sent messages is returned.",
       "documentationLink": "https://core.telegram.org/bots/api#copymessages",
       "multipartOnly": false,
       "arguments": [
@@ -5165,7 +5165,7 @@
         },
         {
           "name": "callback_query_id",
-          "description": "For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any",
+          "description": "For outgoing ephemeral messages, identifier of the callback query which triggered the message if any",
           "required": false,
           "type": {
             "kind": "string"
@@ -5411,7 +5411,7 @@
         },
         {
           "name": "callback_query_id",
-          "description": "For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any",
+          "description": "For outgoing ephemeral messages, identifier of the callback query which triggered the message if any",
           "required": false,
           "type": {
             "kind": "string"
@@ -5806,7 +5806,7 @@
         },
         {
           "name": "callback_query_id",
-          "description": "For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any",
+          "description": "For outgoing ephemeral messages, identifier of the callback query which triggered the message if any",
           "required": false,
           "type": {
             "kind": "string"
@@ -6118,7 +6118,7 @@
         },
         {
           "name": "callback_query_id",
-          "description": "For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any",
+          "description": "For outgoing ephemeral messages, identifier of the callback query which triggered the message if any",
           "required": false,
           "type": {
             "kind": "string"
@@ -6791,7 +6791,7 @@
         },
         {
           "name": "callback_query_id",
-          "description": "For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any",
+          "description": "For outgoing ephemeral messages, identifier of the callback query which triggered the message if any",
           "required": false,
           "type": {
             "kind": "string"
@@ -7013,7 +7013,7 @@
         },
         {
           "name": "callback_query_id",
-          "description": "For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any",
+          "description": "For outgoing ephemeral messages, identifier of the callback query which triggered the message if any",
           "required": false,
           "type": {
             "kind": "string"
@@ -7334,7 +7334,7 @@
         },
         {
           "name": "callback_query_id",
-          "description": "For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any",
+          "description": "For outgoing ephemeral messages, identifier of the callback query which triggered the message if any",
           "required": false,
           "type": {
             "kind": "string"
@@ -7762,7 +7762,7 @@
         },
         {
           "name": "callback_query_id",
-          "description": "For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any",
+          "description": "For outgoing ephemeral messages, identifier of the callback query which triggered the message if any",
           "required": false,
           "type": {
             "kind": "string"
@@ -8483,7 +8483,7 @@
         },
         {
           "name": "callback_query_id",
-          "description": "For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any",
+          "description": "For outgoing ephemeral messages, identifier of the callback query which triggered the message if any",
           "required": false,
           "type": {
             "kind": "string"
@@ -8652,7 +8652,7 @@
         },
         {
           "name": "callback_query_id",
-          "description": "For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any",
+          "description": "For outgoing ephemeral messages, identifier of the callback query which triggered the message if any",
           "required": false,
           "type": {
             "kind": "string"
@@ -8860,7 +8860,7 @@
         },
         {
           "name": "callback_query_id",
-          "description": "For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any",
+          "description": "For outgoing ephemeral messages, identifier of the callback query which triggered the message if any",
           "required": false,
           "type": {
             "kind": "string"
@@ -9139,7 +9139,7 @@
         },
         {
           "name": "callback_query_id",
-          "description": "For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any",
+          "description": "For outgoing ephemeral messages, identifier of the callback query which triggered the message if any",
           "required": false,
           "type": {
             "kind": "string"
@@ -9333,7 +9333,7 @@
         },
         {
           "name": "callback_query_id",
-          "description": "For outgoing ephemeral messages, identifier of the callback query which triggerred the message if any",
+          "description": "For outgoing ephemeral messages, identifier of the callback query which triggered the message if any",
           "required": false,
           "type": {
             "kind": "string"
@@ -23315,7 +23315,7 @@
         },
         {
           "name": "proximity_alert_triggered",
-          "description": "Optional. Service message. A user in the chat triggered another user's proximity alert while sharing Live Location.",
+          "description": "Optional. Service message: a user in the chat triggered another user's proximity alert while sharing Live Location",
           "required": false,
           "type": {
             "kind": "reference",
@@ -31438,6 +31438,6 @@
   "source": {
     "corefork": "https://corefork.telegram.org/bots/api",
     "core": "https://core.telegram.org/bots/api",
-    "fetchedAt": "2026-07-14T20:58:39.619Z"
+    "fetchedAt": "2026-07-23T15:34:29.483Z"
   }
 }

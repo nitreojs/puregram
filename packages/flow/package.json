@@ -1,7 +1,7 @@
 {
   "name": "@puregram/flow",
-  "version": "3.0.1",
-  "description": "conversational primitives plugin for puregram — waitFor, prompt, mediaGroup",
+  "version": "3.0.2",
+  "description": "conversational primitives plugin for puregram \u2014 waitFor, prompt, mediaGroup",
   "type": "module",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",

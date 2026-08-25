@@ -1,7 +1,7 @@
 /// AUTO-GENERATED FILE — do not edit by hand
 /// Bot API 10.3
 /// source: https://corefork.telegram.org/bots/api
-/// generated at: 2026-08-24T21:14:26.629Z
+/// generated at: 2026-08-25T14:25:05.655Z
 /// see scripts/emit.ts in @puregram/api
 
 import type { Formattable } from "../formattable";
@@ -4649,7 +4649,7 @@ export interface TelegramInputRichBlockDocument {
 }
 
 /**
- * A block quotation, corresponding to the HTML tag <blockquote> with custom attribute "collapsed".
+ * A block quotation, corresponding to the HTML tag <blockquote> with custom attribute "expandable".
  */
 export interface TelegramInputRichBlockExpandableBlockQuotation {
     /**
@@ -7546,7 +7546,7 @@ export interface TelegramRichBlockDocument {
 }
 
 /**
- * A block quotation, corresponding to the HTML tag <blockquote> with custom attribute "collapsed".
+ * A block quotation, corresponding to the HTML tag <blockquote> with custom attribute "expandable".
  */
 export interface TelegramRichBlockExpandableBlockQuotation {
     /**
@@ -7910,7 +7910,7 @@ export interface TelegramRichMessageButton {
      */
     text: TelegramRichText;
     /**
-     * Optional. Style of the button. Must be one of “danger” (red), “success” (green), “primary” (blue) or “link” (the button is shown as a regular link without borders). If omitted, then an app-specific style is used. The style “link” is allowed only for callback buttons.
+     * Optional. Style of the button. Must be one of “danger”, “success”, “primary”, or “link” (the button is shown as a regular link without borders). Apps may use theme-specific colors for the button background and text based on the style. The style “link” is allowed only for callback buttons.
      */
     style?: "danger" | "success" | "primary" | "link";
     /**

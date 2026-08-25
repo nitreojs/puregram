@@ -20876,7 +20876,7 @@
     {
       "kind": "object",
       "name": "InputRichBlockExpandableBlockQuotation",
-      "description": "A block quotation, corresponding to the HTML tag <blockquote> with custom attribute \"collapsed\".",
+      "description": "A block quotation, corresponding to the HTML tag <blockquote> with custom attribute \"expandable\".",
       "documentationLink": "https://core.telegram.org/bots/api#inputrichblockexpandableblockquotation",
       "fields": [
         {
@@ -27084,7 +27084,7 @@
     {
       "kind": "object",
       "name": "RichBlockExpandableBlockQuotation",
-      "description": "A block quotation, corresponding to the HTML tag <blockquote> with custom attribute \"collapsed\".",
+      "description": "A block quotation, corresponding to the HTML tag <blockquote> with custom attribute \"expandable\".",
       "documentationLink": "https://core.telegram.org/bots/api#richblockexpandableblockquotation",
       "fields": [
         {
@@ -27846,7 +27846,7 @@
         },
         {
           "name": "style",
-          "description": "Optional. Style of the button. Must be one of “danger” (red), “success” (green), “primary” (blue) or “link” (the button is shown as a regular link without borders). If omitted, then an app-specific style is used. The style “link” is allowed only for callback buttons.",
+          "description": "Optional. Style of the button. Must be one of “danger”, “success”, “primary”, or “link” (the button is shown as a regular link without borders). Apps may use theme-specific colors for the button background and text based on the style. The style “link” is allowed only for callback buttons.",
           "required": false,
           "type": {
             "kind": "string",
@@ -32009,6 +32009,6 @@
   "source": {
     "corefork": "https://corefork.telegram.org/bots/api",
     "core": "https://core.telegram.org/bots/api",
-    "fetchedAt": "2026-08-24T21:14:26.629Z"
+    "fetchedAt": "2026-08-25T14:25:05.655Z"
   }
 }

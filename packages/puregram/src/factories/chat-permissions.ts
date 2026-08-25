@@ -15,6 +15,7 @@ const ALL_KEYS: readonly (keyof TelegramChatPermissions)[] = [
   'can_send_polls',
   'can_send_other_messages',
   'can_add_web_page_previews',
+  'can_react_to_messages',
   'can_edit_tag',
   'can_change_info',
   'can_invite_users',

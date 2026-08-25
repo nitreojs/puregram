@@ -15,7 +15,8 @@ const REQUIRED_KEYS: readonly (keyof TelegramChatAdministratorRights)[] = [
   'can_invite_users',
   'can_post_stories',
   'can_edit_stories',
-  'can_delete_stories'
+  'can_delete_stories',
+  'can_send_welcome_messages'
 ]
 
 const OPTIONAL_KEYS: readonly (keyof TelegramChatAdministratorRights)[] = [

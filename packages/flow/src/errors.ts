@@ -86,3 +86,16 @@ export class FlowKindMismatch extends Error {
     Error.captureStackTrace(this, this.constructor)
   }
 }
+
+export class FlowChatIdNotNumeric extends Error {
+  readonly received: string
+
+  constructor (received: string) {
+    super(`flow.prompt requires a numeric chat id (got ${received})`)
+
+    this.received = received
+    this.name = 'FlowChatIdNotNumeric'
+
+    Error.captureStackTrace(this, this.constructor)
+  }
+}

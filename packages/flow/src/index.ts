@@ -1,6 +1,7 @@
 import './generated/augmentations'
 
 export {
+  FlowChatIdNotNumeric,
   FlowHandlerMissing,
   FlowKindMismatch,
   FlowPersistenceUnconfigured,

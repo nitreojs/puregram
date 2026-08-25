@@ -193,6 +193,18 @@ tg.onCallbackQuery(query =>
 
 outside a handler, `tg.ephemeral(userId)` binds the same target to a scoped `tg.api` — see [the three-layer api](/guide/concepts/three-layer-api#sending-an-ephemeral-message)
 
+`replaceCallbackQueryMessage: true` shows the ephemeral **in place of** the message the button
+belonged to, for that one user. it is group-only in practice: the same call in a private chat is
+rejected with `Bad Request: MESSAGE_ID_INVALID`, which fits the feature — there is nobody to hide
+the original from in a 1:1 chat. measured against bot api 10.3
+
+```ts
+tg.onCallbackQuery(query =>
+  tg.ephemeral(query.userId!, { callbackQueryId: query.id, replaceCallbackQueryMessage: true })
+    .sendMessage({ chat_id: query.chatId!, text: 'this takes the place of the original' })
+)
+```
+
 ::: warning `editEphemeralMessageMedia` is rejected server-side
 telegram answers every call to it with `Bad Request: MESSAGE_EMPTY`, measured against bot api 10.3
 with a `file_id`, an http url and a fresh upload, on both text and photo ephemerals. passing a

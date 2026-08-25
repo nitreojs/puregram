@@ -9,8 +9,9 @@ import type {
 import { DEFAULT_MAP_HEIGHT, DEFAULT_MAP_WIDTH, TABLE_CELL_VALIGN } from '../constants'
 import { RichError } from '../error'
 import { escapeHtml } from '../escape'
+import type { RichMediaKind } from '../media'
 
-import { footnoteReference, mediaPayload, plainText } from './shared'
+import { buttonAttrs, footnoteReference, mediaPayload, plainText } from './shared'
 
 /** render rich text as html-dialect source */
 export function serializeHtmlText (text: TelegramRichText): string {
@@ -41,6 +42,7 @@ export function serializeHtmlText (text: TelegramRichText): string {
     case 'anchor_link': return `<a href="#${escapeHtml(text.anchor_name)}">${serializeHtmlText(text.text)}</a>`
     case 'reference': return `<tg-reference name="${escapeHtml(text.name)}">${serializeHtmlText(text.text)}</tg-reference>`
     case 'reference_link': return `<a href="#${escapeHtml(text.reference_name)}">${serializeHtmlText(text.text)}</a>`
+    case 'button': return `<tg-button${buttonAttrs(text.button)}>${serializeHtmlText(text.button.text)}</tg-button>`
     // telegram auto-detects these from the plain characters
     case 'mention':
     case 'hashtag':
@@ -84,6 +86,17 @@ function tableCell (cell: TelegramRichBlockTableCell) {
   return `<${tag}${colspan}${rowspan}${align}${valign}>${cell.text === undefined ? '' : serializeHtmlText(cell.text)}</${tag}>`
 }
 
+function mediaElement (kind: RichMediaKind, src: string, spoilerAttr: string) {
+  switch (kind) {
+    case 'photo': return `<img src="${src}"${spoilerAttr}/>`
+    case 'audio':
+    case 'voice_note': return `<audio src="${src}"></audio>`
+    case 'document': return `<tg-document src="${src}"></tg-document>`
+    case 'video':
+    case 'animation': return `<video src="${src}"${spoilerAttr}></video>`
+  }
+}
+
 function serializeBlock (block: TelegramInputRichBlock): string {
   switch (block.type) {
     case 'paragraph': {
@@ -123,6 +136,11 @@ function serializeBlock (block: TelegramInputRichBlock): string {
 
       return `<blockquote>${inner}${credit}</blockquote>`
     }
+    case 'expandable_blockquote': {
+      const credit = block.credit === undefined ? '' : `<cite>${serializeHtmlText(block.credit)}</cite>`
+
+      return `<blockquote expandable>${serializeHtmlText(block.text)}${credit}</blockquote>`
+    }
     case 'pullquote': {
       const credit = block.credit === undefined ? '' : `<cite>${serializeHtmlText(block.credit)}</cite>`
 
@@ -135,7 +153,7 @@ function serializeBlock (block: TelegramInputRichBlock): string {
       return `<tg-${block.type}>${block.blocks.map(b => serializeBlock(b)).join('')}${cap}</tg-${block.type}>`
     }
     case 'table': {
-      const attrs = `${block.is_bordered ? ' bordered' : ''}${block.is_striped ? ' striped' : ''}`
+      const attrs = `${block.is_bordered ? ' bordered' : ''}${block.is_striped ? ' striped' : ''}${block.is_compact ? ' compact' : ''}`
       const cap = block.caption === undefined ? '' : `<caption>${serializeHtmlText(block.caption)}</caption>`
       const body = block.cells.map(row => `<tr>${row.map(c => tableCell(c)).join('')}</tr>`).join('')
 
@@ -160,19 +178,23 @@ function serializeBlock (block: TelegramInputRichBlock): string {
     case 'video':
     case 'audio':
     case 'animation':
-    case 'voice_note': {
+    case 'voice_note':
+    case 'document': {
       const { url, spoiler } = mediaPayload(block)
       const src = escapeHtml(url)
-      const spoilerAttr = spoiler ? ' tg-spoiler' : ''
-      const element = block.type === 'photo'
-        ? `<img src="${src}"${spoilerAttr}/>`
-        : block.type === 'audio' || block.type === 'voice_note'
-          ? `<audio src="${src}"></audio>`
-          : `<video src="${src}"${spoilerAttr}></video>`
+      const element = mediaElement(block.type, src, spoiler ? ' tg-spoiler' : '')
 
       return block.caption === undefined
         ? element
         : `<figure>${element}<figcaption>${captionInner(block.caption)}</figcaption></figure>`
+    }
+    case 'buttons': {
+      const align = block.align === undefined ? '' : ` align="${block.align}"`
+      const body = block.buttons
+        .map(b => `<tg-button${buttonAttrs(b)}>${serializeHtmlText(b.text)}</tg-button>`)
+        .join('')
+
+      return `<tg-button-row${align}>${body}</tg-button-row>`
     }
     case 'thinking': return `<tg-thinking>${serializeHtmlText(block.text)}</tg-thinking>`
     default:

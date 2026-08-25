@@ -115,6 +115,24 @@ describe('parseMarkdown — blocks', () => {
     expect(parseMarkdown('![](https://x.test/a.mp3)')).toEqual([
       { type: 'audio', audio: { type: 'audio', media: 'https://x.test/a.mp3' } }
     ])
+    expect(parseMarkdown('![](https://x.test/a.zip "files")')).toEqual([
+      { type: 'document', document: { type: 'document', media: 'https://x.test/a.zip' }, caption: { text: 'files' } }
+    ])
+  })
+
+  it('parses a button row through the html fallback', () => {
+    expect(parseMarkdown('<tg-button-row align="center"><tg-button type="callback_data" data="cb">go</tg-button></tg-button-row>'))
+      .toEqual([{ type: 'buttons', align: 'center', buttons: [{ text: 'go', callback_data: 'cb' }] }])
+  })
+
+  it('keeps an inline button inside a markdown paragraph', () => {
+    expect(parseMarkdown('press <tg-button type="url" url="https://t.me">**me**</tg-button>')).toEqual([{
+      type: 'paragraph',
+      text: [
+        'press ',
+        { type: 'button', button: { text: { type: 'bold', text: 'me' }, url: 'https://t.me' } }
+      ]
+    }])
   })
 })
 

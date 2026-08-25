@@ -3,13 +3,18 @@ import type {
   TelegramInputRichBlockListItem,
   TelegramRichBlockCaption,
   TelegramRichBlockTableCell,
+  TelegramRichMessageButton,
   TelegramRichText
 } from '@puregram/api'
 
-import { DEFAULT_MAP_HEIGHT, DEFAULT_MAP_WIDTH, DEFAULT_MAP_ZOOM, MAX_NESTING_DEPTH, TABLE_CELL_VALIGN } from '../constants'
+import {
+  DEFAULT_MAP_HEIGHT, DEFAULT_MAP_WIDTH, DEFAULT_MAP_ZOOM, MAX_BUTTON_ROW_BUTTONS,
+  MAX_NESTING_DEPTH, TABLE_CELL_VALIGN
+} from '../constants'
 import { RichParseError } from '../error'
 
 import { NAMED_ENTITIES } from './entities'
+import { lookupTable } from './table'
 
 /** the dialect-native content parsers a fragment delegates inner content to */
 export interface HostParsers {
@@ -42,7 +47,7 @@ type InlineWrapType =
   | 'bold' | 'italic' | 'underline' | 'strikethrough' | 'spoiler'
   | 'code' | 'marked' | 'subscript' | 'superscript'
 
-const INLINE_WRAPS: Readonly<Record<string, InlineWrapType>> = {
+const INLINE_WRAPS = lookupTable<InlineWrapType>({
   b: 'bold',
   strong: 'bold',
   i: 'italic',
@@ -57,21 +62,21 @@ const INLINE_WRAPS: Readonly<Record<string, InlineWrapType>> = {
   sub: 'subscript',
   sup: 'superscript',
   'tg-spoiler': 'spoiler'
-}
+})
 
-const HEADING_SIZES: Readonly<Record<string, number>> = { h1: 1, h2: 2, h3: 3, h4: 4, h5: 5, h6: 6 }
+const HEADING_SIZES = lookupTable<number>({ h1: 1, h2: 2, h3: 3, h4: 4, h5: 5, h6: 6 })
 
-const SUPPORTED_TAGS: Readonly<Record<string, true>> = Object.fromEntries([
+const SUPPORTED_TAGS = lookupTable<true>(Object.fromEntries([
   ...Object.keys(INLINE_WRAPS),
   ...Object.keys(HEADING_SIZES),
-  'a', 'tg-reference', 'tg-emoji', 'tg-time', 'tg-math', 'br',
+  'a', 'tg-reference', 'tg-emoji', 'tg-time', 'tg-math', 'br', 'tg-button',
   'p', 'pre', 'footer', 'hr', 'ul', 'ol', 'blockquote', 'aside',
-  'img', 'video', 'audio', 'figure', 'tg-map', 'tg-collage', 'tg-slideshow',
-  'table', 'details', 'tg-math-block', 'tg-thinking'
-].map(name => [name, true]))
+  'img', 'video', 'audio', 'tg-document', 'figure', 'tg-map', 'tg-collage', 'tg-slideshow',
+  'table', 'details', 'tg-math-block', 'tg-thinking', 'tg-button-row'
+].map(name => [name, true])))
 
 // elements that never take a closing tag; a redundant immediate close is still consumed
-const VOID_TAGS: Readonly<Record<string, true>> = { br: true, hr: true, img: true, 'tg-map': true }
+const VOID_TAGS = lookupTable<true>({ br: true, hr: true, img: true, 'tg-map': true })
 
 function isWs (ch: string) {
   return ch === ' ' || ch === '\t' || ch === '\n' || ch === '\r' || ch === '\f'
@@ -1007,18 +1012,23 @@ function childElements (
   return children
 }
 
-const LIST_CHILD_TAGS: Readonly<Record<string, true>> = { li: true }
-const TABLE_CHILD_TAGS: Readonly<Record<string, true>> = { caption: true, tr: true }
-const ROW_CHILD_TAGS: Readonly<Record<string, true>> = { th: true, td: true }
+const LIST_CHILD_TAGS = lookupTable<true>({ li: true })
+const TABLE_CHILD_TAGS = lookupTable<true>({ caption: true, tr: true })
+const ROW_CHILD_TAGS = lookupTable<true>({ th: true, td: true })
+const BUTTON_ROW_CHILD_TAGS = lookupTable<true>({ 'tg-button': true })
 const LANGUAGE_CLASS_RE = /(?:^|\s)language-(\S+)/
 
-const mediaBlockOf: (kind: 'photo' | 'video' | 'audio', src: string, spoiler: boolean) => TelegramInputRichBlock = (kind, src, spoiler) => {
+const mediaBlockOf: (kind: 'photo' | 'video' | 'audio' | 'document', src: string, spoiler: boolean) => TelegramInputRichBlock = (kind, src, spoiler) => {
   if (kind === 'photo') {
     return { type: 'photo', photo: { type: 'photo', media: src, ...(spoiler ? { has_spoiler: true } : {}) } }
   }
 
   if (kind === 'video') {
     return { type: 'video', video: { type: 'video', media: src, ...(spoiler ? { has_spoiler: true } : {}) } }
+  }
+
+  if (kind === 'document') {
+    return { type: 'document', document: { type: 'document', media: src } }
   }
 
   return { type: 'audio', audio: { type: 'audio', media: src } }
@@ -1031,6 +1041,7 @@ function withCaption (block: TelegramInputRichBlock, caption: TelegramRichBlockC
     case 'audio':
     case 'animation':
     case 'voice_note':
+    case 'document':
     case 'map':
     case 'collage':
     case 'slideshow':
@@ -1056,6 +1067,94 @@ function buildCell (child: ChildElement, source: string, opts: ParseOpts, host: 
     ...(rowspan !== null && rowspan > 1 ? { rowspan } : {}),
     align,
     valign
+  }
+}
+
+const BUTTON_STYLES = lookupTable<TelegramRichMessageButton['style']>({
+  danger: 'danger',
+  success: 'success',
+  primary: 'primary',
+  link: 'link'
+})
+
+const buildButton: (
+  attrs: Record<string, string>,
+  text: TelegramRichText,
+  source: string,
+  pos: number,
+  opts: ParseOpts
+) => TelegramRichMessageButton | null = (attrs, text, source, pos, opts) => {
+  const style = BUTTON_STYLES[attrs.style ?? '']
+  const base = { text, ...(style === undefined ? {} : { style }) }
+  const type = attrs.type
+
+  switch (type) {
+    case 'url':
+    case 'web_app':
+    case 'login_url': {
+      const url = attrs.url
+
+      if (url === undefined || url === '') {
+        return abort(opts, `<tg-button type="${type}"> requires a url attribute`, pos, source)
+      }
+
+      if (type === 'url') {
+        return { ...base, url }
+      }
+
+      if (type === 'web_app') {
+        return { ...base, web_app: { url } }
+      }
+
+      return {
+        ...base,
+        login_url: {
+          url,
+          ...(attrs['forward-text'] === undefined ? {} : { forward_text: attrs['forward-text'] }),
+          ...('request-write-access' in attrs ? { request_write_access: true } : {})
+        }
+      }
+    }
+
+    case 'callback_data': {
+      if (attrs.data === undefined) {
+        return abort(opts, '<tg-button type="callback_data"> requires a data attribute', pos, source)
+      }
+
+      return { ...base, callback_data: attrs.data }
+    }
+
+    case 'switch_inline_query':
+      return { ...base, switch_inline_query: attrs.query ?? '' }
+
+    case 'switch_inline_query_current_chat':
+      return { ...base, switch_inline_query_current_chat: attrs.query ?? '' }
+
+    case 'switch_inline_query_chosen_chat':
+      return {
+        ...base,
+        switch_inline_query_chosen_chat: {
+          ...(attrs.query === undefined ? {} : { query: attrs.query }),
+          ...('allow-user-chats' in attrs ? { allow_user_chats: true } : {}),
+          ...('allow-bot-chats' in attrs ? { allow_bot_chats: true } : {}),
+          ...('allow-group-chats' in attrs ? { allow_group_chats: true } : {}),
+          ...('allow-channel-chats' in attrs ? { allow_channel_chats: true } : {})
+        }
+      }
+
+    case 'copy_text': {
+      if (attrs.text === undefined) {
+        return abort(opts, '<tg-button type="copy_text"> requires a text attribute', pos, source)
+      }
+
+      return { ...base, copy_text: { text: attrs.text } }
+    }
+
+    case 'disabled':
+      return { ...base, disabled: {} }
+
+    default:
+      return abort(opts, `<tg-button> requires a known type attribute, got ${type === undefined ? 'none' : `"${type}"`}`, pos, source)
   }
 }
 
@@ -1193,6 +1292,24 @@ const buildFragment: (
       return { level: 'inline', value, end: span.end }
     }
 
+    case 'tg-button': {
+      const attrs = parseAttrs(scan.attrSrc)
+      const span = containerSpan(scan, source, pos, opts)
+
+      if (span === null) {
+        return null
+      }
+
+      const label = trimText(host.inline(source.slice(span.start, span.innerEnd)))
+      const built = buildButton(attrs, label, source, pos, opts)
+
+      if (built === null) {
+        return null
+      }
+
+      return { level: 'inline', value: { type: 'button', button: built }, end: span.end }
+    }
+
     case 'tg-math':
     case 'tg-math-block': {
       const span = containerSpan(scan, source, pos, opts)
@@ -1293,6 +1410,7 @@ const buildFragment: (
     }
 
     case 'blockquote': {
+      const attrs = parseAttrs(scan.attrSrc)
       const span = containerSpan(scan, source, pos, opts)
 
       if (span === null) {
@@ -1300,6 +1418,19 @@ const buildFragment: (
       }
 
       const { restEnd, credit } = splitCredit(source, span.start, span.innerEnd, host, opts)
+
+      // telegram's rich-html example spells this `expandable`, its object docs `collapsed`
+      if ('expandable' in attrs || 'collapsed' in attrs) {
+        return {
+          level: 'block',
+          value: {
+            type: 'expandable_blockquote',
+            text: trimText(host.inline(source.slice(span.start, restEnd))),
+            ...(credit === undefined ? {} : { credit })
+          },
+          end: span.end
+        }
+      }
 
       return {
         level: 'block',
@@ -1403,7 +1534,8 @@ const buildFragment: (
     }
 
     case 'video':
-    case 'audio': {
+    case 'audio':
+    case 'tg-document': {
       const attrs = parseAttrs(scan.attrSrc)
       const src = attrs.src
 
@@ -1421,7 +1553,8 @@ const buildFragment: (
         throw new RichParseError('tg:// media links only work in raw dialect with media entries', pos, source)
       }
 
-      const value = mediaBlockOf(name, src, name === 'video' && 'tg-spoiler' in attrs)
+      const kind = name === 'tg-document' ? 'document' : name
+      const value = mediaBlockOf(kind, src, name === 'video' && 'tg-spoiler' in attrs)
 
       return { level: 'block', value, end: span.end }
     }
@@ -1549,8 +1682,49 @@ const buildFragment: (
           cells,
           ...('bordered' in attrs ? { is_bordered: true as const } : {}),
           ...('striped' in attrs ? { is_striped: true as const } : {}),
+          ...('compact' in attrs ? { is_compact: true as const } : {}),
           ...(caption === undefined || caption === '' ? {} : { caption })
         },
+        end: span.end
+      }
+    }
+
+    case 'tg-button-row': {
+      const attrs = parseAttrs(scan.attrSrc)
+      const span = containerSpan(scan, source, pos, opts)
+
+      if (span === null) {
+        return null
+      }
+
+      const children = childElements(source, span.start, span.innerEnd, BUTTON_ROW_CHILD_TAGS, 'tg-button-row', opts)
+
+      if (children === null) {
+        return null
+      }
+
+      const buttons: TelegramRichMessageButton[] = []
+
+      for (const child of children) {
+        const label = trimText(host.inline(source.slice(child.contentStart, child.contentEnd)))
+        const built = buildButton(parseAttrs(child.attrSrc), label, source, child.pos, opts)
+
+        if (built === null) {
+          return null
+        }
+
+        buttons.push(built)
+      }
+
+      if (buttons.length === 0 || buttons.length > MAX_BUTTON_ROW_BUTTONS) {
+        return abort(opts, `a button row takes 1-${MAX_BUTTON_ROW_BUTTONS} buttons, got ${buttons.length}`, pos, source)
+      }
+
+      const align = attrs.align === 'left' || attrs.align === 'center' || attrs.align === 'right' ? attrs.align : undefined
+
+      return {
+        level: 'block',
+        value: { type: 'buttons', buttons, ...(align === undefined ? {} : { align }) },
         end: span.end
       }
     }

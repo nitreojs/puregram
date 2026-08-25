@@ -8,9 +8,9 @@ import type {
 
 import { DEFAULT_MAP_HEIGHT, DEFAULT_MAP_WIDTH } from '../constants'
 import { RichError } from '../error'
-import { escapeHtml, escapeMarkdown, escapeMarkdownUrl } from '../escape'
+import { escapeHtml, escapeMarkdown, escapeMarkdownAttr, escapeMarkdownUrl } from '../escape'
 
-import { footnoteReference, mediaPayload, plainText } from './shared'
+import { buttonAttrs, footnoteReference, mediaPayload, plainText } from './shared'
 
 const ALIGN_MD: Record<'left' | 'center' | 'right', string> = { left: ':--', center: ':-:', right: '--:' }
 
@@ -45,6 +45,7 @@ export function serializeMarkdownText (text: TelegramRichText): string {
     case 'reference_link': return text.text === text.reference_name
       ? `[^${text.reference_name}]`
       : `[${serializeMarkdownText(text.text)}](${escapeMarkdownUrl(`#${text.reference_name}`)})`
+    case 'button': return `<tg-button${buttonAttrs(text.button, escapeMarkdownAttr)}>${serializeMarkdownText(text.button.text)}</tg-button>`
     // telegram auto-detects these from the plain characters
     case 'mention':
     case 'hashtag':
@@ -126,6 +127,11 @@ function serializeBlock (block: TelegramInputRichBlock): string {
         .map(b => serializeBlock(b).split('\n').map(line => `>${line}`).join('\n'))
         .join('\n>\n')
     }
+    case 'expandable_blockquote': {
+      const credit = block.credit === undefined ? '' : `<cite>${serializeMarkdownText(block.credit)}</cite>`
+
+      return `<blockquote expandable>${serializeMarkdownText(block.text)}${credit}</blockquote>`
+    }
     case 'pullquote': {
       const credit = block.credit === undefined ? '' : `<cite>${serializeMarkdownText(block.credit)}</cite>`
 
@@ -166,7 +172,8 @@ function serializeBlock (block: TelegramInputRichBlock): string {
     case 'video':
     case 'audio':
     case 'animation':
-    case 'voice_note': {
+    case 'voice_note':
+    case 'document': {
       // `![](url "caption")` carries no spoiler/credit slot — both drop in markdown
       const { url } = mediaPayload(block)
       const title = block.caption === undefined
@@ -174,6 +181,14 @@ function serializeBlock (block: TelegramInputRichBlock): string {
         : ` "${singleLine(block.caption.text).replace(/"/g, '&#34;')}"`
 
       return `![](${escapeMarkdownUrl(url)}${title})`
+    }
+    case 'buttons': {
+      const align = block.align === undefined ? '' : ` align="${block.align}"`
+      const body = block.buttons
+        .map(b => `<tg-button${buttonAttrs(b, escapeMarkdownAttr)}>${serializeMarkdownText(b.text)}</tg-button>`)
+        .join('')
+
+      return `<tg-button-row${align}>${body}</tg-button-row>`
     }
     case 'thinking': return `<tg-thinking>${serializeMarkdownText(block.text)}</tg-thinking>`
     default:

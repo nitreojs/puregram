@@ -28,7 +28,7 @@ const MEDIA_LINE_RE = /^!\[([^\]]*)\]\(((?:[^)\\\s]|\\.)+)(?:\s+"((?:[^"\\]|\\.)
 const BLOCK_MATH_OPEN_RE = /^\$\$\s*(.*)$/
 
 // block-level html tags interrupt a paragraph; inline tags (<u>, <tg-emoji>, …) keep flowing in it
-const BLOCK_TAG_RE = /^<(?:details|footer|aside|blockquote|table|figure|img|video|audio|ul|ol|pre|p|h[1-6]|hr|tg-map|tg-collage|tg-slideshow|tg-thinking|tg-math-block)\b/i
+const BLOCK_TAG_RE = /^<(?:details|footer|aside|blockquote|table|figure|img|video|audio|ul|ol|pre|p|h[1-6]|hr|tg-map|tg-collage|tg-slideshow|tg-thinking|tg-math-block|tg-document|tg-button-row)\b/i
 
 // a media line interrupts only when the dispatcher will actually take it (tg:// images are inline)
 function isMediaLine (line: string) {

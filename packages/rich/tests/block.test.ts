@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest'
 
 import {
-  blockquote, codeBlock, details, divider, fn, footer, footnote, h1, h2, h3, h4, h5, h6,
-  heading, hr, list, mathBlock, orderedList, paragraph, pre, pullQuote, quote, taskList, thinking
+  blockquote, codeBlock, details, divider, expandableBlockquote, expandableQuote, fn, footer, footnote,
+  h1, h2, h3, h4, h5, h6, heading, hr, list, mathBlock, orderedList, paragraph, pre, pullQuote, quote,
+  taskList, thinking
 } from '../src/builders/block'
 import { bold } from '../src/builders/inline'
 
@@ -40,6 +41,16 @@ describe('blockquote / pullQuote', () => {
       blocks: [{ type: 'paragraph', text: 'q' }],
       credit: 'me'
     })
+  })
+
+  it('expandableBlockquote keeps inline text and an optional credit', () => {
+    expect(expandableBlockquote('q').emit()).toEqual({ type: 'expandable_blockquote', text: 'q' })
+    expect(expandableBlockquote('q', 'me').emit()).toEqual({
+      type: 'expandable_blockquote',
+      text: 'q',
+      credit: 'me'
+    })
+    expect(expandableQuote).toBe(expandableBlockquote)
   })
 
   it('pullQuote keeps inline text and an optional credit', () => {

@@ -122,6 +122,7 @@ rich`
 | `rich.reference(text, name)` | `{ type: 'anchor_link', … }` — links to an `anchor(name)` |
 | `rich.anchor(name)` | `{ type: 'anchor', name }` |
 | `rich.footnoteRef(id, label?)` | `{ type: 'reference_link', … }` — pairs with `footnote(id, …)` |
+| `rich.button(label, options)` | `{ type: 'button', button }` — an interactive button inside the text run; see [buttons](#buttons) |
 
 content args (`x`, `text`) accept `RichContent` — strings, numbers, nested inline builders, arrays.
 
@@ -135,6 +136,7 @@ content args (`x`, `text`) accept `RichContent` — strings, numbers, nested inl
 | `rich.paragraph(content)` | plain paragraph |
 | `rich.codeBlock(code, language?)` | preformatted; `code` is a raw string |
 | `rich.blockquote(content, credit?)` | nested blocks, optional credit line |
+| `rich.expandableBlockquote(content, credit?)` | collapsed-by-default quote; inline text, not nested blocks |
 | `rich.divider()` | horizontal rule |
 | `rich.list(items)` | unordered list; each item becomes its own block list |
 | `rich.orderedList(items, { start?, type? })` | `start` seeds numbering; `type` picks the label style: `'a' \| 'A' \| 'i' \| 'I' \| '1'` |
@@ -144,13 +146,15 @@ content args (`x`, `text`) accept `RichContent` — strings, numbers, nested inl
 | `rich.footer(content)` | footer block |
 | `rich.pullQuote(content, cite?)` | pull quote, optional credit |
 | `rich.thinking(content)` | "thinking…" placeholder — **draft-only**, legal in `sendRichMessageDraft` and never in a persisted message |
-| `rich.media(src, { type?, caption?, credit?, spoiler? })` | media block; `type` picks the kind, otherwise inferred from the url extension |
+| `rich.media(src, { type?, caption?, credit?, spoiler? })` | media block; `type` picks the kind, otherwise inferred from the url extension — document-ish extensions (`pdf`, `zip`, `docx`, `csv`, …) infer `document`, anything unrecognized falls back to `photo` |
 | `rich.photo(src, opts?)` / `rich.video(src, opts?)` / `rich.audio(src, opts?)` / `rich.animation(src, opts?)` | `media` with the kind fixed |
 | `rich.voiceNote(src, opts?)` | voice note (no spoiler) |
+| `rich.document(src, opts?)` | general file (no spoiler) |
 | `rich.map(lat, long, { zoom?, width?, height?, caption?, credit? })` | static map; defaults `zoom: 15`, `900×450` |
 | `rich.collage(items, { caption?, credit? })` / `rich.slideshow(items, { caption?, credit? })` | groups of media blocks |
-| `rich.table(rows, { header?, align?, bordered?, striped?, caption? })` | rows of inline cells; the first row is the header unless `header: false`; `align` is per-column |
+| `rich.table(rows, { header?, align?, bordered?, striped?, compact?, caption? })` | rows of inline cells; the first row is the header unless `header: false`; `align` is per-column; `compact` gives the cells smaller indents |
 | `rich.footnote(id, definition)` | the text behind a `footnoteRef(id)` marker |
+| `rich.buttonRow(buttons, { align? })` | a row of 1–8 `rich.button(…)` nodes — see [buttons](#buttons) |
 
 captions everywhere take `{ caption, credit }` — a `credit` without a `caption` throws `RichError`. `spoiler` applies to photo / video / animation only.
 
@@ -167,7 +171,51 @@ rich([
 ])
 ```
 
-**aliases:** `h1`–`h6` (`heading`), `quote` (`blockquote`), `pre` (`codeBlock`), `hr` (`divider`), `strike` (`strikethrough`), `sub` / `sup` (`subscript` / `superscript`), `mention` (`mentionUser`), `emoji` (`customEmoji`), `fn` / `fnRef` (`footnote` / `footnoteRef`).
+**aliases:** `h1`–`h6` (`heading`), `quote` (`blockquote`), `expandableQuote` (`expandableBlockquote`), `pre` (`codeBlock`), `hr` (`divider`), `strike` (`strikethrough`), `sub` / `sup` (`subscript` / `superscript`), `mention` (`mentionUser`), `emoji` (`customEmoji`), `fn` / `fnRef` (`footnote` / `footnoteRef`).
+
+### buttons
+
+`rich.button(label, options)` is **inline** — it renders inside the surrounding text run. `options` must carry exactly one action; none or several throws `RichError`:
+
+| option | action |
+|---|---|
+| `url` | open a link |
+| `callbackData` | send a callback query back to the bot |
+| `webApp` | url string — open a web app |
+| `loginUrl` | url string, or `{ url, forwardText?, botUsername?, requestWriteAccess? }` |
+| `switchInlineQuery` | pick a chat, then open inline mode there with the query |
+| `switchInlineQueryCurrentChat` | open inline mode in the current chat |
+| `switchInlineQueryChosenChat` | `{ query?, allowUserChats?, allowBotChats?, allowGroupChats?, allowChannelChats? }` |
+| `copyText` | copy the string to the clipboard |
+| `disabled: true` | rendered but inert |
+
+`style` sits alongside the action and picks the accent: `'danger' | 'success' | 'primary' | 'link'`.
+
+`rich.buttonRow(buttons, { align? })` is a **block** holding 1–8 buttons, aligned `'left' | 'center' | 'right'`. an empty row, more than 8 buttons, or a node that isn't a `rich.button(…)` throws `RichError`.
+
+```ts
+rich([
+  rich.paragraph(['read the ', rich.button('docs', { url: 'https://puregram.cool' })]),
+  rich.buttonRow([
+    rich.button('yes', { callbackData: 'vote:yes', style: 'success' }),
+    rich.button('no', { callbackData: 'vote:no', style: 'danger' })
+  ], { align: 'center' })
+])
+```
+
+### dialect forms
+
+both dialects spell the newer constructs with the same html tags — markdown has no native syntax for buttons or collapsed quotes, and the markdown parser hands html fragments to the html parser:
+
+| construct | html | markdown |
+|---|---|---|
+| `button` | `<tg-button type="…">label</tg-button>` | the same tag |
+| `buttonRow` | `<tg-button-row align="…">…</tg-button-row>` | the same tag |
+| `document` | `<tg-document src="…"></tg-document>` | `![](url "caption")` |
+| `expandableBlockquote` | `<blockquote expandable>` — the parser also accepts `collapsed` | the same tag |
+| `table({ compact })` | `<table compact>` | accepted as html; dropped by `.toMarkdown()` — gfm tables carry no flags |
+
+a `<tg-button>` names its action through `type` plus one value attribute: `url=` (`url`, `web_app`, `login_url`), `data=` (`callback_data`), `query=` (the three `switch_inline_query*` types), `text=` (`copy_text`); `type="disabled"` takes none. `style=` is optional, and the boolean extras are bare attributes — `request-write-access`, `allow-user-chats`, `allow-bot-chats`, `allow-group-chats`, `allow-channel-chats`, plus `forward-text="…"`. a `loginUrl.botUsername` has no dialect attribute at all, so serializing that button throws `RichError` — send it as native blocks.
 
 ---
 
@@ -369,7 +417,7 @@ import type {
   RichParseTag,     // the type of rich.md / rich.html
   RawOptions,       // { media?: TelegramInputRichMessageMedia[] }
   RichMediaSource,  // string | RichMediaInput (a MediaSource.* envelope)
-  RichMediaKind     // 'photo' | 'video' | 'audio' | 'animation' | 'voice_note'
+  RichMediaKind     // 'photo' | 'video' | 'audio' | 'animation' | 'voice_note' | 'document'
 } from '@puregram/rich'
 ```
 

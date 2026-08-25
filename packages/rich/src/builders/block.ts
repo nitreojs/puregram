@@ -43,6 +43,15 @@ export function blockquote (content: RichContent, credit?: RichContent) {
   }))
 }
 
+/** collapsed-by-default block quotation, optionally crediting a source */
+export function expandableBlockquote (content: RichContent, credit?: RichContent) {
+  return makeNode('block', () => ({
+    type: 'expandable_blockquote',
+    text: emitText(content),
+    ...(credit === undefined ? {} : { credit: emitText(credit) })
+  }))
+}
+
 /** horizontal divider */
 export function divider () {
   return makeNode('block', () => ({ type: 'divider' }))
@@ -189,6 +198,11 @@ export function voiceNote (src: RichMediaSource, options: Omit<MediaOptions, 'ty
   return mediaNode('voice_note', src, options)
 }
 
+/** general file media block */
+export function document (src: RichMediaSource, options: Omit<MediaOptions, 'type' | 'spoiler'> = {}) {
+  return mediaNode('document', src, options)
+}
+
 export interface MapOptions {
   zoom?: number
   width?: number
@@ -230,6 +244,7 @@ export interface TableOptions {
   align?: Align[]
   bordered?: boolean
   striped?: boolean
+  compact?: boolean
   caption?: RichContent
 }
 
@@ -251,6 +266,7 @@ export function table (rows: RichContent[][], options: TableOptions = {}) {
     })),
     ...(options.bordered ? { is_bordered: true as const } : {}),
     ...(options.striped ? { is_striped: true as const } : {}),
+    ...(options.compact ? { is_compact: true as const } : {}),
     ...(options.caption === undefined ? {} : { caption: emitText(options.caption) })
   }))
 }
@@ -268,3 +284,5 @@ export const pre = codeBlock
 export const hr = divider
 /** alias for `footnote` */
 export const fn = footnote
+/** alias for `expandableBlockquote` */
+export const expandableQuote = expandableBlockquote

@@ -299,6 +299,52 @@ describe('block mappings', () => {
       expression: 'E = mc^2'
     })
   })
+
+  it('maps <blockquote expandable> to an expandable_blockquote with inline text', () => {
+    expect(firstBlock('<blockquote expandable>long<cite>sage</cite></blockquote>')).toEqual({
+      type: 'expandable_blockquote',
+      text: 'long',
+      credit: 'sage'
+    })
+  })
+
+  it('accepts the collapsed spelling the object docs use', () => {
+    expect(firstBlock('<blockquote collapsed>long</blockquote>')).toEqual({
+      type: 'expandable_blockquote',
+      text: 'long'
+    })
+  })
+
+  it('keeps a plain <blockquote> block-nested', () => {
+    expect(firstBlock('<blockquote>long</blockquote>')).toEqual({
+      type: 'blockquote',
+      blocks: [{ type: 'paragraph', text: 'long' }]
+    })
+  })
+
+  it('maps <tg-document> to a document block', () => {
+    expect(firstBlock('<tg-document src="https://x/d.zip"></tg-document>')).toEqual({
+      type: 'document',
+      document: { type: 'document', media: 'https://x/d.zip' }
+    })
+  })
+
+  it('captions a <tg-document> through <figure>', () => {
+    expect(firstBlock('<figure><tg-document src="https://x/d.zip"></tg-document><figcaption>files</figcaption></figure>')).toEqual({
+      type: 'document',
+      document: { type: 'document', media: 'https://x/d.zip' },
+      caption: { text: 'files' }
+    })
+  })
+
+  it('requires a src on <tg-document>', () => {
+    expect(() => parseHtml('<tg-document></tg-document>')).toThrow(RichParseError)
+  })
+
+  it('reads the compact table attribute', () => {
+    expect(firstBlock('<table compact><tr><td>x</td></tr></table>')).toMatchObject({ is_compact: true })
+    expect(firstBlock('<table><tr><td>x</td></tr></table>')).not.toHaveProperty('is_compact')
+  })
 })
 
 describe('entities', () => {

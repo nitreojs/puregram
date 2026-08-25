@@ -1,4 +1,7 @@
-import type { TelegramInputRichBlock, TelegramInputRichBlockListItem, TelegramRichBlockCaption, TelegramRichBlockTableCell, TelegramRichText } from '@puregram/api'
+import type {
+  TelegramInputRichBlock, TelegramInputRichBlockListItem, TelegramRichBlockCaption,
+  TelegramRichBlockTableCell, TelegramRichMessageButton, TelegramRichText
+} from '@puregram/api'
 
 import { type RichContent, emitBlocks, emitText } from '../emit'
 import { RichError } from '../error'
@@ -125,12 +128,60 @@ function expandNode (node: Exclude<TelegramRichText, string | TelegramRichText[]
     changed = true
   }
 
+  if (node.type === 'button') {
+    out.button = expandButton(node.button, slots)
+    changed = true
+  }
+
   if ('text' in node && node.text !== undefined) {
     out.text = expandText(node.text, slots)
     changed = true
   }
 
   return (changed ? out : node) as TelegramRichText
+}
+
+const BUTTON_STRING_FIELDS = [
+  'url', 'callback_data', 'switch_inline_query', 'switch_inline_query_current_chat'
+] as const
+
+function expandButton (button: TelegramRichMessageButton, slots: readonly RichContent[]) {
+  const out: Record<string, unknown> = { ...button, text: expandText(button.text, slots) }
+
+  for (const field of BUTTON_STRING_FIELDS) {
+    const value = out[field]
+
+    if (typeof value === 'string') {
+      out[field] = expandString(value, slots)
+    }
+  }
+
+  if (button.web_app !== undefined) {
+    out.web_app = { ...button.web_app, url: expandString(button.web_app.url, slots) }
+  }
+
+  if (button.login_url !== undefined) {
+    out.login_url = {
+      ...button.login_url,
+      url: expandString(button.login_url.url, slots),
+      ...(button.login_url.forward_text === undefined
+        ? {}
+        : { forward_text: expandString(button.login_url.forward_text, slots) })
+    }
+  }
+
+  if (button.switch_inline_query_chosen_chat?.query !== undefined) {
+    out.switch_inline_query_chosen_chat = {
+      ...button.switch_inline_query_chosen_chat,
+      query: expandString(button.switch_inline_query_chosen_chat.query, slots)
+    }
+  }
+
+  if (button.copy_text !== undefined) {
+    out.copy_text = { text: expandString(button.copy_text.text, slots) }
+  }
+
+  return out as unknown as TelegramRichMessageButton
 }
 
 function expandCaption (caption: TelegramRichBlockCaption, slots: readonly RichContent[]) {
@@ -238,6 +289,16 @@ function expandBlock (block: TelegramInputRichBlock, slots: readonly RichContent
     case 'mathematical_expression':
       return { ...block, expression: expandString(block.expression, slots) }
 
+    case 'expandable_blockquote':
+      return {
+        ...block,
+        text: expandText(block.text, slots),
+        ...(block.credit === undefined ? {} : { credit: expandText(block.credit, slots) })
+      }
+
+    case 'buttons':
+      return { ...block, buttons: block.buttons.map(button => expandButton(button, slots)) }
+
     case 'pullquote':
       return {
         ...block,
@@ -287,6 +348,9 @@ function expandBlock (block: TelegramInputRichBlock, slots: readonly RichContent
 
     case 'voice_note':
       return { ...block, voice_note: expandMedia(block.voice_note, slots), ...expandCaptionField(block.caption, slots) }
+
+    case 'document':
+      return { ...block, document: expandMedia(block.document, slots), ...expandCaptionField(block.caption, slots) }
 
     case 'map':
       return block.caption === undefined ? block : { ...block, caption: expandCaption(block.caption, slots) }

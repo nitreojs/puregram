@@ -1,5 +1,7 @@
+import { lookupTable } from './table'
+
 /** the only named entities telegram's rich dialects accept — everything else must be numeric */
-export const NAMED_ENTITIES: Readonly<Record<string, string>> = {
+export const NAMED_ENTITIES = lookupTable<string>({
   lt: '<',
   gt: '>',
   amp: '&',
@@ -13,4 +15,4 @@ export const NAMED_ENTITIES: Readonly<Record<string, string>> = {
   rsquo: '\u2019',
   ldquo: '\u201c',
   rdquo: '\u201d'
-}
+})

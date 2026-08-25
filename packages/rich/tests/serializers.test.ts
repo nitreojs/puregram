@@ -253,6 +253,38 @@ describe('serializeBlocks', () => {
     expect(serializeBlocks(blocks, 'html')).toBe('<blockquote>one<br>two<cite>sage</cite></blockquote>')
   })
 
+  it('serializes an expandable blockquote through the html tag in both dialects', () => {
+    const blocks: TelegramInputRichBlock[] = [
+      { type: 'expandable_blockquote', text: 'long', credit: 'sage' }
+    ]
+
+    expect(serializeBlocks(blocks, 'html')).toBe('<blockquote expandable>long<cite>sage</cite></blockquote>')
+    expect(serializeBlocks(blocks, 'markdown')).toBe('<blockquote expandable>long<cite>sage</cite></blockquote>')
+  })
+
+  it('serializes a document block and its caption', () => {
+    const blocks: TelegramInputRichBlock[] = [{
+      type: 'document',
+      document: { type: 'document', media: 'https://x.example/d.zip' },
+      caption: { text: 'files' }
+    }]
+
+    expect(serializeBlocks(blocks, 'html'))
+      .toBe('<figure><tg-document src="https://x.example/d.zip"></tg-document><figcaption>files</figcaption></figure>')
+    expect(serializeBlocks(blocks, 'markdown')).toBe('![](https://x.example/d.zip "files")')
+  })
+
+  it('emits the compact table attribute in html only', () => {
+    const blocks: TelegramInputRichBlock[] = [{
+      type: 'table',
+      cells: [[{ text: 'x', align: 'left', valign: 'middle' }]],
+      is_compact: true
+    }]
+
+    expect(serializeBlocks(blocks, 'html')).toBe('<table compact><tr><td>x</td></tr></table>')
+    expect(serializeBlocks(blocks, 'markdown')).toBe('| x |\n| :-- |')
+  })
+
   it('throws RichError on unknown nodes', () => {
     // runtime data outside the closed union — that is the case under test
     const bogus = { type: 'wat' } as unknown as TelegramInputRichBlock

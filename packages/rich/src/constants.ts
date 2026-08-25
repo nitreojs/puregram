@@ -8,6 +8,9 @@ export const DEFAULT_MAP_HEIGHT = 450
 /** vertical alignment applied to every emitted table cell — the field is required by the bot api */
 export const TABLE_CELL_VALIGN = 'middle' as const
 
+/** telegram's per-row cap for `buttonRow(...)` blocks */
+export const MAX_BUTTON_ROW_BUTTONS = 8
+
 /** telegram's documented rich-message source cap — exported for reference, not enforced client-side */
 export const MAX_RICH_SOURCE_LENGTH = 32768
 

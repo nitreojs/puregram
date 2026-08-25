@@ -26,3 +26,9 @@ export function escapeHtml (text: string) {
 export function escapeMarkdownUrl (url: string) {
   return url.replace(/[\\()]/g, '\\$&').replace(/\|/g, '%7C').replace(/\s/g, encodeURIComponent)
 }
+
+// inside markdown, an emitted tag lives in line-oriented block syntax: a raw pipe would split a
+// table cell and a blank line would end the construct, cutting the tag in half
+export function escapeMarkdownAttr (text: string) {
+  return escapeHtml(text).replace(/\|/g, '&#124;').replace(/\n/g, '&#10;')
+}

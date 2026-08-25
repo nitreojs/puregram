@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import {
-  animation, audio, collage, map, media, photo, slideshow, table, video, voiceNote
+  animation, audio, collage, document, map, media, photo, slideshow, table, video, voiceNote
 } from '../src/builders/block'
 import { bold } from '../src/builders/inline'
 import { DEFAULT_MAP_HEIGHT, DEFAULT_MAP_WIDTH, DEFAULT_MAP_ZOOM, TABLE_CELL_VALIGN } from '../src/constants'
@@ -28,12 +28,18 @@ describe('media blocks', () => {
       type: 'voice_note',
       voice_note: { type: 'voice_note', media: 'https://x/n.ogg' }
     })
+    expect(document('https://x/d.zip').emit()).toEqual({
+      type: 'document',
+      document: { type: 'document', media: 'https://x/d.zip' }
+    })
   })
 
   it('media() infers the kind from the url extension', () => {
     expect(media('https://x/v.mp4').emit()).toMatchObject({ type: 'video' })
     expect(media('https://x/a.mp3').emit()).toMatchObject({ type: 'audio' })
     expect(media('https://x/p.jpg').emit()).toMatchObject({ type: 'photo' })
+    expect(media('https://x/d.zip').emit()).toMatchObject({ type: 'document' })
+    expect(media('https://x/r.pdf').emit()).toMatchObject({ type: 'document' })
     expect(media('https://x/file').emit()).toMatchObject({ type: 'photo' })
   })
 
@@ -156,6 +162,14 @@ describe('table', () => {
       is_bordered: true,
       is_striped: true,
       caption: 'cap'
+    })
+  })
+
+  it('carries the compact flag', () => {
+    expect(table([['a']], { header: false, compact: true }).emit()).toEqual({
+      type: 'table',
+      cells: [[{ text: 'a', align: 'left', valign: TABLE_CELL_VALIGN }]],
+      is_compact: true
     })
   })
 })

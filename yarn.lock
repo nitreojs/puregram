@@ -1149,7 +1149,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@puregram/api@npm:*, @puregram/api@workspace:packages/api, @puregram/api@workspace:~":
+"@puregram/api@npm:*, @puregram/api@workspace:*, @puregram/api@workspace:packages/api, @puregram/api@workspace:~":
   version: 0.0.0-use.local
   resolution: "@puregram/api@workspace:packages/api"
   dependencies:
@@ -6334,7 +6334,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "puregram@workspace:packages/puregram"
   dependencies:
-    "@puregram/api": "workspace:~"
+    "@puregram/api": "workspace:*"
     form-data-encoder: "npm:^4.0.2"
     formdata-node: "npm:^6.0.3"
     tsc-alias: "npm:1"

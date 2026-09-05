@@ -49,7 +49,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@puregram/api": "workspace:~",
+    "@puregram/api": "workspace:*",
     "form-data-encoder": "^4.0.2",
     "formdata-node": "^6.0.3"
   },

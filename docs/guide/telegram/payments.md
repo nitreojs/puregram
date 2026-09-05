@@ -154,11 +154,10 @@ when `is_flexible: true`, telegram sends a `shipping_query` update before the us
 ```ts
 tg.on('shipping_query', async (query) => {
   if (query.invoicePayload !== 'sub_1m') {
-    return query.answer({ ok: false, error_message: 'unknown product' })
+    return query.answer(false, { error_message: 'unknown product' })
   }
 
-  await query.answer({
-    ok: true,
+  await query.answer(true, {
     shipping_options: [
       ShippingOption.of('std', 'standard', [LabeledPrice.of('shipping', 0)]),
       ShippingOption.of('exp', 'express',  [LabeledPrice.of('shipping', 500)])
@@ -167,7 +166,7 @@ tg.on('shipping_query', async (query) => {
 })
 ```
 
-`query.answer(params)` is a shortcut for `tg.api.answerShippingQuery` — it fills `shipping_query_id` from the update automatically
+`query.answer(ok, params?)` is a shortcut for `tg.api.answerShippingQuery` — it fills `shipping_query_id` from the update automatically
 
 ### handling pre_checkout_query
 
@@ -179,14 +178,14 @@ tg.on('pre_checkout_query', async (query) => {
   const valid = await validateOrder(query.invoicePayload)
 
   if (!valid) {
-    return query.answer({ ok: false, error_message: 'item no longer available' })
+    return query.answer(false, { error_message: 'item no longer available' })
   }
 
-  await query.answer({ ok: true })
+  await query.answer(true)
 })
 ```
 
-`query.answer(params)` shortcut fills `pre_checkout_query_id` automatically
+`query.answer(ok, params?)` shortcut fills `pre_checkout_query_id` automatically
 
 `PreCheckoutQueryUpdate` exposes:
 - `query.id` — unique query id (filled by the shortcut)

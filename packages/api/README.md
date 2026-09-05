@@ -32,7 +32,9 @@ everything in `@puregram/api` is **deterministically codegen'd** from the bot ap
 
 `@puregram/api`'s version mirrors the bot api version: `<bot_api_major>.<bot_api_minor>.<puregram_patch>`. example: `10.0.3` = bot api 10.0, third puregram-side iteration on top.
 
-> **pin with `~`, not `^`.** telegram's "minor" bumps regularly rename fields, retype shortcuts, or remove deprecated objects — npm's `^10.0.0` would auto-upgrade across them and break your build. use `~10.0.0` (patch-only) or an exact pin like `10.0.3`. this only applies to `@puregram/api`; the rest of the `@puregram/*` family follows regular semver
+> **pin with `~`, not `^`.** telegram's "minor" bumps regularly rename fields, retype shortcuts, or remove deprecated objects — npm's `^10.0.0` would auto-upgrade across them and break your build. use `~10.0.0` (patch-only) or an exact pin like `10.0.3`. other `@puregram/*` packages follow regular semver; core remains on `3.x` and may include explicitly announced breaking changes in minor releases.
+
+**10.3.3 changes existing update-shortcut calling conventions.** use `inlineQuery.answer(results, params?)` and `preCheckoutQuery.answer(ok, params?)` instead of the old all-object shortcut calls. raw `tg.api.*` calls are unchanged. SDK patch iterations can contain breaking shortcut changes, so use an exact version or a lockfile when you need to defer migration. see the [3.10.0 / 10.3.3 migration guide](https://github.com/puregram/puregram/blob/v3/docs/guide/concepts/shortcuts.md#migrating-to-puregram-3100--api-1033), including the impact on older core installations with a `~10.3.x` API dependency.
 
 new bot api versions are picked up by an automated watcher workflow that opens a PR with the regenerated schema + codegen — review the diff before merging, since handcrafted code occasionally needs touch-ups for breaking telegram changes
 

@@ -791,16 +791,16 @@ export class MessageThreadShortcuts {
     /**
      * shortcut for `tg.api.sendMessageDraft`
      */
-    sendMessageDraft(text: string | Formattable, params: {
-        draft_id: number;
+    sendMessageDraft(draftId: number, text: string | Formattable, params: {
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
         can_stop?: boolean;
         keep_on_stop?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            draft_id: draftId,
             text: text,
             ...params
         });
@@ -1064,15 +1064,15 @@ export class MessageThreadShortcuts {
     /**
      * shortcut for `tg.api.sendRichMessageDraft`
      */
-    sendRichMessageDraft(params: {
-        draft_id: number;
-        rich_message: TelegramInputRichMessage;
+    sendRichMessageDraft(draftId: number, richMessage: TelegramInputRichMessage | RichLike, params: {
         can_stop?: boolean;
         keep_on_stop?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.sendRichMessageDraft({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            draft_id: draftId,
+            rich_message: richMessage,
             ...params
         });
     }
@@ -1388,16 +1388,16 @@ export class MessageThreadShortcuts {
     /**
      * shortcut for `tg.api.sendMessageDraft`
      */
-    sendDraft(text: string | Formattable, params: {
-        draft_id: number;
+    sendDraft(draftId: number, text: string | Formattable, params: {
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
         can_stop?: boolean;
         keep_on_stop?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            draft_id: draftId,
             text: text,
             ...params
         });
@@ -1454,15 +1454,15 @@ export class MessageThreadShortcuts {
     /**
      * shortcut for `tg.api.sendRichMessageDraft`
      */
-    sendRichDraft(params: {
-        draft_id: number;
-        rich_message: TelegramInputRichMessage;
+    sendRichDraft(draftId: number, richMessage: TelegramInputRichMessage | RichLike, params: {
         can_stop?: boolean;
         keep_on_stop?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.sendRichMessageDraft({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            draft_id: draftId,
+            rich_message: richMessage,
             ...params
         });
     }
@@ -1923,16 +1923,16 @@ export class MessageGenerationStoppedThreadShortcuts {
     /**
      * shortcut for `tg.api.sendMessageDraft`
      */
-    sendMessageDraft(text: string | Formattable, params: {
-        draft_id: number;
+    sendMessageDraft(draftId: number, text: string | Formattable, params: {
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
         can_stop?: boolean;
         keep_on_stop?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            draft_id: draftId,
             text: text,
             ...params
         });
@@ -2066,15 +2066,15 @@ export class MessageGenerationStoppedThreadShortcuts {
     /**
      * shortcut for `tg.api.sendRichMessageDraft`
      */
-    sendRichMessageDraft(params: {
-        draft_id: number;
-        rich_message: TelegramInputRichMessage;
+    sendRichMessageDraft(draftId: number, richMessage: TelegramInputRichMessage | RichLike, params: {
         can_stop?: boolean;
         keep_on_stop?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.sendRichMessageDraft({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            draft_id: draftId,
+            rich_message: richMessage,
             ...params
         });
     }
@@ -2238,16 +2238,16 @@ export class MessageGenerationStoppedThreadShortcuts {
     /**
      * shortcut for `tg.api.sendMessageDraft`
      */
-    sendDraft(text: string | Formattable, params: {
-        draft_id: number;
+    sendDraft(draftId: number, text: string | Formattable, params: {
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
         can_stop?: boolean;
         keep_on_stop?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            draft_id: draftId,
             text: text,
             ...params
         });
@@ -2279,15 +2279,15 @@ export class MessageGenerationStoppedThreadShortcuts {
     /**
      * shortcut for `tg.api.sendRichMessageDraft`
      */
-    sendRichDraft(params: {
-        draft_id: number;
-        rich_message: TelegramInputRichMessage;
+    sendRichDraft(draftId: number, richMessage: TelegramInputRichMessage | RichLike, params: {
         can_stop?: boolean;
         keep_on_stop?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.sendRichMessageDraft({
             chat_id: this.raw.chat.id,
             message_thread_id: this.raw.message_thread_id as NonNullable<typeof this.raw.message_thread_id>,
+            draft_id: draftId,
+            rich_message: richMessage,
             ...params
         });
     }
@@ -4122,11 +4122,10 @@ class MessageShared {
     /**
      * shortcut for `tg.api.approveChatJoinRequest`
      */
-    approveChatJoinRequest(params: {
-        user_id: number;
-    }) {
+    approveChatJoinRequest(user: number, params: {} = {}) {
         return this.tg.api.approveChatJoinRequest({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -4158,22 +4157,20 @@ class MessageShared {
     /**
      * shortcut for `tg.api.banChatSenderChat`
      */
-    banChatSenderChat(params: {
-        sender_chat_id: number;
-    }) {
+    banChatSenderChat(senderChat: number, params: {} = {}) {
         return this.tg.api.banChatSenderChat({
             chat_id: this.raw.chat.id,
+            sender_chat_id: senderChat,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.closeForumTopic`
      */
-    closeForumTopic(params: {
-        message_thread_id: number;
-    }) {
+    closeForumTopic(threadId: number, params: {} = {}) {
         return this.tg.api.closeForumTopic({
             chat_id: this.raw.chat.id,
+            message_thread_id: threadId,
             ...params
         });
     }
@@ -4248,37 +4245,36 @@ class MessageShared {
     /**
      * shortcut for `tg.api.createChatSubscriptionInviteLink`
      */
-    createChatSubscriptionInviteLink(params: {
+    createChatSubscriptionInviteLink(subscriptionPeriod: number, subscriptionPrice: number, params: {
         name?: string;
-        subscription_period: number;
-        subscription_price: number;
-    }) {
+    } = {}) {
         return this.tg.api.createChatSubscriptionInviteLink({
             chat_id: this.raw.chat.id,
+            subscription_period: subscriptionPeriod,
+            subscription_price: subscriptionPrice,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.createForumTopic`
      */
-    createForumTopic(params: {
-        name: string;
+    createForumTopic(name: string, params: {
         icon_color?: number;
         icon_custom_emoji_id?: string;
-    }) {
+    } = {}) {
         return this.tg.api.createForumTopic({
             chat_id: this.raw.chat.id,
+            name: name,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.declineChatJoinRequest`
      */
-    declineChatJoinRequest(params: {
-        user_id: number;
-    }) {
+    declineChatJoinRequest(user: number, params: {} = {}) {
         return this.tg.api.declineChatJoinRequest({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -4339,11 +4335,10 @@ class MessageShared {
     /**
      * shortcut for `tg.api.deleteForumTopic`
      */
-    deleteForumTopic(params: {
-        message_thread_id: number;
-    }) {
+    deleteForumTopic(threadId: number, params: {} = {}) {
         return this.tg.api.deleteForumTopic({
             chat_id: this.raw.chat.id,
+            message_thread_id: threadId,
             ...params
         });
     }
@@ -4390,27 +4385,27 @@ class MessageShared {
     /**
      * shortcut for `tg.api.editChatInviteLink`
      */
-    editChatInviteLink(params: {
-        invite_link: string;
+    editChatInviteLink(inviteLink: string, params: {
         name?: string;
         expire_date?: number;
         member_limit?: number;
         creates_join_request?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.editChatInviteLink({
             chat_id: this.raw.chat.id,
+            invite_link: inviteLink,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.editChatSubscriptionInviteLink`
      */
-    editChatSubscriptionInviteLink(params: {
-        invite_link: string;
+    editChatSubscriptionInviteLink(inviteLink: string, params: {
         name?: string;
-    }) {
+    } = {}) {
         return this.tg.api.editChatSubscriptionInviteLink({
             chat_id: this.raw.chat.id,
+            invite_link: inviteLink,
             ...params
         });
     }
@@ -4487,24 +4482,23 @@ class MessageShared {
     /**
      * shortcut for `tg.api.editForumTopic`
      */
-    editForumTopic(params: {
-        message_thread_id: number;
+    editForumTopic(threadId: number, params: {
         name?: string;
         icon_custom_emoji_id?: string;
-    }) {
+    } = {}) {
         return this.tg.api.editForumTopic({
             chat_id: this.raw.chat.id,
+            message_thread_id: threadId,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.editGeneralForumTopic`
      */
-    editGeneralForumTopic(params: {
-        name: string;
-    }) {
+    editGeneralForumTopic(name: string, params: {} = {}) {
         return this.tg.api.editGeneralForumTopic({
             chat_id: this.raw.chat.id,
+            name: name,
             ...params
         });
     }
@@ -4538,16 +4532,16 @@ class MessageShared {
     /**
      * shortcut for `tg.api.editMessageChecklist`
      */
-    editMessageChecklist(params: {
-        checklist: TelegramInputChecklist;
+    editMessageChecklist(checklist: TelegramInputChecklist, params: {
         reply_markup?: TelegramInlineKeyboardMarkup | {
             toJSON: () => TelegramInlineKeyboardMarkup;
         };
-    }) {
+    } = {}) {
         return this.tg.api.editMessageChecklist({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
             business_connection_id: this.raw.business_connection_id as NonNullable<typeof this.raw.business_connection_id>,
+            checklist: checklist,
             ...params
         });
     }
@@ -4737,11 +4731,10 @@ class MessageShared {
     /**
      * shortcut for `tg.api.getChatMember`
      */
-    getChatMember(params: {
-        user_id: number;
-    }) {
+    getChatMember(user: number, params: {} = {}) {
         return this.tg.api.getChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -4766,24 +4759,23 @@ class MessageShared {
     /**
      * shortcut for `tg.api.getGameHighScores`
      */
-    getGameHighScores(params: {
-        user_id: number;
+    getGameHighScores(user: number, params: {
         inline_message_id?: string;
-    }) {
+    } = {}) {
         return this.tg.api.getGameHighScores({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            user_id: user,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.getUserChatBoosts`
      */
-    getUserChatBoosts(params: {
-        user_id: number;
-    }) {
+    getUserChatBoosts(user: number, params: {} = {}) {
         return this.tg.api.getUserChatBoosts({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -4821,8 +4813,7 @@ class MessageShared {
     /**
      * shortcut for `tg.api.promoteChatMember`
      */
-    promoteChatMember(params: {
-        user_id: number;
+    promoteChatMember(user: number, params: {
         is_anonymous?: boolean;
         can_manage_chat?: boolean;
         can_delete_messages?: boolean;
@@ -4841,9 +4832,10 @@ class MessageShared {
         can_manage_direct_messages?: boolean;
         can_manage_tags?: boolean;
         can_send_welcome_messages?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.promoteChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -4870,11 +4862,10 @@ class MessageShared {
     /**
      * shortcut for `tg.api.reopenForumTopic`
      */
-    reopenForumTopic(params: {
-        message_thread_id: number;
-    }) {
+    reopenForumTopic(threadId: number, params: {} = {}) {
         return this.tg.api.reopenForumTopic({
             chat_id: this.raw.chat.id,
+            message_thread_id: threadId,
             ...params
         });
     }
@@ -4890,25 +4881,24 @@ class MessageShared {
     /**
      * shortcut for `tg.api.restrictChatMember`
      */
-    restrictChatMember(params: {
-        user_id: number;
-        permissions: TelegramChatPermissions;
+    restrictChatMember(user: number, permissions: TelegramChatPermissions, params: {
         use_independent_chat_permissions?: boolean;
         until_date?: number;
-    }) {
+    } = {}) {
         return this.tg.api.restrictChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
+            permissions: permissions,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.revokeChatInviteLink`
      */
-    revokeChatInviteLink(params: {
-        invite_link: string;
-    }) {
+    revokeChatInviteLink(inviteLink: string, params: {} = {}) {
         return this.tg.api.revokeChatInviteLink({
             chat_id: this.raw.chat.id,
+            invite_link: inviteLink,
             ...params
         });
     }
@@ -5317,16 +5307,16 @@ class MessageShared {
     /**
      * shortcut for `tg.api.sendGift`
      */
-    sendGift(params: {
+    sendGift(giftId: string, params: {
         user_id?: number;
-        gift_id: string;
         pay_for_upgrade?: boolean;
         text?: string | Formattable;
         text_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         text_entities?: TelegramMessageEntity[];
-    }) {
+    } = {}) {
         return this.tg.api.sendGift({
             chat_id: this.raw.chat.id,
+            gift_id: giftId,
             ...params
         });
     }
@@ -5644,16 +5634,16 @@ class MessageShared {
     /**
      * shortcut for `tg.api.sendMessageDraft`
      */
-    sendMessageDraft(text: string | Formattable, params: {
+    sendMessageDraft(draftId: number, text: string | Formattable, params: {
         message_thread_id?: number;
-        draft_id: number;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
         can_stop?: boolean;
         keep_on_stop?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            draft_id: draftId,
             text: text,
             ...params
         });
@@ -5925,15 +5915,15 @@ class MessageShared {
     /**
      * shortcut for `tg.api.sendRichMessageDraft`
      */
-    sendRichMessageDraft(params: {
+    sendRichMessageDraft(draftId: number, richMessage: TelegramInputRichMessage | RichLike, params: {
         message_thread_id?: number;
-        draft_id: number;
-        rich_message: TelegramInputRichMessage;
         can_stop?: boolean;
         keep_on_stop?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.sendRichMessageDraft({
             chat_id: this.raw.chat.id,
+            draft_id: draftId,
+            rich_message: richMessage,
             ...params
         });
     }
@@ -6259,12 +6249,11 @@ class MessageShared {
     /**
      * shortcut for `tg.api.setChatAdministratorCustomTitle`
      */
-    setChatAdministratorCustomTitle(params: {
-        user_id: number;
-        custom_title: string;
-    }) {
+    setChatAdministratorCustomTitle(user: number, customTitle: string, params: {} = {}) {
         return this.tg.api.setChatAdministratorCustomTitle({
             chat_id: this.raw.chat.id,
+            user_id: user,
+            custom_title: customTitle,
             ...params
         });
     }
@@ -6282,12 +6271,12 @@ class MessageShared {
     /**
      * shortcut for `tg.api.setChatMemberTag`
      */
-    setChatMemberTag(params: {
-        user_id: number;
+    setChatMemberTag(user: number, params: {
         tag?: string;
-    }) {
+    } = {}) {
         return this.tg.api.setChatMemberTag({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -6305,61 +6294,58 @@ class MessageShared {
     /**
      * shortcut for `tg.api.setChatPermissions`
      */
-    setChatPermissions(params: {
-        permissions: TelegramChatPermissions;
+    setChatPermissions(permissions: TelegramChatPermissions, params: {
         use_independent_chat_permissions?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.setChatPermissions({
             chat_id: this.raw.chat.id,
+            permissions: permissions,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.setChatPhoto`
      */
-    setChatPhoto(params: {
-        photo: TelegramInputFile;
-    }) {
+    setChatPhoto(photo: TelegramInputFile, params: {} = {}) {
         return this.tg.api.setChatPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.setChatStickerSet`
      */
-    setChatStickerSet(params: {
-        sticker_set_name: string;
-    }) {
+    setChatStickerSet(stickerSetName: string, params: {} = {}) {
         return this.tg.api.setChatStickerSet({
             chat_id: this.raw.chat.id,
+            sticker_set_name: stickerSetName,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.setChatTitle`
      */
-    setChatTitle(params: {
-        title: string;
-    }) {
+    setChatTitle(title: string, params: {} = {}) {
         return this.tg.api.setChatTitle({
             chat_id: this.raw.chat.id,
+            title: title,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.setGameScore`
      */
-    setGameScore(params: {
-        user_id: number;
-        score: number;
+    setGameScore(user: number, score: number, params: {
         force?: boolean;
         disable_edit_message?: boolean;
         inline_message_id?: string;
-    }) {
+    } = {}) {
         return this.tg.api.setGameScore({
             chat_id: this.raw.chat.id,
             message_id: this.raw.message_id,
+            user_id: user,
+            score: score,
             ...params
         });
     }
@@ -6422,11 +6408,10 @@ class MessageShared {
     /**
      * shortcut for `tg.api.unbanChatSenderChat`
      */
-    unbanChatSenderChat(params: {
-        sender_chat_id: number;
-    }) {
+    unbanChatSenderChat(senderChat: number, params: {} = {}) {
         return this.tg.api.unbanChatSenderChat({
             chat_id: this.raw.chat.id,
+            sender_chat_id: senderChat,
             ...params
         });
     }
@@ -6451,11 +6436,10 @@ class MessageShared {
     /**
      * shortcut for `tg.api.unpinAllForumTopicMessages`
      */
-    unpinAllForumTopicMessages(params: {
-        message_thread_id: number;
-    }) {
+    unpinAllForumTopicMessages(threadId: number, params: {} = {}) {
         return this.tg.api.unpinAllForumTopicMessages({
             chat_id: this.raw.chat.id,
+            message_thread_id: threadId,
             ...params
         });
     }
@@ -6493,16 +6477,16 @@ class MessageShared {
     /**
      * shortcut for `tg.api.sendMessageDraft`
      */
-    sendDraft(text: string | Formattable, params: {
+    sendDraft(draftId: number, text: string | Formattable, params: {
         message_thread_id?: number;
-        draft_id: number;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
         can_stop?: boolean;
         keep_on_stop?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            draft_id: draftId,
             text: text,
             ...params
         });
@@ -6563,15 +6547,15 @@ class MessageShared {
     /**
      * shortcut for `tg.api.sendRichMessageDraft`
      */
-    sendRichDraft(params: {
+    sendRichDraft(draftId: number, richMessage: TelegramInputRichMessage | RichLike, params: {
         message_thread_id?: number;
-        draft_id: number;
-        rich_message: TelegramInputRichMessage;
         can_stop?: boolean;
         keep_on_stop?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.sendRichMessageDraft({
             chat_id: this.raw.chat.id,
+            draft_id: draftId,
+            rich_message: richMessage,
             ...params
         });
     }
@@ -8822,15 +8806,15 @@ export class InlineQueryUpdate {
     /**
      * shortcut for `tg.api.answerInlineQuery`
      */
-    answer(params: {
-        results: TelegramInlineQueryResult[];
+    answer(results: TelegramInlineQueryResult[], params: {
         cache_time?: number;
         is_personal?: boolean;
         next_offset?: string;
         button?: TelegramInlineQueryResultsButton;
-    }) {
+    } = {}) {
         return this.tg.api.answerInlineQuery({
             inline_query_id: this.raw.id,
+            results: results,
             ...params
         });
     }
@@ -9606,13 +9590,13 @@ export class ShippingQueryUpdate {
     /**
      * shortcut for `tg.api.answerShippingQuery`
      */
-    answer(params: {
-        ok: boolean;
+    answer(ok: boolean, params: {
         shipping_options?: TelegramShippingOption[];
         error_message?: string;
-    }) {
+    } = {}) {
         return this.tg.api.answerShippingQuery({
             shipping_query_id: this.raw.id,
+            ok: ok,
             ...params
         });
     }
@@ -9705,12 +9689,12 @@ export class PreCheckoutQueryUpdate {
     /**
      * shortcut for `tg.api.answerPreCheckoutQuery`
      */
-    answer(params: {
-        ok: boolean;
+    answer(ok: boolean, params: {
         error_message?: string;
-    }) {
+    } = {}) {
         return this.tg.api.answerPreCheckoutQuery({
             pre_checkout_query_id: this.raw.id,
+            ok: ok,
             ...params
         });
     }
@@ -10353,23 +10337,22 @@ class ChatMemberUpdatedShared {
     /**
      * shortcut for `tg.api.approveChatJoinRequest`
      */
-    approveChatJoinRequest(params: {
-        user_id: number;
-    }) {
+    approveChatJoinRequest(user: number, params: {} = {}) {
         return this.tg.api.approveChatJoinRequest({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.approveSuggestedPost`
      */
-    approveSuggestedPost(params: {
-        message_id: number;
+    approveSuggestedPost(messageId: number, params: {
         send_date?: number;
-    }) {
+    } = {}) {
         return this.tg.api.approveSuggestedPost({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
             ...params
         });
     }
@@ -10389,22 +10372,20 @@ class ChatMemberUpdatedShared {
     /**
      * shortcut for `tg.api.banChatSenderChat`
      */
-    banChatSenderChat(params: {
-        sender_chat_id: number;
-    }) {
+    banChatSenderChat(senderChat: number, params: {} = {}) {
         return this.tg.api.banChatSenderChat({
             chat_id: this.raw.chat.id,
+            sender_chat_id: senderChat,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.closeForumTopic`
      */
-    closeForumTopic(params: {
-        message_thread_id: number;
-    }) {
+    closeForumTopic(threadId: number, params: {} = {}) {
         return this.tg.api.closeForumTopic({
             chat_id: this.raw.chat.id,
+            message_thread_id: threadId,
             ...params
         });
     }
@@ -10479,49 +10460,48 @@ class ChatMemberUpdatedShared {
     /**
      * shortcut for `tg.api.createChatSubscriptionInviteLink`
      */
-    createChatSubscriptionInviteLink(params: {
+    createChatSubscriptionInviteLink(subscriptionPeriod: number, subscriptionPrice: number, params: {
         name?: string;
-        subscription_period: number;
-        subscription_price: number;
-    }) {
+    } = {}) {
         return this.tg.api.createChatSubscriptionInviteLink({
             chat_id: this.raw.chat.id,
+            subscription_period: subscriptionPeriod,
+            subscription_price: subscriptionPrice,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.createForumTopic`
      */
-    createForumTopic(params: {
-        name: string;
+    createForumTopic(name: string, params: {
         icon_color?: number;
         icon_custom_emoji_id?: string;
-    }) {
+    } = {}) {
         return this.tg.api.createForumTopic({
             chat_id: this.raw.chat.id,
+            name: name,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.declineChatJoinRequest`
      */
-    declineChatJoinRequest(params: {
-        user_id: number;
-    }) {
+    declineChatJoinRequest(user: number, params: {} = {}) {
         return this.tg.api.declineChatJoinRequest({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.declineSuggestedPost`
      */
-    declineSuggestedPost(params: {
-        message_id: number;
+    declineSuggestedPost(messageId: number, params: {
         comment?: string;
-    }) {
+    } = {}) {
         return this.tg.api.declineSuggestedPost({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
             ...params
         });
     }
@@ -10570,11 +10550,10 @@ class ChatMemberUpdatedShared {
     /**
      * shortcut for `tg.api.deleteForumTopic`
      */
-    deleteForumTopic(params: {
-        message_thread_id: number;
-    }) {
+    deleteForumTopic(threadId: number, params: {} = {}) {
         return this.tg.api.deleteForumTopic({
             chat_id: this.raw.chat.id,
+            message_thread_id: threadId,
             ...params
         });
     }
@@ -10591,13 +10570,13 @@ class ChatMemberUpdatedShared {
     /**
      * shortcut for `tg.api.deleteMessageReaction`
      */
-    deleteMessageReaction(params: {
-        message_id: number;
+    deleteMessageReaction(messageId: number, params: {
         user_id?: number;
         actor_chat_id?: number;
-    }) {
+    } = {}) {
         return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
             ...params
         });
     }
@@ -10614,27 +10593,27 @@ class ChatMemberUpdatedShared {
     /**
      * shortcut for `tg.api.editChatInviteLink`
      */
-    editChatInviteLink(params: {
-        invite_link: string;
+    editChatInviteLink(inviteLink: string, params: {
         name?: string;
         expire_date?: number;
         member_limit?: number;
         creates_join_request?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.editChatInviteLink({
             chat_id: this.raw.chat.id,
+            invite_link: inviteLink,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.editChatSubscriptionInviteLink`
      */
-    editChatSubscriptionInviteLink(params: {
-        invite_link: string;
+    editChatSubscriptionInviteLink(inviteLink: string, params: {
         name?: string;
-    }) {
+    } = {}) {
         return this.tg.api.editChatSubscriptionInviteLink({
             chat_id: this.raw.chat.id,
+            invite_link: inviteLink,
             ...params
         });
     }
@@ -10711,24 +10690,23 @@ class ChatMemberUpdatedShared {
     /**
      * shortcut for `tg.api.editForumTopic`
      */
-    editForumTopic(params: {
-        message_thread_id: number;
+    editForumTopic(threadId: number, params: {
         name?: string;
         icon_custom_emoji_id?: string;
-    }) {
+    } = {}) {
         return this.tg.api.editForumTopic({
             chat_id: this.raw.chat.id,
+            message_thread_id: threadId,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.editGeneralForumTopic`
      */
-    editGeneralForumTopic(params: {
-        name: string;
-    }) {
+    editGeneralForumTopic(name: string, params: {} = {}) {
         return this.tg.api.editGeneralForumTopic({
             chat_id: this.raw.chat.id,
+            name: name,
             ...params
         });
     }
@@ -10755,16 +10733,16 @@ class ChatMemberUpdatedShared {
     /**
      * shortcut for `tg.api.editMessageChecklist`
      */
-    editMessageChecklist(params: {
+    editMessageChecklist(messageId: number, checklist: TelegramInputChecklist, params: {
         business_connection_id: string;
-        message_id: number;
-        checklist: TelegramInputChecklist;
         reply_markup?: TelegramInlineKeyboardMarkup | {
             toJSON: () => TelegramInlineKeyboardMarkup;
         };
     }) {
         return this.tg.api.editMessageChecklist({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
+            checklist: checklist,
             ...params
         });
     }
@@ -10931,11 +10909,10 @@ class ChatMemberUpdatedShared {
     /**
      * shortcut for `tg.api.getChatMember`
      */
-    getChatMember(params: {
-        user_id: number;
-    }) {
+    getChatMember(user: number, params: {} = {}) {
         return this.tg.api.getChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -10960,24 +10937,23 @@ class ChatMemberUpdatedShared {
     /**
      * shortcut for `tg.api.getGameHighScores`
      */
-    getGameHighScores(params: {
-        user_id: number;
+    getGameHighScores(user: number, params: {
         message_id?: number;
         inline_message_id?: string;
-    }) {
+    } = {}) {
         return this.tg.api.getGameHighScores({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.getUserChatBoosts`
      */
-    getUserChatBoosts(params: {
-        user_id: number;
-    }) {
+    getUserChatBoosts(user: number, params: {} = {}) {
         return this.tg.api.getUserChatBoosts({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -11015,8 +10991,7 @@ class ChatMemberUpdatedShared {
     /**
      * shortcut for `tg.api.promoteChatMember`
      */
-    promoteChatMember(params: {
-        user_id: number;
+    promoteChatMember(user: number, params: {
         is_anonymous?: boolean;
         can_manage_chat?: boolean;
         can_delete_messages?: boolean;
@@ -11035,21 +11010,22 @@ class ChatMemberUpdatedShared {
         can_manage_direct_messages?: boolean;
         can_manage_tags?: boolean;
         can_send_welcome_messages?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.promoteChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.readBusinessMessage`
      */
-    readBusinessMessage(params: {
+    readBusinessMessage(messageId: number, params: {
         business_connection_id: string;
-        message_id: number;
     }) {
         return this.tg.api.readBusinessMessage({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
             ...params
         });
     }
@@ -11065,11 +11041,10 @@ class ChatMemberUpdatedShared {
     /**
      * shortcut for `tg.api.reopenForumTopic`
      */
-    reopenForumTopic(params: {
-        message_thread_id: number;
-    }) {
+    reopenForumTopic(threadId: number, params: {} = {}) {
         return this.tg.api.reopenForumTopic({
             chat_id: this.raw.chat.id,
+            message_thread_id: threadId,
             ...params
         });
     }
@@ -11085,25 +11060,24 @@ class ChatMemberUpdatedShared {
     /**
      * shortcut for `tg.api.restrictChatMember`
      */
-    restrictChatMember(params: {
-        user_id: number;
-        permissions: TelegramChatPermissions;
+    restrictChatMember(user: number, permissions: TelegramChatPermissions, params: {
         use_independent_chat_permissions?: boolean;
         until_date?: number;
-    }) {
+    } = {}) {
         return this.tg.api.restrictChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
+            permissions: permissions,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.revokeChatInviteLink`
      */
-    revokeChatInviteLink(params: {
-        invite_link: string;
-    }) {
+    revokeChatInviteLink(inviteLink: string, params: {} = {}) {
         return this.tg.api.revokeChatInviteLink({
             chat_id: this.raw.chat.id,
+            invite_link: inviteLink,
             ...params
         });
     }
@@ -11306,16 +11280,16 @@ class ChatMemberUpdatedShared {
     /**
      * shortcut for `tg.api.sendGift`
      */
-    sendGift(params: {
+    sendGift(giftId: string, params: {
         user_id?: number;
-        gift_id: string;
         pay_for_upgrade?: boolean;
         text?: string | Formattable;
         text_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         text_entities?: TelegramMessageEntity[];
-    }) {
+    } = {}) {
         return this.tg.api.sendGift({
             chat_id: this.raw.chat.id,
+            gift_id: giftId,
             ...params
         });
     }
@@ -11469,16 +11443,16 @@ class ChatMemberUpdatedShared {
     /**
      * shortcut for `tg.api.sendMessageDraft`
      */
-    sendMessageDraft(text: string | Formattable, params: {
+    sendMessageDraft(draftId: number, text: string | Formattable, params: {
         message_thread_id?: number;
-        draft_id: number;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
         can_stop?: boolean;
         keep_on_stop?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            draft_id: draftId,
             text: text,
             ...params
         });
@@ -11612,15 +11586,15 @@ class ChatMemberUpdatedShared {
     /**
      * shortcut for `tg.api.sendRichMessageDraft`
      */
-    sendRichMessageDraft(params: {
+    sendRichMessageDraft(draftId: number, richMessage: TelegramInputRichMessage | RichLike, params: {
         message_thread_id?: number;
-        draft_id: number;
-        rich_message: TelegramInputRichMessage;
         can_stop?: boolean;
         keep_on_stop?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.sendRichMessageDraft({
             chat_id: this.raw.chat.id,
+            draft_id: draftId,
+            rich_message: richMessage,
             ...params
         });
     }
@@ -11774,12 +11748,11 @@ class ChatMemberUpdatedShared {
     /**
      * shortcut for `tg.api.setChatAdministratorCustomTitle`
      */
-    setChatAdministratorCustomTitle(params: {
-        user_id: number;
-        custom_title: string;
-    }) {
+    setChatAdministratorCustomTitle(user: number, customTitle: string, params: {} = {}) {
         return this.tg.api.setChatAdministratorCustomTitle({
             chat_id: this.raw.chat.id,
+            user_id: user,
+            custom_title: customTitle,
             ...params
         });
     }
@@ -11797,12 +11770,12 @@ class ChatMemberUpdatedShared {
     /**
      * shortcut for `tg.api.setChatMemberTag`
      */
-    setChatMemberTag(params: {
-        user_id: number;
+    setChatMemberTag(user: number, params: {
         tag?: string;
-    }) {
+    } = {}) {
         return this.tg.api.setChatMemberTag({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -11820,61 +11793,58 @@ class ChatMemberUpdatedShared {
     /**
      * shortcut for `tg.api.setChatPermissions`
      */
-    setChatPermissions(params: {
-        permissions: TelegramChatPermissions;
+    setChatPermissions(permissions: TelegramChatPermissions, params: {
         use_independent_chat_permissions?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.setChatPermissions({
             chat_id: this.raw.chat.id,
+            permissions: permissions,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.setChatPhoto`
      */
-    setChatPhoto(params: {
-        photo: TelegramInputFile;
-    }) {
+    setChatPhoto(photo: TelegramInputFile, params: {} = {}) {
         return this.tg.api.setChatPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.setChatStickerSet`
      */
-    setChatStickerSet(params: {
-        sticker_set_name: string;
-    }) {
+    setChatStickerSet(stickerSetName: string, params: {} = {}) {
         return this.tg.api.setChatStickerSet({
             chat_id: this.raw.chat.id,
+            sticker_set_name: stickerSetName,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.setChatTitle`
      */
-    setChatTitle(params: {
-        title: string;
-    }) {
+    setChatTitle(title: string, params: {} = {}) {
         return this.tg.api.setChatTitle({
             chat_id: this.raw.chat.id,
+            title: title,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.setGameScore`
      */
-    setGameScore(params: {
-        user_id: number;
-        score: number;
+    setGameScore(user: number, score: number, params: {
         force?: boolean;
         disable_edit_message?: boolean;
         message_id?: number;
         inline_message_id?: string;
-    }) {
+    } = {}) {
         return this.tg.api.setGameScore({
             chat_id: this.raw.chat.id,
+            user_id: user,
+            score: score,
             ...params
         });
     }
@@ -11910,15 +11880,15 @@ class ChatMemberUpdatedShared {
     /**
      * shortcut for `tg.api.stopPoll`
      */
-    stopPoll(params: {
+    stopPoll(messageId: number, params: {
         business_connection_id?: string;
-        message_id: number;
         reply_markup?: TelegramInlineKeyboardMarkup | {
             toJSON: () => TelegramInlineKeyboardMarkup;
         };
-    }) {
+    } = {}) {
         return this.tg.api.stopPoll({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
             ...params
         });
     }
@@ -11937,11 +11907,10 @@ class ChatMemberUpdatedShared {
     /**
      * shortcut for `tg.api.unbanChatSenderChat`
      */
-    unbanChatSenderChat(params: {
-        sender_chat_id: number;
-    }) {
+    unbanChatSenderChat(senderChat: number, params: {} = {}) {
         return this.tg.api.unbanChatSenderChat({
             chat_id: this.raw.chat.id,
+            sender_chat_id: senderChat,
             ...params
         });
     }
@@ -11966,11 +11935,10 @@ class ChatMemberUpdatedShared {
     /**
      * shortcut for `tg.api.unpinAllForumTopicMessages`
      */
-    unpinAllForumTopicMessages(params: {
-        message_thread_id: number;
-    }) {
+    unpinAllForumTopicMessages(threadId: number, params: {} = {}) {
         return this.tg.api.unpinAllForumTopicMessages({
             chat_id: this.raw.chat.id,
+            message_thread_id: threadId,
             ...params
         });
     }
@@ -12009,16 +11977,16 @@ class ChatMemberUpdatedShared {
     /**
      * shortcut for `tg.api.sendMessageDraft`
      */
-    sendDraft(text: string | Formattable, params: {
+    sendDraft(draftId: number, text: string | Formattable, params: {
         message_thread_id?: number;
-        draft_id: number;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
         can_stop?: boolean;
         keep_on_stop?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            draft_id: draftId,
             text: text,
             ...params
         });
@@ -12050,15 +12018,15 @@ class ChatMemberUpdatedShared {
     /**
      * shortcut for `tg.api.sendRichMessageDraft`
      */
-    sendRichDraft(params: {
+    sendRichDraft(draftId: number, richMessage: TelegramInputRichMessage | RichLike, params: {
         message_thread_id?: number;
-        draft_id: number;
-        rich_message: TelegramInputRichMessage;
         can_stop?: boolean;
         keep_on_stop?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.sendRichMessageDraft({
             chat_id: this.raw.chat.id,
+            draft_id: draftId,
+            rich_message: richMessage,
             ...params
         });
     }
@@ -12188,34 +12156,32 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.answerChatJoinRequestQuery`
      */
-    answer(params: {
-        result: "approve" | "decline" | "queue";
-    }) {
+    answer(result: "approve" | "decline" | "queue", params: {} = {}) {
         return this.tg.api.answerChatJoinRequestQuery({
             chat_join_request_query_id: this.raw.query_id as NonNullable<typeof this.raw.query_id>,
+            result: result,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.approveChatJoinRequest`
      */
-    approveChatJoinRequest(params: {
-        user_id: number;
-    }) {
+    approveChatJoinRequest(user: number, params: {} = {}) {
         return this.tg.api.approveChatJoinRequest({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.approveSuggestedPost`
      */
-    approveSuggestedPost(params: {
-        message_id: number;
+    approveSuggestedPost(messageId: number, params: {
         send_date?: number;
-    }) {
+    } = {}) {
         return this.tg.api.approveSuggestedPost({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
             ...params
         });
     }
@@ -12235,22 +12201,20 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.banChatSenderChat`
      */
-    banChatSenderChat(params: {
-        sender_chat_id: number;
-    }) {
+    banChatSenderChat(senderChat: number, params: {} = {}) {
         return this.tg.api.banChatSenderChat({
             chat_id: this.raw.chat.id,
+            sender_chat_id: senderChat,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.closeForumTopic`
      */
-    closeForumTopic(params: {
-        message_thread_id: number;
-    }) {
+    closeForumTopic(threadId: number, params: {} = {}) {
         return this.tg.api.closeForumTopic({
             chat_id: this.raw.chat.id,
+            message_thread_id: threadId,
             ...params
         });
     }
@@ -12325,49 +12289,48 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.createChatSubscriptionInviteLink`
      */
-    createChatSubscriptionInviteLink(params: {
+    createChatSubscriptionInviteLink(subscriptionPeriod: number, subscriptionPrice: number, params: {
         name?: string;
-        subscription_period: number;
-        subscription_price: number;
-    }) {
+    } = {}) {
         return this.tg.api.createChatSubscriptionInviteLink({
             chat_id: this.raw.chat.id,
+            subscription_period: subscriptionPeriod,
+            subscription_price: subscriptionPrice,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.createForumTopic`
      */
-    createForumTopic(params: {
-        name: string;
+    createForumTopic(name: string, params: {
         icon_color?: number;
         icon_custom_emoji_id?: string;
-    }) {
+    } = {}) {
         return this.tg.api.createForumTopic({
             chat_id: this.raw.chat.id,
+            name: name,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.declineChatJoinRequest`
      */
-    declineChatJoinRequest(params: {
-        user_id: number;
-    }) {
+    declineChatJoinRequest(user: number, params: {} = {}) {
         return this.tg.api.declineChatJoinRequest({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.declineSuggestedPost`
      */
-    declineSuggestedPost(params: {
-        message_id: number;
+    declineSuggestedPost(messageId: number, params: {
         comment?: string;
-    }) {
+    } = {}) {
         return this.tg.api.declineSuggestedPost({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
             ...params
         });
     }
@@ -12416,11 +12379,10 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.deleteForumTopic`
      */
-    deleteForumTopic(params: {
-        message_thread_id: number;
-    }) {
+    deleteForumTopic(threadId: number, params: {} = {}) {
         return this.tg.api.deleteForumTopic({
             chat_id: this.raw.chat.id,
+            message_thread_id: threadId,
             ...params
         });
     }
@@ -12437,13 +12399,13 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.deleteMessageReaction`
      */
-    deleteMessageReaction(params: {
-        message_id: number;
+    deleteMessageReaction(messageId: number, params: {
         user_id?: number;
         actor_chat_id?: number;
-    }) {
+    } = {}) {
         return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
             ...params
         });
     }
@@ -12460,27 +12422,27 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.editChatInviteLink`
      */
-    editChatInviteLink(params: {
-        invite_link: string;
+    editChatInviteLink(inviteLink: string, params: {
         name?: string;
         expire_date?: number;
         member_limit?: number;
         creates_join_request?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.editChatInviteLink({
             chat_id: this.raw.chat.id,
+            invite_link: inviteLink,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.editChatSubscriptionInviteLink`
      */
-    editChatSubscriptionInviteLink(params: {
-        invite_link: string;
+    editChatSubscriptionInviteLink(inviteLink: string, params: {
         name?: string;
-    }) {
+    } = {}) {
         return this.tg.api.editChatSubscriptionInviteLink({
             chat_id: this.raw.chat.id,
+            invite_link: inviteLink,
             ...params
         });
     }
@@ -12557,24 +12519,23 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.editForumTopic`
      */
-    editForumTopic(params: {
-        message_thread_id: number;
+    editForumTopic(threadId: number, params: {
         name?: string;
         icon_custom_emoji_id?: string;
-    }) {
+    } = {}) {
         return this.tg.api.editForumTopic({
             chat_id: this.raw.chat.id,
+            message_thread_id: threadId,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.editGeneralForumTopic`
      */
-    editGeneralForumTopic(params: {
-        name: string;
-    }) {
+    editGeneralForumTopic(name: string, params: {} = {}) {
         return this.tg.api.editGeneralForumTopic({
             chat_id: this.raw.chat.id,
+            name: name,
             ...params
         });
     }
@@ -12601,16 +12562,16 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.editMessageChecklist`
      */
-    editMessageChecklist(params: {
+    editMessageChecklist(messageId: number, checklist: TelegramInputChecklist, params: {
         business_connection_id: string;
-        message_id: number;
-        checklist: TelegramInputChecklist;
         reply_markup?: TelegramInlineKeyboardMarkup | {
             toJSON: () => TelegramInlineKeyboardMarkup;
         };
     }) {
         return this.tg.api.editMessageChecklist({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
+            checklist: checklist,
             ...params
         });
     }
@@ -12777,11 +12738,10 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.getChatMember`
      */
-    getChatMember(params: {
-        user_id: number;
-    }) {
+    getChatMember(user: number, params: {} = {}) {
         return this.tg.api.getChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -12806,24 +12766,23 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.getGameHighScores`
      */
-    getGameHighScores(params: {
-        user_id: number;
+    getGameHighScores(user: number, params: {
         message_id?: number;
         inline_message_id?: string;
-    }) {
+    } = {}) {
         return this.tg.api.getGameHighScores({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.getUserChatBoosts`
      */
-    getUserChatBoosts(params: {
-        user_id: number;
-    }) {
+    getUserChatBoosts(user: number, params: {} = {}) {
         return this.tg.api.getUserChatBoosts({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -12861,8 +12820,7 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.promoteChatMember`
      */
-    promoteChatMember(params: {
-        user_id: number;
+    promoteChatMember(user: number, params: {
         is_anonymous?: boolean;
         can_manage_chat?: boolean;
         can_delete_messages?: boolean;
@@ -12881,21 +12839,22 @@ export class ChatJoinRequestUpdate {
         can_manage_direct_messages?: boolean;
         can_manage_tags?: boolean;
         can_send_welcome_messages?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.promoteChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.readBusinessMessage`
      */
-    readBusinessMessage(params: {
+    readBusinessMessage(messageId: number, params: {
         business_connection_id: string;
-        message_id: number;
     }) {
         return this.tg.api.readBusinessMessage({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
             ...params
         });
     }
@@ -12911,11 +12870,10 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.reopenForumTopic`
      */
-    reopenForumTopic(params: {
-        message_thread_id: number;
-    }) {
+    reopenForumTopic(threadId: number, params: {} = {}) {
         return this.tg.api.reopenForumTopic({
             chat_id: this.raw.chat.id,
+            message_thread_id: threadId,
             ...params
         });
     }
@@ -12931,25 +12889,24 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.restrictChatMember`
      */
-    restrictChatMember(params: {
-        user_id: number;
-        permissions: TelegramChatPermissions;
+    restrictChatMember(user: number, permissions: TelegramChatPermissions, params: {
         use_independent_chat_permissions?: boolean;
         until_date?: number;
-    }) {
+    } = {}) {
         return this.tg.api.restrictChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
+            permissions: permissions,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.revokeChatInviteLink`
      */
-    revokeChatInviteLink(params: {
-        invite_link: string;
-    }) {
+    revokeChatInviteLink(inviteLink: string, params: {} = {}) {
         return this.tg.api.revokeChatInviteLink({
             chat_id: this.raw.chat.id,
+            invite_link: inviteLink,
             ...params
         });
     }
@@ -13033,11 +12990,10 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.sendChatJoinRequestWebApp`
      */
-    sendChatJoinRequestWebApp(params: {
-        web_app_url: string;
-    }) {
+    sendChatJoinRequestWebApp(webAppUrl: string, params: {} = {}) {
         return this.tg.api.sendChatJoinRequestWebApp({
             chat_join_request_query_id: this.raw.query_id as NonNullable<typeof this.raw.query_id>,
+            web_app_url: webAppUrl,
             ...params
         });
     }
@@ -13163,16 +13119,16 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.sendGift`
      */
-    sendGift(params: {
+    sendGift(giftId: string, params: {
         user_id?: number;
-        gift_id: string;
         pay_for_upgrade?: boolean;
         text?: string | Formattable;
         text_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         text_entities?: TelegramMessageEntity[];
-    }) {
+    } = {}) {
         return this.tg.api.sendGift({
             chat_id: this.raw.chat.id,
+            gift_id: giftId,
             ...params
         });
     }
@@ -13326,16 +13282,16 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.sendMessageDraft`
      */
-    sendMessageDraft(text: string | Formattable, params: {
+    sendMessageDraft(draftId: number, text: string | Formattable, params: {
         message_thread_id?: number;
-        draft_id: number;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
         can_stop?: boolean;
         keep_on_stop?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            draft_id: draftId,
             text: text,
             ...params
         });
@@ -13469,15 +13425,15 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.sendRichMessageDraft`
      */
-    sendRichMessageDraft(params: {
+    sendRichMessageDraft(draftId: number, richMessage: TelegramInputRichMessage | RichLike, params: {
         message_thread_id?: number;
-        draft_id: number;
-        rich_message: TelegramInputRichMessage;
         can_stop?: boolean;
         keep_on_stop?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.sendRichMessageDraft({
             chat_id: this.raw.chat.id,
+            draft_id: draftId,
+            rich_message: richMessage,
             ...params
         });
     }
@@ -13631,12 +13587,11 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.setChatAdministratorCustomTitle`
      */
-    setChatAdministratorCustomTitle(params: {
-        user_id: number;
-        custom_title: string;
-    }) {
+    setChatAdministratorCustomTitle(user: number, customTitle: string, params: {} = {}) {
         return this.tg.api.setChatAdministratorCustomTitle({
             chat_id: this.raw.chat.id,
+            user_id: user,
+            custom_title: customTitle,
             ...params
         });
     }
@@ -13654,12 +13609,12 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.setChatMemberTag`
      */
-    setChatMemberTag(params: {
-        user_id: number;
+    setChatMemberTag(user: number, params: {
         tag?: string;
-    }) {
+    } = {}) {
         return this.tg.api.setChatMemberTag({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -13677,61 +13632,58 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.setChatPermissions`
      */
-    setChatPermissions(params: {
-        permissions: TelegramChatPermissions;
+    setChatPermissions(permissions: TelegramChatPermissions, params: {
         use_independent_chat_permissions?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.setChatPermissions({
             chat_id: this.raw.chat.id,
+            permissions: permissions,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.setChatPhoto`
      */
-    setChatPhoto(params: {
-        photo: TelegramInputFile;
-    }) {
+    setChatPhoto(photo: TelegramInputFile, params: {} = {}) {
         return this.tg.api.setChatPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.setChatStickerSet`
      */
-    setChatStickerSet(params: {
-        sticker_set_name: string;
-    }) {
+    setChatStickerSet(stickerSetName: string, params: {} = {}) {
         return this.tg.api.setChatStickerSet({
             chat_id: this.raw.chat.id,
+            sticker_set_name: stickerSetName,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.setChatTitle`
      */
-    setChatTitle(params: {
-        title: string;
-    }) {
+    setChatTitle(title: string, params: {} = {}) {
         return this.tg.api.setChatTitle({
             chat_id: this.raw.chat.id,
+            title: title,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.setGameScore`
      */
-    setGameScore(params: {
-        user_id: number;
-        score: number;
+    setGameScore(user: number, score: number, params: {
         force?: boolean;
         disable_edit_message?: boolean;
         message_id?: number;
         inline_message_id?: string;
-    }) {
+    } = {}) {
         return this.tg.api.setGameScore({
             chat_id: this.raw.chat.id,
+            user_id: user,
+            score: score,
             ...params
         });
     }
@@ -13767,15 +13719,15 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.stopPoll`
      */
-    stopPoll(params: {
+    stopPoll(messageId: number, params: {
         business_connection_id?: string;
-        message_id: number;
         reply_markup?: TelegramInlineKeyboardMarkup | {
             toJSON: () => TelegramInlineKeyboardMarkup;
         };
-    }) {
+    } = {}) {
         return this.tg.api.stopPoll({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
             ...params
         });
     }
@@ -13794,11 +13746,10 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.unbanChatSenderChat`
      */
-    unbanChatSenderChat(params: {
-        sender_chat_id: number;
-    }) {
+    unbanChatSenderChat(senderChat: number, params: {} = {}) {
         return this.tg.api.unbanChatSenderChat({
             chat_id: this.raw.chat.id,
+            sender_chat_id: senderChat,
             ...params
         });
     }
@@ -13823,11 +13774,10 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.unpinAllForumTopicMessages`
      */
-    unpinAllForumTopicMessages(params: {
-        message_thread_id: number;
-    }) {
+    unpinAllForumTopicMessages(threadId: number, params: {} = {}) {
         return this.tg.api.unpinAllForumTopicMessages({
             chat_id: this.raw.chat.id,
+            message_thread_id: threadId,
             ...params
         });
     }
@@ -13866,16 +13816,16 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.sendMessageDraft`
      */
-    sendDraft(text: string | Formattable, params: {
+    sendDraft(draftId: number, text: string | Formattable, params: {
         message_thread_id?: number;
-        draft_id: number;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
         can_stop?: boolean;
         keep_on_stop?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            draft_id: draftId,
             text: text,
             ...params
         });
@@ -13907,15 +13857,15 @@ export class ChatJoinRequestUpdate {
     /**
      * shortcut for `tg.api.sendRichMessageDraft`
      */
-    sendRichDraft(params: {
+    sendRichDraft(draftId: number, richMessage: TelegramInputRichMessage | RichLike, params: {
         message_thread_id?: number;
-        draft_id: number;
-        rich_message: TelegramInputRichMessage;
         can_stop?: boolean;
         keep_on_stop?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.sendRichMessageDraft({
             chat_id: this.raw.chat.id,
+            draft_id: draftId,
+            rich_message: richMessage,
             ...params
         });
     }
@@ -14134,23 +14084,22 @@ export class StoppedMessageGenerationUpdate {
     /**
      * shortcut for `tg.api.approveChatJoinRequest`
      */
-    approveChatJoinRequest(params: {
-        user_id: number;
-    }) {
+    approveChatJoinRequest(user: number, params: {} = {}) {
         return this.tg.api.approveChatJoinRequest({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.approveSuggestedPost`
      */
-    approveSuggestedPost(params: {
-        message_id: number;
+    approveSuggestedPost(messageId: number, params: {
         send_date?: number;
-    }) {
+    } = {}) {
         return this.tg.api.approveSuggestedPost({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
             ...params
         });
     }
@@ -14170,22 +14119,20 @@ export class StoppedMessageGenerationUpdate {
     /**
      * shortcut for `tg.api.banChatSenderChat`
      */
-    banChatSenderChat(params: {
-        sender_chat_id: number;
-    }) {
+    banChatSenderChat(senderChat: number, params: {} = {}) {
         return this.tg.api.banChatSenderChat({
             chat_id: this.raw.chat.id,
+            sender_chat_id: senderChat,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.closeForumTopic`
      */
-    closeForumTopic(params: {
-        message_thread_id: number;
-    }) {
+    closeForumTopic(threadId: number, params: {} = {}) {
         return this.tg.api.closeForumTopic({
             chat_id: this.raw.chat.id,
+            message_thread_id: threadId,
             ...params
         });
     }
@@ -14260,49 +14207,48 @@ export class StoppedMessageGenerationUpdate {
     /**
      * shortcut for `tg.api.createChatSubscriptionInviteLink`
      */
-    createChatSubscriptionInviteLink(params: {
+    createChatSubscriptionInviteLink(subscriptionPeriod: number, subscriptionPrice: number, params: {
         name?: string;
-        subscription_period: number;
-        subscription_price: number;
-    }) {
+    } = {}) {
         return this.tg.api.createChatSubscriptionInviteLink({
             chat_id: this.raw.chat.id,
+            subscription_period: subscriptionPeriod,
+            subscription_price: subscriptionPrice,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.createForumTopic`
      */
-    createForumTopic(params: {
-        name: string;
+    createForumTopic(name: string, params: {
         icon_color?: number;
         icon_custom_emoji_id?: string;
-    }) {
+    } = {}) {
         return this.tg.api.createForumTopic({
             chat_id: this.raw.chat.id,
+            name: name,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.declineChatJoinRequest`
      */
-    declineChatJoinRequest(params: {
-        user_id: number;
-    }) {
+    declineChatJoinRequest(user: number, params: {} = {}) {
         return this.tg.api.declineChatJoinRequest({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.declineSuggestedPost`
      */
-    declineSuggestedPost(params: {
-        message_id: number;
+    declineSuggestedPost(messageId: number, params: {
         comment?: string;
-    }) {
+    } = {}) {
         return this.tg.api.declineSuggestedPost({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
             ...params
         });
     }
@@ -14351,11 +14297,10 @@ export class StoppedMessageGenerationUpdate {
     /**
      * shortcut for `tg.api.deleteForumTopic`
      */
-    deleteForumTopic(params: {
-        message_thread_id: number;
-    }) {
+    deleteForumTopic(threadId: number, params: {} = {}) {
         return this.tg.api.deleteForumTopic({
             chat_id: this.raw.chat.id,
+            message_thread_id: threadId,
             ...params
         });
     }
@@ -14372,13 +14317,13 @@ export class StoppedMessageGenerationUpdate {
     /**
      * shortcut for `tg.api.deleteMessageReaction`
      */
-    deleteMessageReaction(params: {
-        message_id: number;
+    deleteMessageReaction(messageId: number, params: {
         user_id?: number;
         actor_chat_id?: number;
-    }) {
+    } = {}) {
         return this.tg.api.deleteMessageReaction({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
             ...params
         });
     }
@@ -14395,27 +14340,27 @@ export class StoppedMessageGenerationUpdate {
     /**
      * shortcut for `tg.api.editChatInviteLink`
      */
-    editChatInviteLink(params: {
-        invite_link: string;
+    editChatInviteLink(inviteLink: string, params: {
         name?: string;
         expire_date?: number;
         member_limit?: number;
         creates_join_request?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.editChatInviteLink({
             chat_id: this.raw.chat.id,
+            invite_link: inviteLink,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.editChatSubscriptionInviteLink`
      */
-    editChatSubscriptionInviteLink(params: {
-        invite_link: string;
+    editChatSubscriptionInviteLink(inviteLink: string, params: {
         name?: string;
-    }) {
+    } = {}) {
         return this.tg.api.editChatSubscriptionInviteLink({
             chat_id: this.raw.chat.id,
+            invite_link: inviteLink,
             ...params
         });
     }
@@ -14492,24 +14437,23 @@ export class StoppedMessageGenerationUpdate {
     /**
      * shortcut for `tg.api.editForumTopic`
      */
-    editForumTopic(params: {
-        message_thread_id: number;
+    editForumTopic(threadId: number, params: {
         name?: string;
         icon_custom_emoji_id?: string;
-    }) {
+    } = {}) {
         return this.tg.api.editForumTopic({
             chat_id: this.raw.chat.id,
+            message_thread_id: threadId,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.editGeneralForumTopic`
      */
-    editGeneralForumTopic(params: {
-        name: string;
-    }) {
+    editGeneralForumTopic(name: string, params: {} = {}) {
         return this.tg.api.editGeneralForumTopic({
             chat_id: this.raw.chat.id,
+            name: name,
             ...params
         });
     }
@@ -14536,16 +14480,16 @@ export class StoppedMessageGenerationUpdate {
     /**
      * shortcut for `tg.api.editMessageChecklist`
      */
-    editMessageChecklist(params: {
+    editMessageChecklist(messageId: number, checklist: TelegramInputChecklist, params: {
         business_connection_id: string;
-        message_id: number;
-        checklist: TelegramInputChecklist;
         reply_markup?: TelegramInlineKeyboardMarkup | {
             toJSON: () => TelegramInlineKeyboardMarkup;
         };
     }) {
         return this.tg.api.editMessageChecklist({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
+            checklist: checklist,
             ...params
         });
     }
@@ -14712,11 +14656,10 @@ export class StoppedMessageGenerationUpdate {
     /**
      * shortcut for `tg.api.getChatMember`
      */
-    getChatMember(params: {
-        user_id: number;
-    }) {
+    getChatMember(user: number, params: {} = {}) {
         return this.tg.api.getChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -14741,24 +14684,23 @@ export class StoppedMessageGenerationUpdate {
     /**
      * shortcut for `tg.api.getGameHighScores`
      */
-    getGameHighScores(params: {
-        user_id: number;
+    getGameHighScores(user: number, params: {
         message_id?: number;
         inline_message_id?: string;
-    }) {
+    } = {}) {
         return this.tg.api.getGameHighScores({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.getUserChatBoosts`
      */
-    getUserChatBoosts(params: {
-        user_id: number;
-    }) {
+    getUserChatBoosts(user: number, params: {} = {}) {
         return this.tg.api.getUserChatBoosts({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -14796,8 +14738,7 @@ export class StoppedMessageGenerationUpdate {
     /**
      * shortcut for `tg.api.promoteChatMember`
      */
-    promoteChatMember(params: {
-        user_id: number;
+    promoteChatMember(user: number, params: {
         is_anonymous?: boolean;
         can_manage_chat?: boolean;
         can_delete_messages?: boolean;
@@ -14816,21 +14757,22 @@ export class StoppedMessageGenerationUpdate {
         can_manage_direct_messages?: boolean;
         can_manage_tags?: boolean;
         can_send_welcome_messages?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.promoteChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.readBusinessMessage`
      */
-    readBusinessMessage(params: {
+    readBusinessMessage(messageId: number, params: {
         business_connection_id: string;
-        message_id: number;
     }) {
         return this.tg.api.readBusinessMessage({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
             ...params
         });
     }
@@ -14846,11 +14788,10 @@ export class StoppedMessageGenerationUpdate {
     /**
      * shortcut for `tg.api.reopenForumTopic`
      */
-    reopenForumTopic(params: {
-        message_thread_id: number;
-    }) {
+    reopenForumTopic(threadId: number, params: {} = {}) {
         return this.tg.api.reopenForumTopic({
             chat_id: this.raw.chat.id,
+            message_thread_id: threadId,
             ...params
         });
     }
@@ -14866,25 +14807,24 @@ export class StoppedMessageGenerationUpdate {
     /**
      * shortcut for `tg.api.restrictChatMember`
      */
-    restrictChatMember(params: {
-        user_id: number;
-        permissions: TelegramChatPermissions;
+    restrictChatMember(user: number, permissions: TelegramChatPermissions, params: {
         use_independent_chat_permissions?: boolean;
         until_date?: number;
-    }) {
+    } = {}) {
         return this.tg.api.restrictChatMember({
             chat_id: this.raw.chat.id,
+            user_id: user,
+            permissions: permissions,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.revokeChatInviteLink`
      */
-    revokeChatInviteLink(params: {
-        invite_link: string;
-    }) {
+    revokeChatInviteLink(inviteLink: string, params: {} = {}) {
         return this.tg.api.revokeChatInviteLink({
             chat_id: this.raw.chat.id,
+            invite_link: inviteLink,
             ...params
         });
     }
@@ -15087,16 +15027,16 @@ export class StoppedMessageGenerationUpdate {
     /**
      * shortcut for `tg.api.sendGift`
      */
-    sendGift(params: {
+    sendGift(giftId: string, params: {
         user_id?: number;
-        gift_id: string;
         pay_for_upgrade?: boolean;
         text?: string | Formattable;
         text_parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         text_entities?: TelegramMessageEntity[];
-    }) {
+    } = {}) {
         return this.tg.api.sendGift({
             chat_id: this.raw.chat.id,
+            gift_id: giftId,
             ...params
         });
     }
@@ -15250,16 +15190,16 @@ export class StoppedMessageGenerationUpdate {
     /**
      * shortcut for `tg.api.sendMessageDraft`
      */
-    sendMessageDraft(text: string | Formattable, params: {
+    sendMessageDraft(draftId: number, text: string | Formattable, params: {
         message_thread_id?: number;
-        draft_id: number;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
         can_stop?: boolean;
         keep_on_stop?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            draft_id: draftId,
             text: text,
             ...params
         });
@@ -15393,15 +15333,15 @@ export class StoppedMessageGenerationUpdate {
     /**
      * shortcut for `tg.api.sendRichMessageDraft`
      */
-    sendRichMessageDraft(params: {
+    sendRichMessageDraft(draftId: number, richMessage: TelegramInputRichMessage | RichLike, params: {
         message_thread_id?: number;
-        draft_id: number;
-        rich_message: TelegramInputRichMessage;
         can_stop?: boolean;
         keep_on_stop?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.sendRichMessageDraft({
             chat_id: this.raw.chat.id,
+            draft_id: draftId,
+            rich_message: richMessage,
             ...params
         });
     }
@@ -15555,12 +15495,11 @@ export class StoppedMessageGenerationUpdate {
     /**
      * shortcut for `tg.api.setChatAdministratorCustomTitle`
      */
-    setChatAdministratorCustomTitle(params: {
-        user_id: number;
-        custom_title: string;
-    }) {
+    setChatAdministratorCustomTitle(user: number, customTitle: string, params: {} = {}) {
         return this.tg.api.setChatAdministratorCustomTitle({
             chat_id: this.raw.chat.id,
+            user_id: user,
+            custom_title: customTitle,
             ...params
         });
     }
@@ -15578,12 +15517,12 @@ export class StoppedMessageGenerationUpdate {
     /**
      * shortcut for `tg.api.setChatMemberTag`
      */
-    setChatMemberTag(params: {
-        user_id: number;
+    setChatMemberTag(user: number, params: {
         tag?: string;
-    }) {
+    } = {}) {
         return this.tg.api.setChatMemberTag({
             chat_id: this.raw.chat.id,
+            user_id: user,
             ...params
         });
     }
@@ -15601,61 +15540,58 @@ export class StoppedMessageGenerationUpdate {
     /**
      * shortcut for `tg.api.setChatPermissions`
      */
-    setChatPermissions(params: {
-        permissions: TelegramChatPermissions;
+    setChatPermissions(permissions: TelegramChatPermissions, params: {
         use_independent_chat_permissions?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.setChatPermissions({
             chat_id: this.raw.chat.id,
+            permissions: permissions,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.setChatPhoto`
      */
-    setChatPhoto(params: {
-        photo: TelegramInputFile;
-    }) {
+    setChatPhoto(photo: TelegramInputFile, params: {} = {}) {
         return this.tg.api.setChatPhoto({
             chat_id: this.raw.chat.id,
+            photo: photo,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.setChatStickerSet`
      */
-    setChatStickerSet(params: {
-        sticker_set_name: string;
-    }) {
+    setChatStickerSet(stickerSetName: string, params: {} = {}) {
         return this.tg.api.setChatStickerSet({
             chat_id: this.raw.chat.id,
+            sticker_set_name: stickerSetName,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.setChatTitle`
      */
-    setChatTitle(params: {
-        title: string;
-    }) {
+    setChatTitle(title: string, params: {} = {}) {
         return this.tg.api.setChatTitle({
             chat_id: this.raw.chat.id,
+            title: title,
             ...params
         });
     }
     /**
      * shortcut for `tg.api.setGameScore`
      */
-    setGameScore(params: {
-        user_id: number;
-        score: number;
+    setGameScore(user: number, score: number, params: {
         force?: boolean;
         disable_edit_message?: boolean;
         message_id?: number;
         inline_message_id?: string;
-    }) {
+    } = {}) {
         return this.tg.api.setGameScore({
             chat_id: this.raw.chat.id,
+            user_id: user,
+            score: score,
             ...params
         });
     }
@@ -15691,15 +15627,15 @@ export class StoppedMessageGenerationUpdate {
     /**
      * shortcut for `tg.api.stopPoll`
      */
-    stopPoll(params: {
+    stopPoll(messageId: number, params: {
         business_connection_id?: string;
-        message_id: number;
         reply_markup?: TelegramInlineKeyboardMarkup | {
             toJSON: () => TelegramInlineKeyboardMarkup;
         };
-    }) {
+    } = {}) {
         return this.tg.api.stopPoll({
             chat_id: this.raw.chat.id,
+            message_id: messageId,
             ...params
         });
     }
@@ -15718,11 +15654,10 @@ export class StoppedMessageGenerationUpdate {
     /**
      * shortcut for `tg.api.unbanChatSenderChat`
      */
-    unbanChatSenderChat(params: {
-        sender_chat_id: number;
-    }) {
+    unbanChatSenderChat(senderChat: number, params: {} = {}) {
         return this.tg.api.unbanChatSenderChat({
             chat_id: this.raw.chat.id,
+            sender_chat_id: senderChat,
             ...params
         });
     }
@@ -15747,11 +15682,10 @@ export class StoppedMessageGenerationUpdate {
     /**
      * shortcut for `tg.api.unpinAllForumTopicMessages`
      */
-    unpinAllForumTopicMessages(params: {
-        message_thread_id: number;
-    }) {
+    unpinAllForumTopicMessages(threadId: number, params: {} = {}) {
         return this.tg.api.unpinAllForumTopicMessages({
             chat_id: this.raw.chat.id,
+            message_thread_id: threadId,
             ...params
         });
     }
@@ -15790,16 +15724,16 @@ export class StoppedMessageGenerationUpdate {
     /**
      * shortcut for `tg.api.sendMessageDraft`
      */
-    sendDraft(text: string | Formattable, params: {
+    sendDraft(draftId: number, text: string | Formattable, params: {
         message_thread_id?: number;
-        draft_id: number;
         parse_mode?: "HTML" | "Markdown" | "MarkdownV2" | (string & {});
         entities?: TelegramMessageEntity[];
         can_stop?: boolean;
         keep_on_stop?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.sendMessageDraft({
             chat_id: this.raw.chat.id,
+            draft_id: draftId,
             text: text,
             ...params
         });
@@ -15831,15 +15765,15 @@ export class StoppedMessageGenerationUpdate {
     /**
      * shortcut for `tg.api.sendRichMessageDraft`
      */
-    sendRichDraft(params: {
+    sendRichDraft(draftId: number, richMessage: TelegramInputRichMessage | RichLike, params: {
         message_thread_id?: number;
-        draft_id: number;
-        rich_message: TelegramInputRichMessage;
         can_stop?: boolean;
         keep_on_stop?: boolean;
-    }) {
+    } = {}) {
         return this.tg.api.sendRichMessageDraft({
             chat_id: this.raw.chat.id,
+            draft_id: draftId,
+            rich_message: richMessage,
             ...params
         });
     }

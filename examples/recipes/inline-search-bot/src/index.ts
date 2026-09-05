@@ -29,10 +29,9 @@ telegram.onInlineQuery(async (update) => {
   const page = Number.parseInt(update.offset, 10) || 0
   const { slice, hasMore, total } = searchProducts(update.query, page)
 
-  await update.answer({
+  await update.answer(slice.map(renderResult), {
     cache_time: 0,
     is_personal: true,
-    results: slice.map(renderResult),
     // telling telegram where to continue when the user scrolls past these results
     next_offset: hasMore ? String(page + 1) : '',
     // friendly banner that opens a private chat with the bot if no results match

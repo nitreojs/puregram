@@ -5,7 +5,8 @@ export interface MethodPositional {
 
 export const METHOD_POSITIONALS: Record<string, MethodPositional[]> = {
   sendMessage: [{ name: 'chat', schemaArg: 'chat_id' }, { name: 'text', schemaArg: 'text' }],
-  sendMessageDraft: [{ name: 'chat', schemaArg: 'chat_id' }, { name: 'text', schemaArg: 'text' }],
+  sendMessageDraft: [{ name: 'chat', schemaArg: 'chat_id' }, { name: 'draftId', schemaArg: 'draft_id' }, { name: 'text', schemaArg: 'text' }],
+  sendRichMessageDraft: [{ name: 'chat', schemaArg: 'chat_id' }, { name: 'draftId', schemaArg: 'draft_id' }, { name: 'richMessage', schemaArg: 'rich_message' }],
   sendRichMessage: [{ name: 'chat', schemaArg: 'chat_id' }, { name: 'richMessage', schemaArg: 'rich_message' }],
   sendPhoto: [{ name: 'chat', schemaArg: 'chat_id' }, { name: 'photo', schemaArg: 'photo' }],
   sendAudio: [{ name: 'chat', schemaArg: 'chat_id' }, { name: 'audio', schemaArg: 'audio' }],
@@ -46,7 +47,52 @@ export const METHOD_POSITIONALS: Record<string, MethodPositional[]> = {
   editMessageMedia: [{ name: 'media', schemaArg: 'media' }],
   editMessageLiveLocation: [{ name: 'latitude', schemaArg: 'latitude' }, { name: 'longitude', schemaArg: 'longitude' }],
 
-  answerGuestQuery: [{ name: 'result', schemaArg: 'result' }]
+  editMessageChecklist: [{ name: 'messageId', schemaArg: 'message_id' }, { name: 'checklist', schemaArg: 'checklist' }],
+
+  answerGuestQuery: [{ name: 'result', schemaArg: 'result' }],
+  answerChatJoinRequestQuery: [{ name: 'result', schemaArg: 'result' }],
+  answerInlineQuery: [{ name: 'results', schemaArg: 'results' }],
+  answerShippingQuery: [{ name: 'ok', schemaArg: 'ok' }],
+  answerPreCheckoutQuery: [{ name: 'ok', schemaArg: 'ok' }],
+
+  setChatTitle: [{ name: 'title', schemaArg: 'title' }],
+  setChatPhoto: [{ name: 'photo', schemaArg: 'photo' }],
+  setChatStickerSet: [{ name: 'stickerSetName', schemaArg: 'sticker_set_name' }],
+  setChatPermissions: [{ name: 'permissions', schemaArg: 'permissions' }],
+  setChatAdministratorCustomTitle: [{ name: 'user', schemaArg: 'user_id' }, { name: 'customTitle', schemaArg: 'custom_title' }],
+  setChatMemberTag: [{ name: 'user', schemaArg: 'user_id' }],
+  banChatSenderChat: [{ name: 'senderChat', schemaArg: 'sender_chat_id' }],
+  unbanChatSenderChat: [{ name: 'senderChat', schemaArg: 'sender_chat_id' }],
+  restrictChatMember: [{ name: 'user', schemaArg: 'user_id' }, { name: 'permissions', schemaArg: 'permissions' }],
+  promoteChatMember: [{ name: 'user', schemaArg: 'user_id' }],
+  getChatMember: [{ name: 'user', schemaArg: 'user_id' }],
+  getUserChatBoosts: [{ name: 'user', schemaArg: 'user_id' }],
+  approveChatJoinRequest: [{ name: 'user', schemaArg: 'user_id' }],
+  declineChatJoinRequest: [{ name: 'user', schemaArg: 'user_id' }],
+  sendChatJoinRequestWebApp: [{ name: 'webAppUrl', schemaArg: 'web_app_url' }],
+
+  editChatInviteLink: [{ name: 'inviteLink', schemaArg: 'invite_link' }],
+  editChatSubscriptionInviteLink: [{ name: 'inviteLink', schemaArg: 'invite_link' }],
+  revokeChatInviteLink: [{ name: 'inviteLink', schemaArg: 'invite_link' }],
+  createChatSubscriptionInviteLink: [{ name: 'subscriptionPeriod', schemaArg: 'subscription_period' }, { name: 'subscriptionPrice', schemaArg: 'subscription_price' }],
+
+  createForumTopic: [{ name: 'name', schemaArg: 'name' }],
+  editForumTopic: [{ name: 'threadId', schemaArg: 'message_thread_id' }],
+  closeForumTopic: [{ name: 'threadId', schemaArg: 'message_thread_id' }],
+  reopenForumTopic: [{ name: 'threadId', schemaArg: 'message_thread_id' }],
+  deleteForumTopic: [{ name: 'threadId', schemaArg: 'message_thread_id' }],
+  unpinAllForumTopicMessages: [{ name: 'threadId', schemaArg: 'message_thread_id' }],
+  editGeneralForumTopic: [{ name: 'name', schemaArg: 'name' }],
+
+  setGameScore: [{ name: 'user', schemaArg: 'user_id' }, { name: 'score', schemaArg: 'score' }],
+  getGameHighScores: [{ name: 'user', schemaArg: 'user_id' }],
+
+  sendGift: [{ name: 'giftId', schemaArg: 'gift_id' }],
+  stopPoll: [{ name: 'messageId', schemaArg: 'message_id' }],
+  deleteMessageReaction: [{ name: 'messageId', schemaArg: 'message_id' }],
+  approveSuggestedPost: [{ name: 'messageId', schemaArg: 'message_id' }],
+  declineSuggestedPost: [{ name: 'messageId', schemaArg: 'message_id' }],
+  readBusinessMessage: [{ name: 'messageId', schemaArg: 'message_id' }]
 }
 
 // curated subset emitted onto `Telegram` itself; `verb` is the public name (rename allowed)

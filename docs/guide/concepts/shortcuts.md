@@ -18,6 +18,28 @@ await tg.send(100, 'hi')
 tg.onMessage(message => message.send('hi'))
 ```
 
+## migrating to puregram 3.10.0 / api 10.3.3
+
+**this is a breaking shortcut release within v3.** primary arguments move out of the options object into positional arguments. the raw `tg.api.*` methods keep their existing all-object signatures.
+
+| shortcut | before | after |
+|---|---|---|
+| inline-query answer | `query.answer({ results, cache_time: 0 })` | `query.answer(results, { cache_time: 0 })` |
+| shipping / pre-checkout answer | `query.answer({ ok: false, error_message: reason })` | `query.answer(false, { error_message: reason })` |
+| text draft | `message.sendDraft(text, { draft_id: id })` | `message.sendDraft(id, text)` |
+| rich draft | `message.sendRichDraft({ draft_id: id, rich_message: content })` | `message.sendRichDraft(id, content)` |
+| chat title | `message.setChatTitle({ title })` | `message.setChatTitle(title)` |
+| member promotion | `message.promoteChatMember({ user_id: user, can_pin_messages: true })` | `message.promoteChatMember(user, { can_pin_messages: true })` |
+| custom admin title | `message.setChatAdministratorCustomTitle({ user_id: user, custom_title: title })` | `message.setChatAdministratorCustomTitle(user, title)` |
+| forum topic creation | `message.createForumTopic({ name })` | `message.createForumTopic(name)` |
+| invite-link revocation | `message.revokeChatInviteLink({ invite_link: link })` | `message.revokeChatInviteLink(link)` |
+
+the same convention applies to chat photos, sticker sets, permissions, member restrictions/tags/lookups, sender-chat bans, join-request actions, subscription invite links, forum-topic management, game scores, gifts, checklist edits, and message-targeted poll/reaction/suggested-post/business-read helpers. required primary values become positional; optional settings remain in the trailing object.
+
+anchors still take precedence when determining the signature: if the update already supplies an argument, do not pass it positionally. for example, `message.stopPoll()` still targets that message, while `chatMember.stopPoll(messageId)` needs an explicit message id. thread-scoped helpers likewise omit ids supplied by the current thread. callback-query `answer({ text: 'done' })` and optional clearing calls such as `message.editCaption()` retain their existing forms.
+
+**older core installations are also affected when their API dependency updates.** published core versions such as `puregram@3.9.1` accept `@puregram/api ~10.3.1`, which includes `10.3.3`. to postpone migration on those older core versions, keep the existing lockfile or override the API dependency to `10.3.2`. core `3.10.0` pins API `10.3.3` exactly in its published package; do not override that dependency back to `10.3.2`.
+
 ## the anchor concept
 
 an **anchor** is a schema argument that a specific update kind can fill from its own payload. the most common anchor is `chat_id` — every message-bearing update has `update.raw.chat.id`, so every message shortcut can fill `chat_id` for you automatically
@@ -84,7 +106,7 @@ tg.onCallbackQuery(async (callbackQuery) => {
 
 tg.onInlineQuery(async (inlineQuery) => {
   // answer — inline_query_id auto-filled
-  await inlineQuery.answer({ results: [] })
+  await inlineQuery.answer([])
 })
 ```
 

@@ -10,15 +10,13 @@ inline mode lets users trigger your bot by typing `@yourbot …` in any chat. te
 ```ts
 import { InlineQueryResult, InputMessageContent } from 'puregram'
 
-telegram.on('inline_query', query => query.answer({
-  results: [
-    InlineQueryResult.article({
-      id: '1',
-      title: 'hello world',
-      content: InputMessageContent.text('hello from the bot!')
-    })
-  ]
-}))
+telegram.on('inline_query', query => query.answer([
+  InlineQueryResult.article({
+    id: '1',
+    title: 'hello world',
+    content: InputMessageContent.text('hello from the bot!')
+  })
+]))
 ```
 
 ::: tip enabling inline mode
@@ -31,8 +29,7 @@ the `inline_query` update exposes an `answer` shortcut that fills `inline_query_
 
 ```ts
 telegram.on('inline_query', async (query) => {
-  await query.answer({
-    results: [ /* InlineQueryResult entries */ ],
+  await query.answer([ /* InlineQueryResult entries */ ], {
     cache_time: 300,       // seconds; defaults to 300
     is_personal: true,     // don't share results between users
     next_offset: '',       // pagination offset for the next page
@@ -93,8 +90,7 @@ cached variants (`InlineQueryResult.cached.audio`, `.cached.document`, `.cached.
 `InlineQueryResult.button(text, params?)` builds a `TelegramInlineQueryResultsButton` displayed above the result list:
 
 ```ts
-query.answer({
-  results: myResults,
+query.answer(myResults, {
   button: InlineQueryResult.button('search the web', {
     web_app: { url: 'https://example.com/search' }
   })
@@ -107,40 +103,38 @@ query.answer({
 import { InlineQueryResult, InputMessageContent, InlineKeyboard } from 'puregram'
 
 telegram.on('inline_query', async (query) => {
-  await query.answer({
-    results: [
-      // article — sends custom text when picked
-      InlineQueryResult.article({
-        id: '1',
-        title: 'greeting',
-        content: InputMessageContent.text('hello!'),
-        thumbnail: { url: 'https://example.com/icon.png', width: 64, height: 64 }
-      }),
+  await query.answer([
+    // article — sends custom text when picked
+    InlineQueryResult.article({
+      id: '1',
+      title: 'greeting',
+      content: InputMessageContent.text('hello!'),
+      thumbnail: { url: 'https://example.com/icon.png', width: 64, height: 64 }
+    }),
 
-      // article with inline keyboard attached
-      InlineQueryResult.article({
-        id: '2',
-        title: 'with buttons',
-        content: InputMessageContent.text('choose:'),
-        replyMarkup: InlineKeyboard.keyboard([
-          [InlineKeyboard.text({ text: 'yes', payload: 'yes' })]
-        ])
-      }),
+    // article with inline keyboard attached
+    InlineQueryResult.article({
+      id: '2',
+      title: 'with buttons',
+      content: InputMessageContent.text('choose:'),
+      replyMarkup: InlineKeyboard.keyboard([
+        [InlineKeyboard.text({ text: 'yes', payload: 'yes' })]
+      ])
+    }),
 
-      // photo from url
-      InlineQueryResult.photo({
-        id: '3',
-        photoUrl: 'https://example.com/photo.jpg',
-        thumbnail: { url: 'https://example.com/thumb.jpg' }
-      }),
+    // photo from url
+    InlineQueryResult.photo({
+      id: '3',
+      photoUrl: 'https://example.com/photo.jpg',
+      thumbnail: { url: 'https://example.com/thumb.jpg' }
+    }),
 
-      // cached sticker by file id
-      InlineQueryResult.cached.sticker({
-        id: '4',
-        stickerFileId: THE_STICKER_FILE_ID
-      })
-    ]
-  })
+    // cached sticker by file id
+    InlineQueryResult.cached.sticker({
+      id: '4',
+      stickerFileId: THE_STICKER_FILE_ID
+    })
+  ])
 })
 ```
 
@@ -189,19 +183,17 @@ import { rich } from '@puregram/rich'
 import { InlineQueryResult, InputMessageContent } from 'puregram'
 
 telegram.on('inline_query', async (query) => {
-  await query.answer({
-    results: [
-      InlineQueryResult.article({
-        id: '1',
-        title: 'rich result',
-        content: InputMessageContent.rich(rich.md`
-          # ${query.query}
+  await query.answer([
+    InlineQueryResult.article({
+      id: '1',
+      title: 'rich result',
+      content: InputMessageContent.rich(rich.md`
+        # ${query.query}
 
-          what is **up**
-        `)
-      })
-    ]
-  })
+        what is **up**
+      `)
+    })
+  ])
 })
 ```
 

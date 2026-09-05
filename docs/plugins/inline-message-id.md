@@ -50,19 +50,16 @@ const DC_NAMES: Record<number, string> = {
 
 const tg = Telegram.fromToken(process.env.TOKEN!)
 
-tg.onInlineQuery(q => q.answer({
-  cache_time: 0,
-  results: [
-    InlineQueryResult.article({
-      id: '1',
-      title: 'send a tagged message',
-      content: InputMessageContent.text('tap the button — i\'ll decode the inline_message_id'),
-      reply_markup: InlineKeyboard.keyboard([
-        InlineKeyboard.textButton({ text: 'ping', payload: 'ping' })
-      ])
-    })
-  ]
-}))
+tg.onInlineQuery(q => q.answer([
+  InlineQueryResult.article({
+    id: '1',
+    title: 'send a tagged message',
+    content: InputMessageContent.text('tap the button — i\'ll decode the inline_message_id'),
+    replyMarkup: InlineKeyboard.keyboard([
+      InlineKeyboard.textButton({ text: 'ping', payload: 'ping' })
+    ])
+  })
+], { cache_time: 0 }))
 
 tg.onChosenInlineResult((u) => {
   const raw = u.raw.inline_message_id

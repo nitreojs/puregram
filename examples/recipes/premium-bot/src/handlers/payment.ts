@@ -8,8 +8,7 @@ export function registerPaymentHandlers (telegram: Telegram) {
   // do nothing slow here (no http calls, no waiting on db locks)
   telegram.onPreCheckoutQuery(async (query) => {
     if (!isKnownPayload(query.invoicePayload)) {
-      await query.answer({
-        ok: false,
+      await query.answer(false, {
         error_message: 'unknown product. please pick from /unlock again'
       })
 
@@ -18,7 +17,7 @@ export function registerPaymentHandlers (telegram: Telegram) {
 
     // real bots would check inventory / per-user limits here. for the demo
     // we accept everything from a known payload
-    await query.answer({ ok: true })
+    await query.answer(true)
   })
 
   // payment confirmed by telegram. fires once for one-time charges,

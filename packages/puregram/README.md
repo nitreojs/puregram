@@ -30,6 +30,8 @@
 
 ## introduction
 
+**3.10.0 is a breaking shortcut release within v3.** primary arguments on generated update shortcuts are now positional: for example, `inlineQuery.answer(results, params?)` and `preCheckoutQuery.answer(ok, params?)`. raw `tg.api.*` calls are unchanged. this release pins `@puregram/api` to `10.3.3`; older core versions with a `~10.3.x` API dependency can also receive the changed shortcuts when dependencies update. read the [migration guide](https://github.com/puregram/puregram/blob/v3/docs/guide/concepts/shortcuts.md#migrating-to-puregram-3100--api-1033) before upgrading.
+
 **first, what are telegram bots?**
 [telegram][telegram] has their own [bot accounts][telegram/bots].
 **bots** are special telegram accounts that can be only accessed via code
@@ -691,7 +693,7 @@ every update class is **codegen'd** from the bot api schema, so:
 ```ts
 telegram.onMessage(message => message.send('got it'))
 telegram.onCallbackQuery(callbackQuery => callbackQuery.answer({ text: 'thanks' }))
-telegram.onInlineQuery(inlineQuery => inlineQuery.answer({ results: [] }))
+telegram.onInlineQuery(inlineQuery => inlineQuery.answer([]))
 
 // or hook anything via onUpdate
 telegram.onUpdate((update) => {

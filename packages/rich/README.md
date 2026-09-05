@@ -340,19 +340,17 @@ import { rich } from '@puregram/rich'
 import { InlineQueryResult, InputMessageContent } from 'puregram'
 
 telegram.on('inline_query', async (query) => {
-  await query.answer({
-    results: [
-      InlineQueryResult.article({
-        id: '1',
-        title: 'rich result',
-        content: InputMessageContent.rich(rich.md`
-          # ${query.query}
+  await query.answer([
+    InlineQueryResult.article({
+      id: '1',
+      title: 'rich result',
+      content: InputMessageContent.rich(rich.md`
+        # ${query.query}
 
-          what is **up**
-        `)
-      })
-    ]
-  })
+        what is **up**
+      `)
+    })
+  ])
 })
 ```
 
